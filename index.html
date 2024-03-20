@@ -13,13 +13,44 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body>
-    <div
-      id="app"
-      class="bg-red-500 shadow-blue-500/40 hover:shadow-indigo-500/40"
-    >
-      aaadddaaaaaaaa
-    </div>
+
+  <body class="h-screen flex flex-col">
+    <header class="h-10 bg-slate-100 w-full grid place-items-center">
+      OZZIP
+    </header>
+
+    <main class="grid place-items-center flex-1 bg-slate-50 sm:bg-white">
+      <form id="form" class="flex flex-col bg-slate-50 p-5">
+        <!-- <label for="username" class="text-center sm:text-xl">Podaj imię</label>
+        <input
+          id="username"
+          type="text"
+          class="border-solid border-2 border-indigo-600 mt-5 px-1"
+          autocomplete="new-password"
+        />
+        <span class="text-xs px-1 h-3" id="error"></span> -->
+
+        <label for="password" class="sm:text-xl text-center">Podaj hasło</label>
+
+        <input
+          id="password"
+          type="password"
+          class="border-solid border-2 border-indigo-600 mt-5 px-1"
+          autocomplete="new-password"
+        />
+
+        <span class="text-xs px-1 h-3" id="error"></span>
+
+        <button
+          id="submit"
+          type="submit"
+          class="text-center w-1/2 py-1 bg-gray-500 m-auto mt-2 grid place-items-center"
+        >
+          Zaloguj
+        </button>
+      </form>
+    </main>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
