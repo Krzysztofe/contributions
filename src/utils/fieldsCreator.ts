@@ -1,7 +1,9 @@
+
+
 export class FieldsCreator {
   static createFields(fields: any) {
     const containerEl = document.createElement("div");
-    containerEl.classList.add("flex", "flex-col", "bg-slate-200", "p-5");
+    containerEl.classList.add("flex", "flex-col", "sm:bg-slate-200", "bg-white", "p-5");
 
     fields.forEach(({ label, type, name, required }: any) => {
       const labelEl = document.createElement("label");

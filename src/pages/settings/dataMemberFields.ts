@@ -1,19 +1,27 @@
+
+
 import { DataFieldCreator } from "../../utils/dataFieldCreator";
 
-export const dataLoginFields = [
+export const dataMemberFields = [
   DataFieldCreator.createDataField(
-    "login",
-    "Login",
+    "name",
+    "Imię",
     true,
     "^[a-zA-Z –-]+$",
     "text"
   ),
   DataFieldCreator.createDataField(
-    "password",
-    "Hasło",
+    "surname",
+    "Nazwisko",
     true,
     "^[a-zA-Z –-]+$",
-    "password"
+    "text"
+  ),
+  DataFieldCreator.createDataField(
+    "phone",
+    "Telefon",
+    true,
+    "^[a-zA-Z –-]+$",
+    "text"
   ),
 ];
-

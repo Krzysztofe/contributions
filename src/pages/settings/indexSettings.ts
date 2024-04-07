@@ -1,8 +1,8 @@
-const main = document.getElementById("main")
+import { FormCreator } from "../../utils/formCreator";
+import { dataMemberFields } from "./dataMemberFields";
 
-const div = document.createElement("div")
-div.innerText = "llllllll"
-div.classList.add("text-red-900", "m-5");
-main?.append(div)
 
-console.log('',main)
+
+ new FormCreator("mainSettings", dataMemberFields);
+
+
