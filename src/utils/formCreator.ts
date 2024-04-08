@@ -3,7 +3,6 @@ import { BtnCreator } from "./btnCreator.ts";
 import { FieldsCreator } from "./fieldsCreator.ts";
 import { ValidationLogin } from "../pages/login/validation.ts";
 
-
 export class FormCreator {
   #formEl;
   #parentEl;
@@ -11,6 +10,20 @@ export class FormCreator {
 
   constructor(element: string, dataFields: any[]) {
     this.#formEl = document.createElement("form");
+    this.#parentEl = document.getElementById(element);
+    this.#parentEl?.append(this.#formEl);
+    this.#dataFields = dataFields;
+    this.#init();
+  }
+
+  #init() {
+    this.#createForm();
+    this.#createFields();
+    this.#createBtn();
+    this.#submitEvent();
+  }
+
+  #createForm() {
     this.#formEl.id = "form";
     this.#formEl.classList.add(
       "flex",
@@ -20,19 +33,9 @@ export class FormCreator {
       "p-5"
     );
     this.#formEl.setAttribute("novalidate", "");
-    this.#parentEl = document.getElementById(element);
-    this.#parentEl?.append(this.#formEl);
-    this.#dataFields = dataFields;
-    this.#init();
   }
 
-  #init() {
-    this.createFields();
-    this.#createBtn();
-    this.#setEvent();
-  }
-
-  createFields() {
+  #createFields() {
     this.#formEl.append(FieldsCreator.createFields(this.#dataFields));
   }
 
@@ -40,7 +43,7 @@ export class FormCreator {
     this.#formEl.append(BtnCreator.createBtn("Zaloguj się"));
   }
 
-  #setEvent() {
+  #submitEvent() {
     const validation = new ValidationLogin();
     const formSubmition = new FormSubmit(validation);
     this.#formEl.addEventListener(

@@ -22,6 +22,6 @@ export const dataMemberFields = [
     "Telefon",
     true,
     "^[a-zA-Z –-]+$",
-    "text"
+    "number"
   ),
 ];
