@@ -36,6 +36,7 @@ export class FormCreator {
   }
 
   #createFields() {
+
     this.#formEl.append(FieldsCreator.createFields(this.#dataFields));
   }
 

@@ -40,19 +40,41 @@ export class HeaderLogedIn extends HeaderCreator {
   }
 
   #init() {
-    this.header?.append(
-      InputCreator.createInput(dataSearchFields, [
-        "absolute",
-        "top-50",
-        "end-1/2",
-        "translate-x-2/4",
-      ])
-    );
+    this.#createInputContainer();
+
     new ListCreator("header", [
       { text: "Ustawienia", iconClass: "fa-gear" },
       { text: "Wyloguj", iconClass: "fa-user" },
     ]);
   }
 
+  #createInputContainer() {
+    const div = document.createElement("div");
+    div.classList.add(
+      "absolute",
+      "top-50",
+      "end-1/2",
+      "translate-x-2/4",
+      "bg-white",
+      "border-solid",
+      "border-2",
+      "border-slate-300"
+    );
 
+    const icon = document.createElement("div");
+    icon.classList.add("fa", "fa-magnifying-glass", "mx-2");
+    div.append(icon);
+
+    dataSearchFields.forEach(field => {
+      div.append(
+        InputCreator.createInput(field, [
+          "border-none",
+          "max-w-28",
+          "sm:max-w-40",
+        ])
+      );
+    });
+
+    this.header?.append(div);
+  }
 }

@@ -6,14 +6,15 @@ export const dataLoginFields = [
     "Login",
     true,
     "^[a-zA-Z –-]+$",
-    "text"
+    "text",
+    "Login"
   ),
   DataFieldCreator.createDataField(
     "password",
     "Hasło",
     true,
     "^[a-zA-Z –-]+$",
-    "password"
+    "password",
+    "Hasło"
   ),
 ];
-

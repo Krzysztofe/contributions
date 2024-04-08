@@ -8,20 +8,23 @@ export const dataMemberFields = [
     "Imię",
     true,
     "^[a-zA-Z –-]+$",
-    "text"
+    "text",
+    "Imię"
   ),
   DataFieldCreator.createDataField(
     "surname",
     "Nazwisko",
     true,
     "^[a-zA-Z –-]+$",
-    "text"
+    "text",
+    "Nazwisko"
   ),
   DataFieldCreator.createDataField(
     "phone",
     "Telefon",
     true,
     "^[a-zA-Z –-]+$",
-    "number"
+    "number",
+    "Telefon"
   ),
 ];

@@ -11,7 +11,7 @@ export class FieldsCreator {
       "p-5"
     );
 
-    fields.forEach(({ label, type, name, required }: any) => {
+    fields.forEach(({ label, type, name, required, placeholder }: any) => {
       const labelEl = document.createElement("label");
       labelEl.innerText = label;
 
@@ -20,7 +20,9 @@ export class FieldsCreator {
       error.classList.add("text-xs", "h-3", "text-red-500");
 
       containerEl.append(labelEl);
-      containerEl.append(InputCreator.createInput({ type, name, required }));
+      containerEl.append(
+        InputCreator.createInput({ type, name, required, placeholder })
+      );
       containerEl.append(error);
     });
 
