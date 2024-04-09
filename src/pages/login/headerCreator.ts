@@ -1,7 +1,9 @@
 import { headerHeight } from "../../data/dataNumbers";
 import { ListCreator } from "../../utils/listCreator";
 import { dataSearchFields } from "../settings/dataSearchFields";
-import { InputCreator } from "../../utils/inputCreator";
+import { FormCreator } from "../../utils/formCreator";
+
+const headerForm = new FormCreator("header");
 
 export class HeaderCreator {
   #body: HTMLBodyElement | null;
@@ -71,11 +73,7 @@ export class HeaderLogedIn extends HeaderCreator {
 
     dataSearchFields.forEach(field => {
       inputContainer.append(
-        InputCreator.createInput(field, [
-          "max-w-28",
-          "sm:max-w-40",
-          "pl-6"
-        ])
+        headerForm.createInput(field, ["max-w-28", "sm:max-w-40", "pl-6"])
       );
     });
 

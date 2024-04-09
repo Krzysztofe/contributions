@@ -1,21 +1,13 @@
 import { FormSubmit } from "../pages/login/loginSubmit.ts";
-import { BtnCreator } from "./btnCreator.ts";
-import { FieldsCreator } from "./fieldsCreator.ts";
 import { ValidationLogin } from "../pages/login/validation.ts";
 
 export class FormCreator {
-  #formEl: HTMLFormElement | null = null;
   #parentEl: HTMLElement | null;
-  #dataFields;
+  #formEl: HTMLFormElement | null = null;
+  #fieldsContainer: HTMLElement | null = null;
 
-  constructor(element: string, dataFields: any[]) {
+  constructor(element: string) {
     this.#parentEl = document.getElementById(element);
-    this.#dataFields = dataFields;
-    this.#init();
-  }
-
-  #init() {
-    // this.#submitEvent();
   }
 
   createForm(formStyles: string[]) {
@@ -26,8 +18,52 @@ export class FormCreator {
     this.#parentEl?.append(this.#formEl);
   }
 
-  createFields() {
-    this.#formEl?.append(FieldsCreator.createFields(this.#dataFields));
+  createInput(
+    { name, type, required, placeholder }: any,
+    inputStyles: string[] = []
+  ) {
+    const input = document.createElement("input");
+    input.id = name;
+    input.setAttribute("type", type);
+    input.setAttribute("name", name);
+    input.setAttribute("required", required || false);
+    input.setAttribute("placeholder", placeholder);
+    input.classList.add(
+      "p-0.5",
+      "border",
+      "border-gray-300",
+      "focus:border-blue-500",
+      "focus:outline-none",
+      ...inputStyles
+    );
+    input.style.cssText = `
+      ::placeholder {
+        color: red; 
+      }
+    `;
+    return input;
+  }
+
+  createFields(inputsData: any[], inputStyles: string[] = []) {
+    inputsData.forEach(({ name, type, required, placeholder, label }: any) => {
+      if (label) {
+        const labelEl = document.createElement("label");
+        labelEl.innerText = label;
+        labelEl.setAttribute("for", name);
+        this.#formEl?.append(labelEl);
+      }
+
+      this.#formEl?.append(
+        this.createInput({ name, type, required, placeholder })
+      );
+
+      if (required) {
+        const error = document.createElement("span");
+        error.id = `${name}Error`;
+        error.classList.add("text-xs", "h-3", "text-red-500");
+        this.#formEl?.append(error);
+      }
+    });
   }
 
   createBtn(innerText: string, btnStyles: string[]) {

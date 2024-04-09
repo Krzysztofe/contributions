@@ -3,7 +3,8 @@ import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "./headerCreator";
 
 new HeaderCreator(["grid", "place-items-center"]);
-const loginForm = new FormCreator("main", dataLoginFields);
+const loginForm = new FormCreator("main");
+
 loginForm.createForm([
   "flex",
   "flex-col",
@@ -11,7 +12,9 @@ loginForm.createForm([
   "bg-white",
   "p-5",
 ]);
-loginForm.createFields();
+
+loginForm.createFields(dataLoginFields);
+
 loginForm.createBtn("Zaloguj się", [
   "text-center",
   "w-1/2",
@@ -20,5 +23,6 @@ loginForm.createBtn("Zaloguj się", [
   "m-auto",
   "mt-2",
 ]);
+
 loginForm.submitEvent()
 
