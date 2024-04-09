@@ -3,4 +3,22 @@ import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "./headerCreator";
 
 new HeaderCreator(["grid", "place-items-center"]);
-new FormCreator("main", dataLoginFields);
+const loginForm = new FormCreator("main", dataLoginFields);
+loginForm.createForm([
+  "flex",
+  "flex-col",
+  "sm:bg-slate-200",
+  "bg-white",
+  "p-5",
+]);
+loginForm.createFields();
+loginForm.createBtn("Zaloguj się", [
+  "text-center",
+  "w-1/2",
+  "py-1",
+  "bg-gray-500",
+  "m-auto",
+  "mt-2",
+]);
+loginForm.submitEvent()
+

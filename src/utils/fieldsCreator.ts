@@ -14,6 +14,7 @@ export class FieldsCreator {
     fields.forEach(({ label, type, name, required, placeholder }: any) => {
       const labelEl = document.createElement("label");
       labelEl.innerText = label;
+      labelEl.setAttribute("for", name);
 
       const error = document.createElement("div");
       error.id = `${name}Error`;

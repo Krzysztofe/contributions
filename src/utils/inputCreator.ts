@@ -3,7 +3,6 @@ export class InputCreator {
     { name, type, required, placeholder }: any,
     styles: string[] = []
   ) {
-    // console.log('',name)
     const input = document.createElement("input");
     input.id = name;
     input.setAttribute("type", type);
@@ -11,11 +10,18 @@ export class InputCreator {
     input.setAttribute("required", required || false);
     input.setAttribute("placeholder", placeholder);
     input.classList.add(
-      "border-solid",
-      "border-2",
-      "border-slate-300",
+      "p-0.5",
+      "border",
+      "border-gray-300",
+      "focus:border-blue-500",
+      "focus:outline-none",
       ...styles
     );
+    input.style.cssText = `
+      ::placeholder {
+        color: red; 
+      }
+    `;
     return input;
   }
 }

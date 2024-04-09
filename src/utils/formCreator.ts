@@ -4,50 +4,44 @@ import { FieldsCreator } from "./fieldsCreator.ts";
 import { ValidationLogin } from "../pages/login/validation.ts";
 
 export class FormCreator {
-  #formEl;
-  #parentEl;
+  #formEl: HTMLFormElement | null = null;
+  #parentEl: HTMLElement | null;
   #dataFields;
 
   constructor(element: string, dataFields: any[]) {
-    this.#formEl = document.createElement("form");
     this.#parentEl = document.getElementById(element);
-    this.#parentEl?.append(this.#formEl);
     this.#dataFields = dataFields;
     this.#init();
   }
 
   #init() {
-    this.#createForm();
-    this.#createFields();
-    this.#createBtn();
-    this.#submitEvent();
+    // this.#submitEvent();
   }
 
-  #createForm() {
+  createForm(formStyles: string[]) {
+    this.#formEl = document.createElement("form");
     this.#formEl.id = "form";
-    this.#formEl.classList.add(
-      "flex",
-      "flex-col",
-      "sm:bg-slate-200",
-      "bg-white",
-      "p-5"
-    );
+    this.#formEl.classList.add(...formStyles);
     this.#formEl.setAttribute("novalidate", "");
+    this.#parentEl?.append(this.#formEl);
   }
 
-  #createFields() {
-
-    this.#formEl.append(FieldsCreator.createFields(this.#dataFields));
+  createFields() {
+    this.#formEl?.append(FieldsCreator.createFields(this.#dataFields));
   }
 
-  #createBtn() {
-    this.#formEl.append(BtnCreator.createBtn("Zaloguj się"));
+  createBtn(innerText: string, btnStyles: string[]) {
+    const btnEl = document.createElement("button");
+    btnEl.setAttribute("type", "submit");
+    btnEl.innerText = innerText;
+    btnEl.classList.add(...btnStyles);
+    this.#formEl?.append(btnEl);
   }
 
-  #submitEvent() {
+  submitEvent() {
     const validation = new ValidationLogin();
     const formSubmition = new FormSubmit(validation);
-    this.#formEl.addEventListener(
+    this.#formEl?.addEventListener(
       "submit",
       formSubmition.handleSubmit.bind(formSubmition)
     );

@@ -49,32 +49,36 @@ export class HeaderLogedIn extends HeaderCreator {
   }
 
   #createInputContainer() {
-    const div = document.createElement("div");
-    div.classList.add(
+    const inputContainer = document.createElement("div");
+    inputContainer.classList.add(
       "absolute",
       "top-50",
       "end-1/2",
       "translate-x-2/4",
-      "bg-white",
-      "border-solid",
-      "border-2",
-      "border-slate-300"
+      "bg-white"
     );
 
     const icon = document.createElement("div");
-    icon.classList.add("fa", "fa-magnifying-glass", "mx-2");
-    div.append(icon);
+    icon.classList.add(
+      "fa",
+      "fa-magnifying-glass",
+      "mt-2",
+      "ml-1",
+      "absolute",
+      "bottom-50"
+    );
+    inputContainer.append(icon);
 
     dataSearchFields.forEach(field => {
-      div.append(
+      inputContainer.append(
         InputCreator.createInput(field, [
-          "border-none",
           "max-w-28",
           "sm:max-w-40",
+          "pl-6"
         ])
       );
     });
 
-    this.header?.append(div);
+    this.header?.append(inputContainer);
   }
 }
