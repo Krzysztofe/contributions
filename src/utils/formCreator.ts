@@ -1,5 +1,3 @@
-import { FormSubmit } from "../pages/login/loginSubmit.ts";
-import { ValidationLogin } from "../pages/login/validation.ts";
 
 import { ValidationUni } from "./validationUni.ts";
 
@@ -105,8 +103,8 @@ export class FormCreator {
 
   handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    const elementID = (e.currentTarget as HTMLFormElement)?.id;
-    const formEl = document.getElementById(elementID) as HTMLFormElement;
+    // const elementID = (e.currentTarget as HTMLFormElement)?.id;
+    // // const formEl = document.getElementById(elementID) as HTMLFormElement;
     // const elements = getFormValues(e);
     const elements = Object.keys(getFormValues(e));
 

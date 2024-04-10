@@ -7,6 +7,7 @@ export const dataSearchFields = [
     true,
     "^[a-zA-Z –-]+$",
     "text",
-    "Szukaj"
+    "Szukaj",
+    ""
   ),
 ];
