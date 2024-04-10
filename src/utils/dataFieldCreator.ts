@@ -5,7 +5,8 @@ export class DataFieldCreator {
     required: boolean,
     pattern: string,
     type: string,
-    placeholder: string
+    placeholder: string,
+    errorMsg: string
   ) {
     return {
       name,
@@ -13,7 +14,8 @@ export class DataFieldCreator {
       required,
       pattern,
       type,
-      placeholder
+      placeholder,
+      errorMsg,
     };
   }
 }

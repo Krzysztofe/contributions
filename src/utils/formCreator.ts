@@ -1,6 +1,8 @@
 import { FormSubmit } from "../pages/login/loginSubmit.ts";
 import { ValidationLogin } from "../pages/login/validation.ts";
 
+import { ValidationUni } from "./validationUni.ts";
+
 import { getFormValues } from "./getFormValues.ts";
 
 export class FormCreator {
@@ -20,7 +22,7 @@ export class FormCreator {
   }
 
   createInput(
-    { name, type, required, placeholder }: any,
+    { name, type, required, placeholder, pattern }: any,
     inputStyles: string[] = []
   ) {
     const input = document.createElement("input");
@@ -29,6 +31,7 @@ export class FormCreator {
     input.setAttribute("name", name);
     input.setAttribute("required", required || false);
     input.setAttribute("placeholder", placeholder);
+    input.setAttribute("data-pattern", pattern);
     input.classList.add(
       "px-2",
       "py-1",
@@ -52,30 +55,44 @@ export class FormCreator {
     fieldStyles: string[] = [],
     inputStyles: string[] = []
   ) {
-    inputsData.forEach(({ name, type, required, placeholder, label }: any) => {
-      const field = document.createElement("div");
-      field.classList.add(...fieldStyles);
+    inputsData.forEach(
+      ({
+        name,
+        type,
+        required,
+        placeholder,
+        label,
+        errorMsg,
+        pattern,
+      }: any) => {
+        const field = document.createElement("div");
+        field.classList.add(...fieldStyles);
 
-      if (label) {
-        const labelEl = document.createElement("label");
-        labelEl.innerText = label;
-        labelEl.setAttribute("for", name);
-        field.append(labelEl);
+        if (label) {
+          const labelEl = document.createElement("label");
+          labelEl.innerText = label;
+          labelEl.setAttribute("for", name);
+          field.append(labelEl);
+        }
+
+        field.append(
+          this.createInput(
+            { name, type, required, placeholder, errorMsg, pattern },
+            inputStyles
+          )
+        );
+
+        if (required) {
+          const error = document.createElement("div");
+          error.id = `${name}Error`;
+          error.classList.add("text-xs", "h-3", "text-red-500", "mb-1");
+          error.setAttribute("data-error", errorMsg);
+          field.append(error);
+        }
+
+        this.#formEl?.append(field);
       }
-
-      field.append(
-        this.createInput({ name, type, required, placeholder }, inputStyles)
-      );
-
-      if (required) {
-        const error = document.createElement("div");
-        error.id = `${name}Error`;
-        error.classList.add("text-xs", "h-3", "text-red-500", "mb-1");
-        field.append(error);
-      }
-
-      this.#formEl?.append(field);
-    });
+    );
   }
 
   createBtn(innerText: string, btnStyles: string[]) {
@@ -90,9 +107,13 @@ export class FormCreator {
     e.preventDefault();
     const elementID = (e.currentTarget as HTMLFormElement)?.id;
     const formEl = document.getElementById(elementID) as HTMLFormElement;
-    const elements = getFormValues(e);
+    // const elements = getFormValues(e);
+    const elements = Object.keys(getFormValues(e));
 
-    // console.log("", elements);
+    const uni = new ValidationUni(elements);
+    uni.validation();
+
+    // console.log("", uni.errorsElements);
 
     // formEl.reset();
   }

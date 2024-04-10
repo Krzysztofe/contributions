@@ -1,5 +1,3 @@
-
-
 import { DataFieldCreator } from "../../utils/dataFieldCreator";
 
 export const dataMemberFields = [
@@ -7,24 +5,27 @@ export const dataMemberFields = [
     "name",
     "",
     true,
-    "^[a-zA-Z –-]+$",
+    "^[\\p{L}]{3,}$",
     "text",
-    "Imię"
+    "Imię",
+    "Imię min. 3 znaki"
   ),
   DataFieldCreator.createDataField(
     "surname",
     "",
     true,
-    "^[a-zA-Z –-]+$",
+    "^[\\p{L}]{3,}$",
     "text",
-    "Nazwisko"
+    "Nazwisko",
+    "Nazwisko min. 3 znaki"
   ),
   DataFieldCreator.createDataField(
     "phone",
     "",
     true,
-    "^[a-zA-Z –-]+$",
+    "^\\d{6,}$",
     "number",
-    "Telefon"
+    "Telefon",
+    "Telefon min. 6 znaki"
   ),
 ];

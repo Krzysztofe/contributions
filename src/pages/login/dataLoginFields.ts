@@ -7,7 +7,8 @@ export const dataLoginFields = [
     true,
     "^[a-zA-Z –-]+$",
     "text",
-    "Login"
+    "Login",
+    "Login min. 3 znaki"
   ),
   DataFieldCreator.createDataField(
     "password",
@@ -15,6 +16,7 @@ export const dataLoginFields = [
     true,
     "^[a-zA-Z –-]+$",
     "password",
-    "Hasło"
+    "Hasło",
+    "Hasło in. 3 znaki"
   ),
 ];
