@@ -16,7 +16,7 @@ Project https://xd.adobe.com/view/6a376776-a145-4927-b9d3-1041deb5d829-3f64/spec
 
 ## Technologies
 
-* Tailwind
+* Tailwind / daisyUI
 * TypeScript
 * RegExp
 * OOP
