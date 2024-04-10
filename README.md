@@ -1,3 +1,23 @@
-https://skladki.ozzip.pl/
+Demo https://skladki.ozzip.pl/
 
-https://kkrol.host83.nstrefa.pl/
+Demo https://kkrol.host83.nstrefa.pl/
+
+Project https://xd.adobe.com/view/6a376776-a145-4927-b9d3-1041deb5d829-3f64/specs/
+
+## Features
+
+* Comunication with database
+* Auth 
+* Forms / validations 
+* HTTP requests state messages for user
+* RWD
+* Custom alerts
+
+
+## Technologies
+
+* Tailwind
+* TypeScript
+* RegExp
+* OOP
+* Vite
