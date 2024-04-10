@@ -6,7 +6,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(__dirname, "index.html"),
-        home: resolve(__dirname, "src/pages/home/home.html"),
+        calendar: resolve(__dirname, "src/pages/calendar/calendar.html"),
         settings: resolve(__dirname, "src/pages/settings/settings.html"),
       },
     },

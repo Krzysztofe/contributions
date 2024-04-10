@@ -1,11 +1,11 @@
 import { FormCreator } from "../../utils/formCreator";
 import { dataLoginFields } from "./dataLoginFields";
-import { HeaderCreator } from "./headerCreator";
+import { HeaderCreator } from "./headerCreator/headerCreator";
 
 new HeaderCreator(["grid", "place-items-center"]);
 const loginForm = new FormCreator("main");
 
-loginForm.createForm("loginForm",[
+loginForm.createForm("loginForm", [
   "flex",
   "flex-col",
   "sm:bg-slate-200",
@@ -24,5 +24,4 @@ loginForm.createBtn("Zaloguj się", [
   "mt-2",
 ]);
 
-loginForm.submitEvent()
-
+loginForm.submitEvent();

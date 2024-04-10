@@ -1,7 +1,8 @@
-import { headerHeight } from "../../data/dataNumbers";
-import { ListCreator } from "../../utils/listCreator";
-import { dataSearchFields } from "../settings/dataSearchFields";
-import { FormCreator } from "../../utils/formCreator";
+import { headerHeight } from "../../../data/dataNumbers";
+import { ListCreator } from "../../../utils/listCreator";
+import { dataSearchFields } from "../../settings/dataSearchFields";
+import { FormCreator } from "../../../utils/formCreator";
+import { dataNavList } from "./dataNavList";
 
 const headerForm = new FormCreator("header");
 
@@ -43,10 +44,7 @@ export class HeaderLogedIn extends HeaderCreator {
   #init() {
     this.#createInputContainer();
 
-    new ListCreator("header", [
-      { text: "Ustawienia", iconClass: "fa-gear" },
-      { text: "Wyloguj", iconClass: "fa-user" },
-    ]);
+    new ListCreator("header", dataNavList);
   }
 
   #createInputContainer() {

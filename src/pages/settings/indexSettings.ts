@@ -1,12 +1,12 @@
 import { FormCreator } from "../../utils/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
-import { HeaderLogedIn } from "../login/headerCreator";
+import { HeaderLogedIn } from "../login/headerCreator/headerCreator";
 
 new HeaderLogedIn(["flex", "items-center", "justify-between", "fixed"]);
 
 const memberForm = new FormCreator("mainSettings");
 
-memberForm.createForm("userForm",[
+memberForm.createForm("userForm", [
   "mt-16",
   "mb-5",
   "flex",
@@ -31,4 +31,4 @@ memberForm.createBtn("Zapisz", [
   "border-gray-500",
 ]);
 
-memberForm.submitEvent()
+memberForm.submitEvent();
