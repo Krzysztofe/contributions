@@ -5,7 +5,7 @@ import { HeaderCreator } from "./headerCreator";
 new HeaderCreator(["grid", "place-items-center"]);
 const loginForm = new FormCreator("main");
 
-loginForm.createForm([
+loginForm.createForm("loginForm",[
   "flex",
   "flex-col",
   "sm:bg-slate-200",

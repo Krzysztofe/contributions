@@ -1,6 +1,8 @@
 import { FormSubmit } from "../pages/login/loginSubmit.ts";
 import { ValidationLogin } from "../pages/login/validation.ts";
 
+import { getFormValues } from "./getFormValues.ts";
+
 export class FormCreator {
   #parentEl: HTMLElement | null;
   #formEl: HTMLFormElement | null = null;
@@ -9,9 +11,9 @@ export class FormCreator {
     this.#parentEl = document.getElementById(element);
   }
 
-  createForm(formStyles: string[]) {
+  createForm(formId: string, formStyles: string[]) {
     this.#formEl = document.createElement("form");
-    this.#formEl.id = "form";
+    this.#formEl.id = formId;
     this.#formEl.classList.add(...formStyles);
     this.#formEl.setAttribute("novalidate", "");
     this.#parentEl?.prepend(this.#formEl);
@@ -84,12 +86,25 @@ export class FormCreator {
     this.#formEl?.append(btnEl);
   }
 
+  handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    const elementID = (e.currentTarget as HTMLFormElement)?.id;
+    const formEl = document.getElementById(elementID) as HTMLFormElement;
+    const elements = getFormValues(e);
+
+    // console.log("", elements);
+
+    // formEl.reset();
+  }
+
   submitEvent() {
-    const validation = new ValidationLogin();
-    const formSubmition = new FormSubmit(validation);
-    this.#formEl?.addEventListener(
-      "submit",
-      formSubmition.handleSubmit.bind(formSubmition)
-    );
+    // const validation = new ValidationLogin();
+    // const formSubmition = new FormSubmit(validation);
+    // this.#formEl?.addEventListener(
+    //   "submit",
+    //   formSubmition.handleSubmit.bind(formSubmition)
+    // );
+
+    this.#formEl?.addEventListener("submit", this.handleSubmit.bind(this));
   }
 }

@@ -6,9 +6,11 @@ export class ValidationLogin {
   #errors: string[] = [];
 
   constructor() {
-    this.#inputLoginEl = document.getElementById("login");
+    this.#inputLoginEl = document.getElementById("login") as HTMLInputElement;
     this.#errorLoginEl = document.getElementById("loginError");
-    this.#inputPasswordEl = document.getElementById("password");
+    this.#inputPasswordEl = document.getElementById(
+      "password"
+    ) as HTMLInputElement;
     this.#errorPasswordEl = document.getElementById("passwordError");
     this.#errors = [];
   }

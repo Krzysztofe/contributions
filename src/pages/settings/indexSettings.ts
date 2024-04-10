@@ -2,12 +2,13 @@ import { FormCreator } from "../../utils/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../login/headerCreator";
 
-new HeaderLogedIn(["flex", "items-center", "justify-between"]);
+new HeaderLogedIn(["flex", "items-center", "justify-between", "fixed"]);
 
 const memberForm = new FormCreator("mainSettings");
 
-memberForm.createForm([
-  "my-5",
+memberForm.createForm("userForm",[
+  "mt-16",
+  "mb-5",
   "flex",
   "flex-col",
   "items-center",
@@ -29,3 +30,5 @@ memberForm.createBtn("Zapisz", [
   "border",
   "border-gray-500",
 ]);
+
+memberForm.submitEvent()

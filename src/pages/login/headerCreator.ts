@@ -14,7 +14,6 @@ export class HeaderCreator {
     this.#body = document.querySelector("body");
     this.#createHeader(styles);
     this.#createH1();
-    // this.#init(styles);
   }
 
   #createHeader(styles: string[]) {
