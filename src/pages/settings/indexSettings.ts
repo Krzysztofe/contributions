@@ -1,7 +1,9 @@
-import { FormCreator } from "../../utils/formCreator";
+import { LoadigPageCreator } from "../../components/loadingPageCreator";
+import { FormCreator } from "../../components/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../login/headerCreator/headerCreator";
 
+new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between", "fixed"]);
 
 const memberForm = new FormCreator("mainSettings");

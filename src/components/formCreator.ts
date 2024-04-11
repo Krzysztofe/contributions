@@ -1,7 +1,6 @@
+import { ValidationUni } from "../utils/validationUni.ts";
 
-import { ValidationUni } from "./validationUni.ts";
-
-import { getFormValues } from "./getFormValues.ts";
+import { getFormValues } from "../utils/getFormValues.ts";
 
 export class FormCreator {
   #parentEl: HTMLElement | null;
@@ -30,6 +29,7 @@ export class FormCreator {
     input.setAttribute("required", required || false);
     input.setAttribute("placeholder", placeholder);
     input.setAttribute("data-pattern", pattern);
+    type === "password" && input.setAttribute("autocomplete", "username");
     input.classList.add(
       "px-2",
       "py-1",

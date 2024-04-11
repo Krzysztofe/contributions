@@ -1,4 +1,4 @@
-import { DataFieldCreator } from "../../utils/dataFieldCreator";
+import { DataFieldCreator } from "../../components/dataFieldCreator";
 
 export const dataMemberFields = [
   DataFieldCreator.createDataField(

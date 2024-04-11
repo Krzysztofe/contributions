@@ -1,9 +1,15 @@
-import { LoadigPageCreator } from "../../utils/loadingPageCreator";
-import { FormCreator } from "../../utils/formCreator";
+import { FormCreator } from "../../components/formCreator";
+import { URL_Members } from "../../data/dataUrl";
+import { HttpRequest } from "../../services/httpRequest";
 import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "./headerCreator/headerCreator";
+import { LoadigPageCreator } from "../../components/loadingPageCreator";
 
 new LoadigPageCreator()
+new HttpRequest(URL_Members);
+
+
+
 new HeaderCreator(["grid", "place-items-center"]);
 const loginForm = new FormCreator("main");
 
