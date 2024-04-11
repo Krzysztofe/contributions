@@ -1,7 +1,9 @@
+import { LoadigPageCreator } from "../../utils/loadingPageCreator";
 import { FormCreator } from "../../utils/formCreator";
 import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "./headerCreator/headerCreator";
 
+new LoadigPageCreator()
 new HeaderCreator(["grid", "place-items-center"]);
 const loginForm = new FormCreator("main");
 
