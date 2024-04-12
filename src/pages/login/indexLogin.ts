@@ -14,9 +14,8 @@ const loginForm = new FormCreator("main");
 loginForm.createForm("loginForm", [
   "flex",
   "flex-col",
-  // "sm:bg-slate-200",
-  // "bg-primary",
-  "bg-white",
+  "bg-primary",
+  "sm:bg-white",
   "sm:border",
   "px-16",
   "py-8"
@@ -31,7 +30,6 @@ loginForm.createBtn("Zaloguj się", [
   "bg-accent",
   "text-white",
   "m-auto",
-  // "mt-2",
 ]);
 
 loginForm.submitEvent();

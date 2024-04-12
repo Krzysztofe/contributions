@@ -31,17 +31,18 @@ export class FormCreator {
     input.setAttribute("data-pattern", pattern);
     type === "password" && input.setAttribute("autocomplete", "username");
     input.classList.add(
-      "px-2",
-      "py-1",
-      "border",
-      "border-gray-300",
+      "input",
+      "input-bordered",
       "focus:border-accent",
       "focus:outline-none",
+      "input-sm",
+      "w-full",
+      "max-w-xs",
+      "rounded-sm",
       "placeholder-black",
-      "bg-grey_light",
       ...inputStyles
     );
-  
+
     return input;
   }
 
@@ -80,7 +81,7 @@ export class FormCreator {
         if (required) {
           const error = document.createElement("div");
           error.id = `${name}Error`;
-          error.classList.add("text-xs", "h-4", "text-red-500", "mb-1", );
+          error.classList.add("text-xs", "h-4", "text-red-500", "mb-1");
           error.setAttribute("data-error", errorMsg);
           field.append(error);
         }
@@ -94,7 +95,13 @@ export class FormCreator {
     const btnEl = document.createElement("button");
     btnEl.setAttribute("type", "submit");
     btnEl.innerText = innerText;
-    btnEl.classList.add(...btnStyles);
+    btnEl.classList.add(
+      "btn",
+      "btn-primary",
+      "btn-sm",
+      "rounded-sm",
+      ...btnStyles
+    );
     this.#formEl?.append(btnEl);
   }
 

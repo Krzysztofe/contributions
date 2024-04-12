@@ -24,18 +24,22 @@ memberForm.createForm("userForm", [
 
 memberForm.createFields(
   dataMemberFields,
-  ["max-w-48", "md:max-w-40", "mr-2"],
+  ["max-w-48", "md:max-w-40", "md:mr-2"],
   ["max-w-48", "md:max-w-40"]
 );
 memberForm.createBtn("Zapisz", [
-  "text-center",
-  "py-1",
-  "px-5",
-  "bg-accent",
-  "text-white",
+  "w-48",
+  "md:w-auto",
+  // "py-1",
+  // "px-5",
+  // "bg-accent",
+  // "text-white",
   "mb-auto",
-  "border",
-  "border-accent",
+  "border-none",
+  // "border-accent",
+  // "btn",
+  // "btn-primary",
+  // "btn-sm",
 ]);
 
 memberForm.submitEvent();
