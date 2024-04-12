@@ -8,28 +8,30 @@ import { LoadigPageCreator } from "../../components/loadingPageCreator";
 new LoadigPageCreator()
 new HttpRequest(URL_Members);
 
-
-
 new HeaderCreator(["grid", "place-items-center"]);
 const loginForm = new FormCreator("main");
 
 loginForm.createForm("loginForm", [
   "flex",
   "flex-col",
-  "sm:bg-slate-200",
+  // "sm:bg-slate-200",
+  // "bg-primary",
   "bg-white",
-  "p-5",
+  "sm:border",
+  "px-16",
+  "py-8"
 ]);
 
 loginForm.createFields(dataLoginFields);
 
 loginForm.createBtn("Zaloguj się", [
   "text-center",
-  "w-1/2",
+  "w-full",
   "py-1",
-  "bg-gray-500",
+  "bg-accent",
+  "text-white",
   "m-auto",
-  "mt-2",
+  // "mt-2",
 ]);
 
 loginForm.submitEvent();

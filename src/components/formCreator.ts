@@ -35,16 +35,13 @@ export class FormCreator {
       "py-1",
       "border",
       "border-gray-300",
-      "focus:border-blue-500",
+      "focus:border-accent",
       "focus:outline-none",
       "placeholder-black",
+      "bg-grey_light",
       ...inputStyles
     );
-    input.style.cssText = `
-      ::placeholder {
-        color: red; 
-      }
-    `;
+  
     return input;
   }
 
@@ -83,7 +80,7 @@ export class FormCreator {
         if (required) {
           const error = document.createElement("div");
           error.id = `${name}Error`;
-          error.classList.add("text-xs", "h-3", "text-red-500", "mb-1");
+          error.classList.add("text-xs", "h-4", "text-red-500", "mb-1", );
           error.setAttribute("data-error", errorMsg);
           field.append(error);
         }

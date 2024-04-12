@@ -4,7 +4,11 @@ import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../login/headerCreator/headerCreator";
 
 new LoadigPageCreator();
-new HeaderLogedIn(["flex", "items-center", "justify-between", "fixed"]);
+new HeaderLogedIn([
+  "flex",
+  "items-center",
+  "justify-between",
+]);
 
 const memberForm = new FormCreator("mainSettings");
 
@@ -27,10 +31,11 @@ memberForm.createBtn("Zapisz", [
   "text-center",
   "py-1",
   "px-5",
-  "bg-gray-500",
+  "bg-accent",
+  "text-white",
   "mb-auto",
   "border",
-  "border-gray-500",
+  "border-accent",
 ]);
 
 memberForm.submitEvent();

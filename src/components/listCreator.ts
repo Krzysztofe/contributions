@@ -31,6 +31,7 @@ export class ListCreator {
       if (iconClass) {
         const iconSpan = document.createElement("div");
         iconSpan.classList.add("fa", iconClass, "m-1", "ml-4");
+        iconSpan.style.color = "dark";
         iconSpan.setAttribute("aria-hidden", "true");
         link.prepend(iconSpan);
       }

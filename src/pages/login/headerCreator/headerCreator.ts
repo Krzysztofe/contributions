@@ -9,29 +9,44 @@ const headerForm = new FormCreator("header");
 export class HeaderCreator {
   #body: HTMLBodyElement | null;
   header: HTMLElement | null = null;
+  headerWrapper: HTMLElement | null = null;
   #h1: HTMLHeadingElement | null = null;
 
   constructor(styles: string[]) {
     this.#body = document.querySelector("body");
-    this.#createHeader(styles);
+    this.#createHeader();
+    this.#createHeaderWrapper(styles);
     this.#createH1();
   }
 
-  #createHeader(styles: string[]) {
+  #createHeader() {
     this.header = document.createElement("header");
     this.header.classList.add(
       headerHeight,
+      "fixed",
       "w-full",
-      "bg-slate-200",
-      ...styles
+      "bg-white"
     );
     this.#body?.prepend(this.header);
   }
+  #createHeaderWrapper(styles: string[]) {
+    this.headerWrapper = document.createElement("div");
+    this.headerWrapper.classList.add(
+      headerHeight,
+      "max-w-[1350px]",
+      "mx-auto",
+      "px-2",
+      "md:px-4",
+      ...styles
+    );
+    this.header?.prepend(this.headerWrapper);
+  }
+
   #createH1() {
     this.#h1 = document.createElement("h1");
     this.#h1.innerText = "OZZIP";
     this.#h1.classList.add();
-    this.header?.prepend(this.#h1);
+    this.headerWrapper?.prepend(this.#h1);
   }
 }
 
@@ -44,7 +59,7 @@ export class HeaderLogedIn extends HeaderCreator {
   #init() {
     this.#createInputContainer();
 
-    new ListCreator("header", dataNavList);
+    new ListCreator("header div", dataNavList);
   }
 
   #createInputContainer() {
@@ -74,6 +89,6 @@ export class HeaderLogedIn extends HeaderCreator {
       );
     });
 
-    this.header?.append(inputContainer);
+    this.headerWrapper?.append(inputContainer);
   }
 }
