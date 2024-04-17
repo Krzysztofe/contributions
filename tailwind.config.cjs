@@ -10,11 +10,14 @@ export default {
         grey_light: "#FAFAFA",
         dark: "#3e3e3e",
       },
+   
     },
     screens: {
       sm: "400px",
       md: "600px",
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),
+
+],
 };

@@ -2,13 +2,12 @@ import { LoadigPageCreator } from "../../components/loadingPageCreator";
 import { FormCreator } from "../../components/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../login/headerCreator/headerCreator";
+import { AlertCreator } from "../../components/alertCreator";
+import { URL_Members } from "../../data/dataUrl";
+import { json } from "react-router-dom";
 
 new LoadigPageCreator();
-new HeaderLogedIn([
-  "flex",
-  "items-center",
-  "justify-between",
-]);
+new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 
 const memberForm = new FormCreator("mainSettings");
 
@@ -27,19 +26,9 @@ memberForm.createFields(
   ["max-w-48", "md:max-w-40", "md:mr-2"],
   ["max-w-48", "md:max-w-40"]
 );
-memberForm.createBtn("Zapisz", [
-  "w-48",
-  "md:w-auto",
-  // "py-1",
-  // "px-5",
-  // "bg-accent",
-  // "text-white",
-  "mb-auto",
-  "border-none",
-  // "border-accent",
-  // "btn",
-  // "btn-primary",
-  // "btn-sm",
-]);
+memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
 memberForm.submitEvent();
+
+const deleteMemberAlert = new AlertCreator("mainSettings");
+// deleteMemberAlert.createModal()

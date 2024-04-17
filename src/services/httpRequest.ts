@@ -3,7 +3,7 @@ import { LoadigPageCreator } from "../components/loadingPageCreator";
 export class HttpRequest {
   constructor(url: string, method: string = "GET", data: any = null) {
     new LoadigPageCreator();
-    this.#responseData(url, method, data);
+    this.sendRequest(url, method, data);
   }
 
   transformData = (data: any) => {
@@ -30,7 +30,7 @@ export class HttpRequest {
     body?.prepend(errorContainer);
   };
 
-  #sendRequest(url: string, method: string = "GET", data: any = null) {
+  async sendRequest(url: string, method: string = "GET", data: any = null) {
     const requestOptions: RequestInit = {
       method: method,
       headers: {
@@ -41,29 +41,19 @@ export class HttpRequest {
     if (method !== "GET" && method !== "HEAD") {
       requestOptions.body = JSON.stringify(data);
     }
-    return fetch(url, requestOptions).then(resp => {
-      if (!resp.ok) {
-        return resp.json().then(() => {
-          const error = new Error("Brak danych");
 
-          throw error;
-        });
-      }
-      return resp.json();
-    });
-  }
-
-  #responseData = async (
-    url: string,
-    method: string = "GET",
-    data: any = null
-  ) => {
     try {
-      const responseData = await this.#sendRequest(url, method, data);
-      this.transformData(responseData);
+      const resp = await fetch(url, requestOptions);
+
+      if (!resp.ok) {
+        throw Error("Błąd. Ponów próbę");
+      } else {
+        const data = await resp.json();
+        return data;
+      }
     } catch (err: any) {
-      this.#createErrorPage(err);
-      console.log("error", `${err.message}`);
+      this.#createErrorPage(err.message);
+      console.log("", err);
     }
-  };
+  }
 }

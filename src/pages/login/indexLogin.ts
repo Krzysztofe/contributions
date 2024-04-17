@@ -5,7 +5,7 @@ import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "./headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingPageCreator";
 
-new LoadigPageCreator()
+new LoadigPageCreator();
 new HttpRequest(URL_Members);
 
 new HeaderCreator(["grid", "place-items-center"]);
@@ -14,11 +14,10 @@ const loginForm = new FormCreator("main");
 loginForm.createForm("loginForm", [
   "flex",
   "flex-col",
-  "bg-primary",
   "sm:bg-white",
   "sm:border",
   "px-16",
-  "py-8"
+  "py-8",
 ]);
 
 loginForm.createFields(dataLoginFields);
