@@ -10,14 +10,14 @@ export default {
         grey_light: "#FAFAFA",
         dark: "#3e3e3e",
       },
-   
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
+      },
     },
     screens: {
       sm: "400px",
       md: "600px",
     },
   },
-  plugins: [require("daisyui"),
-
-],
+  plugins: [require("daisyui")],
 };

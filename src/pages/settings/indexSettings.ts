@@ -3,8 +3,7 @@ import { FormCreator } from "../../components/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../login/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
-import { URL_Members } from "../../data/dataUrl";
-import { json } from "react-router-dom";
+
 
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
@@ -30,5 +29,4 @@ memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
 memberForm.submitEvent();
 
-const deleteMemberAlert = new AlertCreator("mainSettings");
-// deleteMemberAlert.createModal()
+new AlertCreator("mainSettings");
