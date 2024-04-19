@@ -1,9 +1,9 @@
 import { LoadigPageCreator } from "../../components/loadingPageCreator";
 import { FormCreator } from "../../components/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
-import { HeaderLogedIn } from "../login/headerCreator/headerCreator";
+import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
-
+import { TableCreator } from "../../components/tableCreator";
 
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
@@ -29,4 +29,36 @@ memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
 memberForm.submitEvent();
 
-new AlertCreator("mainSettings");
+new AlertCreator("sectionTable");
+
+const settingsTable = new TableCreator("sectionTable");
+settingsTable.createTable();
+settingsTable.createTableHead([
+  "",
+  "Imię",
+  "Nazwisko",
+  "Telefon",
+  "Edytuj",
+  "Usuń",
+]);
+settingsTable.createTableBody(
+  [
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+  ],
+  ["fa-pen-to-square", "fa-trash"]
+);

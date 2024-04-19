@@ -1,7 +1,7 @@
-import { headerHeight } from "../../../data/dataNumbers";
-import { ListCreator } from "../../../components/listCreator";
-import { dataSearchFields } from "../../settings/dataSearchFields";
-import { FormCreator } from "../../../components/formCreator";
+import { headerHeight } from "../../data/dataNumbers";
+import { ListCreator } from "../listCreator";
+import { dataSearchFields } from "../../pages/settings/dataSearchFields";
+import { FormCreator } from "../formCreator";
 import { dataNavList } from "./dataNavList";
 
 const headerForm = new FormCreator("header");
@@ -25,7 +25,8 @@ export class HeaderCreator {
       headerHeight,
       "fixed",
       "w-full",
-      "bg-white"
+      "bg-white",
+      "z-50"
     );
     this.#body?.prepend(this.header);
   }
@@ -58,7 +59,6 @@ export class HeaderLogedIn extends HeaderCreator {
 
   #init() {
     this.#createInputContainer();
-
     new ListCreator("header div", dataNavList);
   }
 

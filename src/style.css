@@ -2,7 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-div {
+:root {
+  --headerHeight: 56px;
+}
+
+/* Hide scrollbar for Webkit/Blink */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Scrollbar Track */
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Scrollbar Handle */
+*::-webkit-scrollbar-thumb {
+  background: #888; /* You can change this color */
+  /* border-radius: 4px; */
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #555; /* You can change this color */
+}
+
+body {
   color: #3e3e3e;
-  /* font-family: "Poppins", sans-serif; */
+}
+
+body::-webkit-scrollbar {
+  width: 16px;
+}
+/* body::-webkit-scrollbar-thumb {
+  background: red;
+} */
+
+.table_height {
+  max-height: calc(100vh - var(--headerHeight) - 16px);
+  height:calc(100vh - var(--headerHeight) - 16px);
 }

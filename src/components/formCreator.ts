@@ -51,6 +51,7 @@ export class FormCreator {
     fieldStyles: string[] = [],
     inputStyles: string[] = []
   ) {
+    
     inputsData.forEach(
       ({
         name,
@@ -100,8 +101,15 @@ export class FormCreator {
       "btn-primary",
       "btn-sm",
       "rounded-sm",
+      "text-white",
       ...btnStyles
     );
+
+    const btnInnerEl = document.createElement("div");
+    btnInnerEl.innerText = "Zapisz";
+    btnInnerEl.classList.add("absolute", "invisible");
+    btnEl.append(btnInnerEl);
+
     this.#formEl?.append(btnEl);
   }
 
