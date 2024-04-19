@@ -6,11 +6,10 @@ Project https://xd.adobe.com/view/6a376776-a145-4927-b9d3-1041deb5d829-3f64/spec
 
 ## Features
 
-* Comunication with database
+* Comunication with database - CRUD
 * Auth 
 * Forms / validations
 * Tables
-* CRUD
 * HTTP requests state messages for user
 * RWD
 * Custom alerts
