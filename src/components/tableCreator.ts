@@ -6,13 +6,13 @@ export class TableCreator {
     this.parentEl = document.getElementById(element);
   }
 
-  createTable() {
+  createTable(styles:string[] =[]) {
     const tableEl = document.createElement("table");
     tableEl.classList.add(
       "table",
-      "max-w-[1000px]",
       "bg-primary_dark",
-      "md:text-base"
+      "md:text-base",
+      ...styles
     );
     tableEl.id = "tableMembers";
     this.parentEl?.append(tableEl);
@@ -32,7 +32,7 @@ export class TableCreator {
     headers.forEach((header, idx) => {
       const th = document.createElement("th");
       th.textContent = header;
-      const stylesTh = idx === 2 ? ["sticky", "left-0", "bg-primary_dark"] : [];
+      const stylesTh = idx === 1 ? ["sticky", "left-0", "bg-primary_dark"] : [];
 
       th.classList.add(...stylesTh, "bg-primary_dark", "text-accent");
       tableRowEl.append(th);
@@ -62,8 +62,9 @@ export class TableCreator {
       tableRowEl.append(td);
       const stylesEvenTr = idx % 2 ? ["bg-grey_light"] : ["bg-white"];
 
+
       Object.values(member).forEach((value: any, idx) => {
-        const stylesTd = idx === 1 ? ["sticky", "left-0", ...stylesEvenTr] : [];
+        const stylesTd = idx === 0 ? ["sticky", "left-0", ...stylesEvenTr] : [];
         const td = document.createElement("td");
         td.classList.add("whitespace-nowrap", ...stylesTd);
         td.innerText = value;
@@ -71,17 +72,18 @@ export class TableCreator {
       });
 
       // buttons container
-
-      const btnsContainer = document.createElement("td");
-      btnsContainer.classList.add("min-w-24", "flex", "justify-end");
-      icons.forEach(icon => {
-        const btnIcon = document.createElement("button");
-        btnIcon.id = Math.random().toString();
-        btnIcon.setAttribute("data-row-id", tableRowId);
-        btnIcon.classList.add("fa", icon, "last:ml-8");
-        btnsContainer.append(btnIcon);
-      });
-      tableRowEl.append(btnsContainer);
+      if (icons.length > 0) {
+        const btnsContainer = document.createElement("td");
+        btnsContainer.classList.add("min-w-24", "flex", "justify-end");
+        icons.forEach(icon => {
+          const btnIcon = document.createElement("button");
+          btnIcon.id = Math.random().toString();
+          btnIcon.setAttribute("data-row-id", tableRowId);
+          btnIcon.classList.add("fa", icon, "last:ml-8");
+          btnsContainer.append(btnIcon);
+        });
+        tableRowEl.append(btnsContainer);
+      }
     });
     this.tebleEl?.append(tableBodyEl);
   }

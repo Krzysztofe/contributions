@@ -40,7 +40,12 @@ body::-webkit-scrollbar {
   background: red;
 } */
 
-.table_height {
+.tableMembers_height {
   max-height: calc(100vh - var(--headerHeight) - var(--padingY));
   height: calc(100vh - var(--headerHeight) - var(--padingY));
+}
+
+.tableCalendar_height {
+  max-height: calc(100vh - var(--headerHeight) - var(--padingY) - 8px);
+  height: calc(100vh - var(--headerHeight) - var(--padingY) -  8px);
 }

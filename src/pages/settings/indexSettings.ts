@@ -11,8 +11,8 @@ new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 const memberForm = new FormCreator("mainSettings");
 
 memberForm.createForm("userForm", [
-  "mt-16",
-  "mb-5",
+  "mt-20",
+  "mb-2.5",
   "flex",
   "flex-col",
   "items-center",
@@ -30,26 +30,36 @@ memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 memberForm.submitEvent();
 
 const settingsTable = new TableCreator("sectionTable");
-settingsTable.createTable();
-settingsTable.createTableHead(["", "Imię", "Nazwisko", "Telefon",""]);
+settingsTable.createTable(["max-w-[1000px]"]);
+settingsTable.createTableHead(["", "Imię i Nazwisko", "Telefon", ""]);
 settingsTable.createTableBody(
   [
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
-    { name: "Adam", surname: "kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Adam kowalski", phone: "777-999-888" },
   ],
   ["fa-trash"]
 );
