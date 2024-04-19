@@ -7,6 +7,7 @@ export default {
         accent: "#2569F4",
         primary_dark: "#CCDDFF",
         primary: "#E0EAFF",
+        grey_primary: "#6E6E6E",
         grey_light: "#FAFAFA",
         dark: "#3e3e3e",
       },

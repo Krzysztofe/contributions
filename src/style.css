@@ -4,6 +4,7 @@
 
 :root {
   --headerHeight: 56px;
+  --padingY: 32px;
 }
 
 /* Hide scrollbar for Webkit/Blink */
@@ -40,6 +41,6 @@ body::-webkit-scrollbar {
 } */
 
 .table_height {
-  max-height: calc(100vh - var(--headerHeight) - 16px);
-  height:calc(100vh - var(--headerHeight) - 16px);
+  max-height: calc(100vh - var(--headerHeight) - var(--padingY));
+  height: calc(100vh - var(--headerHeight) - var(--padingY));
 }

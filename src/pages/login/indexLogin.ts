@@ -1,6 +1,6 @@
 import { FormCreator } from "../../components/formCreator";
-import { URL_Members } from "../../data/dataUrl";
-import { HttpRequest } from "../../services/httpRequest";
+// import { URL_Members } from "../../data/dataUrl";
+// import { HttpRequest } from "../../services/httpRequest";
 import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingPageCreator";

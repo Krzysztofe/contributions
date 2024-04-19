@@ -29,18 +29,9 @@ memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
 memberForm.submitEvent();
 
-new AlertCreator("sectionTable");
-
 const settingsTable = new TableCreator("sectionTable");
 settingsTable.createTable();
-settingsTable.createTableHead([
-  "",
-  "Imię",
-  "Nazwisko",
-  "Telefon",
-  "Edytuj",
-  "Usuń",
-]);
+settingsTable.createTableHead(["", "Imię", "Nazwisko", "Telefon",""]);
 settingsTable.createTableBody(
   [
     { name: "Adam", surname: "kowalski", phone: "777-999-888" },
@@ -60,5 +51,6 @@ settingsTable.createTableBody(
     { name: "Adam", surname: "kowalski", phone: "777-999-888" },
     { name: "Adam", surname: "kowalski", phone: "777-999-888" },
   ],
-  ["fa-pen-to-square", "fa-trash"]
+  ["fa-trash"]
 );
+new AlertCreator("sectionTable", "tableMembers");

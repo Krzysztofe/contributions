@@ -1,14 +1,20 @@
 export class AlertCreator {
   parentElem: HTMLElement | null;
-  btnEl: HTMLButtonElement | null = null;
-  uLEl: HTMLUListElement | null;
+  btnDelete: HTMLButtonElement | null = null;
+  memberId: string | null = null;
+  clickableEl: HTMLElement | null;
   modalEl: HTMLDialogElement | null = null;
 
-  constructor(elem: string) {
+  constructor(elem: string, clickableEl: string) {
     this.parentElem = document.getElementById(elem);
-    this.uLEl = document.getElementById("list") as HTMLUListElement;
+    this.clickableEl = document.getElementById(clickableEl) as HTMLElement;
+    this.init();
+  }
+
+  init() {
     this.createModal();
-    this.addBtnEvent();
+    this.printAlertEvent();
+    this.deleteMemberEvent();
   }
 
   createModal() {
@@ -16,28 +22,42 @@ export class AlertCreator {
     dialogEl.id = "my_modal_1";
     dialogEl.classList.add("modal");
     dialogEl.innerHTML = `
- <div class="modal-box">
- <p class="font-bold text-lg text-center">Usunąć element?</p>
+ <div class="modal-box rounded-sm w-5/6 md:p-14">
+ <p class="font-bold text-lg text-center">Usunąć członka komisji?</p>
  <div class="modal-action flex">
  <form method="dialog" class="mx-auto">
- <button class="btn btn-sm">Zachowaj</button>
- <button id="yo" class="btn btn-sm">Usuń</button>
+ <button id="delete" class="btn btn-sm rounded-sm bg-accent text-white px-8">Tak</button>
+ <button class="btn btn-sm rounded-sm bg-grey_primary text-white ml-4 md:ml-8 px-8">Nie</button>
  </form>
  </div>
  </div>`;
     this.parentElem?.append(dialogEl);
     this.modalEl = dialogEl;
-    this.btnEl = document.getElementById("yo") as HTMLButtonElement;
+    this.btnDelete = document.getElementById("delete") as HTMLButtonElement;
   }
 
-  deleteMember(e: MouseEvent) {
-    const button = e.target as HTMLButtonElement;
-    if (button.tagName !== "BUTTON") return;
+  printAlert(e: MouseEvent) {
+    const btnTarget = e.target as HTMLButtonElement;
+    const elemID = btnTarget.id;
+    const btnEl = document.getElementById(elemID);
+    const btnElId = btnEl?.id;
 
-    this.modalEl?.showModal();
+    if (elemID === btnElId) {
+      this.modalEl?.showModal();
+      this.memberId = elemID;
+    }
+  }
+  deleteMember() {
+    const clikedBtn = this.memberId && document.getElementById(this.memberId);
+    const rowId = clikedBtn && clikedBtn?.getAttribute("data-row-id");
+    rowId && document.getElementById(rowId)?.remove();
   }
 
-  addBtnEvent() {
-    this.uLEl?.addEventListener("click", this.deleteMember.bind(this));
+  printAlertEvent() {
+    this.clickableEl?.addEventListener("click", this.printAlert.bind(this));
+  }
+
+  deleteMemberEvent() {
+    this.btnDelete?.addEventListener("click", this.deleteMember.bind(this));
   }
 }
