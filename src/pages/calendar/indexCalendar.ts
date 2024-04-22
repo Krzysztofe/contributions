@@ -40,7 +40,7 @@ calendalTable.createTableBody([
     dec: true,
   },
   {
-    name: "Adam Kowalski",
+    name: "Jan Sam",
     jan: true,
     feb: true,
     mar: true,

@@ -45,7 +45,18 @@ body::-webkit-scrollbar {
   height: calc(100vh - var(--headerHeight) - var(--padingY));
 }
 
+@media (min-width: 500px) {
+  .tableMembers_height {
+    max-height: none;
+    height: none;
+  }
+}
+
 .tableCalendar_height {
-  max-height: calc(100vh - var(--headerHeight) - var(--padingY) - 8px);
-  height: calc(100vh - var(--headerHeight) - var(--padingY) -  8px);
+  max-height: calc(100vh - var(--headerHeight) - var(--padingY));
+  height: calc(100vh - var(--headerHeight) - var(--padingY));
+}
+
+.h_main {
+  height: calc(100vh - var(--headerHeight));
 }

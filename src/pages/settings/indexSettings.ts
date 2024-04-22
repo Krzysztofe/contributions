@@ -11,8 +11,8 @@ new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 const memberForm = new FormCreator("mainSettings");
 
 memberForm.createForm("userForm", [
-  "mt-20",
-  "mb-2.5",
+  "mt-4",
+  "mb-4",
   "flex",
   "flex-col",
   "items-center",
@@ -29,6 +29,8 @@ memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
 memberForm.submitEvent();
 
+// table
+
 const settingsTable = new TableCreator("sectionTable");
 settingsTable.createTable(["max-w-[1000px]"]);
 settingsTable.createTableHead(["", "Imię i Nazwisko", "Telefon", ""]);
@@ -37,7 +39,7 @@ settingsTable.createTableBody(
     { name: "Adam kowalski", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
+    { name: "Jan Gdula", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
@@ -61,6 +63,7 @@ settingsTable.createTableBody(
     { name: "Adam kowalski", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
   ],
-  ["fa-trash"]
+  ["fa-trash" ]
 );
+
 new AlertCreator("sectionTable", "tableMembers");

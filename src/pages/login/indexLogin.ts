@@ -31,4 +31,3 @@ loginForm.createBtn("Zaloguj się", [
 ]);
 
 loginForm.submitEvent();
-// <div class="h-5 bg-blue-400 sticky top-14">Table head</div>;

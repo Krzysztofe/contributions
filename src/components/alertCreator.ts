@@ -26,7 +26,7 @@ export class AlertCreator {
  <p class="font-bold text-lg text-center">Usunąć członka komisji?</p>
  <div class="modal-action flex">
  <form method="dialog" class="mx-auto">
- <button id="delete" class="btn btn-sm rounded-sm bg-accent text-white px-8">Tak</button>
+ <button id="delete" class="btn btn-sm rounded-sm bg-accent hover:bg-primary_dark hover:border-primary_dark text-white px-8">Tak</button>
  <button class="btn btn-sm rounded-sm bg-grey_primary text-white ml-4 md:ml-8 px-8">Nie</button>
  </form>
  </div>

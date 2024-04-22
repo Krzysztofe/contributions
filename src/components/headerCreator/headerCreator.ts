@@ -28,6 +28,10 @@ export class HeaderCreator {
       "bg-white",
       "z-50"
     );
+    const headerBlockContainer = document.createElement("header");
+    headerBlockContainer.classList.add(headerHeight);
+
+    this.#body?.prepend(headerBlockContainer);
     this.#body?.prepend(this.header);
   }
   #createHeaderWrapper(styles: string[]) {
@@ -38,6 +42,7 @@ export class HeaderCreator {
       "mx-auto",
       "px-2",
       "md:px-4",
+      "h-full",
       ...styles
     );
     this.header?.prepend(this.headerWrapper);

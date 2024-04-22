@@ -6,7 +6,7 @@ export class TableCreator {
     this.parentEl = document.getElementById(element);
   }
 
-  createTable(styles:string[] =[]) {
+  createTable(styles: string[] = []) {
     const tableEl = document.createElement("table");
     tableEl.classList.add(
       "table",
@@ -40,32 +40,30 @@ export class TableCreator {
     this.tebleEl?.append(tableHeadEl);
   }
 
-  createTableBody(members: any, icons: string[] = []) {
+  createTableBody(cellsData: any, icons: string[] = []) {
     // tbody
     const tableBodyEl = document.createElement("tbody");
     tableBodyEl.classList.add("bg-white");
 
-    members.forEach((member: any, idx: number) => {
+    cellsData.forEach((cellData: any, idx: number) => {
       // tr
       const tableRowEl = document.createElement("tr");
       const tableRowId = Math.random().toString();
       tableRowEl.id = tableRowId;
-      const stylesTr = idx % 2 ? ["bg-grey_light"] : [];
+      const stylesTr = ["odd:bg-grey_light", "even:bg-white"];
       tableRowEl.classList.add(...stylesTr);
       tableBodyEl.append(tableRowEl);
-
-      // buttons container
 
       //   td
       const td = document.createElement("td");
       td.innerText = (idx + 1).toString();
       tableRowEl.append(td);
-      const stylesEvenTr = idx % 2 ? ["bg-grey_light"] : ["bg-white"];
 
-
-      Object.values(member).forEach((value: any, idx) => {
-        const stylesTd = idx === 0 ? ["sticky", "left-0", ...stylesEvenTr] : [];
+      Object.values(cellData).forEach((value: any, idx) => {
+        const stylesTd = idx === 0 ? ["sticky", "left-0", "bg-inherit"] : [];
         const td = document.createElement("td");
+        idx === 0 ? (td.id = value) : null;
+        idx === 0 ? td.setAttribute("data", "member") : null;
         td.classList.add("whitespace-nowrap", ...stylesTd);
         td.innerText = value;
         tableRowEl.append(td);

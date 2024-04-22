@@ -26,7 +26,7 @@ export class ValidationUni {
       const errorEl = `${inputEl.id}Error`;
 
       if (inputEl?.value.trim().length === 0) {
-        this.errorsElements[errorEl].innerText = "Dane wymagne";
+        this.errorsElements[errorEl].innerText = "Wymagne";
       } else if (!pattern.test(inputEl?.value.trim())) {
         this.errorsElements[errorEl].innerText =
           this.errorsElements[errorEl].getAttribute("data-error");

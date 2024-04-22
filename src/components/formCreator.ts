@@ -18,6 +18,20 @@ export class FormCreator {
     this.#parentEl?.prepend(this.#formEl);
   }
 
+  handleChangeInput(e: any) {
+    const inputValue = e.target.value;
+    const members = document.querySelectorAll("[data='member']");
+
+    members.forEach(member => {
+      const memberTexContent = member?.textContent ?? "";
+      const match = new RegExp(inputValue, "i").test(memberTexContent);
+
+      if (member && member.parentElement) {
+        member.parentElement.classList.toggle("hidden", !match);
+      }
+    });
+  }
+
   createInput(
     { name, type, required, placeholder, pattern }: any,
     inputStyles: string[] = []
@@ -43,6 +57,10 @@ export class FormCreator {
       ...inputStyles
     );
 
+    if (type === "search") {
+      input.addEventListener("input", this.handleChangeInput.bind(this));
+    }
+
     return input;
   }
 
@@ -51,7 +69,6 @@ export class FormCreator {
     fieldStyles: string[] = [],
     inputStyles: string[] = []
   ) {
-    
     inputsData.forEach(
       ({
         name,
@@ -72,12 +89,12 @@ export class FormCreator {
           field.append(labelEl);
         }
 
-        field.append(
-          this.createInput(
-            { name, type, required, placeholder, errorMsg, pattern },
-            inputStyles
-          )
+        const inputs = this.createInput(
+          { name, type, required, placeholder, errorMsg, pattern },
+          inputStyles
         );
+
+        field.append(inputs);
 
         if (required) {
           const error = document.createElement("div");
@@ -117,9 +134,9 @@ export class FormCreator {
     e.preventDefault();
     // const elementID = (e.currentTarget as HTMLFormElement)?.id;
     // // const formEl = document.getElementById(elementID) as HTMLFormElement;
-    // const elements = getFormValues(e);
+    const elementsu = getFormValues(e);
     const elements = Object.keys(getFormValues(e));
-
+    console.log("", elementsu);
     const uni = new ValidationUni(elements);
     uni.validation();
 

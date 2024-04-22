@@ -46,7 +46,7 @@ export class LoadigPageCreator {
   }
   #handleLoad() {
     if (this.#body) {
-      this.#body.style.display = "flex";
+      this.#body.style.display = "block";
     }
 
     if (this.#container && this.#body) {
