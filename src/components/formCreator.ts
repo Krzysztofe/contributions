@@ -115,7 +115,7 @@ export class FormCreator {
     btnEl.innerText = innerText;
     btnEl.classList.add(
       "btn",
-      "btn-primary",
+      "bg-accent",
       "btn-sm",
       "rounded-sm",
       "text-white",
@@ -136,7 +136,6 @@ export class FormCreator {
     // // const formEl = document.getElementById(elementID) as HTMLFormElement;
     const elementsu = getFormValues(e);
     const elements = Object.keys(getFormValues(e));
-    console.log("", elementsu);
     const uni = new ValidationUni(elements);
     uni.validation();
 

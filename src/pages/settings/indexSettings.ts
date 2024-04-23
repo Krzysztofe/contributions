@@ -12,7 +12,8 @@ const memberForm = new FormCreator("mainSettings");
 
 memberForm.createForm("userForm", [
   "mt-4",
-  "mb-4",
+  "mb-8",
+  "md:mb-4",
   "flex",
   "flex-col",
   "items-center",

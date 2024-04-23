@@ -1,9 +1,11 @@
 import { LoadigPageCreator } from "../components/loadingPageCreator";
 
 export class HttpRequest {
+  requestedData: []
   constructor(url: string, method: string = "GET", data: any = null) {
     new LoadigPageCreator();
     this.sendRequest(url, method, data);
+    this.requestedData = [];
   }
 
   transformData = (data: any) => {
@@ -49,6 +51,8 @@ export class HttpRequest {
         throw Error("Błąd. Ponów próbę");
       } else {
         const data = await resp.json();
+        // this.requestedData.push(data);
+        // console.log("", data);
         return data;
       }
     } catch (err: any) {
