@@ -9,7 +9,7 @@ const calendalTable = new TableCreator("sectionTable");
 calendalTable.createTable(["max-w-[1200px]"]);
 calendalTable.createTableHead([
   "",
-  "Imię i Nazwisko",
+  "",
   "Sty.",
   "Lut.",
   "Mar.",

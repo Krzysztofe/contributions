@@ -134,7 +134,7 @@ export class FormCreator {
     e.preventDefault();
     // const elementID = (e.currentTarget as HTMLFormElement)?.id;
     // // const formEl = document.getElementById(elementID) as HTMLFormElement;
-    const elementsu = getFormValues(e);
+    // const elementsu = getFormValues(e);
     const elements = Object.keys(getFormValues(e));
     const uni = new ValidationUni(elements);
     uni.validation();

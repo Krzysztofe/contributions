@@ -47,6 +47,24 @@ export class HttpRequest {
     try {
       const resp = await fetch(url, requestOptions);
 
+      // const resp = await fetch(
+      //   "http://kkrol.host83.nstrefa.pl/authenticate.php",
+      //   {
+      //     method: "post",
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //     },
+
+      //     body: JSON.stringify({
+      //       login: "januszjanuszex",
+      //       password: "janush123",
+      //     }),
+      //   }
+      // );
+      
+  
+
       if (!resp.ok) {
         throw Error("Błąd. Ponów próbę");
       } else {
