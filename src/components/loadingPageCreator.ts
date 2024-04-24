@@ -1,11 +1,10 @@
 export class LoadigPageCreator {
   #body: HTMLElement | null;
   #container: HTMLElement | null = null;
+  #spinner: HTMLElement | null = null;
 
   constructor() {
     this.#body = document.querySelector("body");
-    this.#createContainer();
-    this.#createSpinner();
     this.#init();
   }
 
@@ -28,7 +27,7 @@ export class LoadigPageCreator {
       "z-50",
       "loadingContainer"
     );
-    container.style.transition = "opacity 1000ms";
+    container.style.transition = "opacity 500ms";
 
     document.documentElement.insertBefore(container, this.#body);
     this.#container = container;
@@ -43,7 +42,13 @@ export class LoadigPageCreator {
       "text-primary"
     );
     this.#container?.append(spinner);
+    this.#spinner = spinner;
   }
+  #handleDOMLoad() {
+    this.#createContainer();
+    this.#createSpinner();
+  }
+
   #handleLoad() {
     if (this.#body) {
       this.#body.style.display = "block";
@@ -52,15 +57,15 @@ export class LoadigPageCreator {
     if (this.#container && this.#body) {
       this.#container.style.opacity = "0";
     }
+    this.#spinner?.remove();
 
     setTimeout(() => {
-      if (this.#container) {
-        this.#container.style.display = "none";
-      }
-    }, 200);
+      this.#container?.remove();
+    }, 500);
   }
 
   #loadingEvent() {
+    window.addEventListener("DOMContentLoaded", this.#handleDOMLoad.bind(this));
     window.addEventListener("load", this.#handleLoad.bind(this));
   }
 }
