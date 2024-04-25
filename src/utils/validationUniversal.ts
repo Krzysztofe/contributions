@@ -1,4 +1,4 @@
-export class ValidationUni {
+export class ValidationUniversal {
   inputsElements: any;
   errorsElements: any;
   errors: string[] = [];

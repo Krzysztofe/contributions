@@ -1,6 +1,6 @@
 export const getFormValues = (e: SubmitEvent) => {
-  const elementID = (e.currentTarget as HTMLFormElement)?.id;
-  const formEl = document.getElementById(elementID) as HTMLFormElement;
+  const elementId = (e.currentTarget as HTMLFormElement)?.id;
+  const formEl = document.getElementById(elementId) as HTMLFormElement;
   const formData = formEl && new FormData(formEl);
   const formValues: Record<string, string> = {};
 

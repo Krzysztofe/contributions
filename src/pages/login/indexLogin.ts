@@ -1,11 +1,12 @@
-import { FormCreator } from "../../components/formCreator";
 import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingPageCreator";
+import { FormLogin } from "../../components/formCreator";
 
 new LoadigPageCreator();
 new HeaderCreator(["grid", "place-items-center"]);
-const loginForm = new FormCreator("main");
+
+const loginForm = new FormLogin("main");
 
 loginForm.createForm("loginForm", [
   "flex",

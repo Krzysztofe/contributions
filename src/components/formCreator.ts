@@ -1,36 +1,23 @@
-import { ValidationUni } from "../utils/validationUni.ts";
+import { ValidationUniversal } from "../utils/validationUniversal.ts";
 import { HttpRequest } from "../services/httpRequest.ts";
 import { URL_Members } from "../data/dataUrl.ts";
 import { getFormValues } from "../utils/getFormValues.ts";
 import { LoadingButtonCreator } from "./loadings/loadingButtonCreator.ts";
 
-export const createLoader = () => {
-  const div = document.createElement("div");
-  div.id = "loader";
-  div.innerText = "lllllllllllll";
-  document.querySelector("body")?.append(div);
-};
-
-export const removeLoader = () => {
-  const div = document.getElementById("loader");
-  div?.remove();
-  // div?.classList.add("hidden");
-};
-
 export class FormCreator {
   #parentEl: HTMLElement | null;
-  #formEl: HTMLFormElement | null = null;
+  formEl: HTMLFormElement | null = null;
 
-  constructor(element: string) {
-    this.#parentEl = document.getElementById(element);
+  constructor(elementId: string) {
+    this.#parentEl = document.getElementById(elementId);
   }
 
   createForm(formId: string, formStyles: string[]) {
-    this.#formEl = document.createElement("form");
-    this.#formEl.id = formId;
-    this.#formEl.classList.add(...formStyles);
-    this.#formEl.setAttribute("novalidate", "");
-    this.#parentEl?.prepend(this.#formEl);
+    this.formEl = document.createElement("form");
+    this.formEl.id = formId;
+    this.formEl.classList.add(...formStyles);
+    this.formEl.setAttribute("novalidate", "");
+    this.#parentEl?.prepend(this.formEl);
   }
 
   handleChangeInput(e: any) {
@@ -119,7 +106,7 @@ export class FormCreator {
           field.append(error);
         }
 
-        this.#formEl?.append(field);
+        this.formEl?.append(field);
       }
     );
   }
@@ -145,17 +132,19 @@ export class FormCreator {
     btnInnerEl.classList.add("absolute", "invisible");
     btnEl.append(btnInnerEl);
 
-    this.#formEl?.append(btnEl);
+    this.formEl?.append(btnEl);
+  }
+}
+
+export class FormLogin extends FormCreator {
+  constructor(elementId: string) {
+    super(elementId);
   }
 
   handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    // const elementID = (e.currentTarget as HTMLFormElement)?.id;
-    // // const formEl = document.getElementById(elementID) as HTMLFormElement;
-    // const elementsu = getFormValues(e);
-    // console.log('',elementsu)
     const elements = Object.keys(getFormValues(e));
-    const uni = new ValidationUni(elements);
+    const uni = new ValidationUniversal(elements);
     uni.validation();
     if (uni.errors.length > 0) return;
 
@@ -170,13 +159,13 @@ export class FormCreator {
   }
 
   submitEvent() {
-    // const validation = new ValidationLogin();
-    // const formSubmition = new FormSubmit(validation);
-    // this.#formEl?.addEventListener(
-    //   "submit",
-    //   formSubmition.handleSubmit.bind(formSubmition)
-    // );
+    this.formEl?.addEventListener("submit", this.handleSubmit.bind(this));
+  }
+}
 
-    this.#formEl?.addEventListener("submit", this.handleSubmit.bind(this));
+
+export class FormCreateMember extends FormCreator {
+  constructor(ElementId: string) {
+    super(ElementId)
   }
 }
