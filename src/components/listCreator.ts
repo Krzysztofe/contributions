@@ -23,14 +23,21 @@ export class ListCreator {
       link.classList.add("flex");
       li.append(link);
 
-      const textSpan = document.createElement("span");
+      const textSpan = document.createElement("div");
       textSpan.innerText = text;
-      textSpan.classList.add("hidden", "md:block");
+      textSpan.classList.add(
+        "hidden",
+        "md:block",
+        "text-sm",
+        "lg:text-base",
+        "flex",
+        "self-center"
+      );
 
       link.append(textSpan);
       if (iconClass) {
         const iconSpan = document.createElement("div");
-        iconSpan.classList.add("fa", iconClass, "m-1", "ml-4");
+        iconSpan.classList.add("fa", iconClass, "m-1", "ml-4", "text-sm", "lg:text-base");
         iconSpan.style.color = "dark";
         iconSpan.setAttribute("aria-hidden", "true");
         link.prepend(iconSpan);

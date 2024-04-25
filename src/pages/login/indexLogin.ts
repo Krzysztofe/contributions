@@ -2,6 +2,7 @@ import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingPageCreator";
 import { FormLogin } from "../../components/formCreator";
+import { URL_Members } from "../../data/dataUrl";
 
 new LoadigPageCreator();
 new HeaderCreator(["grid", "place-items-center"]);
@@ -26,4 +27,4 @@ loginForm.createBtn("Zaloguj się", [
   "m-auto",
 ]);
 
-loginForm.submitEvent();
+loginForm.submitEvent(URL_Members);

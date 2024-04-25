@@ -1,6 +1,5 @@
 import { ValidationUniversal } from "../utils/validationUniversal.ts";
 import { HttpRequest } from "../services/httpRequest.ts";
-import { URL_Members } from "../data/dataUrl.ts";
 import { getFormValues } from "../utils/getFormValues.ts";
 import { LoadingButtonCreator } from "./loadings/loadingButtonCreator.ts";
 
@@ -136,12 +135,14 @@ export class FormCreator {
   }
 }
 
+// Login
+
 export class FormLogin extends FormCreator {
   constructor(elementId: string) {
     super(elementId);
   }
 
-  handleSubmit(e: SubmitEvent) {
+  handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
     const elements = Object.keys(getFormValues(e));
     const uni = new ValidationUniversal(elements);
@@ -151,25 +152,27 @@ export class FormLogin extends FormCreator {
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
     loader.createSpinner();
-    request.sendRequest(URL_Members).then(requestValues => {
+    request.sendRequest(url).then(requestValues => {
       if (requestValues?.isLoading === false) {
         loader.removeSpinner();
       }
     });
   }
 
-  submitEvent() {
-    this.formEl?.addEventListener("submit", this.handleSubmit.bind(this));
+  submitEvent(url: string) {
+    this.formEl?.addEventListener("submit", e => this.handleSubmit(e, url));
   }
 }
 
+
+// Member
 
 export class FormCreateMember extends FormCreator {
   constructor(ElementId: string) {
     super(ElementId);
   }
 
-  handleSubmit(e: SubmitEvent) {
+  handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
     const elements = Object.keys(getFormValues(e));
     const uni = new ValidationUniversal(elements);
@@ -179,14 +182,14 @@ export class FormCreateMember extends FormCreator {
     // const request = new HttpRequest();
     // const loader = new LoadingButtonCreator("btnSubmit");
     // loader.createSpinner();
-    // request.sendRequest(URL_Members).then(requestValues => {
+    // request.sendRequest(url).then(requestValues => {
     //   if (requestValues?.isLoading === false) {
     //     loader.removeSpinner();
     //   }
     // });
   }
 
-  submitEvent() {
-    this.formEl?.addEventListener("submit", this.handleSubmit.bind(this));
+  submitEvent(url: string) {
+    this.formEl?.addEventListener("submit", e => this.handleSubmit(e, url));
   }
 }

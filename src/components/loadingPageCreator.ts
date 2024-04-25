@@ -60,7 +60,7 @@ export class LoadigPageCreator {
     this.#spinner?.remove();
 
     setTimeout(() => {
-      this.#container?.remove();
+      this.#container?.classList.add("hidden")
     }, 500);
   }
 

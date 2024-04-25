@@ -19,6 +19,7 @@ export default {
     screens: {
       sm: "400px",
       md: "600px",
+      lg: "1000px",
     },
   },
   plugins: [require("daisyui")],

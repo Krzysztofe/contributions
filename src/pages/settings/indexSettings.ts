@@ -4,6 +4,7 @@ import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
 import { TableCreator } from "../../components/tableCreator";
+import { URL_Members } from "../../data/dataUrl";
 
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
@@ -28,9 +29,9 @@ memberForm.createFields(
 );
 memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
-memberForm.submitEvent();
+memberForm.submitEvent(URL_Members);
 
-// table
+// Table
 
 const settingsTable = new TableCreator("sectionTable");
 settingsTable.createTable(["max-w-[1000px]"]);
@@ -64,7 +65,7 @@ settingsTable.createTableBody(
     { name: "Adam kowalski", phone: "777-999-888" },
     { name: "Adam kowalski", phone: "777-999-888" },
   ],
-  ["fa-trash" ]
+  ["fa-trash"]
 );
 
 new AlertCreator("sectionTable", "tableMembers");
