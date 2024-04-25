@@ -166,6 +166,27 @@ export class FormLogin extends FormCreator {
 
 export class FormCreateMember extends FormCreator {
   constructor(ElementId: string) {
-    super(ElementId)
+    super(ElementId);
+  }
+
+  handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    const elements = Object.keys(getFormValues(e));
+    const uni = new ValidationUniversal(elements);
+    uni.validation();
+    if (uni.errors.length > 0) return;
+
+    // const request = new HttpRequest();
+    // const loader = new LoadingButtonCreator("btnSubmit");
+    // loader.createSpinner();
+    // request.sendRequest(URL_Members).then(requestValues => {
+    //   if (requestValues?.isLoading === false) {
+    //     loader.removeSpinner();
+    //   }
+    // });
+  }
+
+  submitEvent() {
+    this.formEl?.addEventListener("submit", this.handleSubmit.bind(this));
   }
 }

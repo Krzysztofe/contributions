@@ -1,5 +1,5 @@
 import { LoadigPageCreator } from "../../components/loadingPageCreator";
-import { FormCreator } from "../../components/formCreator";
+import { FormCreateMember } from "../../components/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
@@ -8,7 +8,7 @@ import { TableCreator } from "../../components/tableCreator";
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 
-const memberForm = new FormCreator("mainSettings");
+const memberForm = new FormCreateMember("mainSettings");
 
 memberForm.createForm("userForm", [
   "mt-4",
