@@ -39,7 +39,7 @@ export class LoadigPageCreator {
       "loading",
       "loading-spinner",
       "loading-lg",
-      "text-primary"
+      "text-accent"
     );
     this.#container?.append(spinner);
     this.#spinner = spinner;

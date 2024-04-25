@@ -5,7 +5,7 @@ export const dataLoginFields = [
     "login",
     "",
     true,
-    "^[a-zA-Z –-]+$",
+    "",
     "text",
     "Login",
     "Login min. 3 znaki"
@@ -14,7 +14,7 @@ export const dataLoginFields = [
     "password",
     "",
     true,
-    "^[a-zA-Z –-]+$",
+    "",
     "password",
     "Hasło",
     "Hasło in. 3 znaki"
