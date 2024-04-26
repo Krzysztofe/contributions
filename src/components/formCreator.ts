@@ -164,7 +164,6 @@ export class FormLogin extends FormCreator {
   }
 }
 
-
 // Member
 
 export class FormCreateMember extends FormCreator {
@@ -179,14 +178,14 @@ export class FormCreateMember extends FormCreator {
     uni.validation();
     if (uni.errors.length > 0) return;
 
-    // const request = new HttpRequest();
-    // const loader = new LoadingButtonCreator("btnSubmit");
-    // loader.createSpinner();
-    // request.sendRequest(url).then(requestValues => {
-    //   if (requestValues?.isLoading === false) {
-    //     loader.removeSpinner();
-    //   }
-    // });
+    const request = new HttpRequest();
+    const loader = new LoadingButtonCreator("btnSubmit");
+    loader.createSpinner();
+    request.sendRequest(url).then(requestValues => {
+      if (requestValues?.isLoading === false) {
+        loader.removeSpinner();
+      }
+    });
   }
 
   submitEvent(url: string) {

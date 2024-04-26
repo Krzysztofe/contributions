@@ -26,7 +26,7 @@ export class HeaderCreator {
       "fixed",
       "w-full",
       "bg-white",
-      "z-50"
+      "z-40"
     );
     const headerBlockContainer = document.createElement("header");
     headerBlockContainer.classList.add(headerHeight);

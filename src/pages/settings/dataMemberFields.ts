@@ -5,19 +5,19 @@ export const dataMemberFields = [
     "name",
     "",
     true,
-    "^[\\p{L}]{3,}$",
+    "^(?:\\p{L}\\s*){3,}$",
     "text",
     "Imię",
-    "Imię min. 3 znaki"
+    "Imię min. 3 litery"
   ),
   DataFieldCreator.createDataField(
     "surname",
     "",
     true,
-    "^[\\p{L}]{3,}$",
+    "^(?:\\p{L}\\s*){3,}$",
     "text",
     "Nazwisko",
-    "Nazwisko min. 3 znaki"
+    "Nazwisko min. 3 litery"
   ),
   DataFieldCreator.createDataField(
     "phone",
@@ -26,6 +26,6 @@ export const dataMemberFields = [
     "^\\d{6,}$",
     "number",
     "Telefon",
-    "Telefon min. 6 znaki"
+    "Telefon min. 6 cyfr"
   ),
 ];
