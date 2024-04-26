@@ -23,9 +23,9 @@ export const dataMemberFields = [
     "phone",
     "",
     true,
-    "^\\d{6,}$",
-    "number",
+    "^[\\d-]{9,}$",
+    "text",
     "Telefon",
-    "Telefon min. 6 cyfr"
+    "Telefon min. 9 cyfr"
   ),
 ];

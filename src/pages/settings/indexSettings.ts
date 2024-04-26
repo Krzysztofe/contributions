@@ -11,7 +11,7 @@ new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 
 const memberForm = new FormCreateMember("mainSettings");
 
-memberForm.createForm("userForm", [
+memberForm.createForm("memberForm", [
   "mt-4",
   "mb-8",
   "md:mb-4",

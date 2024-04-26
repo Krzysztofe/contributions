@@ -2,6 +2,7 @@ export const getFormValues = (e: SubmitEvent) => {
   const elementId = (e.currentTarget as HTMLFormElement)?.id;
   const formEl = document.getElementById(elementId) as HTMLFormElement;
   const formData = formEl && new FormData(formEl);
+
   const formValues: Record<string, string> = {};
 
   if (formData) {
@@ -12,3 +13,5 @@ export const getFormValues = (e: SubmitEvent) => {
 
   return formValues;
 };
+
+

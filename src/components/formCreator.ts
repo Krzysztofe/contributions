@@ -62,6 +62,16 @@ export class FormCreator {
       input.addEventListener("input", this.handleChangeInput.bind(this));
     }
 
+    const handlePhoneFormatting = (e: any) => {
+      const inputValue = e.target.value.replace(/-/g, "");
+      const formattedValue = inputValue.replace(/(\d{3})(?=\d)/g, "$1-");
+      e.target.value = formattedValue;
+    };
+
+    if (name === "phone") {
+      input.addEventListener("input", handlePhoneFormatting);
+    }
+
     return input;
   }
 
