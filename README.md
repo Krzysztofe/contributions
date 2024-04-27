@@ -17,7 +17,6 @@ Demo https://kkrol.host83.nstrefa.pl/
 ## Technologies
 
 * Tailwind / daisyUI
-* JavaScript / TypeScript
+* JavaScript / TypeScript / OOP
 * RegExp
-* OOP
 * Vite
