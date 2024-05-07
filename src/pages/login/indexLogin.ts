@@ -2,7 +2,7 @@ import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingPageCreator";
 import { FormLogin } from "../../components/formCreator";
-import { URL_Members } from "../../data/dataUrl";
+import { URL_AUTH } from "../../data/dataUrl";
 
 new LoadigPageCreator();
 new HeaderCreator(["grid", "place-items-center"]);
@@ -20,11 +20,6 @@ loginForm.createForm("loginForm", [
 
 loginForm.createFields(dataLoginFields);
 
-loginForm.createBtn("Zaloguj się", [
-  "text-center",
-  "w-full",
-  "py-1",
-  "m-auto",
-]);
+loginForm.createBtn("Zaloguj się", ["text-center", "w-full", "py-1", "m-auto"]);
 
-loginForm.submitEvent(URL_Members);
+loginForm.submitEvent(URL_AUTH);

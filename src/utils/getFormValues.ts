@@ -13,5 +13,3 @@ export const getFormValues = (e: SubmitEvent) => {
 
   return formValues;
 };
-
-

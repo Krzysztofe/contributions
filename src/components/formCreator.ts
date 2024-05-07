@@ -74,6 +74,13 @@ export class FormCreator {
       input.addEventListener("input", this.handlePhoneFormatting.bind(this));
     }
 
+    if (name === "login") {
+      input.value = login;
+    }
+    if (name === "password") {
+      input.value = password;
+    }
+
     return input;
   }
 
@@ -157,25 +164,33 @@ export class FormLogin extends FormCreator {
     const uni = new ValidationUniversal(elements);
     uni.validation();
     if (uni.errors.length > 0) return;
-    
+
     // Request
     const request = new HttpRequest();
-    const loader = new LoadingButtonCreator("btnSubmit");
-    loader.createSpinner();
+    const btnLoader = new LoadingButtonCreator("btnSubmit");
+    btnLoader.createSpinner();
+
     request
-      .sendRequest(url, "POST", { login, password })
+      .sendRequest(
+        url,
+        "POST",
+        {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        { login, password }
+      )
       .then(requestValues => {
         if (requestValues) {
           const { isLoading, fetchedData } = requestValues;
 
           if (isLoading === false) {
-            loader.removeSpinner();
+            btnLoader.removeSpinner();
           }
 
           if (fetchedData) {
-            console.log(fetchedData);
             localStorage.setItem("jwt", fetchedData);
-            window.location.href = "/src/pages/calendar/calendar.html";
+            location.href = "/src/pages/calendar/calendar.html";
           }
         }
       });
@@ -203,11 +218,20 @@ export class FormCreateMember extends FormCreator {
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
     loader.createSpinner();
-    request.sendRequest(url).then(requestValues => {
-      if (requestValues?.isLoading === false) {
-        loader.removeSpinner();
-      }
-    });
+    request
+      .sendRequest(
+        url,
+        "POST",
+        {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+        { year: 2024 }
+      )
+      .then(requestValues => {
+        if (requestValues?.isLoading === false) {
+          loader.removeSpinner();
+        }
+      });
   }
 
   submitEvent(url: string) {

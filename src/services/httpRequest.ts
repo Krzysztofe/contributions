@@ -1,6 +1,3 @@
-const login = import.meta.env.VITE_LOGIN;
-const password = import.meta.env.VITE_PASSWORD;
-
 export class HttpRequest {
   requestedData: [];
   isLoading: any;
@@ -34,14 +31,15 @@ export class HttpRequest {
     body?.prepend(errorContainer);
   };
 
-  async sendRequest(url: string, method: string = "GET", body: any = null) {
+  async sendRequest(
+    url: string,
+    method: string = "GET",
+    headers: any,
+    body: any = null
+  ) {
     const requestOptions: RequestInit = {
-      method: method,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-
+      method,
+      headers,
       body: JSON.stringify(body),
     };
 

@@ -37,10 +37,26 @@ export class ListCreator {
       link.append(textSpan);
       if (iconClass) {
         const iconSpan = document.createElement("div");
-        iconSpan.classList.add("fa", iconClass, "m-1", "ml-4", "text-sm", "lg:text-base");
+        iconSpan.classList.add(
+          "fa",
+          iconClass,
+          "m-1",
+          "ml-4",
+          "text-sm",
+          "lg:text-base"
+        );
         iconSpan.style.color = "dark";
         iconSpan.setAttribute("aria-hidden", "true");
         link.prepend(iconSpan);
+      }
+
+      if (text === "Wyloguj") {
+        const logout = () => {
+          localStorage.removeItem("jwt");
+          location.href = "/";
+        };
+
+        li.addEventListener("click", logout);
       }
 
       this.#ul?.append(li);

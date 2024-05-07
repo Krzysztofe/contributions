@@ -1,4 +1,4 @@
-const currentUrl = window.location.href;
+const currentUrl = location.href;
 const isCalendar = currentUrl.includes("calendar");
 const isSettings = currentUrl.includes("settings");
 
@@ -13,7 +13,7 @@ export const dataNavList = [
     iconClass: "fa-gear",
     path: "/src/pages/settings/settings.html",
   },
-  { text: "Wyloguj", iconClass: "fa-user", path: "/" },
+  { text: "Wyloguj", iconClass: "fa-user", path: "#" },
 ];
 
 isCalendar && dataNavList.splice(0, 1);

@@ -4,8 +4,11 @@ import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
 import { TableCreator } from "../../components/tableCreator";
-import { URL_Members } from "../../data/dataUrl";
+import { URL_AUTH } from "../../data/dataUrl";
+import { isUserLoged } from "../../utils/isUserLoged";
 
+
+isUserLoged();
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 
@@ -29,7 +32,7 @@ memberForm.createFields(
 );
 memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
-memberForm.submitEvent(URL_Members);
+memberForm.submitEvent(URL_AUTH);
 
 // Table
 
