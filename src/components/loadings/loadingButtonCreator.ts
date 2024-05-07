@@ -11,7 +11,7 @@ export class LoadingButtonCreator {
       "loading",
       "loading-spinner",
       "loading-xs",
-      "text-accent",
+      "text-grey_primary",
       "absolute",
       "text-accent"
     );

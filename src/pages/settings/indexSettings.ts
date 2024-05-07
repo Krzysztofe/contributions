@@ -1,4 +1,4 @@
-import { LoadigPageCreator } from "../../components/loadingPageCreator";
+import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
 import { FormCreateMember } from "../../components/formCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
@@ -6,7 +6,6 @@ import { AlertCreator } from "../../components/alertCreator";
 import { TableCreator } from "../../components/tableCreator";
 import { URL_AUTH } from "../../data/dataUrl";
 import { isUserLoged } from "../../utils/isUserLoged";
-
 
 isUserLoged();
 new LoadigPageCreator();

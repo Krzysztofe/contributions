@@ -2,6 +2,7 @@ import { ValidationUniversal } from "../utils/validationUniversal.ts";
 import { HttpRequest } from "../services/httpRequest.ts";
 import { getFormValues } from "../utils/getFormValues.ts";
 import { LoadingButtonCreator } from "./loadings/loadingButtonCreator.ts";
+import { currentYear } from "../data/dataCurrentYear.ts";
 const login = import.meta.env.VITE_LOGIN;
 const password = import.meta.env.VITE_PASSWORD;
 
@@ -149,7 +150,7 @@ export class FormCreator {
   }
 }
 
-// Login
+// Login Form
 
 export class FormLogin extends FormCreator {
   constructor(elementId: string) {
@@ -201,7 +202,7 @@ export class FormLogin extends FormCreator {
   }
 }
 
-// Member
+// Member Form
 
 export class FormCreateMember extends FormCreator {
   constructor(ElementId: string) {
@@ -225,7 +226,7 @@ export class FormCreateMember extends FormCreator {
         {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
-        { year: 2024 }
+        { year: currentYear }
       )
       .then(requestValues => {
         if (requestValues?.isLoading === false) {

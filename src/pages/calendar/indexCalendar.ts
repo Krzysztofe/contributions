@@ -1,4 +1,4 @@
-import { LoadigPageCreator } from "../../components/loadingPageCreator";
+import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { TableCreator } from "../../components/tableCreator";
 import { HttpRequest } from "../../services/httpRequest";

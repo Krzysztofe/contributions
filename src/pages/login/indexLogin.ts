@@ -1,6 +1,6 @@
 import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
-import { LoadigPageCreator } from "../../components/loadingPageCreator";
+import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
 import { FormLogin } from "../../components/formCreator";
 import { URL_AUTH } from "../../data/dataUrl";
 
