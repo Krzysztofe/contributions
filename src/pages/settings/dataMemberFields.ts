@@ -23,8 +23,8 @@ export const dataMemberFields = [
     "phone",
     "",
     true,
-    "^[\\d-]{9,}$",
-    "text",
+    "^[\\d-]{11,}$",
+    "tel",
     "Telefon",
     "Telefon min. 9 cyfr"
   ),

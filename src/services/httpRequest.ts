@@ -1,3 +1,6 @@
+const login = import.meta.env.VITE_LOGIN;
+const password = import.meta.env.VITE_PASSWORD;
+
 export class HttpRequest {
   requestedData: [];
   isLoading: any;
@@ -31,27 +34,28 @@ export class HttpRequest {
     body?.prepend(errorContainer);
   };
 
-  async sendRequest(url: string, method: string = "GET", data: any = null) {
+  async sendRequest(url: string, method: string = "GET", body: any = null) {
     const requestOptions: RequestInit = {
       method: method,
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
+
+      body: JSON.stringify(body),
     };
 
     if (method !== "GET" && method !== "HEAD") {
-      requestOptions.body = JSON.stringify(data);
+      requestOptions.body = JSON.stringify(body);
     }
 
     try {
       const resp = await fetch(url, requestOptions);
-
       if (!resp.ok) {
         throw Error("Błąd. Ponów próbę");
       } else {
-        const data = await resp.json();
         this.isLoading = false;
-
+        const data = await resp.text();
         return { isLoading: this.isLoading, fetchedData: data };
       }
     } catch (err: any) {

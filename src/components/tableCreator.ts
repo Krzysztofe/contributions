@@ -45,6 +45,8 @@ export class TableCreator {
         ...stickyTh
       );
 
+      tableRowEl.append(th);
+
       const internalDiv = document.createElement("div");
 
       const divStyles =
@@ -72,6 +74,7 @@ export class TableCreator {
       th.append(internalDiv);
       tableRowEl.append(th);
     });
+
     this.tebleEl?.append(tableHeadEl);
   }
 
@@ -111,14 +114,38 @@ export class TableCreator {
       tableRowEl.classList.add(...stylesTr);
       tableBodyEl.append(tableRowEl);
 
-      //   td
+      //   td - first
       const td = document.createElement("td");
       td.classList.add("border", "border-primary_dark");
       td.innerText = (idx + 1).toString();
       tableRowEl.append(td);
 
+      // td - others
+
       Object.values(cellData).forEach((value: any, idx) => {
-        const stylesTd = idx === 0 ? ["sticky", "left-0", "bg-inherit"] : [];
+        const stylesTd =
+          idx === 0
+            ? [
+                "sticky",
+                "left-0",
+                "bg-inherit",
+                "after:content-['']",
+                "after:absolute",
+                "after:top-0",
+                "after:left-[100%]",
+                "after:w-[1px]",
+                "after:h-[25px]",
+                "after:bg-primary_dark",
+                "before:content-['']",
+                "before:absolute",
+                "before:top-0",
+                "before:right-[100%]",
+                "before:w-[1px]",
+                "before:h-[30px]",
+                "before:bg-primary_dark",
+              ]
+            : [];
+
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
@@ -127,6 +154,8 @@ export class TableCreator {
           "whitespace-nowrap",
           "border",
           "border-primary_dark",
+          "p-2",
+          "lg:p-0",
           ...stylesTd
         );
         td.innerText = value;
@@ -155,4 +184,3 @@ export class TableCreator {
     this.tebleEl?.append(tableBodyEl);
   }
 }
-

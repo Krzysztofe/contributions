@@ -2,6 +2,8 @@ import { ValidationUniversal } from "../utils/validationUniversal.ts";
 import { HttpRequest } from "../services/httpRequest.ts";
 import { getFormValues } from "../utils/getFormValues.ts";
 import { LoadingButtonCreator } from "./loadings/loadingButtonCreator.ts";
+const login = import.meta.env.VITE_LOGIN;
+const password = import.meta.env.VITE_PASSWORD;
 
 export class FormCreator {
   #parentEl: HTMLElement | null;
@@ -33,6 +35,12 @@ export class FormCreator {
     });
   }
 
+  handlePhoneFormatting(e: any) {
+    const inputValue = e.target.value.replace(/-/g, "");
+    const formattedValue = inputValue.replace(/(\d{3})(?=\d)/g, "$1-");
+    e.target.value = formattedValue;
+  }
+
   createInput(
     { name, type, required, placeholder, pattern }: any,
     inputStyles: string[] = []
@@ -62,14 +70,8 @@ export class FormCreator {
       input.addEventListener("input", this.handleChangeInput.bind(this));
     }
 
-    const handlePhoneFormatting = (e: any) => {
-      const inputValue = e.target.value.replace(/-/g, "");
-      const formattedValue = inputValue.replace(/(\d{3})(?=\d)/g, "$1-");
-      e.target.value = formattedValue;
-    };
-
-    if (name === "phone") {
-      input.addEventListener("input", handlePhoneFormatting);
+    if (type === "tel") {
+      input.addEventListener("input", this.handlePhoneFormatting.bind(this));
     }
 
     return input;
@@ -136,11 +138,6 @@ export class FormCreator {
       ...btnStyles
     );
 
-    const btnInnerEl = document.createElement("div");
-    btnInnerEl.innerText = innerText;
-    btnInnerEl.classList.add("absolute", "invisible");
-    btnEl.append(btnInnerEl);
-
     this.formEl?.append(btnEl);
   }
 }
@@ -154,19 +151,34 @@ export class FormLogin extends FormCreator {
 
   handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
+
+    // Validation
     const elements = Object.keys(getFormValues(e));
     const uni = new ValidationUniversal(elements);
     uni.validation();
     if (uni.errors.length > 0) return;
-
+    
+    // Request
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
     loader.createSpinner();
-    request.sendRequest(url).then(requestValues => {
-      if (requestValues?.isLoading === false) {
-        loader.removeSpinner();
-      }
-    });
+    request
+      .sendRequest(url, "POST", { login, password })
+      .then(requestValues => {
+        if (requestValues) {
+          const { isLoading, fetchedData } = requestValues;
+
+          if (isLoading === false) {
+            loader.removeSpinner();
+          }
+
+          if (fetchedData) {
+            console.log(fetchedData);
+            localStorage.setItem("jwt", fetchedData);
+            window.location.href = "/src/pages/calendar/calendar.html";
+          }
+        }
+      });
   }
 
   submitEvent(url: string) {
