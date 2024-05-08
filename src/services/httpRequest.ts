@@ -31,12 +31,17 @@ export class HttpRequest {
     body?.prepend(errorContainer);
   };
 
-  async sendRequest(
-    url: string,
-    method: string = "GET",
-    headers: any,
-    body: any = null
-  ) {
+  async sendRequest({
+    url,
+    method = "GET",
+    headers,
+    body,
+  }: {
+    url: string;
+    method?: string;
+    headers: any;
+    body?: any;
+  }) {
     const requestOptions: RequestInit = {
       method,
       headers,

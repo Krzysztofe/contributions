@@ -41,7 +41,9 @@ export class ListCreator {
           "fa",
           iconClass,
           "m-1",
-          "ml-4",
+          "first:ml-6",
+          "sm:ml-8",
+          "md:ml-4",
           "text-sm",
           "lg:text-base"
         );

@@ -3,8 +3,6 @@ import { HttpRequest } from "../services/httpRequest.ts";
 import { getFormValues } from "../utils/getFormValues.ts";
 import { LoadingButtonCreator } from "./loadings/loadingButtonCreator.ts";
 import { currentYear } from "../data/dataCurrentYear.ts";
-const login = import.meta.env.VITE_LOGIN;
-const password = import.meta.env.VITE_PASSWORD;
 
 export class FormCreator {
   #parentEl: HTMLElement | null;
@@ -76,10 +74,10 @@ export class FormCreator {
     }
 
     if (name === "login") {
-      input.value = login;
+      input.value = import.meta.env.VITE_LOGIN;
     }
     if (name === "password") {
-      input.value = password;
+      input.value = import.meta.env.VITE_PASSWORD;
     }
 
     return input;
@@ -153,8 +151,16 @@ export class FormCreator {
 // Login Form
 
 export class FormLogin extends FormCreator {
+  printLoginError: HTMLElement | null = null;
+
   constructor(elementId: string) {
     super(elementId);
+  }
+
+  createLoginErrorMsg() {
+    this.printLoginError = document.createElement("div");
+    this.printLoginError.classList.add("text-xs", "h-4", "text-red-500");
+    this.formEl?.append(this.printLoginError);
   }
 
   handleSubmit(e: SubmitEvent, url: string) {
@@ -162,39 +168,38 @@ export class FormLogin extends FormCreator {
 
     // Validation
     const elements = Object.keys(getFormValues(e));
-    const uni = new ValidationUniversal(elements);
-    uni.validation();
-    if (uni.errors.length > 0) return;
+    const validationLogin = new ValidationUniversal(elements);
+    validationLogin.validation();
+    if (validationLogin.errors.length > 0) return;
 
     // Request
+    const { login, password } = getFormValues(e);
     const request = new HttpRequest();
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
 
-    request
-      .sendRequest(
-        url,
-        "POST",
-        {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        { login, password }
-      )
-      .then(requestValues => {
-        if (requestValues) {
-          const { isLoading, fetchedData } = requestValues;
+    const requestOptions = {
+      url,
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: { login, password },
+    };
 
-          if (isLoading === false) {
-            btnLoader.removeSpinner();
-          }
+    request.sendRequest(requestOptions).then(requestValues => {
+      if (requestValues?.fetchedData) {
+        localStorage.setItem("jwt", requestValues?.fetchedData);
+        location.href = "/src/pages/calendar/calendar.html";
+      } else {
+        this.printLoginError && (this.printLoginError.innerText = "Błąd");
+      }
 
-          if (fetchedData) {
-            localStorage.setItem("jwt", fetchedData);
-            location.href = "/src/pages/calendar/calendar.html";
-          }
-        }
-      });
+      if (requestValues?.isLoading === false) {
+        btnLoader.removeSpinner();
+      }
+    });
   }
 
   submitEvent(url: string) {
@@ -211,28 +216,31 @@ export class FormCreateMember extends FormCreator {
 
   handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
+
+    // Validation
     const elements = Object.keys(getFormValues(e));
     const uni = new ValidationUniversal(elements);
     uni.validation();
     if (uni.errors.length > 0) return;
 
+    // Request
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
     loader.createSpinner();
-    request
-      .sendRequest(
-        url,
-        "POST",
-        {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-        { year: currentYear }
-      )
-      .then(requestValues => {
-        if (requestValues?.isLoading === false) {
-          loader.removeSpinner();
-        }
-      });
+    const requestOptions = {
+      url,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: { year: currentYear },
+    };
+
+    request.sendRequest(requestOptions).then(requestValues => {
+      if (requestValues?.isLoading === false) {
+        loader.removeSpinner();
+      }
+    });
   }
 
   submitEvent(url: string) {

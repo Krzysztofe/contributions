@@ -12,7 +12,6 @@ export class TableCreator {
     tableEl.id = "tableMembers";
     this.parentEl?.append(tableEl);
     this.tebleEl = tableEl;
-    // this.createSelect()
   }
 
   createTableHead(headers: any[]) {
@@ -123,7 +122,7 @@ export class TableCreator {
       // td - others
 
       Object.values(cellData).forEach((value: any, idx) => {
-        const stylesTd =
+        const stylesTdName =
           idx === 0
             ? [
                 "sticky",
@@ -134,14 +133,14 @@ export class TableCreator {
                 "after:top-0",
                 "after:left-[100%]",
                 "after:w-[1px]",
-                "after:h-[25px]",
+                "after:h-[40px]",
                 "after:bg-primary_dark",
                 "before:content-['']",
                 "before:absolute",
                 "before:top-0",
                 "before:right-[100%]",
                 "before:w-[1px]",
-                "before:h-[30px]",
+                "before:h-[40px]",
                 "before:bg-primary_dark",
               ]
             : [];
@@ -154,9 +153,9 @@ export class TableCreator {
           "whitespace-nowrap",
           "border",
           "border-primary_dark",
-          "p-2",
+          "p-3",
           "lg:p-0",
-          ...stylesTd
+          ...stylesTdName
         );
         td.innerText = value;
         tableRowEl.append(td);

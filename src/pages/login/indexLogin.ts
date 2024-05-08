@@ -22,4 +22,7 @@ loginForm.createFields(dataLoginFields);
 
 loginForm.createBtn("Zaloguj się", ["text-center", "w-full", "py-1", "m-auto"]);
 
+loginForm.createLoginErrorMsg()
+
+
 loginForm.submitEvent(URL_AUTH);
