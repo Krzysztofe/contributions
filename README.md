@@ -13,6 +13,7 @@ Demo https://kkrol.host83.nstrefa.pl/
 * RWD
 * Custom alerts
 * Automatic logout after five minutes
+* Animations
 
 
 ## Technologies
