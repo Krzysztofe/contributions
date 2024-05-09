@@ -11,7 +11,8 @@ export default {
         grey_primary: "#6E6E6E",
         grey_light: "#FAFAFA",
         dark: "#3e3e3e",
-        white_opacity:"rgba(255,255,255,0.8)"
+        white_opacity: "rgba(255,255,255,0.8)",
+        black_opacity: "rgba(0,0,0,0.4)",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

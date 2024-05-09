@@ -193,7 +193,8 @@ export class FormLogin extends FormCreator {
         localStorage.setItem("jwt", requestValues?.fetchedData);
         location.href = "/src/pages/calendar/calendar.html";
       } else {
-        this.printLoginError && (this.printLoginError.innerText = "Błąd");
+        this.printLoginError &&
+          (this.printLoginError.innerText = "Błędny login lub hasło");
       }
 
       if (requestValues?.isLoading === false) {
@@ -233,10 +234,12 @@ export class FormCreateMember extends FormCreator {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: { year: currentYear },
+      body: { name: "ala", surname: "looo", phone: 888 },
     };
 
     request.sendRequest(requestOptions).then(requestValues => {
+      // console.log("", requestOptions);
+      // console.log("", requestValues);
       if (requestValues?.isLoading === false) {
         loader.removeSpinner();
       }

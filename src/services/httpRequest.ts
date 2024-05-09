@@ -45,13 +45,14 @@ export class HttpRequest {
     const requestOptions: RequestInit = {
       method,
       headers,
-      body: JSON.stringify(body),
     };
 
     if (method !== "GET" && method !== "HEAD") {
       requestOptions.body = JSON.stringify(body);
     }
 
+    console.log("yy", url, requestOptions);
+    
     try {
       const resp = await fetch(url, requestOptions);
       if (!resp.ok) {

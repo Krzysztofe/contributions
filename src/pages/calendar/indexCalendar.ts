@@ -1,10 +1,11 @@
-import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
+import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
 import { TableCreator } from "../../components/tableCreator";
-import { HttpRequest } from "../../services/httpRequest";
-import { URL_MEMBERS } from "../../data/dataUrl";
-import { isUserLoged } from "../../utils/isUserLoged";
 import { currentYear } from "../../data/dataCurrentYear";
+import { URL_MEMBERS } from "../../data/dataUrl";
+import { HttpRequest } from "../../services/httpRequest";
+import { isUserLoged } from "../../utils/isUserLoged";
+import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 
 isUserLoged();
 new LoadigPageCreator();
@@ -332,3 +333,5 @@ const createPage = () => {
 };
 
 window.addEventListener("DOMContentLoaded", createPage);
+
+new AutoLogoutCreator();

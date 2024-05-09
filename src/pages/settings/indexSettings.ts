@@ -4,8 +4,9 @@ import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
 import { TableCreator } from "../../components/tableCreator";
-import { URL_AUTH } from "../../data/dataUrl";
+import { URL_USERS } from "../../data/dataUrl";
 import { isUserLoged } from "../../utils/isUserLoged";
+import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
 
 isUserLoged();
 new LoadigPageCreator();
@@ -31,7 +32,7 @@ memberForm.createFields(
 );
 memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
-memberForm.submitEvent(URL_AUTH);
+memberForm.submitEvent(URL_USERS);
 
 // Table
 
@@ -71,3 +72,5 @@ settingsTable.createTableBody(
 );
 
 new AlertCreator("sectionTable", "tableMembers");
+new AutoLogoutCreator()
+
