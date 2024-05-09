@@ -9,7 +9,7 @@ export class AutoLogoutCreator {
 
   #init() {
     this.#startLogoutTimer();
-    this.#setupActivityListeners();
+    this.#setupListeners();
   }
 
   #logout() {
@@ -45,7 +45,7 @@ export class AutoLogoutCreator {
       "py-20",
       "text-center"
     );
-    let counter = 30;
+    let counter = 60;
     printCounter.innerHTML = `Wylogowanie za </br> ${counter.toString()} s.`;
 
     this.#counterInterval = setInterval(() => {
@@ -65,7 +65,7 @@ export class AutoLogoutCreator {
 
   #startLogoutTimer() {
     this.#logoutTimer = setTimeout(this.#logout, 5 * 60 * 1000 - 1000);
-    this.#logoutAlert = setTimeout(this.#createAlert, 4 * 60 * 1000);
+    this.#logoutAlert = setTimeout(this.#createAlert.bind(this), 4 * 60 * 1000);
   }
 
   #resetLogoutTimer() {
@@ -74,9 +74,8 @@ export class AutoLogoutCreator {
     this.#removeAlert();
     this.#startLogoutTimer();
   }
-  #setupActivityListeners() {
-    const resetLogoutTimerBound = this.#resetLogoutTimer.bind(this);
-    document.addEventListener("mousemove", resetLogoutTimerBound);
-    document.addEventListener("click", resetLogoutTimerBound);
+  #setupListeners() {
+    document.addEventListener("mousemove", this.#resetLogoutTimer.bind(this));
+    document.addEventListener("click", this.#resetLogoutTimer.bind(this));
   }
 }

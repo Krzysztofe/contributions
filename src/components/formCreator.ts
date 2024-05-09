@@ -2,7 +2,7 @@ import { ValidationUniversal } from "../utils/validationUniversal.ts";
 import { HttpRequest } from "../services/httpRequest.ts";
 import { getFormValues } from "../utils/getFormValues.ts";
 import { LoadingButtonCreator } from "./loadings/loadingButtonCreator.ts";
-import { currentYear } from "../data/dataCurrentYear.ts";
+import { ToastCreator } from "./toastCreator.ts";
 
 export class FormCreator {
   #parentEl: HTMLElement | null;
@@ -215,6 +215,8 @@ export class FormCreateMember extends FormCreator {
     super(ElementId);
   }
 
+  createToast() {}
+
   handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
 
@@ -227,7 +229,7 @@ export class FormCreateMember extends FormCreator {
     // Request
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
-    loader.createSpinner();
+    // loader.createSpinner();
     const requestOptions = {
       url,
       method: "POST",
@@ -237,13 +239,15 @@ export class FormCreateMember extends FormCreator {
       body: { name: "ala", surname: "looo", phone: 888 },
     };
 
-    request.sendRequest(requestOptions).then(requestValues => {
-      // console.log("", requestOptions);
-      // console.log("", requestValues);
-      if (requestValues?.isLoading === false) {
-        loader.removeSpinner();
-      }
-    });
+    // request.sendRequest(requestOptions).then(requestValues => {
+    //   // console.log("", requestOptions);
+    //   // console.log("", requestValues);
+    //   if (requestValues?.isLoading === false) {
+    //     loader.removeSpinner();
+    //   }
+    // });
+
+    new ToastCreator("form");
   }
 
   submitEvent(url: string) {

@@ -7,6 +7,7 @@ import { TableCreator } from "../../components/tableCreator";
 import { URL_USERS } from "../../data/dataUrl";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
+import { ToastCreator } from "../../components/toastCreator";
 
 isUserLoged();
 new LoadigPageCreator();
@@ -23,6 +24,7 @@ memberForm.createForm("memberForm", [
   "items-center",
   "md:flex-row",
   "md:justify-center",
+  "relative"
 ]);
 
 memberForm.createFields(
