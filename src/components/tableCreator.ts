@@ -6,6 +6,13 @@ export class TableCreator {
     this.parentEl = document.getElementById(element);
   }
 
+  noDataContainer() {
+    const containerEl = document.createElement("div");
+    containerEl.innerText = "Brak zapisanych danych";
+    containerEl.classList.add("text-center", "text-red-500");
+    this.parentEl?.append(containerEl);
+  }
+
   createTable(styles: string[] = []) {
     const tableEl = document.createElement("table");
     tableEl.classList.add("table", "table-xs", "bg-primary_dark", ...styles);

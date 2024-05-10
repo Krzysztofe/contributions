@@ -201,6 +201,7 @@ export class FormLogin extends FormCreator {
         btnLoader.removeSpinner();
       }
     });
+    this.formEl?.reset();
   }
 
   submitEvent(url: string) {
@@ -215,8 +216,6 @@ export class FormCreateMember extends FormCreator {
     super(ElementId);
   }
 
-  createToast() {}
-
   handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
 
@@ -225,8 +224,10 @@ export class FormCreateMember extends FormCreator {
     const uni = new ValidationUniversal(elements);
     uni.validation();
     if (uni.errors.length > 0) return;
+    console.log("", getFormValues(e));
 
-    // Request
+    // Request;
+
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
     // loader.createSpinner();
@@ -236,18 +237,33 @@ export class FormCreateMember extends FormCreator {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: { name: "ala", surname: "looo", phone: 888 },
+      body: {
+        firstname: getFormValues(e).name,
+        lastname: getFormValues(e).surname,
+        phone: getFormValues(e).phone,
+        join_date: "2007-09-98",
+      },
     };
 
-    // request.sendRequest(requestOptions).then(requestValues => {
-    //   // console.log("", requestOptions);
-    //   // console.log("", requestValues);
-    //   if (requestValues?.isLoading === false) {
-    //     loader.removeSpinner();
-    //   }
-    // });
+    request.sendRequest(requestOptions).then(requestValues => {
+      if (requestValues?.isLoading === false) {
+        loader.removeSpinner();
+        new ToastCreator("form");
+      }
+    });
 
-    new ToastCreator("form");
+    const uu = {
+      url,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+
+    request.sendRequest(uu).then(requestValues => {
+      // console.log("eee", requestValues?.fetchedData);
+    });
+
+    //  this.formEl?.reset();
   }
 
   submitEvent(url: string) {

@@ -51,15 +51,19 @@ export class HttpRequest {
       requestOptions.body = JSON.stringify(body);
     }
 
-    console.log("yy", url, requestOptions);
-    
+    // console.log("yy", url, requestOptions);
+
     try {
       const resp = await fetch(url, requestOptions);
       if (!resp.ok) {
         throw Error("Błąd. Ponów próbę");
       } else {
         this.isLoading = false;
-        const data = await resp.text();
+
+        const data = body?.login ? await resp.text() : await resp.json();
+
+        // console.log('',data)
+        // const data = await resp.json();
         return { isLoading: this.isLoading, fetchedData: data };
       }
     } catch (err: any) {

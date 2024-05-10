@@ -4,10 +4,10 @@ import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
 import { TableCreator } from "../../components/tableCreator";
-import { URL_USERS } from "../../data/dataUrl";
+import { URL_MEMBERS } from "../../data/dataUrl";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
-import { ToastCreator } from "../../components/toastCreator";
+import { HttpRequest } from "../../services/httpRequest";
 
 isUserLoged();
 new LoadigPageCreator();
@@ -24,7 +24,7 @@ memberForm.createForm("memberForm", [
   "items-center",
   "md:flex-row",
   "md:justify-center",
-  "relative"
+  "relative",
 ]);
 
 memberForm.createFields(
@@ -34,45 +34,56 @@ memberForm.createFields(
 );
 memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 
-memberForm.submitEvent(URL_USERS);
+memberForm.submitEvent(URL_MEMBERS);
 
 // Table
 
 const settingsTable = new TableCreator("sectionTable");
-settingsTable.createTable(["max-w-[1000px]"]);
-settingsTable.createTableHead(["", "Imię i Nazwisko", "Telefon", ""]);
-settingsTable.createTableBody(
-  [
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Jan Gdula", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-    { name: "Adam kowalski", phone: "777-999-888" },
-  ],
-  ["fa-trash"]
-);
+// settingsTable.createTable(["max-w-[1000px]"]);
+// settingsTable.createTableHead(["", "Imię i Nazwisko", "Telefon", ""]);
+const uu = {
+  url: URL_MEMBERS,
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+  },
+};
+const request = new HttpRequest();
+
+request.sendRequest(uu).then(requestMembers => {
+  const dataInTable = requestMembers?.fetchedData.map(
+    ({ fullname, phone }: any) => {
+      return { fullname, phone };
+    }
+  );
+
+  if (!dataInTable || dataInTable.length === 0) {
+    settingsTable.noDataContainer();
+  } else {
+    settingsTable.createTable(["max-w-[1000px]"]);
+    settingsTable.createTableHead([
+      `${dataInTable.length}`,
+      "Imię i Nazwisko",
+      "Telefon",
+      "",
+    ]);
+    settingsTable.createTableBody(dataInTable, ["fa-trash"]);
+  }
+});
 
 new AlertCreator("sectionTable", "tableMembers");
-new AutoLogoutCreator()
+new AutoLogoutCreator();
 
+// function addDashes(str: string) {
+//   const chunks = [];
+//   for (let i = 0; i < str.length; i += 3) {
+//     chunks.push(str.substring(i, i + 3));
+//   }
+//   if (chunks.length > 1 && chunks[chunks.length - 1].length < 3) {
+//     chunks[chunks.length - 2] += chunks.pop();
+//   }
+//   return chunks.join("-");
+// }
+
+// const result = addDashes("99999999");
+
+// console.log("", result);
