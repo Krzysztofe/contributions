@@ -1,5 +1,5 @@
-import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
-import { FormCreateMember } from "../../components/formCreator";
+import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
+import { FormCreateMember } from "../../components/formsCreators/formMemberCreator";
 import { dataMemberFields } from "./dataMemberFields";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { AlertCreator } from "../../components/alertCreator";
@@ -50,6 +50,8 @@ const uu = {
 const request = new HttpRequest();
 
 request.sendRequest(uu).then(requestMembers => {
+  console.log("", requestMembers?.fetchedData);
+
   const dataInTable = requestMembers?.fetchedData.map(
     ({ fullname, phone }: any) => {
       return { fullname, phone };
@@ -67,10 +69,10 @@ request.sendRequest(uu).then(requestMembers => {
       "",
     ]);
     settingsTable.createTableBody(dataInTable, ["fa-trash"]);
+    new AlertCreator("sectionTable", "tableMembers");
   }
 });
 
-new AlertCreator("sectionTable", "tableMembers");
 new AutoLogoutCreator();
 
 // function addDashes(str: string) {

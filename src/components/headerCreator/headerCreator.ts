@@ -1,7 +1,7 @@
 import { headerHeight } from "../../data/dataNumbers";
 import { ListCreator } from "../listCreator";
 import { dataSearchFields } from "../../pages/settings/dataSearchFields";
-import { FormCreator } from "../formCreator";
+import { FormCreator } from "../formsCreators/formCreator";
 import { dataNavList } from "./dataNavList";
 
 const headerForm = new FormCreator("header");

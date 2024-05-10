@@ -1,7 +1,7 @@
 import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
-import { LoadigPageCreator } from "../../components/loadings/loadingPageCreator";
-import { FormLogin } from "../../components/formCreator";
+import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
+import { FormLogin } from "../../components/formsCreators/formLoginCreator";
 import { URL_AUTH } from "../../data/dataUrl";
 
 new LoadigPageCreator();
@@ -22,7 +22,6 @@ loginForm.createFields(dataLoginFields);
 
 loginForm.createBtn("Zaloguj się", ["text-center", "w-full", "py-1", "m-auto"]);
 
-loginForm.createLoginErrorMsg()
-
+loginForm.createLoginErrorMsg();
 
 loginForm.submitEvent(URL_AUTH);

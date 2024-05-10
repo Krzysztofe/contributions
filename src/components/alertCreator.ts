@@ -1,3 +1,6 @@
+import { HttpRequest } from "../services/httpRequest";
+import { URL_MEMBERS } from "../data/dataUrl";
+
 export class AlertCreator {
   parentEl: HTMLElement | null;
   clickedContainer: HTMLElement | null;
@@ -53,6 +56,29 @@ export class AlertCreator {
     }
   }
   deleteMember() {
+    const request = new HttpRequest();
+
+    const requestOptions = {
+      url: `${URL_MEMBERS}1`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      // body: JSON.stringify({
+      //   id: "1",
+
+      //   type: "delete",
+      // }),
+    };
+
+    request.sendRequest(requestOptions).then(requestValues => {
+      console.log("", requestValues);
+      // if (requestValues?.isLoading === false) {
+      //   loader.removeSpinner();
+      //   new ToastCreator("form");
+      // }
+    });
+
     this.rowId && document.getElementById(this.rowId)?.remove();
   }
 }
