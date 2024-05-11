@@ -1,6 +1,7 @@
 export class LoadingButtonCreator {
   #parentEl: HTMLButtonElement | null;
   #spinner: HTMLElement | null = null;
+
   constructor(elementId: string) {
     this.#parentEl = document.getElementById(elementId) as HTMLButtonElement;
   }
@@ -13,7 +14,6 @@ export class LoadingButtonCreator {
       "loading-xs",
       "text-grey_primary",
       "absolute",
-      "text-accent"
     );
 
     if (this.#parentEl) {

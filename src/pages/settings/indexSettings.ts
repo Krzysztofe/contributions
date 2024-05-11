@@ -8,12 +8,13 @@ import { URL_MEMBERS } from "../../data/dataUrl";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
 import { HttpRequest } from "../../services/httpRequest";
+import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
 
 isUserLoged();
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 
-const memberForm = new FormCreateMember("mainSettings");
+const memberForm = new FormCreateMember("sectionMemberForm");
 
 memberForm.createForm("memberForm", [
   "mt-4",
@@ -48,13 +49,11 @@ const GETMembersOptions = {
 const request = new HttpRequest();
 
 request.sendRequest(GETMembersOptions).then(requestMembers => {
-
   const dataInTable = requestMembers?.fetchedData.map(
     ({ fullname, phone, id }: any) => {
-
       // console.log('',id)
 
-      return {id, fullname, phone };
+      return { id, fullname, phone };
     }
   );
 
@@ -71,22 +70,16 @@ request.sendRequest(GETMembersOptions).then(requestMembers => {
       "",
     ]);
 
-
-
     settingsTable.createTableBody(dataInTable, ["fa-trash"]);
     new AlertCreator("sectionTable", "tableMembers");
+    // const tableEl = document.querySelector("table");
+    // tableEl?.classList.add("mr-2");
   }
 });
 
+//  console.log('',tableEl)
+
 new AutoLogoutCreator();
-
-
-
-
-
-
-
-
 
 // function addDashes(str: string) {
 //   const chunks = [];

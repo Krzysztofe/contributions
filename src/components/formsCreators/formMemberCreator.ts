@@ -20,13 +20,12 @@ export class FormCreateMember extends FormCreator {
     const uni = new ValidationUniversal(elements);
     uni.validation();
     if (uni.errors.length > 0) return;
-    console.log("", getFormValues(e));
 
     // POST Member Request;
 
     const request = new HttpRequest();
     const loader = new LoadingButtonCreator("btnSubmit");
-    // loader.createSpinner();
+    loader.createSpinner();
     const POSTMemberOptions = {
       url,
       method: "POST",

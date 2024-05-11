@@ -15,7 +15,7 @@ export class TableCreator {
 
   createTable(styles: string[] = []) {
     const tableEl = document.createElement("table");
-    tableEl.classList.add("table", "table-xs", "bg-primary_dark", ...styles);
+    tableEl.classList.add("table", "table-xs", "bg-primary_dark","relative", ...styles);
     tableEl.id = "tableMembers";
     this.parentEl?.append(tableEl);
     this.tebleEl = tableEl;

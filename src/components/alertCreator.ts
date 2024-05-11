@@ -1,7 +1,6 @@
 import { HttpRequest } from "../services/httpRequest";
 import { URL_MEMBERS } from "../data/dataUrl";
-
-
+import { LoadingTableCreator } from "./loadingsCreators/loadingTableCreator";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
@@ -60,7 +59,12 @@ export class AlertCreator {
     }
   }
   deleteMember() {
+    const loader = new LoadingTableCreator("#sectionTable");
+    loader.createLoadigContainer();
     const request = new HttpRequest();
+
+    // const tableEl = document.querySelector("table")
+    // tableEl?.classList.add("pr-8")
 
     const requestOptions = {
       url: URL_MEMBERS,
@@ -71,10 +75,11 @@ export class AlertCreator {
       body: { id: this.dataItemId },
     };
 
-    console.log("", URL_MEMBERS);
+  
 
     request.sendRequest(requestOptions).then(requestValues => {
-      console.log("", requestValues?.fetchedData);
+      // console.log("", requestValues?.fetchedData);
+      loader.removeLoadingContainer()
       this.rowId && document.getElementById(this.rowId)?.remove();
 
       // this.rowId &&
