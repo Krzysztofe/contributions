@@ -1,6 +1,10 @@
 import { HttpRequest } from "../services/httpRequest";
 import { URL_MEMBERS } from "../data/dataUrl";
 import { LoadingTableCreator } from "./loadingsCreators/loadingTableCreator";
+import { TableCreator } from "./table/tableCreator";
+// import { TableMembersManager } from "./table/tableMembersManager";
+
+import { UpdateTableMembers } from "./table/tableMembersManager";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
@@ -9,10 +13,14 @@ export class AlertCreator {
   rowId: string | null = null;
   dataItemId: string | null = null;
   modalEl: HTMLDialogElement | null = null;
+  request: any;
+  loader: any;
 
   constructor(elem: string, clickableEl: string) {
     this.parentEl = document.getElementById(elem);
     this.clickedContainer = document.getElementById(clickableEl) as HTMLElement;
+    this.request = new HttpRequest();
+    this.loader = new LoadingTableCreator("main");
     this.init();
   }
 
@@ -59,14 +67,9 @@ export class AlertCreator {
     }
   }
   deleteMember() {
-    const loader = new LoadingTableCreator("#sectionTable");
-    loader.createLoadigContainer();
-    const request = new HttpRequest();
+    this.loader.createLoadigContainer();
 
-    // const tableEl = document.querySelector("table")
-    // tableEl?.classList.add("pr-8")
-
-    const requestOptions = {
+    const DELETEMemberOptions = {
       url: URL_MEMBERS,
       method: "DELETE",
       headers: {
@@ -75,21 +78,14 @@ export class AlertCreator {
       body: { id: this.dataItemId },
     };
 
-  
-
-    request.sendRequest(requestOptions).then(requestValues => {
-      // console.log("", requestValues?.fetchedData);
-      loader.removeLoadingContainer()
-      this.rowId && document.getElementById(this.rowId)?.remove();
-
-      // this.rowId &&
-      //   document.getElementById(requestValues?.fetchedData)?.remove();
-      // if (requestValues?.isLoading === false) {
-      //   loader.removeSpinner();
-      //   new ToastCreator("form");
-      // }
+    this.request.sendRequest(DELETEMemberOptions).then(() => {
+      this.getMembers();
     });
+  }
 
-    // this.rowId && document.getElementById(this.rowId)?.remove();
+  getMembers() {
+    const update = new UpdateTableMembers();
+    update.performFunctionality();
+    this.loader.removeLoadingContainer();
   }
 }

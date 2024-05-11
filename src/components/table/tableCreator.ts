@@ -1,21 +1,37 @@
 export class TableCreator {
   parentEl: HTMLElement | null;
   tebleEl: HTMLTableElement | null = null;
+  td: NodeListOf<HTMLTableCellElement> | null = null;
+  cellsData: any = null
 
   constructor(element: string) {
     this.parentEl = document.getElementById(element);
+    // this.td = document.querySelectorAll("td");
+    // this.noDataContainer();
   }
 
   noDataContainer() {
+    // const tdElms = document.querySelectorAll("td");
+
     const containerEl = document.createElement("div");
     containerEl.innerText = "Brak zapisanych danych";
     containerEl.classList.add("text-center", "text-red-500");
+
+    // if(this.cellsData.length)
     this.parentEl?.append(containerEl);
+
+    // console.log("", this.cellsData);
   }
 
   createTable(styles: string[] = []) {
     const tableEl = document.createElement("table");
-    tableEl.classList.add("table", "table-xs", "bg-primary_dark","relative", ...styles);
+    tableEl.classList.add(
+      "table",
+      "table-xs",
+      "bg-primary_dark",
+      "relative",
+      ...styles
+    );
     tableEl.id = "tableMembers";
     this.parentEl?.append(tableEl);
     this.tebleEl = tableEl;
@@ -80,6 +96,10 @@ export class TableCreator {
       th.append(internalDiv);
       tableRowEl.append(th);
     });
+    // const tdElms = document.querySelectorAll("td");
+    // if (tdElms.length > 0) {
+    //   this.tebleEl?.append(tableHeadEl);
+    // }
 
     this.tebleEl?.append(tableHeadEl);
   }
@@ -107,6 +127,12 @@ export class TableCreator {
   }
 
   createTableBody(cellsData: any, icons: string[] = []) {
+    // console.log("body");
+
+    this.cellsData = cellsData
+
+    // console.log('',this.cellsData)
+
     // tbody
     const tableBodyEl = document.createElement("tbody");
     tableBodyEl.classList.add("bg-white");
@@ -129,8 +155,8 @@ export class TableCreator {
       // td - others
 
       const memberId = cellData.id;
-      const printCells = {...cellData}
-      delete printCells.id
+      const printCells = { ...cellData };
+      delete printCells.id;
 
       Object.values(printCells).forEach((value: any, idx) => {
         const stylesTdName =
@@ -144,14 +170,16 @@ export class TableCreator {
                 "after:top-0",
                 "after:left-[100%]",
                 "after:w-[1px]",
-                "after:h-[40px]",
+                "after:h-[41px]",
+                "lg:after:h-[25px]",
                 "after:bg-primary_dark",
                 "before:content-['']",
                 "before:absolute",
                 "before:top-0",
                 "before:right-[100%]",
                 "before:w-[1px]",
-                "before:h-[40px]",
+                "before:h-[41px]",
+                "lg:before:h-[25px]",
                 "before:bg-primary_dark",
               ]
             : [];
@@ -191,6 +219,16 @@ export class TableCreator {
         tableRowEl.append(btnsContainer);
       }
     });
+
+    // const tdElms = document.querySelectorAll("td");
+
+    // if (tdElms.length > 0) {
+    //   this.tebleEl?.append(tableBodyEl);
+    // }
+    // const tableEl = document.querySelector("table");
+
+    // console.log("", tableEl);
+
     this.tebleEl?.append(tableBodyEl);
   }
 }

@@ -4,8 +4,9 @@ import { ValidationUniversal } from "../../utils/validationUniversal";
 import { HttpRequest } from "../../services/httpRequest";
 import { LoadingButtonCreator } from "../loadingsCreators/loadingButtonCreator";
 import { ToastCreator } from "../toastCreator";
-import { TableCreator } from "../tableCreator";
-import { AlertCreator } from "../alertCreator";
+import { UpdateTableMembers } from "../table/tableMembersManager";
+// // import { PrintTableMembers } from "../table/tableMembersManager";
+// UpdateTableMembers
 
 export class FormCreateMember extends FormCreator {
   constructor(ElementId: string) {
@@ -40,7 +41,6 @@ export class FormCreateMember extends FormCreator {
     };
 
     request.sendRequest(POSTMemberOptions).then(requestValues => {
-
       if (requestValues?.isLoading === false) {
         loader.removeSpinner();
         new ToastCreator("form");
@@ -49,41 +49,43 @@ export class FormCreateMember extends FormCreator {
 
     // GET Members Request
 
-    const GETMembersOptions = {
-      url,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    };
+    // const tableMembers = new UpdateTableMembers();
+    // tableMembers.performFunctionality();
 
-    request.sendRequest(GETMembersOptions).then(requestMembers => {
+    // const GETMembersOptions = {
+    //   url,
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    //   },
+    // };
 
-console.log("", requestMembers?.fetchedData);
+    // request.sendRequest(GETMembersOptions).then(requestMembers => {
+    //   console.log("", requestMembers?.fetchedData);
 
-      // const settingsTable = new TableCreator("sectionTable");
-      // const dataInTable = requestMembers?.fetchedData.map(
-      //   ({ fullname, phone, id }: any) => {
-      //     return { fullname, phone, id };
-      //   }
-      // );
+    // const settingsTable = new TableCreator("sectionTable");
+    // const dataInTable = requestMembers?.fetchedData.map(
+    //   ({ fullname, phone, id }: any) => {
+    //     return { fullname, phone, id };
+    //   }
+    // );
 
-      // if (!dataInTable || dataInTable.length === 0) {
-      //   settingsTable.noDataContainer();
-      // } else {
-      //   settingsTable.createTable(["max-w-[1000px]"]);
-      //   settingsTable.createTableHead([
-      //     `${dataInTable.length}`,
-      //     "Imię i Nazwisko",
-      //     "Telefon",
-      //     "",
-      //   ]);
+    // if (!dataInTable || dataInTable.length === 0) {
+    //   settingsTable.noDataContainer();
+    // } else {
+    //   settingsTable.createTable(["max-w-[1000px]"]);
+    //   settingsTable.createTableHead([
+    //     `${dataInTable.length}`,
+    //     "Imię i Nazwisko",
+    //     "Telefon",
+    //     "",
+    //   ]);
 
-      //   settingsTable.createTableBody(dataInTable, ["fa-trash"]);
-      //   new AlertCreator("sectionTable", "tableMembers");
-      // }
+    //   settingsTable.createTableBody(dataInTable, ["fa-trash"]);
+    //   new AlertCreator("sectionTable", "tableMembers");
+    // }
 
-      // console.log("eee", requestValues?.fetchedData);
-    });
+    // console.log("eee", requestValues?.fetchedData);
+    // });
 
     //  this.formEl?.reset();
   }

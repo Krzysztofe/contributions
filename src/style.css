@@ -41,11 +41,12 @@ body::-webkit-scrollbar {
 } */
 
 .h_sectionTable {
-  height: calc(100vh - var(--headerHeight) - var(--padingY));
+  max-height: calc(100vh - var(--headerHeight) - var(--padingY));
+  height: fit-content;
 }
 
 .h_main {
-  height: calc(100vh - var(--headerHeight));
+  min-height: calc(100vh - var(--headerHeight));
 }
 
 /* Toast animation */

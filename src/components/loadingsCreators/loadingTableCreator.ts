@@ -4,6 +4,7 @@ export class LoadingTableCreator {
 
   constructor(parentEL: string) {
     this.#parentEl = document.querySelector(parentEL);
+    this.#createSpinner();
   }
 
   #createSpinner() {
@@ -26,7 +27,7 @@ export class LoadingTableCreator {
       "h-full",
       "w-full",
       "bg-white_opacity",
-      "absolute",
+      "fixed",
       "top-0",
       "left-0",
       "z-50"
@@ -34,15 +35,9 @@ export class LoadingTableCreator {
     this.#loadingContainer = container;
     this.#createSpinner();
     this.#parentEl?.append(container);
-    this.#parentEl?.classList.add(
-      "overflow-y-hidden",
-      "overflov-hidden",
-      "pr-2"
-    );
   }
 
   removeLoadingContainer() {
     this.#loadingContainer?.remove();
-    this.#parentEl?.classList.remove("overflow-y-hidden", "pr-2");
   }
 }

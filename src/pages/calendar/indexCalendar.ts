@@ -1,20 +1,20 @@
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { TableCreator } from "../../components/tableCreator";
-import { currentYear } from "../../data/dataCurrentYear";
-import { URL_MEMBERS } from "../../data/dataUrl";
-import { HttpRequest } from "../../services/httpRequest";
+import { TableCreator } from "../../components/table/tableCreator";
+// import { currentYear } from "../../data/dataCurrentYear";
+// import { URL_MEMBERS } from "../../data/dataUrl";
+// import { HttpRequest } from "../../services/httpRequest";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 
-const requestOptions = {
-  url: URL_MEMBERS,
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-  },
-  body: { year: currentYear },
-};
+// const requestOptions = {
+//   url: URL_MEMBERS,
+//   method: "POST",
+//   headers: {
+//     Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+//   },
+//   body: { year: currentYear },
+// };
 
 isUserLoged();
 new LoadigPageCreator();
