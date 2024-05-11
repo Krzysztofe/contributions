@@ -2,7 +2,7 @@ import { DataFieldCreator } from "../../components/dataFieldCreator";
 
 export const dataMemberFields = [
   DataFieldCreator.createDataField(
-    "name",
+    "firstname",
     "",
     true,
     "^(?:\\p{L}\\s*){3,}$",
@@ -11,7 +11,7 @@ export const dataMemberFields = [
     "Imię min. 3 litery"
   ),
   DataFieldCreator.createDataField(
-    "surname",
+    "lastname",
     "",
     true,
     "^(?:\\p{L}\\s*){3,}$",

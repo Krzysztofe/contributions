@@ -51,8 +51,6 @@ export class HttpRequest {
       requestOptions.body = JSON.stringify(body);
     }
 
-    console.log("yy", url, requestOptions);
-
     try {
       const resp = await fetch(url, requestOptions);
       if (!resp.ok) {
@@ -60,10 +58,22 @@ export class HttpRequest {
       } else {
         this.isLoading = false;
 
-        const data = body?.login ? await resp.text() : await resp.json();
+        let data;
+        if (body?.login) {
+          data = await resp.text();
+        } else if (method === "DELETE") {
+          data = body.id;
+        } else {
+          data = await resp.json();
+        }
 
-        // console.log('',data)
-        // const data = await resp.json();
+        //  let data;
+        //  if (body?.login) {
+        //    data = await resp.text();
+        //  } else  {
+        //    data = await resp.json();
+        //  }
+
         return { isLoading: this.isLoading, fetchedData: data };
       }
     } catch (err: any) {
@@ -71,3 +81,23 @@ export class HttpRequest {
     }
   }
 }
+
+// function removeClients(event) {
+//         if (event.target.className === "remove") {
+//             let id = event.target.getAttribute("data-remove");
+//             const response = fetch('https://kkrol.host83.nstrefa.pl/nowe/auth/client/', {
+//                 method: "delete",
+//                 headers: {
+//                     'Authorization': Bearer ${localStorage.getItem("jwt")}
+//                 },
+//                 body: JSON.stringify({
+//                     id: id
+//                 })
+//             }).then(res => {
+//                 if(res){
+//                     console.log(res);
+//                     //window.location.reload();
+//                 }
+//             })
+//         }
+//     }

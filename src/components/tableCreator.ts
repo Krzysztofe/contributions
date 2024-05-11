@@ -128,7 +128,11 @@ export class TableCreator {
 
       // td - others
 
-      Object.values(cellData).forEach((value: any, idx) => {
+      const memberId = cellData.id;
+      const printCells = {...cellData}
+      delete printCells.id
+
+      Object.values(printCells).forEach((value: any, idx) => {
         const stylesTdName =
           idx === 0
             ? [
@@ -179,7 +183,7 @@ export class TableCreator {
         );
         icons.forEach(icon => {
           const btnIcon = document.createElement("button");
-          btnIcon.id = Math.random().toString();
+          btnIcon.id = memberId;
           btnIcon.setAttribute("data-row-id", tableRowId);
           btnIcon.classList.add("fa", icon);
           btnsContainer.append(btnIcon);

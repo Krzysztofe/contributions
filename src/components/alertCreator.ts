@@ -1,11 +1,14 @@
 import { HttpRequest } from "../services/httpRequest";
 import { URL_MEMBERS } from "../data/dataUrl";
 
+
+
 export class AlertCreator {
   parentEl: HTMLElement | null;
   clickedContainer: HTMLElement | null;
   btnDelete: HTMLButtonElement | null = null;
   rowId: string | null = null;
+  dataItemId: string | null = null;
   modalEl: HTMLDialogElement | null = null;
 
   constructor(elem: string, clickableEl: string) {
@@ -47,6 +50,7 @@ export class AlertCreator {
   printAlert(e: MouseEvent) {
     const btnTarget = e.target as HTMLButtonElement;
     this.rowId = btnTarget.getAttribute("data-row-id");
+    this.dataItemId = btnTarget.id;
 
     if (this.rowId) {
       const memberName = document.getElementById(this.rowId)?.children[1]
@@ -59,26 +63,28 @@ export class AlertCreator {
     const request = new HttpRequest();
 
     const requestOptions = {
-      url: `${URL_MEMBERS}1`,
-      method: "GET",
+      url: URL_MEMBERS,
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      // body: JSON.stringify({
-      //   id: "1",
-
-      //   type: "delete",
-      // }),
+      body: { id: this.dataItemId },
     };
 
+    console.log("", URL_MEMBERS);
+
     request.sendRequest(requestOptions).then(requestValues => {
-      console.log("", requestValues);
+      console.log("", requestValues?.fetchedData);
+      this.rowId && document.getElementById(this.rowId)?.remove();
+
+      // this.rowId &&
+      //   document.getElementById(requestValues?.fetchedData)?.remove();
       // if (requestValues?.isLoading === false) {
       //   loader.removeSpinner();
       //   new ToastCreator("form");
       // }
     });
 
-    this.rowId && document.getElementById(this.rowId)?.remove();
+    // this.rowId && document.getElementById(this.rowId)?.remove();
   }
 }

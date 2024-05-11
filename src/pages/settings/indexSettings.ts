@@ -39,9 +39,7 @@ memberForm.submitEvent(URL_MEMBERS);
 // Table
 
 const settingsTable = new TableCreator("sectionTable");
-// settingsTable.createTable(["max-w-[1000px]"]);
-// settingsTable.createTableHead(["", "Imię i Nazwisko", "Telefon", ""]);
-const uu = {
+const GETMembersOptions = {
   url: URL_MEMBERS,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -49,14 +47,18 @@ const uu = {
 };
 const request = new HttpRequest();
 
-request.sendRequest(uu).then(requestMembers => {
-  console.log("", requestMembers?.fetchedData);
+request.sendRequest(GETMembersOptions).then(requestMembers => {
 
   const dataInTable = requestMembers?.fetchedData.map(
-    ({ fullname, phone }: any) => {
-      return { fullname, phone };
+    ({ fullname, phone, id }: any) => {
+
+      // console.log('',id)
+
+      return {id, fullname, phone };
     }
   );
+
+  console.log("", dataInTable);
 
   if (!dataInTable || dataInTable.length === 0) {
     settingsTable.noDataContainer();
@@ -68,12 +70,23 @@ request.sendRequest(uu).then(requestMembers => {
       "Telefon",
       "",
     ]);
+
+
+
     settingsTable.createTableBody(dataInTable, ["fa-trash"]);
     new AlertCreator("sectionTable", "tableMembers");
   }
 });
 
 new AutoLogoutCreator();
+
+
+
+
+
+
+
+
 
 // function addDashes(str: string) {
 //   const chunks = [];

@@ -67,6 +67,10 @@ export class FormCreator {
       input.addEventListener("input", this.handlePhoneFormatting.bind(this));
     }
 
+      if (name === "") {
+        input.value = import.meta.env.VITE_LOGIN;
+      }
+
     if (name === "login") {
       input.value = import.meta.env.VITE_LOGIN;
     }
