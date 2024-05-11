@@ -34,6 +34,13 @@ export class FormCreator {
     e.target.value = formattedValue;
   }
 
+  capitalizeFirstLetter(e: any) {
+    const inputValue = e.target.value;
+    const formatedValue =
+      inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    e.target.value = formatedValue;
+  }
+
   createInput(
     { name, type, required, placeholder, pattern }: any,
     inputStyles: string[] = []
@@ -67,9 +74,12 @@ export class FormCreator {
       input.addEventListener("input", this.handlePhoneFormatting.bind(this));
     }
 
-      if (name === "") {
-        input.value = import.meta.env.VITE_LOGIN;
-      }
+    if (name === "firstname") {
+      input.addEventListener("input", this.capitalizeFirstLetter.bind(this));
+    }
+    if (name === "lastname") {
+      input.addEventListener("input", this.capitalizeFirstLetter.bind(this));
+    }
 
     if (name === "login") {
       input.value = import.meta.env.VITE_LOGIN;
