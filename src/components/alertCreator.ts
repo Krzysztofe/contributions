@@ -1,10 +1,7 @@
-import { HttpRequest } from "../services/httpRequest";
 import { URL_MEMBERS } from "../data/dataUrl";
+import { HttpRequest } from "../services/httpRequest";
 import { LoadingTableCreator } from "./loadingsCreators/loadingTableCreator";
-// import { TableCreator } from "./table/tableCreator";
-// import { TableMembersManager } from "./table/tableMembersManager";
-
-import { UpdateTableMembers } from "./table/tableMembersManager";
+import { TableMembersManager } from "./table/tableMembersManager";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
@@ -15,12 +12,14 @@ export class AlertCreator {
   modalEl: HTMLDialogElement | null = null;
   request: any;
   loader: any;
+  dataToPrint: any[];
 
-  constructor(elem: string, clickableEl: string) {
+  constructor(elem: string, clickableEl: string, dataToPrint: any[]) {
     this.parentEl = document.getElementById(elem);
     this.clickedContainer = document.getElementById(clickableEl) as HTMLElement;
     this.request = new HttpRequest();
     this.loader = new LoadingTableCreator("main");
+    this.dataToPrint = dataToPrint;
     this.init();
   }
 
@@ -79,13 +78,14 @@ export class AlertCreator {
     };
 
     this.request.sendRequest(DELETEMemberOptions).then(() => {
-      this.getMembers();
-    });
-  }
+      const updatedData = this.dataToPrint.filter(({ id }) => {
+        return id !== this.dataItemId;
+      });
 
-  getMembers() {
-    const update = new UpdateTableMembers();
-    update.performFunctionality();
-    this.loader.removeLoadingContainer();
+      const tableEl = document.querySelector("table");
+      tableEl?.remove();
+      new TableMembersManager(updatedData);
+      this.loader.removeLoadingContainer();
+    });
   }
 }

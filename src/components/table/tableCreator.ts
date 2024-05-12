@@ -1,26 +1,19 @@
 export class TableCreator {
   parentEl: HTMLElement | null;
-  tebleEl: HTMLTableElement | null = null;
+  tableEl: HTMLTableElement | null = null;
   td: NodeListOf<HTMLTableCellElement> | null = null;
-  cellsData: any = null
+  cellsData: any = null;
 
   constructor(element: string) {
     this.parentEl = document.getElementById(element);
-    // this.td = document.querySelectorAll("td");
-    // this.noDataContainer();
   }
 
   noDataContainer() {
-    // const tdElms = document.querySelectorAll("td");
-
     const containerEl = document.createElement("div");
+    containerEl.id = "noDataContainer";
     containerEl.innerText = "Brak zapisanych danych";
     containerEl.classList.add("text-center", "text-red-500");
-
-    // if(this.cellsData.length)
     this.parentEl?.append(containerEl);
-
-    // console.log("", this.cellsData);
   }
 
   createTable(styles: string[] = []) {
@@ -34,7 +27,7 @@ export class TableCreator {
     );
     tableEl.id = "tableMembers";
     this.parentEl?.append(tableEl);
-    this.tebleEl = tableEl;
+    this.tableEl = tableEl;
   }
 
   createTableHead(headers: any[]) {
@@ -98,10 +91,10 @@ export class TableCreator {
     });
     // const tdElms = document.querySelectorAll("td");
     // if (tdElms.length > 0) {
-    //   this.tebleEl?.append(tableHeadEl);
+    //   this.tableEl?.append(tableHeadEl);
     // }
 
-    this.tebleEl?.append(tableHeadEl);
+    this.tableEl?.append(tableHeadEl);
   }
 
   createSelect() {
@@ -129,7 +122,7 @@ export class TableCreator {
   createTableBody(cellsData: any, icons: string[] = []) {
     // console.log("body");
 
-    this.cellsData = cellsData
+    this.cellsData = cellsData;
 
     // console.log('',this.cellsData)
 
@@ -220,15 +213,6 @@ export class TableCreator {
       }
     });
 
-    // const tdElms = document.querySelectorAll("td");
-
-    // if (tdElms.length > 0) {
-    //   this.tebleEl?.append(tableBodyEl);
-    // }
-    // const tableEl = document.querySelector("table");
-
-    // console.log("", tableEl);
-
-    this.tebleEl?.append(tableBodyEl);
+    this.tableEl?.append(tableBodyEl);
   }
 }

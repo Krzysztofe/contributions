@@ -1,4 +1,4 @@
-export class LoadingTableCreator {
+export class LoadingX {
   #parentEl: HTMLElement | null;
   #loadingContainer: HTMLElement | null = null;
 
@@ -26,25 +26,15 @@ export class LoadingTableCreator {
       "place-content-center",
       "h-full",
       "w-full",
-      "p-8",
       "bg-white_opacity",
-      "fixed",
+      "absolute",
       "top-0",
       "left-0",
       "z-50"
     );
-
- 
-
     this.#loadingContainer = container;
     this.#createSpinner();
-    this.#parentEl?.append(container);  
-    
-    // const divx = document.querySelector("div");
-    // divx && (divx.innerText = "ooooooooo");
-    // divx?.classList.add("h-100", "w-100", "bg-red-500");
-
-    // divx && this.#loadingContainer?.append(divx);
+    this.#parentEl?.prepend(container);
   }
 
   removeLoadingContainer() {

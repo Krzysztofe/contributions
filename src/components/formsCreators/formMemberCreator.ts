@@ -1,12 +1,13 @@
-import { FormCreator } from "./formCreator";
+import { HttpRequest } from "../../services/httpRequest";
 import { getFormValues } from "../../utils/getFormValues";
 import { ValidationUniversal } from "../../utils/validationUniversal";
-import { HttpRequest } from "../../services/httpRequest";
 import { LoadingButtonCreator } from "../loadingsCreators/loadingButtonCreator";
 import { ToastCreator } from "../toastCreator";
-// import { UpdateTableMembers } from "../table/tableMembersManager";
-// // import { PrintTableMembers } from "../table/tableMembersManager";
-// UpdateTableMembers
+import { FormCreator } from "./formCreator";
+import { URL_MEMBERS } from "../../data/dataUrl";
+import { TableMembersManager } from "../table/tableMembersManager";
+import { LoadingX } from "../loadingsCreators/loadingX";
+import { LoadingTableCreator } from "../loadingsCreators/loadingTableCreator";
 
 export class FormCreateMember extends FormCreator {
   constructor(ElementId: string) {
@@ -25,8 +26,14 @@ export class FormCreateMember extends FormCreator {
     // POST Member Request;
 
     const request = new HttpRequest();
-    const loader = new LoadingButtonCreator("btnSubmit");
-    loader.createSpinner();
+    const loader = new LoadingTableCreator("body");
+    loader.createLoadigContainer();
+
+    // const loader = new LoadingButtonCreator("btnSubmit");
+    // loader.createSpinner();
+    // const newLoad = new LoadingX("#sectionTable");
+    // newLoad.createLoadigContainer();
+
     const POSTMemberOptions = {
       url,
       method: "POST",
@@ -42,52 +49,26 @@ export class FormCreateMember extends FormCreator {
 
     request.sendRequest(POSTMemberOptions).then(requestValues => {
       if (requestValues?.isLoading === false) {
-        loader.removeSpinner();
+        // loader.removeSpinner();
+        document.querySelector("table")?.remove();
         new ToastCreator("form");
       }
+
+      // GETMembers
+
+      const GETMembersOptions = {
+        url: URL_MEMBERS,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      };
+
+      request.sendRequest(GETMembersOptions).then(requestMembers => {
+        document.getElementById("noDataContainer")?.remove();
+        new TableMembersManager(requestMembers?.fetchedData);
+        loader.removeLoadingContainer();
+      });
     });
-
-    // GET Members Request
-
-    // const tableMembers = new UpdateTableMembers();
-    // tableMembers.performFunctionality();
-
-    // const GETMembersOptions = {
-    //   url,
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    //   },
-    // };
-
-    // request.sendRequest(GETMembersOptions).then(requestMembers => {
-    //   console.log("", requestMembers?.fetchedData);
-
-    // const settingsTable = new TableCreator("sectionTable");
-    // const dataInTable = requestMembers?.fetchedData.map(
-    //   ({ fullname, phone, id }: any) => {
-    //     return { fullname, phone, id };
-    //   }
-    // );
-
-    // if (!dataInTable || dataInTable.length === 0) {
-    //   settingsTable.noDataContainer();
-    // } else {
-    //   settingsTable.createTable(["max-w-[1000px]"]);
-    //   settingsTable.createTableHead([
-    //     `${dataInTable.length}`,
-    //     "Imię i Nazwisko",
-    //     "Telefon",
-    //     "",
-    //   ]);
-
-    //   settingsTable.createTableBody(dataInTable, ["fa-trash"]);
-    //   new AlertCreator("sectionTable", "tableMembers");
-    // }
-
-    // console.log("eee", requestValues?.fetchedData);
-    // });
-
-    //  this.formEl?.reset();
   }
 
   submitEvent(url: string) {

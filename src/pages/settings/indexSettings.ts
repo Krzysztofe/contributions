@@ -1,11 +1,12 @@
-import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { FormCreateMember } from "../../components/formsCreators/formMemberCreator";
-import { dataMemberFields } from "./dataMemberFields";
-import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
-import { URL_MEMBERS } from "../../data/dataUrl";
-import { isUserLoged } from "../../utils/isUserLoged";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
-import { PrintTableMembers } from "../../components/table/tableMembersManager";
+import { FormCreateMember } from "../../components/formsCreators/formMemberCreator";
+import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
+import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
+import { TableMembersManager } from "../../components/table/tableMembersManager";
+import { URL_MEMBERS } from "../../data/dataUrl";
+import { HttpRequest } from "../../services/httpRequest";
+import { isUserLoged } from "../../utils/isUserLoged";
+import { dataMemberFields } from "./dataMemberFields";
 
 isUserLoged();
 new LoadigPageCreator();
@@ -38,10 +39,16 @@ memberForm.submitEvent(URL_MEMBERS);
 
 // Table
 
+const GETMembersOptions = {
+  url: URL_MEMBERS,
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+  },
+};
+const request = new HttpRequest();
 
-const tableMembers = new PrintTableMembers();
-tableMembers.performFunctionality();
-
-
+request.sendRequest(GETMembersOptions).then(requestMembers => {
+  new TableMembersManager(requestMembers?.fetchedData);
+});
 
 new AutoLogoutCreator();

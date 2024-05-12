@@ -1,34 +1,22 @@
-import { HttpRequest } from "../../services/httpRequest";
 import { TableCreator } from "./tableCreator";
 import { AlertCreator } from "../alertCreator";
-import { URL_MEMBERS } from "../../data/dataUrl";
 
-class TableMembersManager {
-  #url: string;
-  #jwt: string | null;
-  #request: HttpRequest;
+export class TableMembersManager {
+  #fetchedData: any[];
+  #sortedData: any[] | null = null;
 
-  constructor() {
-    this.#url = URL_MEMBERS;
-    this.#jwt = localStorage.getItem("jwt");
-    this.#request = new HttpRequest();
+  constructor(fetchedData: any[]) {
+    this.#fetchedData = fetchedData;
+    this.init();
   }
 
-  fetchData(): Promise<any[]> {
-    const GETMembersOptions = {
-      url: this.#url,
-      headers: {
-        Authorization: `Bearer ${this.#jwt}`,
-      },
-    };
-
-    return this.#request
-      .sendRequest(GETMembersOptions)
-      .then(requestValues => requestValues?.fetchedData);
+  init() {
+    this.#transformedData();
+    this.#printTable();
   }
 
-  protected processData(data: any[]): any[] {
-    return data.map(
+  #transformedData() {
+    const selectedData = this.#fetchedData.map(
       ({
         fullname,
         phone,
@@ -41,42 +29,37 @@ class TableMembersManager {
         return { id, fullname, phone };
       }
     );
+    const sortedData = selectedData.sort((a: any, b: any) => {
+      let nameA = a.fullname.toLowerCase();
+      let nameB = b.fullname.toLowerCase();
+
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    this.#sortedData = sortedData;
   }
 
-  protected createTableWithData(data: any[], containerId: string): void {
-    const settingsTable = new TableCreator(containerId);
-
-    if (!data || data.length === 0) {
+  #printTable() {
+    const settingsTable = new TableCreator("sectionTable");
+    settingsTable.createTable(["max-w-[1000px]"]);
+    if (!this.#sortedData || this.#sortedData.length === 0) {
       settingsTable.noDataContainer();
     } else {
-      settingsTable.createTable(["max-w-[1000px]"]);
       settingsTable.createTableHead([
-        `${data.length}`,
+        `${this.#sortedData.length}`,
         "Imię i Nazwisko",
         "Telefon",
         "",
       ]);
-      settingsTable.createTableBody(data, ["fa-trash"]);
 
-      new AlertCreator(containerId, "tableMembers");
+      settingsTable.createTableBody(this.#sortedData, ["fa-trash"]);
+      new AlertCreator("sectionTable", "tableMembers", this.#sortedData);
     }
-  }
-}
-
-export class PrintTableMembers extends TableMembersManager {
-  async performFunctionality(): Promise<void> {
-    const data = await this.fetchData();
-    const processedData = this.processData(data);
-    this.createTableWithData(processedData, "sectionTable");
-  }
-}
-
-export class UpdateTableMembers extends TableMembersManager {
-  async performFunctionality(): Promise<void> {
-    const data = await this.fetchData();
-    const processedData = this.processData(data);
-    const tableEl = document.querySelector("table");
-    tableEl?.remove();
-    this.createTableWithData(processedData, "sectionTable");
   }
 }

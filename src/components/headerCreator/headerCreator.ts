@@ -23,7 +23,8 @@ export class HeaderCreator {
     this.header = document.createElement("header");
     this.header.classList.add(
       headerHeight,
-      "fixed",
+      "sticky",
+      "top-0",
       "w-full",
       "bg-white",
       "z-40"
@@ -31,7 +32,7 @@ export class HeaderCreator {
     const headerBlockContainer = document.createElement("header");
     headerBlockContainer.classList.add(headerHeight);
 
-    this.#body?.prepend(headerBlockContainer);
+    // this.#body?.prepend(headerBlockContainer);
     this.#body?.prepend(this.header);
   }
   #createHeaderWrapper(styles: string[]) {
