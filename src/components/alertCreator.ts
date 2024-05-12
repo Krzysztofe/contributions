@@ -5,6 +5,7 @@ import { TableMembersManager } from "./table/tableMembersManager";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
+  bodyEL: HTMLElement | null;
   clickedContainer: HTMLElement | null;
   btnDelete: HTMLButtonElement | null = null;
   rowId: string | null = null;
@@ -16,6 +17,7 @@ export class AlertCreator {
 
   constructor(elem: string, clickableEl: string, dataToPrint: any[]) {
     this.parentEl = document.getElementById(elem);
+    this.bodyEL = document.querySelector("body");
     this.clickedContainer = document.getElementById(clickableEl) as HTMLElement;
     this.request = new HttpRequest();
     this.loader = new LoadingTableCreator("main");
@@ -41,16 +43,17 @@ export class AlertCreator {
  <div class="modal-action flex">
  <form method="dialog" class="mx-auto">
 <button id="${modalId}_delete"  class="btn btn-sm rounded-sm bg-accent hover:bg-primary_dark hover:border-primary_dark text-white px-8">Tak</button>
- <button class="btn btn-sm rounded-sm bg-grey_primary text-white ml-4 md:ml-8 px-8">Nie</button>
+ <button id="btnNo" class="btn btn-sm rounded-sm bg-grey_primary text-white ml-4 md:ml-8 px-8">Nie</button>
  </form>
  </div>
  </div>`;
+    // this.bodyEL?.classList.remove("overflow-y-scroll");
     this.parentEl?.append(dialogEl);
     this.modalEl = dialogEl;
-    const btnDelete = document.getElementById(
-      `${modalId}_delete`
-    ) as HTMLButtonElement;
+    const btnDelete = document.getElementById(`${modalId}_delete`);
     btnDelete?.addEventListener("click", this.deleteMember.bind(this));
+    const btnNo = document.getElementById("btnNo");
+    btnNo?.addEventListener("click", this.addScroll.bind(this));
   }
 
   printAlert(e: MouseEvent) {
@@ -63,10 +66,18 @@ export class AlertCreator {
         .textContent;
       memberName && this.createModal(memberName);
       this.modalEl?.showModal();
+      this.bodyEL?.classList.remove("overflow-y-scroll");
     }
   }
+
+  addScroll() {
+    this.bodyEL?.classList.add("overflow-y-scroll");
+    document.querySelector("dialog")?.remove();
+  }
+
   deleteMember() {
     this.loader.createLoadigContainer();
+    this.bodyEL?.classList.add("overflow-y-scroll");
 
     const DELETEMemberOptions = {
       url: URL_MEMBERS,

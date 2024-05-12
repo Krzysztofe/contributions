@@ -63,6 +63,8 @@ export class FormCreator {
       "max-w-xs",
       "rounded-sm",
       "placeholder-black",
+      "text-uppercase",
+      "capitalize",
       ...inputStyles
     );
 
@@ -72,13 +74,6 @@ export class FormCreator {
 
     if (type === "tel") {
       input.addEventListener("input", this.handlePhoneFormatting.bind(this));
-    }
-
-    if (name === "firstname") {
-      input.addEventListener("input", this.capitalizeFirstLetter.bind(this));
-    }
-    if (name === "lastname") {
-      input.addEventListener("input", this.capitalizeFirstLetter.bind(this));
     }
 
     if (name === "login") {

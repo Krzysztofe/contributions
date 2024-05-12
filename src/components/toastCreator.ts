@@ -22,6 +22,6 @@ export class ToastCreator {
 
     setTimeout(() => {
       toastEl.remove();
-    }, 3000);
+    }, 1500);
   }
 }

@@ -31,7 +31,7 @@ memberForm.createForm("memberForm", [
 memberForm.createFields(
   dataMemberFields,
   ["max-w-48", "md:max-w-40", "md:mr-2"],
-  ["max-w-48", "md:max-w-40"]
+  ["max-w-48", "md:max-w-40", "text-uppercase", "capitalize"]
 );
 memberForm.createBtn("Zapisz", ["w-48", "md:w-auto", "mb-auto", "border-none"]);
 

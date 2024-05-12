@@ -1,13 +1,12 @@
+import { URL_MEMBERS } from "../../data/dataUrl";
 import { HttpRequest } from "../../services/httpRequest";
 import { getFormValues } from "../../utils/getFormValues";
 import { ValidationUniversal } from "../../utils/validationUniversal";
-import { LoadingButtonCreator } from "../loadingsCreators/loadingButtonCreator";
+import { LoadingTableCreator } from "../loadingsCreators/loadingTableCreator";
+import { TableMembersManager } from "../table/tableMembersManager";
 import { ToastCreator } from "../toastCreator";
 import { FormCreator } from "./formCreator";
-import { URL_MEMBERS } from "../../data/dataUrl";
-import { TableMembersManager } from "../table/tableMembersManager";
-import { LoadingX } from "../loadingsCreators/loadingX";
-import { LoadingTableCreator } from "../loadingsCreators/loadingTableCreator";
+import { capitalize } from "../../utils/capitalize";
 
 export class FormCreateMember extends FormCreator {
   constructor(ElementId: string) {
@@ -29,11 +28,6 @@ export class FormCreateMember extends FormCreator {
     const loader = new LoadingTableCreator("body");
     loader.createLoadigContainer();
 
-    // const loader = new LoadingButtonCreator("btnSubmit");
-    // loader.createSpinner();
-    // const newLoad = new LoadingX("#sectionTable");
-    // newLoad.createLoadigContainer();
-
     const POSTMemberOptions = {
       url,
       method: "POST",
@@ -41,17 +35,16 @@ export class FormCreateMember extends FormCreator {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        firstname: getFormValues(e).firstname,
-        lastname: getFormValues(e).lastname,
+        firstname: capitalize(getFormValues(e).firstname),
+        lastname: capitalize(getFormValues(e).lastname),
         phone: getFormValues(e).phone,
       },
     };
 
     request.sendRequest(POSTMemberOptions).then(requestValues => {
       if (requestValues?.isLoading === false) {
-        // loader.removeSpinner();
         document.querySelector("table")?.remove();
-        new ToastCreator("form");
+        // new ToastCreator("form");
       }
 
       // GETMembers
@@ -67,6 +60,7 @@ export class FormCreateMember extends FormCreator {
         document.getElementById("noDataContainer")?.remove();
         new TableMembersManager(requestMembers?.fetchedData);
         loader.removeLoadingContainer();
+        new ToastCreator("form");
       });
     });
   }

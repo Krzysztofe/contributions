@@ -52,6 +52,7 @@ export class LoadigPageCreator {
   #handleLoad() {
     if (this.#body) {
       this.#body.style.display = "block";
+      this.#body.classList.add("overflow-y-scroll");
     }
 
     if (this.#container && this.#body) {
@@ -60,7 +61,7 @@ export class LoadigPageCreator {
     this.#spinner?.remove();
 
     setTimeout(() => {
-      this.#container?.classList.add("hidden")
+      this.#container?.classList.add("hidden");
     }, 500);
   }
 

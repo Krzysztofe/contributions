@@ -52,7 +52,7 @@ body::-webkit-scrollbar {
 /* Toast animation */
 
 .animateToast {
-  animation: slideIn 3s ease-out forwards;
+  animation: slideIn 1.5s ease-out forwards;
 }
 
 @keyframes slideIn {

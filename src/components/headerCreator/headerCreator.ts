@@ -29,10 +29,7 @@ export class HeaderCreator {
       "bg-white",
       "z-40"
     );
-    const headerBlockContainer = document.createElement("header");
-    headerBlockContainer.classList.add(headerHeight);
 
-    // this.#body?.prepend(headerBlockContainer);
     this.#body?.prepend(this.header);
   }
   #createHeaderWrapper(styles: string[]) {
