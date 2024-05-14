@@ -16,6 +16,7 @@ export class ValidationUniversal {
     });
 
     this.errors = [];
+    this.validation()
   }
 
   validation() {

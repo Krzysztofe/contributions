@@ -7,29 +7,42 @@ import { TableMembersManager } from "../../pages/settings/tableMembersManager";
 import { ToastCreator } from "../toastCreator";
 import { FormCreator } from "./formCreator";
 import { capitalize } from "../../utils/capitalize";
-import { sortedMembers } from "../../utils/sortedMembers";
 import { ValidationMember } from "../../pages/settings/validationMember";
 
 export class FormCreateMember extends FormCreator {
+  printLoginError: HTMLElement | null = null;
+
   constructor(ElementId: string) {
     super(ElementId);
   }
 
+  createMemberErrorMsg() {
+    this.printLoginError = document.createElement("div");
+    this.printLoginError.id = "customErrorMessage";
+    this.printLoginError.classList.add(
+      "text-xs",
+      "h-4",
+      "text-red-500",
+      "w-48",
+      "md:absolute",
+      "md:bottom-1",
+      "md:left-0"
+    );
+    this.formEl?.append(this.printLoginError);
+  }
+
   handleSubmit(e: SubmitEvent, url: string, members: any) {
     e.preventDefault();
-    // sortedMembers(members)
 
-    // console.log("", sortedMembers(members));
-
-    // console.log("", members);
-
-    // Validation
+    // Validations
     const formKeys = Object.keys(getFormValues(e));
-    const basicVaidation = new ValidationUniversal(formKeys);
-    basicVaidation.validation();
-    new ValidationMember(sortedMembers(members), getFormValues(e));
-    if (basicVaidation.errors.length > 0) return;
-    // new ValidationMember(sortedMembers(members));
+    this.printLoginError && (this.printLoginError.innerText = "");
+    const errors = new ValidationUniversal(formKeys).errors;
+    if (errors.length > 0) return;
+    const isMember = new ValidationMember(members, getFormValues(e)).isMember;
+    if (isMember.length > 0) return;
+
+
     // POST Member Request;
 
     const request = new HttpRequest();

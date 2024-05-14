@@ -21,6 +21,7 @@ const printForm = (endpoint: string, members: any) => {
   memberForm.createForm("memberForm", [
     "mt-4",
     "mb-8",
+    "m-auto",
     "md:mb-4",
     "flex",
     "flex-col",
@@ -28,6 +29,7 @@ const printForm = (endpoint: string, members: any) => {
     "md:flex-row",
     "md:justify-center",
     "relative",
+    "max-w-max",
   ]);
 
   memberForm.createFields(
@@ -41,7 +43,7 @@ const printForm = (endpoint: string, members: any) => {
     "mb-auto",
     "border-none",
   ]);
-
+  memberForm.createMemberErrorMsg();
   memberForm.submitEvent(endpoint, members);
 };
 

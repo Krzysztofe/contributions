@@ -20,13 +20,6 @@ export class FormLogin extends FormCreator {
   handleSubmit(e: SubmitEvent, url: string) {
     e.preventDefault();
 
-    // Validation
-    const elements = Object.keys(getFormValues(e));
-    const validationLogin = new ValidationUniversal(elements);
-    validationLogin.validation();
-    if (validationLogin.errors.length > 0) return;
-
-    // Request
     const { login, password } = getFormValues(e);
     const request = new HttpRequest();
     const btnLoader = new LoadingButtonCreator("btnSubmit");

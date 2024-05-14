@@ -1,26 +1,38 @@
 export class ValidationMember {
   #members: any;
   #newMember: any;
-  #fullname: string | null = null;
+  #fullnameNewMember: string | null = null;
+  isMember: [] = [];
+  #errorEl: HTMLElement | null;
 
   constructor(members: any, formValues: any) {
     this.#members = members;
     this.#newMember = formValues;
+    this.isMember;
+    this.#errorEl = document.getElementById("customErrorMessage");
     this.#createFullname();
-    this.#isMemberIncluded();
+    this.#isMemberRecodred();
+    this.#printError();
   }
 
   #createFullname() {
     const fullName = `${this.#newMember.firstname} ${this.#newMember.lastname}`;
-    this.#fullname = fullName;
+    this.#fullnameNewMember = fullName;
   }
 
-  #isMemberIncluded() {
-
-    const findMember = this.#members.filter((member:any) => {
-    return  member.fullName === "pp"
-    })
-    console.log("", this.#members);
-    console.log("", this.#fullname);
+  #isMemberRecodred() {
+    const findMember = this.#members.filter(
+      ({ fullname }: { fullname: string }) => {
+        return (
+          fullname.toLowerCase() === this.#fullnameNewMember?.toLowerCase()
+        );
+      }
+    );
+    this.isMember = findMember;
+  }
+  #printError() {
+    if (this.#errorEl && this.isMember.length > 0) {
+      this.#errorEl.innerText = "Imię i nazwisko już zapisane";
+    }
   }
 }
