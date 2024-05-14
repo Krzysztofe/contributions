@@ -34,12 +34,7 @@ export class FormCreator {
     e.target.value = formattedValue;
   }
 
-  capitalizeFirstLetter(e: any) {
-    const inputValue = e.target.value;
-    const formatedValue =
-      inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
-    e.target.value = formatedValue;
-  }
+
 
   createInput(
     { name, type, required, placeholder, pattern }: any,
@@ -59,12 +54,11 @@ export class FormCreator {
       "focus:border-accent",
       "focus:outline-none",
       "input-sm",
+      "bg-white",
       "w-full",
       "max-w-xs",
       "rounded-sm",
       "placeholder-black",
-      "text-uppercase",
-      "capitalize",
       ...inputStyles
     );
 

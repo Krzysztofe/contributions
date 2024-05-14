@@ -1,16 +1,22 @@
-import { TableCreator } from "./tableCreator";
-import { AlertCreator } from "../alertCreator";
+import { TableCreator } from "../../components/table/tableCreator";
+import { AlertCreator } from "../../components/alertCreator";
 
 export class TableMembersManager {
   #fetchedData: any[];
-  #sortedData: any[] | null = null;
+  #sortedData:
+    | {
+        fullname: string;
+        phone: string;
+        id: string;
+      }[]
+    | null = null;
 
   constructor(fetchedData: any[]) {
     this.#fetchedData = fetchedData;
-    this.init();
+    this.#init();
   }
 
-  init() {
+  #init() {
     this.#transformedData();
     this.#printTable();
   }

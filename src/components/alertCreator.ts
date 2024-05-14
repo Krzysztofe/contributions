@@ -1,7 +1,7 @@
 import { URL_MEMBERS } from "../data/dataUrl";
 import { HttpRequest } from "../services/httpRequest";
 import { LoadingTableCreator } from "./loadingsCreators/loadingTableCreator";
-import { TableMembersManager } from "./table/tableMembersManager";
+import { TableMembersManager } from "../pages/settings/tableMembersManager";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
@@ -20,7 +20,6 @@ export class AlertCreator {
     this.bodyEL = document.querySelector("body");
     this.clickedContainer = document.getElementById(clickableEl) as HTMLElement;
     this.request = new HttpRequest();
-    this.loader = new LoadingTableCreator("main");
     this.dataToPrint = dataToPrint;
     this.init();
   }
@@ -38,7 +37,7 @@ export class AlertCreator {
     dialogEl.id = modalId;
     dialogEl.classList.add("modal");
     dialogEl.innerHTML = `
- <div class="modal-box rounded-sm w-5/6 md:p-14">
+ <div class="modal-box rounded-sm w-5/6 md:p-14 bg-white">
  <p class="font-bold text-lg text-center">Usunąć ${member}?</p>
  <div class="modal-action flex">
  <form method="dialog" class="mx-auto">
@@ -47,7 +46,6 @@ export class AlertCreator {
  </form>
  </div>
  </div>`;
-    // this.bodyEL?.classList.remove("overflow-y-scroll");
     this.parentEl?.append(dialogEl);
     this.modalEl = dialogEl;
     const btnDelete = document.getElementById(`${modalId}_delete`);
@@ -76,7 +74,8 @@ export class AlertCreator {
   }
 
   deleteMember() {
-    this.loader.createLoadigContainer();
+    document.querySelector("dialog")?.remove();
+    LoadingTableCreator.createLoadingContainer("body");
     this.bodyEL?.classList.add("overflow-y-scroll");
 
     const DELETEMemberOptions = {
@@ -88,15 +87,16 @@ export class AlertCreator {
       body: { id: this.dataItemId },
     };
 
-    this.request.sendRequest(DELETEMemberOptions).then(() => {
-      const updatedData = this.dataToPrint.filter(({ id }) => {
-        return id !== this.dataItemId;
-      });
+    this.request
+      .sendRequest(DELETEMemberOptions)
+      .then((data: { isLoading: boolean; fetchedData: string }) => {
+        const updatedData = this.dataToPrint.filter(({ id }) => {
+          return id !== data.fetchedData;
+        });
 
-      const tableEl = document.querySelector("table");
-      tableEl?.remove();
-      new TableMembersManager(updatedData);
-      this.loader.removeLoadingContainer();
-    });
+        document.querySelector("table")?.remove();
+        new TableMembersManager(updatedData);
+        LoadingTableCreator.removeLoadingContainer();
+      });
   }
 }

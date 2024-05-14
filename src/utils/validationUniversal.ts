@@ -27,7 +27,7 @@ export class ValidationUniversal {
 
       if (inputEl?.value.trim().length === 0) {
         this.errorsElements[errorEl].innerText = "Wymagne";
-          this.errors.push("error");
+        this.errors.push("error");
       } else if (!pattern.test(inputEl?.value.trim())) {
         this.errorsElements[errorEl].innerText =
           this.errorsElements[errorEl].getAttribute("data-error");

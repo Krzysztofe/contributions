@@ -1,13 +1,7 @@
 export class LoadingTableCreator {
-  #parentEl: HTMLElement | null;
-  #loadingContainer: HTMLElement | null = null;
+  static parentEl: HTMLElement | null;
 
-  constructor(parentEL: string) {
-    this.#parentEl = document.querySelector(parentEL);
-    this.#createSpinner();
-  }
-
-  #createSpinner() {
+  static createSpinner(container: HTMLElement) {
     const spinner = document.createElement("div");
     spinner.classList.add(
       "loading",
@@ -16,11 +10,13 @@ export class LoadingTableCreator {
       "text-accent"
     );
 
-    this.#loadingContainer?.append(spinner);
+    container.append(spinner);
   }
 
-  createLoadigContainer() {
+  static createLoadingContainer(parentEL: string) {
+    this.parentEl = document.querySelector(parentEL);
     const container = document.createElement("div");
+    container.id = "loadingContainer";
     container.classList.add(
       "grid",
       "place-content-center",
@@ -31,23 +27,14 @@ export class LoadingTableCreator {
       "fixed",
       "top-0",
       "left-0",
-      "z-50",
+      "z-50"
     );
 
- 
-
-    this.#loadingContainer = container;
-    this.#createSpinner();
-    this.#parentEl?.append(container);  
-    
-    // const divx = document.querySelector("div");
-    // divx && (divx.innerText = "ooooooooo");
-    // divx?.classList.add("h-100", "w-100", "bg-red-500");
-
-    // divx && this.#loadingContainer?.append(divx);
+    this.createSpinner(container);
+    this.parentEl?.append(container);
   }
 
-  removeLoadingContainer() {
-    this.#loadingContainer?.remove();
+  static removeLoadingContainer() {
+    document.getElementById("loadingContainer")?.remove();
   }
 }
