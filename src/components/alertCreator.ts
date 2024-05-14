@@ -1,8 +1,8 @@
 import { URL_MEMBERS } from "../data/dataUrl";
 import { HttpRequest } from "../services/httpRequest";
 import { LoadingTableCreator } from "./loadingsCreators/loadingTableCreator";
-import { TableMembersManager } from "../pages/settings/tableMembersManager";
-
+import { TableMembersPrinter } from "../pages/settings/table/tableMembersPrinter";
+import { StateMembers } from "./stateMembers";
 export class AlertCreator {
   parentEl: HTMLElement | null;
   bodyEL: HTMLElement | null;
@@ -93,9 +93,9 @@ export class AlertCreator {
         const updatedData = this.dataToPrint.filter(({ id }) => {
           return id !== data.fetchedData;
         });
-
+        StateMembers.setMembers(updatedData);
         document.querySelector("table")?.remove();
-        new TableMembersManager(updatedData);
+        new TableMembersPrinter(updatedData);
         LoadingTableCreator.removeLoadingContainer();
       });
   }

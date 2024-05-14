@@ -1,13 +1,15 @@
-import { URL_MEMBERS } from "../../data/dataUrl";
-import { HttpRequest } from "../../services/httpRequest";
-import { getFormValues } from "../../utils/getFormValues";
-import { ValidationUniversal } from "../../utils/validationUniversal";
-import { LoadingTableCreator } from "../loadingsCreators/loadingTableCreator";
-import { TableMembersManager } from "../../pages/settings/tableMembersManager";
-import { ToastCreator } from "../toastCreator";
-import { FormCreator } from "./formCreator";
-import { capitalize } from "../../utils/capitalize";
-import { ValidationMember } from "../../pages/settings/validationMember";
+import { URL_MEMBERS } from "../../../data/dataUrl";
+import { HttpRequest } from "../../../services/httpRequest";
+import { getFormValues } from "../../../utils/getFormValues";
+import { ValidationUniversal } from "../../../utils/validationUniversal";
+import { LoadingTableCreator } from "../../../components/loadingsCreators/loadingTableCreator";
+import { TableMembersPrinter } from "../table/tableMembersPrinter";
+import { ToastCreator } from "../../../components/toastCreator";
+import { FormCreator } from "../../../components/formsCreators/formCreator";
+import { capitalize } from "../../../utils/capitalize";
+import { ValidationMember } from "../validationMember";
+import { sortedMembers } from "../../../utils/sortedMembers";
+import { StateMembers } from "../../../components/stateMembers";
 
 export class FormCreateMember extends FormCreator {
   printLoginError: HTMLElement | null = null;
@@ -33,15 +35,18 @@ export class FormCreateMember extends FormCreator {
 
   handleSubmit(e: SubmitEvent, url: string, members: any) {
     e.preventDefault();
+    // console.log("", members);
+
+    const toPrint = StateMembers.sortedMembers;
+    console.log("uuu", toPrint);
 
     // Validations
     const formKeys = Object.keys(getFormValues(e));
     this.printLoginError && (this.printLoginError.innerText = "");
     const errors = new ValidationUniversal(formKeys).errors;
     if (errors.length > 0) return;
-    const isMember = new ValidationMember(members, getFormValues(e)).isMember;
+    const isMember = new ValidationMember(toPrint, getFormValues(e)).isMember;
     if (isMember.length > 0) return;
-
 
     // POST Member Request;
 
@@ -63,9 +68,7 @@ export class FormCreateMember extends FormCreator {
 
     request.sendRequest(POSTMemberOptions).then(returnedValues => {
       document.querySelector("table")?.remove();
-      console.log("", returnedValues?.fetchedData);
-
-      // GETMembers
+      
 
       const GETMembersOptions = {
         url: URL_MEMBERS,
@@ -76,7 +79,11 @@ export class FormCreateMember extends FormCreator {
 
       request.sendRequest(GETMembersOptions).then(requestMembers => {
         document.getElementById("noDataContainer")?.remove();
-        new TableMembersManager(requestMembers?.fetchedData);
+        let membersToPrint = sortedMembers(requestMembers?.fetchedData);
+        StateMembers.setMembers(requestMembers?.fetchedData);
+
+        new TableMembersPrinter(membersToPrint);
+
         LoadingTableCreator.removeLoadingContainer();
         new ToastCreator("form");
       });

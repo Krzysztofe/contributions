@@ -1,3 +1,5 @@
+import { StateMembers } from "../../components/stateMembers";
+
 export class ValidationMember {
   #members: any;
   #newMember: any;
@@ -21,6 +23,8 @@ export class ValidationMember {
   }
 
   #isMemberRecodred() {
+    // const toPrint = StateMembers.sortMembers;
+    // console.log("vali", toPrint);
     const findMember = this.#members.filter(
       ({ fullname }: { fullname: string }) => {
         return (

@@ -1,53 +1,17 @@
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
-import { FormCreateMember } from "../../components/formsCreators/formMemberCreator";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { TableMembersManager } from "./tableMembersManager";
+import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
+import { StateMembers } from "../../components/stateMembers";
 import { URL_MEMBERS } from "../../data/dataUrl";
 import { HttpRequest } from "../../services/httpRequest";
 import { isUserLoged } from "../../utils/isUserLoged";
-import { dataMemberFields } from "./dataMemberFields";
-import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
-import { sortedMembers } from "../../utils/sortedMembers";
+import { FormMemberPrinter } from "./form/formMemberPrinter";
+import { TableMembersPrinter } from "./table/tableMembersPrinter";
 
 isUserLoged();
 new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
-
-// Member Form
-const printForm = (endpoint: string, members: any) => {
-  const memberForm = new FormCreateMember("sectionMemberForm");
-
-  memberForm.createForm("memberForm", [
-    "mt-4",
-    "mb-8",
-    "m-auto",
-    "md:mb-4",
-    "flex",
-    "flex-col",
-    "items-center",
-    "md:flex-row",
-    "md:justify-center",
-    "relative",
-    "max-w-max",
-  ]);
-
-  memberForm.createFields(
-    dataMemberFields,
-    ["max-w-48", "md:max-w-40", "md:mr-2"],
-    ["max-w-48", "md:max-w-40", "text-uppercase", "capitalize"]
-  );
-  memberForm.createBtn("Zapisz", [
-    "w-48",
-    "md:w-auto",
-    "mb-auto",
-    "border-none",
-  ]);
-  memberForm.createMemberErrorMsg();
-  memberForm.submitEvent(endpoint, members);
-};
-
-// Table
 
 const fetchData = () => {
   const request = new HttpRequest();
@@ -62,10 +26,13 @@ const fetchData = () => {
 
 const prtintDataInTable = async () => {
   LoadingTableCreator.createLoadingContainer("body");
+
   const members = await fetchData();
-  const membersToPrint = sortedMembers(members?.fetchedData);
-  printForm(URL_MEMBERS, membersToPrint);
-  new TableMembersManager(membersToPrint);
+  StateMembers.setMembers(members?.fetchedData);
+  const toPrint = StateMembers.sortedMembers;
+  new FormMemberPrinter(URL_MEMBERS, toPrint);
+  toPrint && new TableMembersPrinter(toPrint);
+
   LoadingTableCreator.removeLoadingContainer();
 };
 
