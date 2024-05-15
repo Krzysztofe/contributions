@@ -82,7 +82,7 @@ export class AlertCreator {
       body: { id: this.dataItemId },
     };
 
-    const reqest = new HttpRequest(DELETEMemberOptions);
+    const reqest = new HttpRequest();
     return reqest.sendRequest(DELETEMemberOptions);
   }
 

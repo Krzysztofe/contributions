@@ -6,19 +6,9 @@ type ModelOptions = {
 };
 
 export class HttpRequest {
-  requestedData: [];
-  isLoading: any;
-  options: ModelOptions
-
-  constructor(options:ModelOptions) {
-    this.isLoading = null;
-    this.requestedData = [];
-    this.options = options
-    this.sendRequest(options)
-  }
-
   #createErrorPage = (err: string) => {
     const body = document.querySelector("body");
+    if (!body) return;
     const errorContainer = document.createElement("div");
     errorContainer.innerText = err;
     errorContainer.classList.add(
@@ -52,8 +42,6 @@ export class HttpRequest {
       if (!resp.ok) {
         throw Error("Błąd. Ponów próbę");
       } else {
-        this.isLoading = false;
-
         let data;
         if (body?.login) {
           data = await resp.text();
@@ -62,8 +50,7 @@ export class HttpRequest {
         } else {
           data = await resp.json();
         }
-
-        return { isLoading: this.isLoading, fetchedData: data };
+        return { isLoading: false, fetchedData: data };
       }
     } catch (err: any) {
       this.#createErrorPage(err.message);

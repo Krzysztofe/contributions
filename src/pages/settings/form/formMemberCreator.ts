@@ -16,7 +16,6 @@ export class FormCreateMember extends FormCreator {
 
   constructor(ElementId: string) {
     super(ElementId);
-    this.createToast();
   }
 
   createMemberErrorMsg() {
@@ -51,8 +50,6 @@ export class FormCreateMember extends FormCreator {
   }
 
   fetchData(e: SubmitEvent) {
-    // const request = new HttpRequest();
-
     const POSTMemberOptions = {
       url: URL_MEMBERS,
       method: "POST",
@@ -65,7 +62,7 @@ export class FormCreateMember extends FormCreator {
         phone: getFormValues(e).phone,
       },
     };
-    const request = new HttpRequest(POSTMemberOptions);
+    const request = new HttpRequest();
     return request.sendRequest(POSTMemberOptions);
   }
 
@@ -90,10 +87,6 @@ export class FormCreateMember extends FormCreator {
     const { firstname, lastname, phone, id } = data?.fetchedData;
 
     const newMember = { fullname: `${firstname} ${lastname}`, phone, id };
-
-    if (StateMembers.sortedMembers === null) {
-      StateMembers.sortedMembers = [];
-    }
     const newMembers = [...StateMembers.sortedMembers, newMember];
     StateMembers.setMembers(newMembers);
     document.getElementById("noDataContainer")?.remove();

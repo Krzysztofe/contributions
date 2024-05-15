@@ -1,27 +1,16 @@
-import { dataLoginFields } from "./dataLoginFields";
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { FormLogin } from "../../components/formsCreators/formLoginCreator";
-import { URL_AUTH } from "../../data/dataUrl";
+import { LoginPrinter } from "./loginPrinter";
 
-new LoadigPageCreator();
-new HeaderCreator(["grid", "place-items-center"]);
+class LoginManager {
+  constructor() {
+    this.#init();
+  }
+  #init() {
+    new LoadigPageCreator();
+    new HeaderCreator(["grid", "place-items-center"]);
+    new LoginPrinter();
+  }
+}
 
-const loginForm = new FormLogin("main");
-
-loginForm.createForm("loginForm", [
-  "flex",
-  "flex-col",
-  "sm:bg-white",
-  "sm:border",
-  "px-16",
-  "py-8",
-]);
-
-loginForm.createFields(dataLoginFields);
-
-loginForm.createBtn("Zaloguj się", ["text-center", "w-full", "py-1", "m-auto"]);
-
-loginForm.createLoginErrorMsg();
-
-loginForm.submitEvent(URL_AUTH);
+new LoginManager();

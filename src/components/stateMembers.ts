@@ -1,5 +1,5 @@
 export class StateMembers {
-  static sortedMembers: [] | null;
+  static sortedMembers: [];
 
   static processMembers(members: any) {
     const selectedData = members.map(

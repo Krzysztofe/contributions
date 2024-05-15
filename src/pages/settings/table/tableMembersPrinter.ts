@@ -3,10 +3,10 @@ import { StateMembers } from "../../../components/stateMembers";
 
 export class TableMembersPrinter {
   constructor() {
-    this.#printTable();
+    this.#init();
   }
 
-  #printTable() {
+  #init() {
     const settingsTable = new TableCreator("sectionTable");
 
     if (
@@ -15,7 +15,6 @@ export class TableMembersPrinter {
     ) {
       settingsTable.noDataContainer();
     } else {
-
       settingsTable.createTable(["max-w-[1000px]"]);
       settingsTable.createTableHead([
         `${StateMembers.sortedMembers.length}`,

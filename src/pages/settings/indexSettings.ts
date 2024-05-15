@@ -10,32 +10,35 @@ import { LoadingTableSettings } from "./loadingTableSettings";
 import { TableMembersPrinter } from "./table/tableMembersPrinter";
 import { AlertCreator } from "../../components/alertCreator";
 
-isUserLoged();
-new LoadigPageCreator();
-new HeaderLogedIn(["flex", "items-center", "justify-between"]);
+class SettingsManager {
+  constructor() {
+    this.#init();
+  }
 
-const fetchData = () => {
-  // const request = new HttpRequest();
-  const GETMembersOptions = {
-    url: URL_MEMBERS,
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    },
-  };
-    const request = new HttpRequest(GETMembersOptions);
-  return request.sendRequest(GETMembersOptions);
-};
+  async #init() {
+    isUserLoged();
+    new LoadigPageCreator();
+    new HeaderLogedIn(["flex", "items-center", "justify-between"]);
+    LoadingTableSettings.createLoadingContainer();
+    const membersDatabase = await this.#fetchData();
+    StateMembers.setMembers(membersDatabase?.fetchedData);
+    new FormMemberPrinter();
+    new TableMembersPrinter();
+    new AlertCreator("sectionTable", "tableMembers");
+    LoadingTableSettings.removeLoadingContainer();
+    new AutoLogoutCreator();
+  }
 
-const setingsPrinter = async () => {
-  LoadingTableSettings.createLoadingContainer();
-  const membersOrygin = await fetchData();
-  StateMembers.setMembers(membersOrygin?.fetchedData);
-  new FormMemberPrinter();
-  new TableMembersPrinter();
-  new AlertCreator("sectionTable", "tableMembers");
-  LoadingTableSettings.removeLoadingContainer();
-};
+  #fetchData() {
+    const GETMembersOptions = {
+      url: URL_MEMBERS,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const request = new HttpRequest();
+    return request.sendRequest(GETMembersOptions);
+  }
+}
 
-setingsPrinter();
-
-new AutoLogoutCreator();
+new SettingsManager();
