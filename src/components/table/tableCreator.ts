@@ -72,12 +72,10 @@ export class TableCreator {
         }[idx] as string[]) ?? [];
 
       internalDiv.classList.add(
-        "text-center",
         "border-x",
         "border-white",
         "h-[24.4px]",
         "flex",
-        "justify-center",
         "items-center",
         "px-2",
         ...stickyTh,
@@ -103,7 +101,6 @@ export class TableCreator {
       "focus:outline-none",
       "min-w-24",
       "w-full",
-      "text-center",
       "bg-primary_dark"
     );
     selectEl.innerHTML = `<option>2024</option>
@@ -174,7 +171,6 @@ export class TableCreator {
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
         td.classList.add(
-          "text-center",
           "whitespace-nowrap",
           "border",
           "border-primary_dark",
