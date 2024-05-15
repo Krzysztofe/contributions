@@ -55,17 +55,19 @@ body::-webkit-scrollbar {
   animation: slideIn 1.5s ease-out forwards;
 }
 
+
+
 @keyframes slideIn {
   0% {
-    transform: translate(-50%, -100%);
+    transform: translateY(-100%);
   }
   15% {
-    transform: translate(-50%, 0);
+    transform: translateY(0%);
   }
   85% {
-    transform: translate(-50%, 0);
+    transform: translateY(0%);
   }
   100% {
-    transform: translate(-50%, -100%);
+    transform: translateY(-100%);
   }
 }

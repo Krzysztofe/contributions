@@ -3,7 +3,7 @@ import { LoadingTableSettings } from "../pages/settings/loadingTableSettings";
 import { TableMembersPrinter } from "../pages/settings/table/tableMembersPrinter";
 import { HttpRequest } from "../services/httpRequest";
 import { StateMembers } from "./stateMembers";
-import { ToastCreator } from "./toastCreator";
+import { ToastPrinter } from "./toastPrinter";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
@@ -20,7 +20,6 @@ export class AlertCreator {
     this.parentEl = document.getElementById(elem);
     this.bodyEL = document.querySelector("body");
     this.clickedContainer = document.getElementById(clickableEl) as HTMLElement;
-    this.request = new HttpRequest();
     this.init();
   }
 
@@ -74,7 +73,6 @@ export class AlertCreator {
   }
 
   fetchData() {
-    const req = new HttpRequest();
     const DELETEMemberOptions = {
       url: URL_MEMBERS,
       method: "DELETE",
@@ -83,7 +81,9 @@ export class AlertCreator {
       },
       body: { id: this.dataItemId },
     };
-    return req.sendRequest(DELETEMemberOptions);
+
+    const reqest = new HttpRequest(DELETEMemberOptions);
+    return reqest.sendRequest(DELETEMemberOptions);
   }
 
   async deleteMember() {
@@ -100,6 +100,6 @@ export class AlertCreator {
     new AlertCreator("sectionTable", "tableMembers");
     LoadingTableSettings.removeFormErrors();
     LoadingTableSettings.removeLoadingContainer();
-    new ToastCreator("form", "Usunięto");
+    new ToastPrinter("Usunięto");
   }
 }

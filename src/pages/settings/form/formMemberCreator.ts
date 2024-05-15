@@ -3,7 +3,7 @@ import { HttpRequest } from "../../../services/httpRequest";
 import { getFormValues } from "../../../utils/getFormValues";
 import { ValidationUniversal } from "../../../utils/validationUniversal";
 import { TableMembersPrinter } from "../table/tableMembersPrinter";
-import { ToastCreator } from "../../../components/toastCreator";
+import { ToastPrinter } from "../../../components/toastPrinter";
 import { FormCreator } from "../../../components/formsCreators/formCreator";
 import { capitalize } from "../../../utils/capitalize";
 import { ValidationMember } from "../validationMember";
@@ -16,6 +16,7 @@ export class FormCreateMember extends FormCreator {
 
   constructor(ElementId: string) {
     super(ElementId);
+    this.createToast();
   }
 
   createMemberErrorMsg() {
@@ -33,8 +34,24 @@ export class FormCreateMember extends FormCreator {
     this.formEl?.append(this.printLoginError);
   }
 
+  createToast() {
+    const toastEl = document.createElement("div");
+    toastEl.id = "toast";
+    toastEl.classList.add(
+      "fixed",
+      "top-14",
+      "p-1",
+      "px-6",
+      "text-white",
+      "text-sm",
+      "bg-black_opacity"
+    );
+    toastEl.style.transform = "translateY(-100%)";
+    this.formEl?.prepend(toastEl);
+  }
+
   fetchData(e: SubmitEvent) {
-    const request = new HttpRequest();
+    // const request = new HttpRequest();
 
     const POSTMemberOptions = {
       url: URL_MEMBERS,
@@ -48,6 +65,7 @@ export class FormCreateMember extends FormCreator {
         phone: getFormValues(e).phone,
       },
     };
+    const request = new HttpRequest(POSTMemberOptions);
     return request.sendRequest(POSTMemberOptions);
   }
 
@@ -83,7 +101,7 @@ export class FormCreateMember extends FormCreator {
     new AlertCreator("sectionTable", "tableMembers");
     LoadingTableSettings.removeFormErrors();
     LoadingTableSettings.removeLoadingContainer();
-    new ToastCreator("form", "Zapisano");
+    new ToastPrinter("Zapisano");
   }
 
   submitEvent() {

@@ -1,10 +1,20 @@
+type ModelOptions = {
+  url: string;
+  method?: string;
+  headers: any;
+  body?: any;
+};
+
 export class HttpRequest {
   requestedData: [];
   isLoading: any;
+  options: ModelOptions
 
-  constructor() {
+  constructor(options:ModelOptions) {
     this.isLoading = null;
     this.requestedData = [];
+    this.options = options
+    this.sendRequest(options)
   }
 
   #createErrorPage = (err: string) => {
@@ -27,17 +37,7 @@ export class HttpRequest {
     body?.prepend(errorContainer);
   };
 
-  async sendRequest({
-    url,
-    method = "GET",
-    headers,
-    body,
-  }: {
-    url: string;
-    method?: string;
-    headers: any;
-    body?: any;
-  }) {
+  async sendRequest({ url, method = "GET", headers, body }: ModelOptions) {
     const requestOptions: RequestInit = {
       method,
       headers,

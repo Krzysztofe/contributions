@@ -1,6 +1,5 @@
 import { FormCreator } from "./formCreator";
 import { getFormValues } from "../../utils/getFormValues";
-import { ValidationUniversal } from "../../utils/validationUniversal";
 import { HttpRequest } from "../../services/httpRequest";
 import { LoadingButtonCreator } from "../loadingsCreators/loadingButtonCreator";
 
@@ -17,14 +16,7 @@ export class FormLogin extends FormCreator {
     this.formEl?.append(this.printLoginError);
   }
 
-  handleSubmit(e: SubmitEvent, url: string) {
-    e.preventDefault();
-
-    const { login, password } = getFormValues(e);
-    const request = new HttpRequest();
-    const btnLoader = new LoadingButtonCreator("btnSubmit");
-    btnLoader.createSpinner();
-
+  fetchData(url: string, login: string, password: string) {
     const requestOptions = {
       url,
       method: "POST",
@@ -34,20 +26,27 @@ export class FormLogin extends FormCreator {
       },
       body: { login, password },
     };
+    const request = new HttpRequest(requestOptions);
+    return request.sendRequest(requestOptions);
+  }
 
-    request.sendRequest(requestOptions).then(requestValues => {
-      if (requestValues?.fetchedData) {
-        localStorage.setItem("jwt", requestValues?.fetchedData);
-        location.href = "/src/pages/calendar/calendar.html";
-      } else {
-        this.printLoginError &&
-          (this.printLoginError.innerText = "Błędny login lub hasło");
-      }
+  async handleSubmit(e: SubmitEvent, url: string) {
+    e.preventDefault();
 
-      if (requestValues?.isLoading === false) {
-        btnLoader.removeSpinner();
-      }
-    });
+    const { login, password } = getFormValues(e);
+    const btnLoader = new LoadingButtonCreator("btnSubmit");
+    btnLoader.createSpinner();
+
+    const data = await this.fetchData(url, login, password);
+    if (data?.fetchedData) {
+      localStorage.setItem("jwt", data?.fetchedData);
+      location.href = "/src/pages/calendar/calendar.html";
+    } else {
+      this.printLoginError &&
+        (this.printLoginError.innerText = "Błędny login lub hasło");
+    }
+    btnLoader.removeSpinner();
+
     // this.formEl?.reset();
   }
 

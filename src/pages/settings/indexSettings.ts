@@ -15,18 +15,19 @@ new LoadigPageCreator();
 new HeaderLogedIn(["flex", "items-center", "justify-between"]);
 
 const fetchData = () => {
-  const request = new HttpRequest();
+  // const request = new HttpRequest();
   const GETMembersOptions = {
     url: URL_MEMBERS,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   };
+    const request = new HttpRequest(GETMembersOptions);
   return request.sendRequest(GETMembersOptions);
 };
 
 const setingsPrinter = async () => {
-  LoadingTableSettings.createLoadingContainer("body");
+  LoadingTableSettings.createLoadingContainer();
   const membersOrygin = await fetchData();
   StateMembers.setMembers(membersOrygin?.fetchedData);
   new FormMemberPrinter();

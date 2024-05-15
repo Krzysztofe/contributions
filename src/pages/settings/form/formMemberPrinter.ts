@@ -35,7 +35,7 @@ export class FormMemberPrinter {
       "border-none",
     ]);
     memberForm.createMemberErrorMsg();
-    // memberForm.submitEvent(this.endpoint, this.members);
-        memberForm.submitEvent();
+    memberForm.submitEvent();
+    memberForm.createToast();
   }
 }

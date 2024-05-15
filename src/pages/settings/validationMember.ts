@@ -1,5 +1,3 @@
-import { StateMembers } from "../../components/stateMembers";
-
 export class ValidationMember {
   #members: any;
   #newMember: any;
