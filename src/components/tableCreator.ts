@@ -77,7 +77,7 @@ export class TableCreator {
         "h-[24.4px]",
         "flex",
         "items-center",
-        "px-2",
+        "px-3",
         ...stickyTh,
         ...divStyles
       );
@@ -131,7 +131,7 @@ export class TableCreator {
 
       //   td - first
       const td = document.createElement("td");
-      td.classList.add("border", "border-primary_dark");
+      td.classList.add("border", "border-primary_dark", "px-3");
       td.innerText = (idx + 1).toString();
       tableRowEl.append(td);
 
@@ -176,6 +176,7 @@ export class TableCreator {
           "border-primary_dark",
           "p-3",
           "lg:p-0",
+          "lg:px-3",
           ...stylesTdName
         );
         td.innerText = value;

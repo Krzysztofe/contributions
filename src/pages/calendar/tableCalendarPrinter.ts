@@ -1,8 +1,8 @@
-import { TableCreator } from "../../components/table/tableCreator";
+import { TableCreator } from "../../components/tableCreator";
 
 export class TableCalendarPrinter {
   #dataTableHead: string[];
-  #dataTableBody: any[]
+  #dataTableBody: any[];
   constructor() {
     this.#dataTableHead = [
       "",
@@ -21,7 +21,8 @@ export class TableCalendarPrinter {
       "Gru.",
     ];
     this.#dataTableBody = [
-      { name: "Adam Kowalski",
+      {
+        name: "Adam Kowalski",
         jan: true,
         feb: true,
         mar: true,
@@ -312,6 +313,6 @@ export class TableCalendarPrinter {
     const calendarTable = new TableCreator("sectionTable");
     calendarTable.createTable(["max-w-[1200px]"]);
     calendarTable.createTableHead(this.#dataTableHead);
-    calendarTable.createTableBody(this.#dataTableBody)
+    calendarTable.createTableBody(this.#dataTableBody);
   }
 }

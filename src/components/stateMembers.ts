@@ -1,21 +1,13 @@
-export class StateMembers {
-  static sortedMembers: [];
+import { ModelMember } from "../sharedModels/moedelMember";
 
-  static processMembers(members: any) {
-    const selectedData = members.map(
-      ({
-        fullname,
-        phone,
-        id,
-      }: {
-        fullname: string;
-        phone: string;
-        id: string;
-      }) => {
-        return { id, fullname, phone };
-      }
-    );
-    const sortedData = selectedData.sort((a: any, b: any) => {
+export class StateMembers {
+  static sortedMembers: [] | ModelMember[] = [];
+
+  static processMembers(members: ModelMember[]) {
+    const selectedMembers = members.map(({ fullname, phone, id }) => {
+      return { id, fullname, phone };
+    });
+    const sortedMembers = selectedMembers.sort((a, b) => {
       let nameA = a.fullname.toLowerCase();
       let nameB = b.fullname.toLowerCase();
 
@@ -27,10 +19,10 @@ export class StateMembers {
       }
       return 0;
     });
-    return sortedData;
+    return sortedMembers;
   }
 
-  static setMembers(members: any) {
+  static setMembers(members: ModelMember[]) {
     this.sortedMembers = this.processMembers(members);
   }
 }

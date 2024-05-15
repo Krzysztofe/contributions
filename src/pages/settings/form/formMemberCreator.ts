@@ -1,15 +1,15 @@
+import { AlertCreator } from "../../../components/alertCreator";
+import { FormCreator } from "../../../components/formsCreators/formCreator";
+import { StateMembers } from "../../../components/stateMembers";
+import { ToastPrinter } from "../../../components/toastPrinter";
 import { URL_MEMBERS } from "../../../data/dataUrl";
 import { HttpRequest } from "../../../services/httpRequest";
+import { capitalize } from "../../../utils/capitalize";
 import { getFormValues } from "../../../utils/getFormValues";
 import { ValidationUniversal } from "../../../utils/validationUniversal";
-import { TableMembersPrinter } from "../tableMembersPrinter";
-import { ToastPrinter } from "../../../components/toastPrinter";
-import { FormCreator } from "../../../components/formsCreators/formCreator";
-import { capitalize } from "../../../utils/capitalize";
-import { ValidationMember } from "../validationMember";
-import { StateMembers } from "../../../components/stateMembers";
 import { LoadingTableSettings } from "../loadingTableSettings";
-import { AlertCreator } from "../../../components/alertCreator";
+import { TableMembersPrinter } from "../tableMembersPrinter";
+import { ValidationMember } from "../validationMember";
 
 export class FormCreateMember extends FormCreator {
   printLoginError: HTMLElement | null = null;

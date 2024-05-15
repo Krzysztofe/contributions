@@ -26,7 +26,7 @@ export class FormLogin extends FormCreator {
       },
       body: { login, password },
     };
-    const request = new HttpRequest(requestOptions);
+    const request = new HttpRequest();
     return request.sendRequest(requestOptions);
   }
 

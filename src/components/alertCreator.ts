@@ -13,8 +13,6 @@ export class AlertCreator {
   rowId: string | null = null;
   dataItemId: string | null = null;
   modalEl: HTMLDialogElement | null = null;
-  request: any;
-  loader: any;
 
   constructor(elem: string, clickableEl: string) {
     this.parentEl = document.getElementById(elem);
