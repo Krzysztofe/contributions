@@ -10,9 +10,10 @@ export class TableCreator {
 
   noDataContainer() {
     const containerEl = document.createElement("div");
+    containerEl.innerText = "Brak danych";
     containerEl.id = "noDataContainer";
-    containerEl.innerText = "Brak zapisanych danych";
-    containerEl.classList.add("text-center", "text-red-500");
+    containerEl.classList.add("text-center", "text-red-500", "h-10");
+
     this.parentEl?.append(containerEl);
   }
 
@@ -89,10 +90,6 @@ export class TableCreator {
       th.append(internalDiv);
       tableRowEl.append(th);
     });
-    // const tdElms = document.querySelectorAll("td");
-    // if (tdElms.length > 0) {
-    //   this.tableEl?.append(tableHeadEl);
-    // }
 
     this.tableEl?.append(tableHeadEl);
   }
@@ -120,11 +117,7 @@ export class TableCreator {
   }
 
   createTableBody(cellsData: any, icons: string[] = []) {
-    // console.log("body");
-
     this.cellsData = cellsData;
-
-    // console.log('',this.cellsData)
 
     // tbody
     const tableBodyEl = document.createElement("tbody");

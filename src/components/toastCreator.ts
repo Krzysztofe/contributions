@@ -1,12 +1,14 @@
 export class ToastCreator {
   #parentEl: HTMLElement | null;
-  constructor(parentEl: string) {
+  #innerText: string;
+  constructor(parentEl: string, innerText:string) {
     this.#parentEl = document.querySelector(parentEl);
+    this.#innerText = innerText
     this.createToast();
   }
   createToast() {
     const toastEl = document.createElement("div");
-    toastEl.innerText = "Zapisano";
+    toastEl.innerText = this.#innerText;
     toastEl.classList.add(
       "fixed",
       "top-14",

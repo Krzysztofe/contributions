@@ -1,8 +1,10 @@
 import { URL_MEMBERS } from "../data/dataUrl";
-import { HttpRequest } from "../services/httpRequest";
-import { LoadingTableCreator } from "./loadingsCreators/loadingTableCreator";
+import { LoadingTableSettings } from "../pages/settings/loadingTableSettings";
 import { TableMembersPrinter } from "../pages/settings/table/tableMembersPrinter";
+import { HttpRequest } from "../services/httpRequest";
 import { StateMembers } from "./stateMembers";
+import { ToastCreator } from "./toastCreator";
+
 export class AlertCreator {
   parentEl: HTMLElement | null;
   bodyEL: HTMLElement | null;
@@ -13,14 +15,12 @@ export class AlertCreator {
   modalEl: HTMLDialogElement | null = null;
   request: any;
   loader: any;
-  dataToPrint: any[];
 
-  constructor(elem: string, clickableEl: string, dataToPrint: any[]) {
+  constructor(elem: string, clickableEl: string) {
     this.parentEl = document.getElementById(elem);
     this.bodyEL = document.querySelector("body");
     this.clickedContainer = document.getElementById(clickableEl) as HTMLElement;
     this.request = new HttpRequest();
-    this.dataToPrint = dataToPrint;
     this.init();
   }
 
@@ -73,11 +73,8 @@ export class AlertCreator {
     document.querySelector("dialog")?.remove();
   }
 
-  deleteMember() {
-    document.querySelector("dialog")?.remove();
-    LoadingTableCreator.createLoadingContainer("body");
-    this.bodyEL?.classList.add("overflow-y-scroll");
-
+  fetchData() {
+    const req = new HttpRequest();
     const DELETEMemberOptions = {
       url: URL_MEMBERS,
       method: "DELETE",
@@ -86,17 +83,23 @@ export class AlertCreator {
       },
       body: { id: this.dataItemId },
     };
+    return req.sendRequest(DELETEMemberOptions);
+  }
 
-    this.request
-      .sendRequest(DELETEMemberOptions)
-      .then((data: { isLoading: boolean; fetchedData: string }) => {
-        const updatedData = this.dataToPrint.filter(({ id }) => {
-          return id !== data.fetchedData;
-        });
-        StateMembers.setMembers(updatedData);
-        document.querySelector("table")?.remove();
-        new TableMembersPrinter(updatedData);
-        LoadingTableCreator.removeLoadingContainer();
-      });
+  async deleteMember() {
+    document.querySelector("dialog")?.remove();
+    LoadingTableSettings.createLoadingContainer();
+    this.bodyEL?.classList.add("overflow-y-scroll");
+    const data = await this.fetchData();
+    const updatedData = StateMembers.sortedMembers?.filter(({ id }) => {
+      return id !== data?.fetchedData;
+    });
+    StateMembers.setMembers(updatedData);
+    document.querySelector("table")?.remove();
+    new TableMembersPrinter();
+    new AlertCreator("sectionTable", "tableMembers");
+    LoadingTableSettings.removeFormErrors();
+    LoadingTableSettings.removeLoadingContainer();
+    new ToastCreator("form", "Usunięto");
   }
 }

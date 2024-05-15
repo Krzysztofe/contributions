@@ -1,33 +1,29 @@
 import { TableCreator } from "../../../components/table/tableCreator";
-import { AlertCreator } from "../../../components/alertCreator";
+import { StateMembers } from "../../../components/stateMembers";
 
 export class TableMembersPrinter {
-  #fetchedData: any[];
-
-  constructor(fetchedData: any[]) {
-    this.#fetchedData = fetchedData;
-    this.#init();
-  }
-
-  #init() {
+  constructor() {
     this.#printTable();
   }
 
   #printTable() {
     const settingsTable = new TableCreator("sectionTable");
-    settingsTable.createTable(["max-w-[1000px]"]);
-    if (!this.#fetchedData || this.#fetchedData.length === 0) {
+
+    if (
+      !StateMembers.sortedMembers ||
+      StateMembers.sortedMembers.length === 0
+    ) {
       settingsTable.noDataContainer();
     } else {
+
+      settingsTable.createTable(["max-w-[1000px]"]);
       settingsTable.createTableHead([
-        `${this.#fetchedData.length}`,
+        `${StateMembers.sortedMembers.length}`,
         "Imię i Nazwisko",
         "Telefon",
         "",
       ]);
-
-      settingsTable.createTableBody(this.#fetchedData, ["fa-trash"]);
-      new AlertCreator("sectionTable", "tableMembers", this.#fetchedData);
+      settingsTable.createTableBody(StateMembers.sortedMembers, ["fa-trash"]);
     }
   }
 }

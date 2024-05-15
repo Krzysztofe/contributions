@@ -1,10 +1,8 @@
-//
-
 import { dataMemberFields } from "../dataMemberFields";
 import { FormCreateMember } from "./formMemberCreator";
 
 export class FormMemberPrinter {
-  constructor(private endpoint: string, private members: any) {
+  constructor() {
     this.printForm();
   }
 
@@ -37,6 +35,7 @@ export class FormMemberPrinter {
       "border-none",
     ]);
     memberForm.createMemberErrorMsg();
-    memberForm.submitEvent(this.endpoint, this.members);
+    // memberForm.submitEvent(this.endpoint, this.members);
+        memberForm.submitEvent();
   }
 }

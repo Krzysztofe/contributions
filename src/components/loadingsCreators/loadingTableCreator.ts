@@ -13,8 +13,7 @@ export class LoadingTableCreator {
     container.append(spinner);
   }
 
-  static createLoadingContainer(parentEL: string) {
-    this.parentEl = document.querySelector(parentEL);
+  static createLoadingContainer() {
     const container = document.createElement("div");
     container.id = "loadingContainer";
     container.classList.add(
@@ -31,7 +30,7 @@ export class LoadingTableCreator {
     );
 
     this.createSpinner(container);
-    this.parentEl?.append(container);
+    document.querySelector("body")?.append(container);
   }
 
   static removeLoadingContainer() {
