@@ -1,5 +1,5 @@
-import { TableCreator } from "../../../components/table/tableCreator";
-import { StateMembers } from "../../../components/stateMembers";
+import { TableCreator } from "../../components/table/tableCreator";
+import { StateMembers } from "../../components/stateMembers";
 
 export class TableMembersPrinter {
   constructor() {

@@ -1,6 +1,6 @@
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { LoginPrinter } from "./loginPrinter";
+import { LoginFormPrinter } from "./loginFormPrinter";
 
 class LoginManager {
   constructor() {
@@ -9,7 +9,7 @@ class LoginManager {
   #init() {
     new LoadigPageCreator();
     new HeaderCreator(["grid", "place-items-center"]);
-    new LoginPrinter();
+    new LoginFormPrinter();
   }
 }
 

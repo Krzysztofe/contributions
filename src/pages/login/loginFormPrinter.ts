@@ -2,7 +2,7 @@ import { FormLogin } from "../../components/formsCreators/formLoginCreator";
 import { dataLoginFields } from "./dataLoginFields";
 import { URL_AUTH } from "../../data/dataUrl";
 
-export class LoginPrinter {
+export class LoginFormPrinter {
   constructor() {
     this.#init();
   }

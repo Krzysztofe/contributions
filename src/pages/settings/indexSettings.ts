@@ -7,7 +7,7 @@ import { HttpRequest } from "../../services/httpRequest";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
 import { LoadingTableSettings } from "./loadingTableSettings";
-import { TableMembersPrinter } from "./table/tableMembersPrinter";
+import { TableMembersPrinter } from "./tableMembersPrinter";
 import { AlertCreator } from "../../components/alertCreator";
 
 class SettingsManager {

@@ -1,6 +1,6 @@
 import { URL_MEMBERS } from "../data/dataUrl";
 import { LoadingTableSettings } from "../pages/settings/loadingTableSettings";
-import { TableMembersPrinter } from "../pages/settings/table/tableMembersPrinter";
+import { TableMembersPrinter } from "../pages/settings/tableMembersPrinter";
 import { HttpRequest } from "../services/httpRequest";
 import { StateMembers } from "./stateMembers";
 import { ToastPrinter } from "./toastPrinter";
