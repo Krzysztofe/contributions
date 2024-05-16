@@ -26,6 +26,8 @@ export class AlertCreator {
       "click",
       this.printAlert.bind(this)
     );
+    const btnNo = document.getElementById("btnNo");
+    btnNo?.addEventListener("click", this.addScroll.bind(this));
   }
 
   createModal(member: string) {
@@ -47,8 +49,6 @@ export class AlertCreator {
     this.modalEl = dialogEl;
     const btnDelete = document.getElementById(`${modalId}_delete`);
     btnDelete?.addEventListener("click", this.deleteMember.bind(this));
-    const btnNo = document.getElementById("btnNo");
-    btnNo?.addEventListener("click", this.addScroll.bind(this));
   }
 
   printAlert(e: MouseEvent) {
@@ -77,7 +77,7 @@ export class AlertCreator {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: { id: this.dataItemId },
+      body: { id: this?.dataItemId },
     };
 
     const reqest = new HttpRequest();

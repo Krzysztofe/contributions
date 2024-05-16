@@ -8,8 +8,8 @@ const headerForm = new FormCreator("header");
 
 export class HeaderCreator {
   #body: HTMLBodyElement | null;
-  header: HTMLElement | null = null;
-  headerWrapper: HTMLElement | null = null;
+  #header: HTMLElement | null = null;
+  protected headerWrapper: HTMLElement | null = null;
   #h1: HTMLHeadingElement | null = null;
 
   constructor(styles: string[]) {
@@ -20,8 +20,8 @@ export class HeaderCreator {
   }
 
   #createHeader() {
-    this.header = document.createElement("header");
-    this.header.classList.add(
+    this.#header = document.createElement("header");
+    this.#header.classList.add(
       headerHeight,
       "sticky",
       "top-0",
@@ -30,7 +30,7 @@ export class HeaderCreator {
       "z-50"
     );
 
-    this.#body?.prepend(this.header);
+    this.#body?.prepend(this.#header);
   }
   #createHeaderWrapper(styles: string[]) {
     this.headerWrapper = document.createElement("div");
@@ -43,7 +43,7 @@ export class HeaderCreator {
       "h-full",
       ...styles
     );
-    this.header?.prepend(this.headerWrapper);
+    this.#header?.prepend(this.headerWrapper);
   }
 
   #createH1() {
@@ -57,10 +57,6 @@ export class HeaderCreator {
 export class HeaderLogedIn extends HeaderCreator {
   constructor(styles: string[]) {
     super(styles);
-    this.#init();
-  }
-
-  #init() {
     this.#createInputContainer();
     new ListCreator("header div", dataNavList);
   }

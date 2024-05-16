@@ -45,14 +45,13 @@ export class FormCreator {
   }
 
   createInput(
-    { name, type, required, placeholder, pattern }: ModelInputData,
+    { name, type, placeholder, pattern }: ModelInputData,
     inputStyles: string[] = []
   ) {
     const input = document.createElement("input");
     input.id = name;
     input.setAttribute("type", type);
     input.setAttribute("name", name);
-    // input.setAttribute("required", required || false);
     input.setAttribute("placeholder", placeholder);
     pattern && input.setAttribute("data-pattern", pattern);
     type === "password" && input.setAttribute("autocomplete", "username");
@@ -120,7 +119,7 @@ export class FormCreator {
 
         field.append(inputs);
 
-        if (required) {
+        if (errorMsg) {
           const error = document.createElement("div");
           error.id = `${name}Error`;
           error.classList.add("text-xs", "h-4", "text-red-500", "mb-1");

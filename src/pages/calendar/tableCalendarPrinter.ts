@@ -307,9 +307,7 @@ export class TableCalendarPrinter {
         dec: true,
       },
     ];
-    this.#init();
-  }
-  #init() {
+
     const calendarTable = new TableCreator("sectionTable");
     calendarTable.createTable(["max-w-[1200px]"]);
     calendarTable.createTableHead(this.#dataTableHead);

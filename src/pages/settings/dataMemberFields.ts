@@ -1,28 +1,32 @@
 import { DataFieldCreator } from "../../components/dataFieldCreator";
+//   name: string,
+//   label: string,
+//   pattern: string,
+//   type: string,
+//   placeholder: string,
+//   errorMsg: string
+
 
 export const dataMemberFields = [
-  DataFieldCreator.createDataField(
+ new DataFieldCreator(
     "firstname",
     "",
-    true,
     "^(?:\\p{L}\\s*){3,}$",
     "text",
     "Imię",
     "Imię min. 3 litery"
   ),
-  DataFieldCreator.createDataField(
+ new DataFieldCreator(
     "lastname",
     "",
-    true,
     "^(?:\\p{L}\\s*){3,}$",
     "text",
     "Nazwisko",
     "Nazwisko min. 3 litery"
   ),
-  DataFieldCreator.createDataField(
+ new DataFieldCreator(
     "phone",
     "",
-    true,
     "^[\\d-]{11,}$",
     "tel",
     "Telefon",

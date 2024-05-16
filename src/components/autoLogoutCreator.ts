@@ -4,10 +4,6 @@ export class AutoLogoutCreator {
   #counterInterval: ReturnType<typeof setInterval> | undefined;
 
   constructor() {
-    this.#init();
-  }
-
-  #init() {
     this.#startLogoutTimer();
     this.#setupListeners();
   }

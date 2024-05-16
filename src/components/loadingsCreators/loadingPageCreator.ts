@@ -5,10 +5,6 @@ export class LoadigPageCreator {
 
   constructor() {
     this.#body = document.querySelector("body");
-    this.#init();
-  }
-
-  #init() {
     this.#loadingEvent();
   }
 

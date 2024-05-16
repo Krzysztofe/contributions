@@ -1,22 +1,29 @@
 import { DataFieldCreator } from "../../components/dataFieldCreator";
 
+//   name: string,
+//   label: string,
+//   pattern: string,
+//   type: string,
+//   placeholder: string,
+//   errorMsg: string
+
 export const dataLoginFields = [
-  DataFieldCreator.createDataField(
+  new DataFieldCreator(
     "login",
     "",
-    true,
     "",
     "text",
     "Login",
-    "Login min. 3 znaki"
+    "x"
   ),
-  DataFieldCreator.createDataField(
+  new DataFieldCreator(
     "password",
     "",
-    true,
     "",
     "password",
     "Hasło",
-    "Hasło in. 3 znaki"
+    "x"
   ),
 ];
+
+console.log("", dataLoginFields);

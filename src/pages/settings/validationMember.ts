@@ -18,10 +18,6 @@ export class ValidationMember {
     this.#newMember = formValues;
     this.isMember;
     this.#errorEl = document.getElementById("customErrorMessage");
-    this.#init();
-  }
-
-  #init() {
     this.#createFullname();
     this.#isMemberRecodred();
     this.#printError();

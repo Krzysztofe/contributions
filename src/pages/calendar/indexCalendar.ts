@@ -6,9 +6,6 @@ import { TableCalendarPrinter } from "./tableCalendarPrinter";
 
 class CalendarManager {
   constructor() {
-    this.#init();
-  }
-  #init() {
     isUserLoged();
     new LoadigPageCreator();
     new HeaderLogedIn(["flex", "items-center", "justify-between"]);

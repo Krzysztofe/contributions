@@ -1,21 +1,10 @@
 export class DataFieldCreator {
-  static createDataField(
-    name: string,
-    label: string,
-    required: boolean,
-    pattern: string,
-    type: string,
-    placeholder: string,
-    errorMsg: string
-  ) {
-    return {
-      name,
-      label,
-      required,
-      pattern,
-      type,
-      placeholder,
-      errorMsg,
-    };
-  }
+  constructor(
+    public name: string | null = null,
+    public label: string | null = null,
+    public pattern: string | null = null,
+    public type: string | null = null,
+    public placeholder: string | null = null,
+    public errorMsg: string | null = null
+  ) {}
 }

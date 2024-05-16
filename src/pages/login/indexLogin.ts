@@ -4,9 +4,6 @@ import { LoginFormPrinter } from "./loginFormPrinter";
 
 class LoginManager {
   constructor() {
-    this.#init();
-  }
-  #init() {
     new LoadigPageCreator();
     new HeaderCreator(["grid", "place-items-center"]);
     new LoginFormPrinter();
