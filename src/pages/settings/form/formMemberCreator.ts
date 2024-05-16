@@ -5,11 +5,11 @@ import { ToastPrinter } from "../../../components/toastPrinter";
 import { URL_MEMBERS } from "../../../data/dataUrl";
 import { HttpRequest } from "../../../services/httpRequest";
 import { capitalize } from "../../../utils/capitalize";
-import { getFormValues } from "../../../utils/getFormValues";
 import { ValidationUniversal } from "../../../utils/validationUniversal";
 import { LoadingTableSettings } from "../loadingTableSettings";
 import { TableMembersPrinter } from "../tableMembersPrinter";
 import { ValidationMember } from "../validationMember";
+import { getFormValues } from "./../../../utils/getFormValues";
 
 export class FormCreateMember extends FormCreator {
   printLoginError: HTMLElement | null = null;
@@ -43,7 +43,8 @@ export class FormCreateMember extends FormCreator {
       "px-6",
       "text-white",
       "text-sm",
-      "bg-black_opacity"
+      "bg-black_opacity",
+      "z-40"
     );
     toastEl.style.transform = "translateY(-100%)";
     this.formEl?.prepend(toastEl);
@@ -71,11 +72,15 @@ export class FormCreateMember extends FormCreator {
     const members = StateMembers.sortedMembers;
 
     // Validations
-
+    const processFormValues = ["firstname", "lastname", "phone"].map(item => {
+      return {[item]: getFormValues(e)[item]};
+    });
+    const formValues = Object.assign({}, ...processFormValues);
     const formKeys = Object.keys(getFormValues(e));
+
     const errors = new ValidationUniversal(formKeys).errors;
     if (errors.length > 0) return;
-    const isMember = new ValidationMember(members, getFormValues(e)).isMember;
+    const isMember = new ValidationMember(members, formValues).isMember;
     if (isMember.length > 0) return;
 
     // POST Member Request;

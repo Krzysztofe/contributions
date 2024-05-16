@@ -1,8 +1,8 @@
 type ModelOptions = {
   url: string;
   method?: string;
-  headers: any;
-  body?: any;
+  headers: {[key:string]:string};
+  body?: {[key:string]:string};
 };
 
 export class HttpRequest {
@@ -46,7 +46,7 @@ export class HttpRequest {
         if (body?.login) {
           data = await resp.text();
         } else if (method === "DELETE") {
-          data = body.id;
+          data = body?.id;
         } else {
           data = await resp.json();
         }

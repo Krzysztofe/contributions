@@ -27,7 +27,7 @@ export class HeaderCreator {
       "top-0",
       "w-full",
       "bg-white",
-      "z-40"
+      "z-50"
     );
 
     this.#body?.prepend(this.header);

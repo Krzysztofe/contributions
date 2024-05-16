@@ -1,3 +1,13 @@
+type ModelInputData = {
+  name: string;
+  type: string;
+  required: boolean;
+  placeholder: string;
+  label?: string;
+  errorMsg: string;
+  pattern?: string;
+};
+
 export class FormCreator {
   #parentEl: HTMLElement | null;
   formEl: HTMLFormElement | null = null;
@@ -14,8 +24,8 @@ export class FormCreator {
     this.#parentEl?.prepend(this.formEl);
   }
 
-  handleChangeInput(e: any) {
-    const inputValue = e.target.value;
+  handleChangeInput(e: Event) {
+    const inputValue = (e.target as HTMLInputElement).value;
     const members = document.querySelectorAll("[data='member']");
 
     members.forEach(member => {
@@ -28,25 +38,23 @@ export class FormCreator {
     });
   }
 
-  handlePhoneFormatting(e: any) {
-    const inputValue = e.target.value.replace(/-/g, "");
+  handlePhoneFormatting(e: Event) {
+    const inputValue = (e.target as HTMLInputElement).value.replace(/-/g, "");
     const formattedValue = inputValue.replace(/(\d{3})(?=\d)/g, "$1-");
-    e.target.value = formattedValue;
+    (e.target as HTMLInputElement).value = formattedValue;
   }
 
-
-
   createInput(
-    { name, type, required, placeholder, pattern }: any,
+    { name, type, required, placeholder, pattern }: ModelInputData,
     inputStyles: string[] = []
   ) {
     const input = document.createElement("input");
     input.id = name;
     input.setAttribute("type", type);
     input.setAttribute("name", name);
-    input.setAttribute("required", required || false);
+    // input.setAttribute("required", required || false);
     input.setAttribute("placeholder", placeholder);
-    input.setAttribute("data-pattern", pattern);
+    pattern && input.setAttribute("data-pattern", pattern);
     type === "password" && input.setAttribute("autocomplete", "username");
     input.classList.add(
       "input",
@@ -81,7 +89,7 @@ export class FormCreator {
   }
 
   createFields(
-    inputsData: any[],
+    inputsData: ModelInputData[],
     fieldStyles: string[] = [],
     inputStyles: string[] = []
   ) {
@@ -94,7 +102,7 @@ export class FormCreator {
         label,
         errorMsg,
         pattern,
-      }: any) => {
+      }: ModelInputData) => {
         const field = document.createElement("div");
         field.classList.add(...fieldStyles);
 

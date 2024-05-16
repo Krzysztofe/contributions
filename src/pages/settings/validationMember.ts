@@ -1,15 +1,27 @@
+import { ModelMember } from "../../sharedModels/moedelMember";
+
+type ModelNewMember = {
+  firstname: string;
+  lastname: string;
+  phone: string;
+};
+
 export class ValidationMember {
-  #members: any;
-  #newMember: any;
+  #members: ModelMember[];
+  #newMember: ModelNewMember;
   #fullnameNewMember: string | null = null;
-  isMember: [] = [];
+  isMember: ModelMember[] | [] = [];
   #errorEl: HTMLElement | null;
 
-  constructor(members: any, formValues: any) {
+  constructor(members: ModelMember[], formValues: ModelNewMember) {
     this.#members = members;
     this.#newMember = formValues;
     this.isMember;
     this.#errorEl = document.getElementById("customErrorMessage");
+    this.#init();
+  }
+
+  #init() {
     this.#createFullname();
     this.#isMemberRecodred();
     this.#printError();

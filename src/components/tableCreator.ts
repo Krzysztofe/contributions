@@ -2,7 +2,7 @@ export class TableCreator {
   parentEl: HTMLElement | null;
   tableEl: HTMLTableElement | null = null;
   td: NodeListOf<HTMLTableCellElement> | null = null;
-  cellsData: any = null;
+  cellsData: {[key: string]: string }[] | null = null;
 
   constructor(element: string) {
     this.parentEl = document.getElementById(element);
@@ -31,10 +31,10 @@ export class TableCreator {
     this.tableEl = tableEl;
   }
 
-  createTableHead(headers: any[]) {
+  createTableHead(headers: string[]) {
     // head
     const tableHeadEl = document.createElement("thead");
-    tableHeadEl.classList.add("sticky", "top-0", "z-40");
+    tableHeadEl.classList.add("sticky", "top-0", "z-30");
 
     // tr
     const tableRowEl = document.createElement("tr");
@@ -113,14 +113,17 @@ export class TableCreator {
     return selectEl;
   }
 
-  createTableBody(cellsData: any, icons: string[] = []) {
+  createTableBody(
+    cellsData: { [key: string]: string }[],
+    icons: string[] = []
+  ) {
     this.cellsData = cellsData;
 
     // tbody
     const tableBodyEl = document.createElement("tbody");
     tableBodyEl.classList.add("bg-white");
 
-    cellsData.forEach((cellData: any, idx: number) => {
+    cellsData.forEach((cellData, idx) => {
       // tr
       const tableRowEl = document.createElement("tr");
       const tableRowId = Math.random().toString();
@@ -141,7 +144,7 @@ export class TableCreator {
       const printCells = { ...cellData };
       delete printCells.id;
 
-      Object.values(printCells).forEach((value: any, idx) => {
+      Object.values(printCells).forEach((value: string, idx) => {
         const stylesTdName =
           idx === 0
             ? [

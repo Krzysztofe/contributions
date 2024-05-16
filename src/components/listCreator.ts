@@ -1,20 +1,27 @@
+type ModelElementData ={
+  text: string,
+  iconClass: string,
+  path:string
+}
+
+
 export class ListCreator {
   #ul: HTMLUListElement | null = null;
   #parentEl: HTMLElement | null;
-  #elements: any[];
+  #elementsData: ModelElementData[];
 
-  constructor(parent: string, elements: any[]) {
+  constructor(parent: string, elementsData: ModelElementData[]) {
     this.#parentEl = document.querySelector(parent);
-    this.#elements = elements;
-    this.#createUl(this.#parentEl, this.#elements);
+    this.#elementsData = elementsData;
+    this.#createUl(this.#parentEl, this.#elementsData);
   }
 
-  #createUl(parentEl: HTMLElement | null, elements: any[]) {
+  #createUl(parentEl: HTMLElement | null, elementsData: ModelElementData[]) {
     if (!parentEl) return;
     this.#ul = document.createElement("ul");
     this.#ul.classList.add("flex");
 
-    elements.forEach(({ text, iconClass, path }: any) => {
+    elementsData.forEach(({ text, iconClass, path }: ModelElementData) => {
       const li = document.createElement("li");
       li.classList.add("flex");
 
