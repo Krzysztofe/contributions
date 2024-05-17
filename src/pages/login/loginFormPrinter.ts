@@ -3,13 +3,13 @@ import { dataLoginFields } from "./dataLoginFields";
 import { URL_AUTH } from "../../data/dataUrl";
 
 export class LoginFormPrinter {
+  #loginForm = new FormLogin("main");
   constructor() {
     this.#init();
   }
   #init() {
-    const loginForm = new FormLogin("main");
-
-    loginForm.createForm("loginForm", [
+    this.#loginForm = new FormLogin("main");
+    this.#loginForm.createForm("loginForm", [
       "flex",
       "flex-col",
       "sm:bg-white",
@@ -17,18 +17,14 @@ export class LoginFormPrinter {
       "px-16",
       "py-8",
     ]);
-
-    loginForm.createFields(dataLoginFields);
-
-    loginForm.createBtn("Zaloguj się", [
+    this.#loginForm.createFields(dataLoginFields);
+    this.#loginForm.createBtn("Zaloguj się", [
       "text-center",
       "w-full",
       "py-1",
       "m-auto",
     ]);
-
-    loginForm.createLoginErrorMsg();
-
-    loginForm.submitEvent(URL_AUTH);
+    this.#loginForm.createLoginErrorMsg();
+    this.#loginForm.submitEvent(URL_AUTH);
   }
 }

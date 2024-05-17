@@ -4,6 +4,7 @@ import { TableMembersPrinter } from "../pages/settings/tableMembersPrinter";
 import { HttpRequest } from "../services/httpRequest";
 import { StateMembers } from "./stateMembers";
 import { ToastPrinter } from "./toastPrinter";
+import { Helpers } from "../utils/helpers";
 
 export class AlertCreator {
   parentEl: HTMLElement | null;
@@ -13,6 +14,15 @@ export class AlertCreator {
   rowId: string | null = null;
   dataItemId: string | null = null;
   modalEl: HTMLDialogElement | null = null;
+  loadingTable = new LoadingTableSettings();
+  DELETEMemberOptions = {
+    url: URL_MEMBERS,
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+    body: { id: this?.dataItemId },
+  };
 
   constructor(elem: string, clickableEl: string) {
     this.parentEl = document.getElementById(elem);
@@ -86,9 +96,10 @@ export class AlertCreator {
 
   async deleteMember() {
     document.querySelector("dialog")?.remove();
-    LoadingTableSettings.createLoadingContainer();
+    this.loadingTable.createLoadingContainer();
     this.bodyEL?.classList.add("overflow-y-scroll");
     const data = await this.fetchData();
+    // const data = await Helpers.fetchData(this.DELETEMemberOptions);
     const updatedData = StateMembers.sortedMembers?.filter(({ id }) => {
       return id !== data?.fetchedData;
     });
@@ -96,8 +107,8 @@ export class AlertCreator {
     document.querySelector("table")?.remove();
     new TableMembersPrinter();
     new AlertCreator("sectionTable", "tableMembers");
-    LoadingTableSettings.removeFormErrors();
-    LoadingTableSettings.removeLoadingContainer();
+    this.loadingTable.removeFormErrors();
+    this.loadingTable.removeLoadingContainer();
     new ToastPrinter("Usunięto");
   }
 }

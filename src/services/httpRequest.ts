@@ -1,9 +1,4 @@
-type ModelOptions = {
-  url: string;
-  method?: string;
-  headers: {[key:string]:string};
-  body?: {[key:string]:string | null};
-};
+import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
 
 export class HttpRequest {
   #createErrorPage = (err: string) => {
@@ -27,7 +22,12 @@ export class HttpRequest {
     body?.prepend(errorContainer);
   };
 
-  async sendRequest({ url, method = "GET", headers, body }: ModelOptions) {
+  async sendRequest({
+    url,
+    method = "GET",
+    headers,
+    body,
+  }: ModelRequestOptions) {
     const requestOptions: RequestInit = {
       method,
       headers,
@@ -36,6 +36,8 @@ export class HttpRequest {
     if (method !== "GET" && method !== "HEAD") {
       requestOptions.body = JSON.stringify(body);
     }
+
+console.log('',requestOptions)
 
     try {
       const resp = await fetch(url, requestOptions);

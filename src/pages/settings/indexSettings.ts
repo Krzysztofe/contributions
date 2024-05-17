@@ -8,8 +8,16 @@ import { HttpRequest } from "../../services/httpRequest";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
 import { TableMembersPrinter } from "./tableMembersPrinter";
+import { Helpers } from "../../utils/helpers";
 
 class SettingsManager {
+  #GETMembersOptions = {
+    url: URL_MEMBERS,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+
   constructor() {
     this.#init();
   }
@@ -18,23 +26,12 @@ class SettingsManager {
     isUserLoged();
     new LoadigPageCreator();
     new HeaderLogedIn(["flex", "items-center", "justify-between"]);
-    const membersDatabase = await this.#fetchData();
+    const membersDatabase = await Helpers.fetchData(this.#GETMembersOptions);
     StateMembers.processMembers(membersDatabase?.fetchedData);
     new FormMemberPrinter();
     new TableMembersPrinter();
     new AlertCreator("sectionTable", "tableMembers");
     new AutoLogoutCreator();
-  }
-
-  #fetchData() {
-    const GETMembersOptions = {
-      url: URL_MEMBERS,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    };
-    const request = new HttpRequest();
-    return request.sendRequest(GETMembersOptions);
   }
 }
 
