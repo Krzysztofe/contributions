@@ -14,7 +14,7 @@ export class AlertCreator {
   rowId: string | null = null;
   dataItemId: string | null = null;
   modalEl: HTMLDialogElement | null = null;
-  loadingTable = new LoadingTableSettings();
+  #loading = new LoadingTableSettings();
   DELETEMemberOptions = {
     url: URL_MEMBERS,
     method: "DELETE",
@@ -96,7 +96,7 @@ export class AlertCreator {
 
   async deleteMember() {
     document.querySelector("dialog")?.remove();
-    this.loadingTable.createLoadingContainer();
+    this.#loading.createLoading();
     this.bodyEL?.classList.add("overflow-y-scroll");
     const data = await this.fetchData();
     // const data = await Helpers.fetchData(this.DELETEMemberOptions);
@@ -107,8 +107,8 @@ export class AlertCreator {
     document.querySelector("table")?.remove();
     new TableMembersPrinter();
     new AlertCreator("sectionTable", "tableMembers");
-    this.loadingTable.removeFormErrors();
-    this.loadingTable.removeLoadingContainer();
+    this.#loading.removeFormErrors();
+    this.#loading.removeLoading();
     new ToastPrinter("Usunięto");
   }
 }

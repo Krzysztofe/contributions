@@ -37,8 +37,6 @@ export class HttpRequest {
       requestOptions.body = JSON.stringify(body);
     }
 
-console.log('',requestOptions)
-
     try {
       const resp = await fetch(url, requestOptions);
       if (!resp.ok) {

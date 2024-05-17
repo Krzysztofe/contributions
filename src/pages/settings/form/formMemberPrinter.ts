@@ -1,14 +1,14 @@
 import { dataMemberFields } from "../dataMemberFields";
-import { FormCreateMember } from "./formMemberCreator";
+import { FormMemberCreator } from "./formMemberCreator";
 
 export class FormMemberPrinter {
-  #memberForm = new FormCreateMember("sectionMemberForm");
+  #form = new FormMemberCreator("sectionMemberForm");
   constructor() {
     this.#init();
   }
 
   #init() {
-    this.#memberForm.createForm("memberForm", [
+    this.#form.createForm("memberForm", [
       "mt-4",
       "mb-8",
       "m-auto",
@@ -21,19 +21,19 @@ export class FormMemberPrinter {
       "relative",
       "max-w-max",
     ]);
-    this.#memberForm.createFields(
+    this.#form.createFields(
       dataMemberFields,
       ["max-w-48", "md:max-w-40", "md:mr-2"],
       ["max-w-48", "md:max-w-40", "text-uppercase", "capitalize"]
     );
-    this.#memberForm.createBtn("Zapisz", [
+    this.#form.createBtn("Zapisz", [
       "w-48",
       "md:w-auto",
       "mb-auto",
       "border-none",
     ]);
-    this.#memberForm.createMemberErrorMsg();
-    this.#memberForm.submitEvent();
-    this.#memberForm.createToast();
+    this.#form.createMemberErrorMsg();
+    this.#form.submitEvent();
+    this.#form.createToast();
   }
 }

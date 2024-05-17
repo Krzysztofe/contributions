@@ -7,11 +7,10 @@ export class LoadingTableCreator {
       "loading-lg",
       "text-accent"
     );
-
     container.append(spinner);
   }
 
-   createLoadingContainer() {
+   createLoading() {
     const container = document.createElement("div");
     container.id = "loadingContainer";
     container.classList.add(
@@ -31,7 +30,7 @@ export class LoadingTableCreator {
     document.querySelector("body")?.append(container);
   }
 
-   removeLoadingContainer() {
+   removeLoading() {
     document.getElementById("loadingContainer")?.remove();
   }
 }

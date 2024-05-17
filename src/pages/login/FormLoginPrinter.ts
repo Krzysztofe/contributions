@@ -2,13 +2,12 @@ import { FormLogin } from "../../components/formsCreators/formLoginCreator";
 import { dataLoginFields } from "./dataLoginFields";
 import { URL_AUTH } from "../../data/dataUrl";
 
-export class LoginFormPrinter {
+export class FormLoginPrinter {
   #loginForm = new FormLogin("main");
   constructor() {
     this.#init();
   }
   #init() {
-    this.#loginForm = new FormLogin("main");
     this.#loginForm.createForm("loginForm", [
       "flex",
       "flex-col",

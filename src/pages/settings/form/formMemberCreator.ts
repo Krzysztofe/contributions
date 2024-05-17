@@ -12,11 +12,9 @@ import { StateMembers } from "../../../components/stateMembers";
 import { LoadingTableSettings } from "../loadingTableSettings";
 import { Helpers } from "../../../utils/helpers";
 
-export class FormCreateMember extends FormCreator {
-  formKeys: string[] | null = null;
-  request = new HttpRequest();
-  stateMembers = StateMembers;
-  loadingTableSettings = new LoadingTableSettings();
+export class FormMemberCreator extends FormCreator {
+  #formKeys: string[] | null = null;
+  #loading = new LoadingTableSettings();
 
   constructor(elementId: string) {
     super(elementId);
@@ -54,7 +52,7 @@ export class FormCreateMember extends FormCreator {
     this.formEl?.prepend(toastEl);
   }
 
-  POSTOptions(e: SubmitEvent) {
+  #POSTOptions(e: SubmitEvent) {
     return {
       url: URL_MEMBERS,
       method: "POST",
@@ -69,45 +67,51 @@ export class FormCreateMember extends FormCreator {
     };
   }
 
-  createNewMembers(fetchedData: any) {
+  #createNewMembers(fetchedData: any) {
     const { firstname, lastname, phone, id } = fetchedData;
     const newMember = { fullname: `${firstname} ${lastname}`, phone, id };
-    return [...this.stateMembers.sortedMembers, newMember];
+    return [...StateMembers.sortedMembers, newMember];
   }
 
   formValues(e: SubmitEvent) {
-    const processFormValues = this.formKeys?.map(item => {
+    const processFormValues = this.#formKeys?.map(item => {
       return { [item]: getFormValues(e)[item] };
     });
     return processFormValues && Object.assign({}, ...processFormValues);
   }
 
-  async handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
-    this.formKeys = Object.keys(getFormValues(e));
+  #validations(e: SubmitEvent) {
+    const errors =
+      this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
 
-    // Validations
+    if (errors && errors.length > 0) return;
 
-    const errors = new ValidationGeneric(this.formKeys).errors;
-    if (errors.length > 0) return;
     const isMember = new ValidationMember(
-      this.stateMembers.sortedMembers,
+      StateMembers.sortedMembers,
       this.formValues(e)
     ).isMember;
     if (isMember.length > 0) return;
 
+    return "go";
+  }
+
+  async handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    this.#formKeys = Object.keys(getFormValues(e));
+    if (this.#validations(e) !== "go") return;
+
     // POST Member Request;
 
-    this.loadingTableSettings.createLoadingContainer();
-    const data = await Helpers.fetchData(this.POSTOptions(e));
+    this.#loading.createLoading();
+    const data = await Helpers.fetchData(this.#POSTOptions(e));
     document.querySelector("table")?.remove();
-    const newMembers = this.createNewMembers(data?.fetchedData);
-    this.stateMembers.processMembers(newMembers);
+    const newMembers = this.#createNewMembers(data?.fetchedData);
+    StateMembers.processMembers(newMembers);
     document.getElementById("noDataContainer")?.remove();
     new TableMembersPrinter();
     new AlertCreator("sectionTable", "tableMembers");
-    this.loadingTableSettings.removeFormErrors();
-    this.loadingTableSettings.removeLoadingContainer();
+    this.#loading.removeFormErrors();
+    this.#loading.removeLoading();
     new ToastPrinter("Zapisano");
   }
 
