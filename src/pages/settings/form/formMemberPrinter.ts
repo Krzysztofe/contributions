@@ -1,5 +1,6 @@
 import { dataMemberFields } from "../dataMemberFields";
 import { FormMemberCreator } from "./formMemberCreator";
+import { FormMemberSubmit } from "./formMemberSubmit";
 
 export class FormMemberPrinter {
   #form = new FormMemberCreator("sectionMemberForm");
@@ -33,7 +34,7 @@ export class FormMemberPrinter {
       "border-none",
     ]);
     this.#form.createMemberErrorMsg();
-    this.#form.submitEvent();
     this.#form.createToast();
+    new FormMemberSubmit()
   }
 }
