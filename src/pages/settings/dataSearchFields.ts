@@ -1,12 +1,3 @@
-import { DataFieldCreator } from "../../components/dataFieldCreator";
-
 export const dataSearchFields = [
-  new DataFieldCreator(
-    "search",
-    "",
-    "",
-    "search",
-    "Szukaj",
-    ""
-  ),
+  { name: "search", type: "search", placeholder: "Szukaj", regEx:"" },
 ];

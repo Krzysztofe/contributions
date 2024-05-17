@@ -1,3 +1,4 @@
+import { AlertCreator } from "../../components/alertCreator";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
@@ -6,9 +7,7 @@ import { URL_MEMBERS } from "../../data/dataUrl";
 import { HttpRequest } from "../../services/httpRequest";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
-import { LoadingTableSettings } from "./loadingTableSettings";
 import { TableMembersPrinter } from "./tableMembersPrinter";
-import { AlertCreator } from "../../components/alertCreator";
 
 class SettingsManager {
   constructor() {
@@ -19,13 +18,11 @@ class SettingsManager {
     isUserLoged();
     new LoadigPageCreator();
     new HeaderLogedIn(["flex", "items-center", "justify-between"]);
-    LoadingTableSettings.createLoadingContainer();
     const membersDatabase = await this.#fetchData();
-    StateMembers.setMembers(membersDatabase?.fetchedData);
+    StateMembers.processMembers(membersDatabase?.fetchedData);
     new FormMemberPrinter();
     new TableMembersPrinter();
     new AlertCreator("sectionTable", "tableMembers");
-    LoadingTableSettings.removeLoadingContainer();
     new AutoLogoutCreator();
   }
 

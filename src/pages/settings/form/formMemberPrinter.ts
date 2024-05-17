@@ -1,5 +1,8 @@
 import { dataMemberFields } from "../dataMemberFields";
 import { FormCreateMember } from "./formMemberCreator";
+import { HttpRequest } from "../../../services/httpRequest";
+import { StateMembers } from "../../../components/stateMembers";
+import { LoadingTableSettings } from "../loadingTableSettings";
 
 export class FormMemberPrinter {
   constructor() {
@@ -7,7 +10,7 @@ export class FormMemberPrinter {
   }
 
   printForm() {
-    const memberForm = new FormCreateMember("sectionMemberForm");
+    const memberForm = new FormCreateMember("sectionMemberForm", new HttpRequest, StateMembers, new LoadingTableSettings);
 
     memberForm.createForm("memberForm", [
       "mt-4",
@@ -23,6 +26,7 @@ export class FormMemberPrinter {
       "max-w-max",
     ]);
 
+    console.log('',dataMemberFields)
     memberForm.createFields(
       dataMemberFields,
       ["max-w-48", "md:max-w-40", "md:mr-2"],

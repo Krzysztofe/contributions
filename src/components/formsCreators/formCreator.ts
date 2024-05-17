@@ -1,11 +1,10 @@
 type ModelInputData = {
   name: string;
   type: string;
-  required: boolean;
   placeholder: string;
-  label?: string;
+  label: string;
   errorMsg: string;
-  pattern?: string;
+  regEx: string;
 };
 
 export class FormCreator {
@@ -45,7 +44,12 @@ export class FormCreator {
   }
 
   createInput(
-    { name, type, placeholder, pattern }: ModelInputData,
+    {
+      name,
+      type,
+      placeholder,
+      regEx,
+    }: { name: string; type: string; placeholder: string; regEx: string },
     inputStyles: string[] = []
   ) {
     const input = document.createElement("input");
@@ -53,7 +57,7 @@ export class FormCreator {
     input.setAttribute("type", type);
     input.setAttribute("name", name);
     input.setAttribute("placeholder", placeholder);
-    pattern && input.setAttribute("data-pattern", pattern);
+    input.setAttribute("data-regEx", regEx);
     type === "password" && input.setAttribute("autocomplete", "username");
     input.classList.add(
       "input",
@@ -93,15 +97,7 @@ export class FormCreator {
     inputStyles: string[] = []
   ) {
     inputsData.forEach(
-      ({
-        name,
-        type,
-        required,
-        placeholder,
-        label,
-        errorMsg,
-        pattern,
-      }: ModelInputData) => {
+      ({ name, type, placeholder, label, errorMsg, regEx }) => {
         const field = document.createElement("div");
         field.classList.add(...fieldStyles);
 
@@ -113,7 +109,7 @@ export class FormCreator {
         }
 
         const inputs = this.createInput(
-          { name, type, required, placeholder, errorMsg, pattern },
+          { name, type, placeholder, regEx },
           inputStyles
         );
 

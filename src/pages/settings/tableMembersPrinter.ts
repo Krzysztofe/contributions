@@ -5,24 +5,25 @@ export class TableMembersPrinter {
   constructor() {
     this.#init();
   }
+  #settingsTable = new TableCreator("sectionTable");
 
   #init() {
-    const settingsTable = new TableCreator("sectionTable");
-
     if (
       !StateMembers.sortedMembers ||
       StateMembers.sortedMembers.length === 0
     ) {
-      settingsTable.noDataContainer();
+      this.#settingsTable.noDataContainer();
     } else {
-      settingsTable.createTable(["max-w-[1000px]"]);
-      settingsTable.createTableHead([
+      this.#settingsTable.createTable(["max-w-[1000px]"]);
+      this.#settingsTable.createTableHead([
         `${StateMembers.sortedMembers.length}`,
         "Imię i Nazwisko",
         "Telefon",
         "",
       ]);
-      settingsTable.createTableBody(StateMembers.sortedMembers, ["fa-trash"]);
+      this.#settingsTable.createTableBody(StateMembers.sortedMembers, [
+        "fa-trash",
+      ]);
     }
   }
 }

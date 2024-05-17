@@ -19,10 +19,12 @@ export class StateMembers {
       }
       return 0;
     });
+
+    this.sortedMembers = sortedMembers;
     return sortedMembers;
   }
 
   static setMembers(members: ModelMember[]) {
-    this.sortedMembers = this.processMembers(members);
+    this.sortedMembers = members;
   }
 }

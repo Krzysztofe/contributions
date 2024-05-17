@@ -15,7 +15,14 @@
     <script type="module" src="./src/pages/login/indexLogin.ts" defer></script>
   </head>
 
-  <body class="hidden">
+   <body class="overflow-y-scroll">
+    <div
+      id="loadingConteiner"
+      class="grid place-content-center h-full bg-white fixed top-0 left-0 right-0 z-50"
+      style="transition: opacity 500ms"
+    >
+      <span class="loading loading-spinner loading-lg text-accent"></span>
+    </div>
     <main id="main" class="h_main grid place-items-center bg-primary"></main>
   </body>
 </html>

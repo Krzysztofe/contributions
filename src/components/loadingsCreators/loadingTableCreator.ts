@@ -1,7 +1,5 @@
 export class LoadingTableCreator {
-  static parentEl: HTMLElement | null;
-
-  static createSpinner(container: HTMLElement) {
+   createSpinner(container: HTMLElement) {
     const spinner = document.createElement("div");
     spinner.classList.add(
       "loading",
@@ -13,7 +11,7 @@ export class LoadingTableCreator {
     container.append(spinner);
   }
 
-  static createLoadingContainer() {
+   createLoadingContainer() {
     const container = document.createElement("div");
     container.id = "loadingContainer";
     container.classList.add(
@@ -33,7 +31,7 @@ export class LoadingTableCreator {
     document.querySelector("body")?.append(container);
   }
 
-  static removeLoadingContainer() {
+   removeLoadingContainer() {
     document.getElementById("loadingContainer")?.remove();
   }
 }

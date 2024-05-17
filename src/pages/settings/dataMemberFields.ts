@@ -1,7 +1,7 @@
 import { DataFieldCreator } from "../../components/dataFieldCreator";
 //   name: string,
 //   label: string,
-//   pattern: string,
+//   regEx: string,
 //   type: string,
 //   placeholder: string,
 //   errorMsg: string

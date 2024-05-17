@@ -6,6 +6,7 @@ type ModelElementData ={
 
 
 export class ListCreator {
+  #nav: HTMLElement | null= null
   #ul: HTMLUListElement | null = null;
   #parentEl: HTMLElement | null;
   #elementsData: ModelElementData[];
@@ -13,7 +14,14 @@ export class ListCreator {
   constructor(parent: string, elementsData: ModelElementData[]) {
     this.#parentEl = document.querySelector(parent);
     this.#elementsData = elementsData;
+    this.#creataNav()
     this.#createUl(this.#parentEl, this.#elementsData);
+  }
+
+  #creataNav(){
+    const navEl = document.createElement("nav")
+    this.#parentEl?.append(navEl)
+    this.#nav = navEl
   }
 
   #createUl(parentEl: HTMLElement | null, elementsData: ModelElementData[]) {
@@ -70,6 +78,6 @@ export class ListCreator {
 
       this.#ul?.append(li);
     });
-    parentEl?.append(this.#ul);
+    this.#nav?.append(this.#ul);
   }
 }
