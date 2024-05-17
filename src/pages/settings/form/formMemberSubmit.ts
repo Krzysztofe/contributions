@@ -7,7 +7,7 @@ import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { LoadingTableSettings } from "../loadingTableSettings";
 import { Helpers } from "../../../utils/helpers";
 import { TableMembersPrinter } from "../tableMembersPrinter";
-import { AlertCreator } from "../../../components/alertCreator";
+import { AlertCreator } from "../../../components/alertCreator/alertCreator";
 import { ToastPrinter } from "../../../components/toastPrinter";
 
 export class FormMemberSubmit {
@@ -33,7 +33,7 @@ export class FormMemberSubmit {
       },
     };
   }
-  
+
   #createNewMembers(fetchedData: any) {
     const { firstname, lastname, phone, id } = fetchedData;
     const newMember = { fullname: `${firstname} ${lastname}`, phone, id };
@@ -76,7 +76,7 @@ export class FormMemberSubmit {
     StateMembers.processMembers(newMembers);
     document.getElementById("noDataContainer")?.remove();
     new TableMembersPrinter();
-    new AlertCreator("sectionTable", "tableMembers");
+    new AlertCreator();
     this.#loading.removeFormErrors();
     this.#loading.removeLoading();
     new ToastPrinter("Zapisano");

@@ -1,4 +1,4 @@
-import { AlertCreator } from "../../components/alertCreator";
+import { AlertCreator } from "../../components/alertCreator/alertCreator";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
@@ -30,7 +30,7 @@ class SettingsManager {
     StateMembers.processMembers(membersDatabase?.fetchedData);
     new FormMemberPrinter();
     new TableMembersPrinter();
-    new AlertCreator("sectionTable", "tableMembers");
+    new AlertCreator();
     new AutoLogoutCreator();
   }
 }
