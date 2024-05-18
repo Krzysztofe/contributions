@@ -7,10 +7,10 @@ import { StateMembers } from "../stateMembers";
 export class DeleteMember {
   #loading = new LoadingTableSettings();
   #bodyEL = document.querySelector("body");
-  memberId: string | null = null;
-  clikedBtnEl: any = null;
+  memberId: string | null;
+  clikedBtnEl: HTMLButtonElement | null;
 
-  constructor(memberId: any, clikedBtnEl: any) {
+  constructor(memberId: string, clikedBtnEl: HTMLButtonElement | null) {
     this.memberId = memberId;
     this.clikedBtnEl = clikedBtnEl;
     this.#clickEvent();
@@ -42,6 +42,6 @@ export class DeleteMember {
     new RecreateSettingPanel(updatedData, "Usunięto");
   }
   #clickEvent() {
-    this.clikedBtnEl.addEventListener("click", this.#handleDelete.bind(this));
+    this.clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));
   }
 }

@@ -4,8 +4,8 @@ export class TableCreator {
   td: NodeListOf<HTMLTableCellElement> | null = null;
   cellsData: { [key: string]: string }[] | null = null;
 
-  constructor(element: string) {
-    this.parentEl = document.getElementById(element);
+  constructor(parentEl: string) {
+    this.parentEl = document.getElementById(parentEl);
   }
 
   noDataContainer() {
@@ -64,6 +64,7 @@ export class TableCreator {
       tableRowEl.append(th);
 
       const internalDiv = document.createElement("div");
+      internalDiv.setAttribute("data", "internalDiv");
 
       const divStyles =
         ({
@@ -82,35 +83,11 @@ export class TableCreator {
         ...divStyles
       );
       internalDiv.textContent = header;
-      if (idx === 1 && arr.length > 4) {
-        internalDiv.append(this.createSelect());
-      }
       th.append(internalDiv);
       tableRowEl.append(th);
     });
 
     this.tableEl?.append(tableHeadEl);
-  }
-
-  createSelect() {
-    const selectEl = document.createElement("select");
-    selectEl.classList.add(
-      "select",
-      "select-xs",
-      "border-0",
-      "focus:outline-none",
-      "min-w-24",
-      "w-full",
-      "bg-primary_dark"
-    );
-    selectEl.innerHTML = `<option>2024</option>
-          <option>2025</option>
-           <option>2026</option>
-            <option>2027</option> 
-          <option>2028</option>
-          `;
-
-    return selectEl;
   }
 
   createTableBody({

@@ -32,7 +32,7 @@ export class FormMemberSubmit {
     };
   }
 
-  #createNewMembers(fetchedData: any) {
+  #createNewMembers(fetchedData: {[key:string]:any}) {
     const { firstname, lastname, phone, id } = fetchedData;
     const newMember = { fullname: `${firstname} ${lastname}`, phone, id };
     return [...StateMembers.sortedMembers, newMember];

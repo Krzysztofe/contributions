@@ -1,4 +1,5 @@
 import { TableCreator } from "../../components/tableCreator";
+import { TableCalendar } from "./tableCalendar";
 
 export class TableCalendarPrinter {
   #dataTableHead = [
@@ -308,9 +309,11 @@ export class TableCalendarPrinter {
       },
     ];
 
-    const calendarTable = new TableCreator("sectionTable");
-    calendarTable.createTable(["max-w-[1200px]"]);
-    calendarTable.createTableHead(this.#dataTableHead);
-    calendarTable.createTableBody({ cellsData: this.#dataTableBody });
+    const table = new TableCalendar("sectionTable");
+    table.createTable(["max-w-[1200px]"]);
+    table.createTableHead(this.#dataTableHead);
+    table.createTableBody({ cellsData: this.#dataTableBody });
+    table.createSelect()
+    table.selectEvent()
   }
 }

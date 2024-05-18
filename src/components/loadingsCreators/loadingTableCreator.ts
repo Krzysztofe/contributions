@@ -1,5 +1,5 @@
 export class LoadingTableCreator {
-   createSpinner(container: HTMLElement) {
+   #createSpinner(container: HTMLElement) {
     const spinner = document.createElement("div");
     spinner.classList.add(
       "loading",
@@ -26,7 +26,7 @@ export class LoadingTableCreator {
       "z-50"
     );
 
-    this.createSpinner(container);
+    this.#createSpinner(container);
     document.querySelector("body")?.append(container);
   }
 
