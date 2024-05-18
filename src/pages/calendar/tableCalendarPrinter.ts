@@ -1,5 +1,6 @@
-import { TableCreator } from "../../components/tableCreator";
+
 import { TableCalendar } from "./tableCalendar";
+import { TablePopup } from "./tablePopup";
 
 export class TableCalendarPrinter {
   #dataTableHead = [

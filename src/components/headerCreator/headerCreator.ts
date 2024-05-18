@@ -1,19 +1,17 @@
 import { headerHeight } from "../../data/dataNumbers";
-import { ListCreator } from "../listCreator";
-import { dataSearchFields } from "../../pages/settings/dataSearchFields";
 import { FormCreator } from "../formsCreators/formCreator";
+import { ListCreator } from "../listCreator";
 import { dataNavList } from "./dataNavList";
-
-const headerForm = new FormCreator("header");
+import { dataSearchInput, dataAmountInput } from "./dataInputs";
 
 export class HeaderCreator {
-  #body: HTMLBodyElement | null;
+  #body = document.querySelector("body");
   #header: HTMLElement | null = null;
   protected headerWrapper: HTMLElement | null = null;
   #h1: HTMLHeadingElement | null = null;
+  form = new FormCreator("header");
 
   constructor(styles: string[]) {
-    this.#body = document.querySelector("body");
     this.#createHeader();
     this.#createHeaderWrapper(styles);
     this.#createH1();
@@ -57,11 +55,11 @@ export class HeaderCreator {
 export class HeaderLogedIn extends HeaderCreator {
   constructor(styles: string[]) {
     super(styles);
-    this.#createInputContainer();
+    this.#createSearchContainer();
     new ListCreator("header div", dataNavList);
   }
 
-  #createInputContainer() {
+  #createSearchContainer() {
     const inputContainer = document.createElement("div");
     inputContainer.classList.add(
       "absolute",
@@ -82,12 +80,45 @@ export class HeaderLogedIn extends HeaderCreator {
     );
     inputContainer.append(icon);
 
-    dataSearchFields.forEach(field => {
+    dataSearchInput.forEach(input => {
       inputContainer.append(
-        headerForm.createInput(field, ["max-w-28", "sm:max-w-40", "pl-6"])
+        this.form.createInput(input, ["max-w-28", "sm:max-w-40", "pl-6"])
       );
     });
 
     this.headerWrapper?.append(inputContainer);
   }
 }
+
+// export class HeaderCalendar extends HeaderLogedIn {
+//   constructor(styles: string[]) {
+//     super(styles);
+//     this.createInputAmount();
+//   }
+
+//   #handleChangeInput(e: Event) {
+//     console.log("", (e.target as HTMLInputElement).value);
+//   }
+
+//   createInputAmount() {
+//     const navEl = document.querySelector("nav");
+
+//     dataAmountInput.forEach(input => {
+//       navEl?.append(
+//         this.form.createInput(input, [
+//           "absolute",
+//           "w-24",
+//           "-top-[2px]",
+//           "lg:top-0",
+//           "right-[100%]",
+//           "hidden",
+//           "md:block",
+//         ])
+//       );
+//     });
+
+//     const inputEl = document.getElementById("amount");
+//     inputEl?.addEventListener("input", this.#handleChangeInput.bind(this));
+
+//   }
+// }

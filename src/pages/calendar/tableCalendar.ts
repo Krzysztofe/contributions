@@ -1,8 +1,7 @@
-import { URL_CALENDAR } from "./../../data/dataUrl";
+import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
 import { TableCreator } from "../../components/tableCreator";
 import { Helpers } from "../../utils/helpers";
-import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
-
+import { URL_CALENDAR } from "./../../data/dataUrl";
 
 export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
@@ -37,9 +36,10 @@ export class TableCalendar extends TableCreator {
     this.#select = selectEl;
     return selectEl;
   }
-  async #handleSelect(e: Event) {
-    this.#loading.createLoading()
-    const selectedValue = (e.target as HTMLInputElement).value;
+
+  async #handleSelect() {
+    this.#loading.createLoading();
+    // const selectedValue = (e.target as HTMLInputElement).value;
     const GETOptions = {
       url: URL_CALENDAR,
       headers: {
@@ -47,9 +47,10 @@ export class TableCalendar extends TableCreator {
       },
     };
     const database = await Helpers.fetchData(GETOptions);
-    this.#loading.removeLoading()
+    this.#loading.removeLoading();
     console.log("eee", database);
   }
+
   selectEvent() {
     this.#select?.addEventListener("input", this.#handleSelect.bind(this));
   }

@@ -1,9 +1,9 @@
-import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { isUserLoged } from "../../utils/isUserLoged";
 import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
+import { HeaderCalendar } from "./headerCalendar";
+import { TablePopup } from "./tablePopup";
 
 class CalendarManager {
   // #GETCalendarOptions = {
@@ -19,9 +19,10 @@ class CalendarManager {
   async #init() {
     Helpers.isUserLoged();
     new LoadigPageCreator();
-    new HeaderLogedIn(["flex", "items-center", "justify-between"]);
+    new HeaderCalendar(["flex", "items-center", "justify-between"]);
     // const calendarDatabase = await Helpers.fetchData(this.#GETCalendarOptions);
     new TableCalendarPrinter();
+    new TablePopup()
     new AutoLogoutCreator();
   }
 }

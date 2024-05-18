@@ -150,6 +150,8 @@ export class TableCreator {
               ]
             : [];
 
+        const stylesTdMonths = idx > 0 ? ["cursor-pointer"] : [];
+
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
@@ -160,7 +162,8 @@ export class TableCreator {
           "p-3",
           "lg:p-0",
           "lg:px-3",
-          ...stylesTdName
+          ...stylesTdName,
+          ...stylesTdMonths
         );
         td.innerText = value;
         tableRowEl.append(td);

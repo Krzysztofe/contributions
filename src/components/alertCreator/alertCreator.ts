@@ -43,8 +43,8 @@ export class AlertCreator {
     this.modalEl = dialogEl;
     const btnNo = document.getElementById("btnNo");
     btnNo?.addEventListener("click", this.addScroll.bind(this));
-    const btnDelete = document.getElementById(`${modalId}_delete`);
-    new DeleteMember(this.memberId, btnDelete);
+    const btnDelete = document.getElementById(`${modalId}_delete`) as HTMLButtonElement
+    this.memberId && new DeleteMember(this.memberId, btnDelete);
   }
 
   addScroll() {

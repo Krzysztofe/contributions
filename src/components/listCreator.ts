@@ -20,6 +20,7 @@ export class ListCreator {
 
   #creataNav(){
     const navEl = document.createElement("nav")
+    navEl.classList.add("relative")
     this.#parentEl?.append(navEl)
     this.#nav = navEl
   }
@@ -42,7 +43,7 @@ export class ListCreator {
       textSpan.innerText = text;
       textSpan.classList.add(
         "hidden",
-        "md:block",
+        "lg:block",
         "text-sm",
         "lg:text-base",
         "flex",
