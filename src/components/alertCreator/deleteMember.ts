@@ -1,10 +1,8 @@
-import { LoadingTableSettings } from "../../pages/settings/loadingTableSettings";
 import { URL_MEMBERS } from "../../data/dataUrl";
+import { LoadingTableSettings } from "../../pages/settings/loadingTableSettings";
+import { RecreateSettingPanel } from "../../pages/settings/recreateSettingsPanel";
 import { HttpRequest } from "../../services/httpRequest";
 import { StateMembers } from "../stateMembers";
-import { TableMembersPrinter } from "../../pages/settings/tableMembersPrinter";
-import { AlertCreator } from "./alertCreator";
-import { ToastPrinter } from "../toastPrinter";
 
 export class DeleteMember {
   #loading = new LoadingTableSettings();
@@ -41,13 +39,7 @@ export class DeleteMember {
     const updatedData = StateMembers.sortedMembers?.filter(({ id }) => {
       return id !== data?.fetchedData;
     });
-    StateMembers.setMembers(updatedData);
-    document.querySelector("table")?.remove();
-    new TableMembersPrinter();
-    new AlertCreator();
-    this.#loading.removeFormErrors();
-    this.#loading.removeLoading();
-    new ToastPrinter("Usunięto");
+    new RecreateSettingPanel(updatedData, "Usunięto");
   }
   #clickEvent() {
     this.clikedBtnEl.addEventListener("click", this.#handleDelete.bind(this));

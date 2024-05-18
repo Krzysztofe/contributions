@@ -9,7 +9,7 @@ export class LoadigPageCreator {
 
     setTimeout(() => {
       this.#loadingContenerEl?.classList.add("hidden");
-    }, 500);
+    }, 200);
   }
 
   #loadingEvent() {

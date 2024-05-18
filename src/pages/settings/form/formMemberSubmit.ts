@@ -1,17 +1,16 @@
+import { StateMembers } from "../../../components/stateMembers";
 import { URL_MEMBERS } from "../../../data/dataUrl";
 import { capitalize } from "../../../utils/capitalize";
 import { getFormValues } from "../../../utils/getFormValues";
-import { StateMembers } from "../../../components/stateMembers";
-import { ValidationMember } from "../validationMember";
+import { Helpers } from "../../../utils/helpers";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { LoadingTableSettings } from "../loadingTableSettings";
-import { Helpers } from "../../../utils/helpers";
-import { TableMembersPrinter } from "../tableMembersPrinter";
-import { AlertCreator } from "../../../components/alertCreator/alertCreator";
-import { ToastPrinter } from "../../../components/toastPrinter";
+import { RecreateSettingPanel } from "../recreateSettingsPanel";
+import { ValidationMember } from "../validationMember";
 
 export class FormMemberSubmit {
   #formEl = document.querySelector("form");
+  #errorsEL = document.querySelectorAll(".h-4");
   #formKeys: string[] | null = null;
   #loading = new LoadingTableSettings();
 
@@ -48,6 +47,8 @@ export class FormMemberSubmit {
   }
 
   #validations(e: SubmitEvent) {
+    this.#errorsEL.forEach(error => ((error as HTMLElement).innerText = ""));
+
     const errors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
 
@@ -58,12 +59,12 @@ export class FormMemberSubmit {
       this.formValues(e)
     ).isMember;
     if (isMember.length > 0) return;
-
     return "go";
   }
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
+
     this.#formKeys = Object.keys(getFormValues(e));
     if (this.#validations(e) !== "go") return;
 
@@ -71,15 +72,9 @@ export class FormMemberSubmit {
 
     this.#loading.createLoading();
     const data = await Helpers.fetchData(this.#POSTOptions(e));
-    document.querySelector("table")?.remove();
     const newMembers = this.#createNewMembers(data?.fetchedData);
-    StateMembers.processMembers(newMembers);
     document.getElementById("noDataContainer")?.remove();
-    new TableMembersPrinter();
-    new AlertCreator();
-    this.#loading.removeFormErrors();
-    this.#loading.removeLoading();
-    new ToastPrinter("Zapisano");
+    new RecreateSettingPanel(newMembers, "Zapisano");
   }
 
   submitEvent() {

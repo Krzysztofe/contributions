@@ -4,7 +4,7 @@ import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
 import { StateMembers } from "../../components/stateMembers";
 import { URL_MEMBERS } from "../../data/dataUrl";
-import { HttpRequest } from "../../services/httpRequest";
+// import { HttpRequest } from "../../services/httpRequest";
 import { isUserLoged } from "../../utils/isUserLoged";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
 import { TableMembersPrinter } from "./tableMembersPrinter";
