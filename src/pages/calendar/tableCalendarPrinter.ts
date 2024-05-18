@@ -1,25 +1,25 @@
 import { TableCreator } from "../../components/tableCreator";
 
 export class TableCalendarPrinter {
-  #dataTableHead: string[];
-  #dataTableBody: any[];
+  #dataTableHead = [
+    "",
+    "",
+    "Sty.",
+    "Lut.",
+    "Mar.",
+    "Kwi.",
+    "Maj",
+    "Cze.",
+    "Lip.",
+    "Sie.",
+    "Wrz.",
+    "Paź",
+    "Lis.",
+    "Gru.",
+  ];
+  #dataTableBody: any
+
   constructor() {
-    this.#dataTableHead = [
-      "",
-      "",
-      "Sty.",
-      "Lut.",
-      "Mar.",
-      "Kwi.",
-      "Maj",
-      "Cze.",
-      "Lip.",
-      "Sie.",
-      "Wrz.",
-      "Paź",
-      "Lis.",
-      "Gru.",
-    ];
     this.#dataTableBody = [
       {
         name: "Adam Kowalski",
@@ -311,6 +311,6 @@ export class TableCalendarPrinter {
     const calendarTable = new TableCreator("sectionTable");
     calendarTable.createTable(["max-w-[1200px]"]);
     calendarTable.createTableHead(this.#dataTableHead);
-    calendarTable.createTableBody(this.#dataTableBody);
+    calendarTable.createTableBody({ cellsData: this.#dataTableBody });
   }
 }

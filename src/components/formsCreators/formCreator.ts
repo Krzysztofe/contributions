@@ -15,10 +15,10 @@ export class FormCreator {
     this.#parentEl = document.getElementById(elementId);
   }
 
-  createForm(formId: string, formStyles: string[]) {
+  createForm({ formId, styles }: { formId: string; styles: string[] }) {
     this.formEl = document.createElement("form");
     this.formEl.id = formId;
-    this.formEl.classList.add(...formStyles);
+    this.formEl.classList.add(...styles);
     this.formEl.setAttribute("novalidate", "");
     this.#parentEl?.prepend(this.formEl);
   }
@@ -91,11 +91,15 @@ export class FormCreator {
     return input;
   }
 
-  createFields(
-    inputsData: ModelInputData[],
-    fieldStyles: string[] = [],
-    inputStyles: string[] = []
-  ) {
+  createFields({
+    inputsData,
+    fieldStyles = [],
+    inputStyles = [],
+  }: {
+    inputsData: ModelInputData[];
+    fieldStyles?: string[] | [];
+    inputStyles?: string[] | [];
+  }) {
     inputsData.forEach(
       ({ name, type, placeholder, label, errorMsg, regEx }) => {
         const field = document.createElement("div");
@@ -128,7 +132,7 @@ export class FormCreator {
     );
   }
 
-  createBtn(innerText: string, btnStyles: string[]) {
+  createBtn({innerText, styles}:{innerText: string, styles: string[]}) {
     const btnEl = document.createElement("button");
     btnEl.setAttribute("type", "submit");
     btnEl.id = "btnSubmit";
@@ -141,7 +145,7 @@ export class FormCreator {
       "rounded-sm",
       "text-white",
       "relative",
-      ...btnStyles
+      ...styles
     );
 
     this.formEl?.append(btnEl);

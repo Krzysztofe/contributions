@@ -1,6 +1,5 @@
 import { StateMembers } from "../../../components/stateMembers";
 import { URL_MEMBERS } from "../../../data/dataUrl";
-import { capitalize } from "../../../utils/capitalize";
 import { getFormValues } from "../../../utils/getFormValues";
 import { Helpers } from "../../../utils/helpers";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
@@ -26,8 +25,8 @@ export class FormMemberSubmit {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        firstname: capitalize(getFormValues(e).firstname),
-        lastname: capitalize(getFormValues(e).lastname),
+        firstname: Helpers.capitalize(getFormValues(e).firstname),
+        lastname: Helpers.capitalize(getFormValues(e).lastname),
         phone: getFormValues(e).phone,
       },
     };
@@ -64,7 +63,6 @@ export class FormMemberSubmit {
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-
     this.#formKeys = Object.keys(getFormValues(e));
     if (this.#validations(e) !== "go") return;
 
@@ -74,6 +72,7 @@ export class FormMemberSubmit {
     const data = await Helpers.fetchData(this.#POSTOptions(e));
     const newMembers = this.#createNewMembers(data?.fetchedData);
     document.getElementById("noDataContainer")?.remove();
+    
     new RecreateSettingPanel(newMembers, "Zapisano");
   }
 

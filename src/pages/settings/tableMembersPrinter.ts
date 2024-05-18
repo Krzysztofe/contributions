@@ -21,9 +21,10 @@ export class TableMembersPrinter {
         "Telefon",
         "",
       ]);
-      this.#table.createTableBody(StateMembers.sortedMembers, [
-        "fa-trash",
-      ]);
+      this.#table.createTableBody({
+        cellsData: StateMembers.sortedMembers,
+        icons: ["fa-trash"],
+      });
     }
   }
 }

@@ -2,7 +2,7 @@ export class TableCreator {
   parentEl: HTMLElement | null;
   tableEl: HTMLTableElement | null = null;
   td: NodeListOf<HTMLTableCellElement> | null = null;
-  cellsData: {[key: string]: string }[] | null = null;
+  cellsData: { [key: string]: string }[] | null = null;
 
   constructor(element: string) {
     this.parentEl = document.getElementById(element);
@@ -113,10 +113,13 @@ export class TableCreator {
     return selectEl;
   }
 
-  createTableBody(
-    cellsData: { [key: string]: string }[],
-    icons: string[] = []
-  ) {
+  createTableBody({
+    cellsData,
+    icons = [],
+  }: {
+    cellsData: { [key: string]: string }[];
+    icons?: string[];
+  }) {
     this.cellsData = cellsData;
 
     // tbody

@@ -23,11 +23,11 @@ class SettingsManager {
   }
 
   async #init() {
-    isUserLoged();
+    Helpers.isUserLoged();
     new LoadigPageCreator();
     new HeaderLogedIn(["flex", "items-center", "justify-between"]);
     const membersDatabase = await Helpers.fetchData(this.#GETMembersOptions);
-    StateMembers.processMembers(membersDatabase?.fetchedData);
+    StateMembers.setMembers(membersDatabase?.fetchedData);
     new FormMemberPrinter();
     new TableMembersPrinter();
     new AlertCreator();

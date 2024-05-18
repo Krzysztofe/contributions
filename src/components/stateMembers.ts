@@ -3,7 +3,7 @@ import { ModelMember } from "../sharedModels/moedelMember";
 export class StateMembers {
   static sortedMembers: [] | ModelMember[] = [];
 
-  static processMembers(members: ModelMember[]) {
+  static setMembers(members: ModelMember[]) {
     const selectedMembers = members.map(({ fullname, phone, id }) => {
       return { id, fullname, phone };
     });
@@ -22,9 +22,5 @@ export class StateMembers {
 
     this.sortedMembers = sortedMembers;
     return sortedMembers;
-  }
-
-  static setMembers(members: ModelMember[]) {
-    this.sortedMembers = members;
   }
 }

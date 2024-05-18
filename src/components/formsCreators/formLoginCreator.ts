@@ -46,8 +46,7 @@ export class FormLogin extends FormCreator {
         (this.printLoginError.innerText = "Błędny login lub hasło");
     }
     btnLoader.removeSpinner();
-
-    // this.formEl?.reset();
+    this.formEl?.reset();
   }
 
   submitEvent(url: string) {
