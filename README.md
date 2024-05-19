@@ -21,4 +21,5 @@ Demo https://kkrol.host83.nstrefa.pl/
 * Tailwind / daisyUI
 * JavaScript / TypeScript / OOP
 * RegExp
+* LocalStorage
 * Vite
