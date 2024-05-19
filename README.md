@@ -1,6 +1,6 @@
 # Contributions
 
-An application for recording contributions paid by members of a company workers' union commission.
+An application created for the use of the treasurer of a workers' union commission for recording contributions paid by its members.
 
 
 Demo https://skladki.ozzip.pl/
