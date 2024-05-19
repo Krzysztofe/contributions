@@ -1,6 +1,5 @@
-
 import { TableCalendar } from "./tableCalendar";
-import { TablePopup } from "./tablePopup";
+import { TablePopup } from "./popup/tablePopup";
 
 export class TableCalendarPrinter {
   #dataTableHead = [
@@ -19,7 +18,7 @@ export class TableCalendarPrinter {
     "Lis.",
     "Gru.",
   ];
-  #dataTableBody: any
+  #dataTableBody: any;
 
   constructor() {
     this.#dataTableBody = [
@@ -314,7 +313,7 @@ export class TableCalendarPrinter {
     table.createTable(["max-w-[1200px]"]);
     table.createTableHead(this.#dataTableHead);
     table.createTableBody({ cellsData: this.#dataTableBody });
-    table.createSelect()
-    table.selectEvent()
+    table.createSelect();
+    table.selectEvent();
   }
 }

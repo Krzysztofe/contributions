@@ -1,26 +1,38 @@
-import { StateAmount } from "./StateAmount";
-import { FormCreator } from "../../components/formsCreators/formCreator";
+import { StateAmount } from "../StateAmount";
+import { FormCreator } from "../../../components/formsCreators/formCreator";
+import { dataPopupFields } from "./dataPopupFields";
+import { PopupSubmit } from "./popupSubmit";
 
 export class TablePopup {
   #bodyEl = document.querySelector("body");
   #popupContainer: HTMLElement | null = null;
-  //   #form = new FormCreator("popupContainer");
   constructor() {
     this.#printPopupEvent();
   }
 
   #createForm() {
-    console.log("ee");
     const form = new FormCreator("popupContainer");
 
     form.createForm({
       formId: "popupForm",
-      styles: ["flex", "flex-col", "sm:bg-white", "sm:border", "px-16", "py-8"],
+      styles: [
+        "flex",
+        "flex-col",
+        "sm:bg-white",
+        "sm:border",
+        "px-16",
+        "py-8",
+        "rounded-sm",
+        "bg-white",
+      ],
     });
+    form.createFields({ inputsData: dataPopupFields });
     form.createBtn({
-      innerText: "Zaloguj się",
-      styles: ["text-center", "w-full", "py-1", "m-auto"],
+      innerText: "Zapisz",
+      styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
+
+    new PopupSubmit();
   }
 
   #createPopup(e: Event) {
@@ -45,8 +57,11 @@ export class TablePopup {
   }
 
   #removePopup(e: Event) {
-    if (((e.target as HTMLElement).classList.value = "bg-black_opacity")) {
+    if (
+      (e.target as HTMLElement)?.classList.value.includes("bg-black_opacity")
+    ) {
       this.#popupContainer?.remove();
+      e.stopPropagation();
     }
   }
 

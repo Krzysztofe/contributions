@@ -21,12 +21,13 @@ export class HeaderCalendar extends HeaderLogedIn {
       navEl?.append(
         this.form.createInput(input, [
           "absolute",
-          "w-24",
+          "w-20",
           "-top-[2px]",
           "lg:top-0",
           "right-[100%]",
           "hidden",
           "md:block",
+          "pr-0"
         ])
       );
     });

@@ -2,7 +2,7 @@ import { headerHeight } from "../../data/dataNumbers";
 import { FormCreator } from "../formsCreators/formCreator";
 import { ListCreator } from "../listCreator";
 import { dataNavList } from "./dataNavList";
-import { dataSearchInput, dataAmountInput } from "./dataInputs";
+import { dataSearchInput } from "./dataInputs";
 
 export class HeaderCreator {
   #body = document.querySelector("body");
@@ -90,35 +90,4 @@ export class HeaderLogedIn extends HeaderCreator {
   }
 }
 
-// export class HeaderCalendar extends HeaderLogedIn {
-//   constructor(styles: string[]) {
-//     super(styles);
-//     this.createInputAmount();
-//   }
 
-//   #handleChangeInput(e: Event) {
-//     console.log("", (e.target as HTMLInputElement).value);
-//   }
-
-//   createInputAmount() {
-//     const navEl = document.querySelector("nav");
-
-//     dataAmountInput.forEach(input => {
-//       navEl?.append(
-//         this.form.createInput(input, [
-//           "absolute",
-//           "w-24",
-//           "-top-[2px]",
-//           "lg:top-0",
-//           "right-[100%]",
-//           "hidden",
-//           "md:block",
-//         ])
-//       );
-//     });
-
-//     const inputEl = document.getElementById("amount");
-//     inputEl?.addEventListener("input", this.#handleChangeInput.bind(this));
-
-//   }
-// }
