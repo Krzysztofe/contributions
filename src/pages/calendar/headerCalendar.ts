@@ -1,6 +1,7 @@
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { dataAmountInput } from "../../components/headerCreator/dataInputs";
 import { StateAmount } from "./StateAmount";
+import { LoadingSpinner } from "../../components/loadingsCreators/loadingSpinner";
 
 export class HeaderCalendar extends HeaderLogedIn {
   constructor(styles: string[]) {
@@ -9,8 +10,11 @@ export class HeaderCalendar extends HeaderLogedIn {
   }
 
   #handleChangeInput(e: Event) {
+    const spinner = new LoadingSpinner("#defaultAmount");
+    spinner.createSpinner()
     const inputValue = (e.target as HTMLInputElement).value;
     StateAmount.amount = inputValue;
+    spinner.removeSpinner()
   }
 
   #createInputAmount() {

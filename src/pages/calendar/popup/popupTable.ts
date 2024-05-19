@@ -16,8 +16,8 @@ export class PopupTable {
       "fa-solid",
       "fa-xmark",
       "absolute",
-      "top-2",
-      "right-2",
+      "top-1",
+      "right-5",
       "text-2xl",
       "cursor-pointer"
     );
@@ -40,7 +40,7 @@ export class PopupTable {
         "relative",
       ],
     });
-    form.createFields({ inputsData: dataPopupFields });
+    form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0"] });
 
     const inputAmountEl = document.getElementById("amount") as HTMLInputElement;
     inputAmountEl.value = StateAmount.amount;
@@ -65,6 +65,7 @@ export class PopupTable {
       "bg-black_opacity",
       "grid",
       "place-content-center",
+      "overflow-y-scroll",
       "z-50"
     );
     this.#bodyEl?.append(popupContainer);
@@ -93,3 +94,37 @@ export class PopupTable {
     );
   }
 }
+
+
+
+
+//  <script>
+//     // Function to be debounced
+//     function fetchSearchResults(query) {
+//       console.log('Fetching search results for:', query);
+//       // Simulate API call
+//       // fetch(`https://api.example.com/search?q=${query}`)
+//       //   .then(response => response.json())
+//       //   .then(data => console.log(data));
+//     }
+
+//     // Debounce function
+//     function debounce(func, delay) {
+//       let timeoutId;
+//       return function(...args) {
+//         clearTimeout(timeoutId);
+//         timeoutId = setTimeout(() => {
+//           func.apply(this, args);
+//         }, delay);
+//       };
+//     }
+
+//     // Get the input element
+//     const searchInput = document.getElementById('searchInput');
+
+//     // Attach the debounced function to the input event
+//     const debouncedFetchSearchResults = debounce(fetchSearchResults, 300);
+//     searchInput.addEventListener('input', (event) => {
+//       debouncedFetchSearchResults(event.target.value);
+//     });
+//   </script>
