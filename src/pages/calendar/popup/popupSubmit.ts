@@ -9,8 +9,8 @@ export class PopupSubmit {
 
   #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    // const btnLoader = new LoadingButtonCreator("btnSubmit");
-    // btnLoader.createSpinner();
+    const btnLoader = new LoadingButtonCreator("btnSubmit");
+    btnLoader.createSpinner();
     console.log("", Helpers.getFormValues(e));
   }
   #submetEvent() {

@@ -1,5 +1,4 @@
 import { TableCalendar } from "./tableCalendar";
-import { TablePopup } from "./popup/tablePopup";
 
 export class TableCalendarPrinter {
   #dataTableHead = [

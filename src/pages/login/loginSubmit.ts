@@ -1,10 +1,11 @@
 import { LoadingButtonCreator } from "../../components/loadingsCreators/loadingButtonCreator";
 import { URL_AUTH } from "../../data/dataUrl";
 import { Helpers } from "../../utils/helpers";
+import { ValidationGeneric } from "../../utils/validationGeneric";
 
 export class LoginSubmit {
   #formEl = document.querySelector("form");
-  #errorEl = document.getElementById("authError");
+  #errorAuthEl = document.getElementById("authError");
 
   constructor() {
     this.#submitEvent();
@@ -19,24 +20,36 @@ export class LoginSubmit {
         "Content-Type": "application/json",
       },
       body: {
-        login: Helpers.getFormValues(e).login || "x",
-        password: Helpers.getFormValues(e).password || "x",
+        login: Helpers.getFormValues(e).login,
+        password: Helpers.getFormValues(e).password,
       },
     };
   }
 
+  #validations(e: SubmitEvent) {
+    this.#errorAuthEl && (this.#errorAuthEl.innerText = "");
+    const formKeys = Object.keys(Helpers.getFormValues(e));
+    const errors = new ValidationGeneric(formKeys).errors;
+    if (errors.length > 0) return;
+    return "go";
+  }
+
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
+    if (this.#validations(e) !== "go") return;
+
+    // POST Login
+
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
-
     const data = await Helpers.fetchData(this.#POSTOptions(e));
 
     if (data?.fetchedData) {
       localStorage.setItem("jwt", data?.fetchedData);
       location.href = "/src/pages/calendar/calendar.html";
     } else {
-      this.#errorEl && (this.#errorEl.innerText = "Błędny login lub hasło");
+      this.#errorAuthEl &&
+        (this.#errorAuthEl.innerText = "Błędny login lub hasło");
     }
     btnLoader.removeSpinner();
   }

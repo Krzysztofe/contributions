@@ -95,6 +95,10 @@ export class FormCreator {
       input.value = import.meta.env.VITE_PASSWORD;
     }
 
+    // if (type === "number") {
+    //   input.value = "5";
+    // }
+
     return input;
   }
 

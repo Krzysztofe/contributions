@@ -3,7 +3,7 @@ import { FormCreator } from "../../../components/formsCreators/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
 
-export class TablePopup {
+export class PopupTable {
   #bodyEl = document.querySelector("body");
   #popupContainer: HTMLElement | null = null;
   constructor() {
@@ -12,7 +12,6 @@ export class TablePopup {
 
   #createForm() {
     const form = new FormCreator("popupContainer");
-
     form.createForm({
       formId: "popupForm",
       styles: [
@@ -27,6 +26,11 @@ export class TablePopup {
       ],
     });
     form.createFields({ inputsData: dataPopupFields });
+
+    const inputAmountEl = document.getElementById("amount") as HTMLInputElement;
+    inputAmountEl.value = StateAmount.amount;
+
+
     form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
@@ -35,8 +39,8 @@ export class TablePopup {
     new PopupSubmit();
   }
 
-  #createPopup(e: Event) {
-    const btnEl = e.target as HTMLElement;
+  #createPopup() {
+    // const btnEl = e.target as HTMLElement;
     const popupContainer = document.createElement("div");
     popupContainer.id = "popupContainer";
     popupContainer && (popupContainer.innerText = StateAmount.amount);

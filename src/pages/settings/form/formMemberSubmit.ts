@@ -63,13 +63,12 @@ export class FormMemberSubmit {
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    this.#formKeys = Object.keys(getFormValues(e));
+    this.#formKeys = Object.keys(Helpers.getFormValues(e));
     if (this.#validations(e) !== "go") return;
 
     // POST Member Request;
 
     this.#loading.createLoading();
-
     const data = await Helpers.fetchData(this.#POSTOptions(e));
     // this.#formEl?.reset();
     const newMembers = this.#createNewMembers(data?.fetchedData);

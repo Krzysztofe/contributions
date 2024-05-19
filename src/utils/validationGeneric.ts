@@ -20,6 +20,7 @@ export class ValidationGeneric {
     this.errors = [];
     this.validation();
   }
+  
   validation() {
     const inputsElements = Object.values(this.inputsElements);
     inputsElements.forEach((inputEl: any) => {

@@ -3,7 +3,7 @@ import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar";
-import { TablePopup } from "./popup/tablePopup";
+import { PopupTable } from "./popup/popupTable";
 
 class CalendarManager {
   // #GETCalendarOptions = {
@@ -22,7 +22,7 @@ class CalendarManager {
     new HeaderCalendar(["flex", "items-center", "justify-between"]);
     // const calendarDatabase = await Helpers.fetchData(this.#GETCalendarOptions);
     new TableCalendarPrinter();
-    new TablePopup();
+    new PopupTable();
     new AutoLogoutCreator();
   }
 }

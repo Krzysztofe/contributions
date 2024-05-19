@@ -5,16 +5,15 @@ import { StateAmount } from "./StateAmount";
 export class HeaderCalendar extends HeaderLogedIn {
   constructor(styles: string[]) {
     super(styles);
-    this.createInputAmount();
+    this.#createInputAmount();
   }
 
   #handleChangeInput(e: Event) {
     const inputValue = (e.target as HTMLInputElement).value;
-    StateAmount.amount = inputValue
-
+    StateAmount.amount = inputValue;
   }
 
-  createInputAmount() {
+  #createInputAmount() {
     const navEl = document.querySelector("nav");
 
     dataAmountInput.forEach(input => {
@@ -22,17 +21,18 @@ export class HeaderCalendar extends HeaderLogedIn {
         this.form.createInput(input, [
           "absolute",
           "w-20",
+          "lg:w-20",
           "-top-[2px]",
           "lg:top-0",
           "right-[100%]",
           "hidden",
           "md:block",
-          "pr-0"
+          "pr-0",
         ])
       );
     });
 
-    const inputEl = document.getElementById("amount");
+    const inputEl = document.getElementById("defaultAmount");
     inputEl?.addEventListener("input", this.#handleChangeInput.bind(this));
   }
 }
