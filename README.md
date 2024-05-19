@@ -1,3 +1,8 @@
+# Contributions
+
+An application for recording contributions paid by members of a company workers' union commission.
+
+
 Demo https://skladki.ozzip.pl/
 
 Demo https://kkrol.host83.nstrefa.pl/
