@@ -1,6 +1,6 @@
-import { FormLogin } from "../../components/formsCreators/formLoginCreator";
 import { dataLoginFields } from "./dataLoginFields";
-import { URL_AUTH } from "../../data/dataUrl";
+import { FormLogin } from "./formLogin";
+import { LoginSubmit } from "./loginSubmit";
 
 export class FormLoginPrinter {
   #form = new FormLogin("main");
@@ -18,6 +18,6 @@ export class FormLoginPrinter {
       styles: ["text-center", "w-full", "py-1", "m-auto"],
     });
     this.#form.createLoginErrorMsg();
-    this.#form.submitEvent(URL_AUTH);
+    new LoginSubmit()
   }
 }

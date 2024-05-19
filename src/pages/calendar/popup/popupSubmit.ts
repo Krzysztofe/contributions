@@ -1,4 +1,5 @@
 import { Helpers } from "../../../utils/helpers";
+import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 
 export class PopupSubmit {
   #formEl = document.querySelector("form");
@@ -8,7 +9,9 @@ export class PopupSubmit {
 
   #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    Helpers.getFormValues(e)
+    // const btnLoader = new LoadingButtonCreator("btnSubmit");
+    // btnLoader.createSpinner();
+    console.log("", Helpers.getFormValues(e));
   }
   #submetEvent() {
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));

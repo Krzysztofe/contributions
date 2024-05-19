@@ -27,12 +27,12 @@ export class FormMemberSubmit {
       body: {
         firstname: Helpers.capitalize(getFormValues(e).firstname),
         lastname: Helpers.capitalize(getFormValues(e).lastname),
-        phone: getFormValues(e).phone,
+        phone: Helpers.getFormValues(e).phone,
       },
     };
   }
 
-  #createNewMembers(fetchedData: {[key:string]:any}) {
+  #createNewMembers(fetchedData: { [key: string]: any }) {
     const { firstname, lastname, phone, id } = fetchedData;
     const newMember = { fullname: `${firstname} ${lastname}`, phone, id };
     return [...StateMembers.sortedMembers, newMember];
@@ -69,10 +69,11 @@ export class FormMemberSubmit {
     // POST Member Request;
 
     this.#loading.createLoading();
+    this.#formEl?.reset();
     const data = await Helpers.fetchData(this.#POSTOptions(e));
     const newMembers = this.#createNewMembers(data?.fetchedData);
     document.getElementById("noDataContainer")?.remove();
-    
+
     new RecreateSettingPanel(newMembers, "Zapisano");
   }
 
