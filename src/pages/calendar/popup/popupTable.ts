@@ -10,6 +10,20 @@ export class PopupTable {
     this.#printPopupEvent();
   }
 
+  #createIconXmark() {
+    const xmarkEL = document.createElement("i");
+    xmarkEL.classList.add(
+      "fa-solid",
+      "fa-xmark",
+      "absolute",
+      "top-2",
+      "right-2",
+      "text-2xl",
+      "cursor-pointer"
+    );
+    document.querySelector("form")?.prepend(xmarkEL);
+  }
+
   #createForm() {
     const form = new FormCreator("popupContainer");
     form.createForm({
@@ -23,6 +37,7 @@ export class PopupTable {
         "py-8",
         "rounded-sm",
         "bg-white",
+        "relative",
       ],
     });
     form.createFields({ inputsData: dataPopupFields });
@@ -30,17 +45,15 @@ export class PopupTable {
     const inputAmountEl = document.getElementById("amount") as HTMLInputElement;
     inputAmountEl.value = StateAmount.amount;
 
-
     form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
-
+    this.#createIconXmark();
     new PopupSubmit();
   }
 
   #createPopup() {
-    // const btnEl = e.target as HTMLElement;
     const popupContainer = document.createElement("div");
     popupContainer.id = "popupContainer";
     popupContainer && (popupContainer.innerText = StateAmount.amount);
@@ -62,10 +75,10 @@ export class PopupTable {
 
   #removePopup(e: Event) {
     if (
-      (e.target as HTMLElement)?.classList.value.includes("bg-black_opacity")
+      (e.target as HTMLElement)?.classList.value.includes("bg-black_opacity") ||
+      (e.target as HTMLElement)?.classList.value.includes("fa-xmark")
     ) {
       this.#popupContainer?.remove();
-      e.stopPropagation();
     }
   }
 
