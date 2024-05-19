@@ -52,13 +52,19 @@ export class FormCreator {
     }: { name: string; type: string; placeholder: string; regEx: string },
     inputStyles: string[] = []
   ) {
-    const input = document.createElement("input");
+    const input =
+      type === "textarea"
+        ? document.createElement("textarea")
+        : document.createElement("input");
     input.id = name;
     input.setAttribute("type", type);
     input.setAttribute("name", name);
     input.setAttribute("placeholder", placeholder);
     input.setAttribute("data-regEx", regEx);
     type === "password" && input.setAttribute("autocomplete", "username");
+    const textAreaStyles =
+      type === "textarea" ? ["textarea", "textarea-bordered", "py-0"] : [];
+
     input.classList.add(
       "input",
       "input-bordered",
@@ -70,6 +76,7 @@ export class FormCreator {
       "max-w-xs",
       "rounded-sm",
       "placeholder-black",
+      ...textAreaStyles,
       ...inputStyles
     );
 
@@ -132,7 +139,7 @@ export class FormCreator {
     );
   }
 
-  createBtn({innerText, styles}:{innerText: string, styles: string[]}) {
+  createBtn({ innerText, styles }: { innerText: string; styles: string[] }) {
     const btnEl = document.createElement("button");
     btnEl.setAttribute("type", "submit");
     btnEl.id = "btnSubmit";

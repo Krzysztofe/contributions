@@ -69,8 +69,9 @@ export class FormMemberSubmit {
     // POST Member Request;
 
     this.#loading.createLoading();
-    this.#formEl?.reset();
+
     const data = await Helpers.fetchData(this.#POSTOptions(e));
+    // this.#formEl?.reset();
     const newMembers = this.#createNewMembers(data?.fetchedData);
     document.getElementById("noDataContainer")?.remove();
 
