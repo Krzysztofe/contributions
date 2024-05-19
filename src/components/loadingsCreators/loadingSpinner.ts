@@ -21,7 +21,7 @@ export class LoadingSpinner {
       "text-grey_primary",
       "z-50"
     );
-    console.log("aaaa", this.#parentEl);
+
     this.#parentEl?.parentNode?.insertBefore(spinner, this.#parentEl);
     this.#parentEl && (this.#parentEl.disabled = true);
     this.#spinner = spinner;

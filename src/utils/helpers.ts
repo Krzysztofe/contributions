@@ -2,12 +2,11 @@ import { HttpRequest } from "../services/httpRequest";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
 
 export class Helpers {
-
   static fetchData(requestOptions: ModelRequestOptions) {
     const request = new HttpRequest();
     return request.sendRequest(requestOptions);
   }
-  
+
   static capitalize(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -31,5 +30,16 @@ export class Helpers {
     }
 
     return formValues;
+  }
+
+  static debounce(func: (...args: any[]) => void, delay: number) {
+    let timeoutId: any;
+    const timeoutFunction = (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+    return timeoutFunction;
   }
 }

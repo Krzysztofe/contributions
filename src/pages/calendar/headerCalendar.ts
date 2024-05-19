@@ -2,6 +2,7 @@ import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { dataAmountInput } from "../../components/headerCreator/dataInputs";
 import { StateAmount } from "./StateAmount";
 import { LoadingSpinner } from "../../components/loadingsCreators/loadingSpinner";
+import { Helpers } from "../../utils/helpers";
 
 export class HeaderCalendar extends HeaderLogedIn {
   constructor(styles: string[]) {
@@ -9,12 +10,12 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#createInputAmount();
   }
 
-  #handleChangeInput(e: Event) {
+  async #handleChangeInput(e: Event) {
     const spinner = new LoadingSpinner("#defaultAmount");
-    spinner.createSpinner()
+    spinner.createSpinner();
     const inputValue = (e.target as HTMLInputElement).value;
     StateAmount.amount = inputValue;
-    spinner.removeSpinner()
+    spinner.removeSpinner();
   }
 
   #createInputAmount() {
@@ -37,6 +38,12 @@ export class HeaderCalendar extends HeaderLogedIn {
     });
 
     const inputEl = document.getElementById("defaultAmount");
-    inputEl?.addEventListener("input", this.#handleChangeInput.bind(this));
+
+    if (inputEl) {
+      inputEl.addEventListener(
+        "input",
+        Helpers.debounce(this.#handleChangeInput.bind(this), 2000)
+      );
+    }
   }
 }
