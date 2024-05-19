@@ -13,15 +13,17 @@ Demo https://kkrol.host83.nstrefa.pl/
 
 ## Features
 
-* Comunication with database - CRUD
+* Comunication with database - GET, POST, DELETE
 * Auth 
 * Forms / validations
 * Tables
 * HTTP requests state messages for user
+* Debouncing
 * RWD
 * Custom alerts
 * Automatic logout after five minutes
 * Animations
+* Popup
 
 
 ## Technologies
