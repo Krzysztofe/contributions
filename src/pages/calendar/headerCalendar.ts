@@ -42,7 +42,7 @@ export class HeaderCalendar extends HeaderLogedIn {
     if (inputEl) {
       inputEl.addEventListener(
         "input",
-        Helpers.debounce(this.#handleChangeInput.bind(this), 2000)
+        Helpers.debounce(this.#handleChangeInput.bind(this), 1500)
       );
     }
   }

@@ -26,9 +26,9 @@ export class TableCalendar extends TableCreator {
       "w-full",
       "bg-primary_dark"
     );
-    selectEl.innerHTML = `<option>2024</option>
-          <option>2025</option>
-           <option>2026</option>
+    selectEl.innerHTML = `<option>2023</option>
+          <option>2023</option>
+           <option>2024</option>
             <option>2027</option> 
           <option>2028</option>
           `;
@@ -37,11 +37,13 @@ export class TableCalendar extends TableCreator {
     return selectEl;
   }
 
-  async #handleSelect() {
+  async #handleSelect(e: Event) {
+    const selectedYear = (e.target as HTMLInputElement).value;
+    console.log("", selectedYear);
+
     this.#loading.createLoading();
-    // const selectedValue = (e.target as HTMLInputElement).value;
     const GETOptions = {
-      url: URL_CALENDAR,
+      url: `${URL_CALENDAR}${selectedYear}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },

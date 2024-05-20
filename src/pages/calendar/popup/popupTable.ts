@@ -6,6 +6,7 @@ import { PopupSubmit } from "./popupSubmit";
 export class PopupTable {
   #bodyEl = document.querySelector("body");
   #popupContainer: HTMLElement | null = null;
+
   constructor() {
     this.#printPopupEvent();
   }
@@ -16,8 +17,8 @@ export class PopupTable {
       "fa-solid",
       "fa-xmark",
       "absolute",
-      "top-1",
-      "right-",
+      "top-0",
+      "right-2",
       "text-2xl",
       "cursor-pointer"
     );
@@ -53,10 +54,11 @@ export class PopupTable {
     new PopupSubmit();
   }
 
+ 
+
   #createPopup() {
     const popupContainer = document.createElement("div");
     popupContainer.id = "popupContainer";
-    popupContainer && (popupContainer.innerText = StateAmount.amount);
     popupContainer.classList.add(
       "fixed",
       "top-0",
@@ -87,6 +89,7 @@ export class PopupTable {
     const tableBodyEl = document.querySelector("tbody");
     tableBodyEl?.addEventListener("click", this.#createPopup.bind(this));
   }
+
   #removePopupEvent() {
     this.#popupContainer?.addEventListener(
       "click",
@@ -94,6 +97,3 @@ export class PopupTable {
     );
   }
 }
-
-
-

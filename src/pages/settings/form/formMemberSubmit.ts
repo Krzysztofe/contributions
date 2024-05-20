@@ -1,6 +1,5 @@
 import { StateMembers } from "../../../components/stateMembers";
 import { URL_MEMBERS } from "../../../data/dataUrl";
-import { getFormValues } from "../../../utils/getFormValues";
 import { Helpers } from "../../../utils/helpers";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { LoadingTableSettings } from "../loadingTableSettings";
@@ -25,8 +24,8 @@ export class FormMemberSubmit {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        firstname: Helpers.capitalize(getFormValues(e).firstname),
-        lastname: Helpers.capitalize(getFormValues(e).lastname),
+        firstname: Helpers.capitalize(Helpers.getFormValues(e).firstname),
+        lastname: Helpers.capitalize(Helpers.getFormValues(e).lastname),
         phone: Helpers.getFormValues(e).phone,
       },
     };
@@ -40,7 +39,7 @@ export class FormMemberSubmit {
 
   formValues(e: SubmitEvent) {
     const processFormValues = this.#formKeys?.map(item => {
-      return { [item]: getFormValues(e)[item] };
+      return { [item]: Helpers.getFormValues(e)[item] };
     });
     return processFormValues && Object.assign({}, ...processFormValues);
   }

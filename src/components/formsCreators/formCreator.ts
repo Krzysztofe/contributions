@@ -114,13 +114,32 @@ export class FormCreator {
     inputsData.forEach(
       ({ name, type, placeholder, label, errorMsg, regEx }) => {
         const field = document.createElement("div");
-        field.classList.add(...fieldStyles);
+        field.classList.add("relative", ...fieldStyles);
 
         if (label) {
           const labelEl = document.createElement("label");
           labelEl.innerText = label;
           labelEl.setAttribute("for", name);
           field.append(labelEl);
+          if (type === "date") {
+            labelEl.classList.add(
+              "px-3",
+              "py-1",
+              "absolute",
+              "top-[1px]",
+              "w-full",
+              "border",
+              "border-stone-300",
+              "border-t-white",
+              "border-b-white",
+              "bg-white",
+              "text-sm"
+            );
+           
+            labelEl.addEventListener("click", () =>
+              labelEl.classList.add("-z-10")
+            );
+          }
         }
 
         const inputs = this.createInput(
