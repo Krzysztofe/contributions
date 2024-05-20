@@ -6,22 +6,24 @@ An application created for the use of the treasurer of a workers' union commissi
 
 The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, for example, in the case of forms or tables, using objects passed in arrays.
 
-Demo https://skladki.ozzip.pl/
+#### Demo https://skladki.ozzip.pl/
 
-Demo https://kkrol.host83.nstrefa.pl/
+#### Demo https://kkrol.host83.nstrefa.pl/
 
 
 ## Features
 
-* Comunication with database - CRUD
+* Comunication with database - GET, POST, DELETE
 * Auth 
 * Forms / validations
 * Tables
 * HTTP requests state messages for user
+* Debouncing
 * RWD
 * Custom alerts
 * Automatic logout after five minutes
 * Animations
+* Popup
 
 
 ## Technologies
