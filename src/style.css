@@ -52,22 +52,20 @@ body::-webkit-scrollbar {
 /* Toast animation */
 
 .animateToast {
-  animation: slideIn 1.5s ease-out forwards;
+  animation: slideIn 1.5s forwards;
 }
-
-
 
 @keyframes slideIn {
   0% {
-    transform: translateY(-100%);
+    transform: translate(-50, -100%);
   }
-  15% {
-    transform: translateY(0%);
+  1% {
+    transform: translate(-50, 0%);
   }
-  85% {
-    transform: translateY(0%);
+  60% {
+    transform: translate(-50%, 0%);
   }
   100% {
-    transform: translateY(-100%);
+    transform: translate(-50%, -100%);
   }
 }

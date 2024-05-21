@@ -7,8 +7,13 @@ export class Helpers {
     return request.sendRequest(requestOptions);
   }
 
-  static capitalize(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  static capitalize(words: string) {
+    return words
+      .split(" ")
+      .map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
   }
 
   static isUserLoged() {

@@ -311,8 +311,14 @@ export class TableCalendarPrinter {
     const table = new TableCalendar("sectionTable");
     table.createTable(["max-w-[1200px]"]);
     table.createTableHead(this.#dataTableHead);
-    table.createTableBody({ cellsData: this.#dataTableBody });
+    table.createTableBody({
+      cellsData: this.#dataTableBody,
+      cellInnerHtml: this.#cellInnerHtml,
+    });
     table.createSelect();
     table.selectEvent();
+  }
+  #cellInnerHtml(value: string | { [key: string]: any }) {
+    return `${value}`;
   }
 }

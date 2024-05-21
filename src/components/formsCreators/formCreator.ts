@@ -88,16 +88,17 @@ export class FormCreator {
       input.addEventListener("input", this.handlePhoneFormatting.bind(this));
     }
 
+    if (type === "date") {
+      input.style.textTransform = "none";
+    }
+
     if (name === "login") {
       input.value = import.meta.env.VITE_LOGIN;
     }
+
     if (name === "password") {
       input.value = import.meta.env.VITE_PASSWORD;
     }
-
-    // if (type === "number") {
-    //   input.value = "5";
-    // }
 
     return input;
   }
@@ -124,18 +125,18 @@ export class FormCreator {
           if (type === "date") {
             labelEl.classList.add(
               "px-3",
-              "py-1",
+              "py-[5px]",
               "absolute",
-              "top-[1px]",
+              "top-0",
               "w-full",
               "border",
               "border-stone-300",
-              "border-t-white",
-              "border-b-white",
+              "rounded-sm",
               "bg-white",
-              "text-sm"
+              "text-sm",
+              "cursor-text"
             );
-           
+
             labelEl.addEventListener("click", () =>
               labelEl.classList.add("-z-10")
             );

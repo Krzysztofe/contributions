@@ -1,6 +1,8 @@
 import { FormCreator } from "../../../components/formsCreators/formCreator";
 
 export class FormMemberCreator extends FormCreator {
+  #body = document.querySelector("body");
+
   constructor(elementId: string) {
     super(elementId);
   }
@@ -25,15 +27,15 @@ export class FormMemberCreator extends FormCreator {
     toastEl.id = "toast";
     toastEl.classList.add(
       "fixed",
+      "left-[50%]",
       "top-14",
       "p-1",
       "px-6",
       "text-white",
-      "text-sm",
       "bg-black_opacity",
       "z-40"
     );
-    toastEl.style.transform = "translateY(-100%)";
-    this.formEl?.prepend(toastEl);
+    toastEl.style.transform = "translate(-50%, -100%)";
+   this.#body?.prepend(toastEl);
   }
 }

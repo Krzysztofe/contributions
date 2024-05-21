@@ -5,6 +5,8 @@ import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar";
 import { PopupTable } from "./popup/popupTable";
 
+
+
 class CalendarManager {
   // #GETCalendarOptions = {
   //   url: URL_CALENDAR,
@@ -16,6 +18,8 @@ class CalendarManager {
   constructor() {
     this.#init();
   }
+
+
   async #init() {
     Helpers.isUserLoged();
     new LoadigPageCreator();
@@ -28,3 +32,6 @@ class CalendarManager {
 }
 
 new CalendarManager();
+
+
+

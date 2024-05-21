@@ -36,9 +36,12 @@ export class PopupTable {
         "sm:border",
         "px-16",
         "py-8",
+        "max-w-96",
+        "m-auto",
         "rounded-sm",
         "bg-white",
         "relative",
+        "mt-14"
       ],
     });
     form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0"] });
@@ -65,8 +68,8 @@ export class PopupTable {
       "w-screen",
       "h-screen",
       "bg-black_opacity",
-      "grid",
-      "place-content-center",
+      // "grid",
+      // "place-content-center",
       "overflow-y-scroll",
       "z-50"
     );

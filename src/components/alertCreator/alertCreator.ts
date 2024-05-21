@@ -17,9 +17,9 @@ export class AlertCreator {
     const modalId = `${Math.random()}`;
     const dialogEl = document.createElement("dialog");
     dialogEl.id = modalId;
-    dialogEl.classList.add("modal");
+    dialogEl.classList.add("modal", "block");
     dialogEl.innerHTML = `
-    <div class="modal-box rounded-sm w-5/6 md:p-14 bg-white">
+    <div class="modal-box rounded-sm w-5/6 md:p-14 m-auto mt-14 bg-white">
       <p class="font-bold text-lg text-center">Usunąć ${member}?</p>
       <div class="modal-action flex">
         <form method="dialog" class="mx-auto">

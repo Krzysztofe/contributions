@@ -11,3 +11,4 @@ class LoginManager {
 }
 
 new LoginManager();
+

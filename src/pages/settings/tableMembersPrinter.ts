@@ -3,6 +3,7 @@ import { StateMembers } from "../../components/stateMembers";
 
 export class TableMembersPrinter {
   #table = new TableCreator("sectionTable");
+
   constructor() {
     this.#init();
   }
@@ -24,7 +25,11 @@ export class TableMembersPrinter {
       this.#table.createTableBody({
         cellsData: StateMembers.sortedMembers,
         icons: ["fa-trash"],
+        cellInnerHtml: this.#cellInnerHtml,
       });
     }
+  }
+  #cellInnerHtml(value: string | { [key: string]: any }) {
+    return `${value}`;
   }
 }

@@ -16,10 +16,7 @@ export class FormMemberPrinter {
         "mb-8",
         "m-auto",
         "md:mb-4",
-        "flex",
-        "flex-col",
-        "items-center",
-        "md:flex-row",
+        "md:flex",
         "md:justify-center",
         "relative",
         "max-w-max",
@@ -28,7 +25,7 @@ export class FormMemberPrinter {
     this.#form.createFields({
       inputsData: dataMemberFields,
       fieldStyles: ["max-w-48", "md:max-w-40", "md:mr-2"],
-      inputStyles: ["max-w-48", "md:max-w-40", "text-uppercase", "capitalize"],
+      inputStyles: ["max-w-48", "md:max-w-40", "capitalize"],
     });
     this.#form.createBtn({
       innerText: "Zapisz",

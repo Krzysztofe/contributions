@@ -51,7 +51,7 @@ export class TableCreator {
         }[idx] as string[]) ?? [];
 
       const colorTh =
-        arr.length > 4 ? ["bg-accent", "text-white"] : ["bg-primary_dark"];
+        arr.length === 14 ? ["bg-accent", "text-white"] : ["bg-primary_dark"];
 
       th.classList.add(
         "font-normal",
@@ -93,18 +93,20 @@ export class TableCreator {
   createTableBody({
     cellsData,
     icons = [],
+    cellInnerHtml,
   }: {
     cellsData: { [key: string]: string }[];
     icons?: string[];
+    cellInnerHtml: (value: string | { [key: string]: any }) => string;
   }) {
     this.cellsData = cellsData;
 
-    // tbody
+    // Tbody
     const tableBodyEl = document.createElement("tbody");
     tableBodyEl.classList.add("bg-white");
 
     cellsData.forEach((cellData, idx) => {
-      // tr
+      // Tr
       const tableRowEl = document.createElement("tr");
       const tableRowId = Math.random().toString();
       tableRowEl.id = tableRowId;
@@ -165,11 +167,13 @@ export class TableCreator {
           ...stylesTdName,
           ...stylesTdMonths
         );
-        td.innerText = value;
+
+        td.innerHTML = cellInnerHtml(value);
         tableRowEl.append(td);
       });
 
-      // buttons container
+      // Buttons container
+
       if (icons.length > 0) {
         const btnsContainer = document.createElement("td");
         btnsContainer.classList.add(
