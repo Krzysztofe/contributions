@@ -26,9 +26,9 @@ export class TableCalendar extends TableCreator {
       "w-full",
       "bg-primary_dark"
     );
-    selectEl.innerHTML = `<option>2023</option>
-          <option>2023</option>
-           <option>2024</option>
+    selectEl.innerHTML = `<option>2024</option>
+          <option>2025</option>
+           <option>2026</option>
             <option>2027</option> 
           <option>2028</option>
           `;
@@ -50,8 +50,9 @@ export class TableCalendar extends TableCreator {
     };
     const database = await Helpers.fetchData(GETOptions);
     this.#loading.removeLoading();
-    console.log("eee", database);
   }
+
+
 
   selectEvent() {
     this.#select?.addEventListener("input", this.#handleSelect.bind(this));

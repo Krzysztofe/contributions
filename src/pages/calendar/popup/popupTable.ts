@@ -41,7 +41,7 @@ export class PopupTable {
         "rounded-sm",
         "bg-white",
         "relative",
-        "mt-14"
+        "mt-14",
       ],
     });
     form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0"] });
@@ -57,26 +57,24 @@ export class PopupTable {
     new PopupSubmit();
   }
 
- 
-
-  #createPopup() {
-    const popupContainer = document.createElement("div");
-    popupContainer.id = "popupContainer";
-    popupContainer.classList.add(
-      "fixed",
-      "top-0",
-      "w-screen",
-      "h-screen",
-      "bg-black_opacity",
-      // "grid",
-      // "place-content-center",
-      "overflow-y-scroll",
-      "z-50"
-    );
-    this.#bodyEl?.append(popupContainer);
-    this.#popupContainer = popupContainer;
-    this.#createForm();
-    this.#removePopupEvent();
+  #createPopup(e: Event) {
+    if ((e.target as HTMLElement)?.classList.value.includes("cursor-pointer")) {
+      const popupContainer = document.createElement("div");
+      popupContainer.id = "popupContainer";
+      popupContainer.classList.add(
+        "fixed",
+        "top-0",
+        "w-screen",
+        "h-screen",
+        "bg-black_opacity",
+        "overflow-y-scroll",
+        "z-50"
+      );
+      this.#bodyEl?.append(popupContainer);
+      this.#popupContainer = popupContainer;
+      this.#createForm();
+      this.#removePopupEvent();
+    }
   }
 
   #removePopup(e: Event) {

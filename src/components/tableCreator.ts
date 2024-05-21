@@ -31,7 +31,13 @@ export class TableCreator {
     this.tableEl = tableEl;
   }
 
-  createTableHead(headers: string[]) {
+  createTableHead({
+    headers,
+    stylesTh = (value: any) => [],
+  }: {
+    headers: string[];
+    stylesTh?: (value: any) => string[] | [];
+  }) {
     // head
     const tableHeadEl = document.createElement("thead");
     tableHeadEl.classList.add("sticky", "top-0", "z-30");
@@ -50,14 +56,11 @@ export class TableCreator {
           1: ["bg-primary_dark", "sticky", "left-0", "text-accent"],
         }[idx] as string[]) ?? [];
 
-      const colorTh =
-        arr.length === 14 ? ["bg-accent", "text-white"] : ["bg-primary_dark"];
-
       th.classList.add(
         "font-normal",
         "p-0",
         "text-accent",
-        ...colorTh,
+        ...stylesTh(arr),
         ...stickyTh
       );
 
@@ -94,10 +97,12 @@ export class TableCreator {
     cellsData,
     icons = [],
     cellInnerHtml,
+    stylesTd = () => [],
   }: {
     cellsData: { [key: string]: string }[];
     icons?: string[];
     cellInnerHtml: (value: string | { [key: string]: any }) => string;
+    stylesTd?: (value?: any) => string[] | string[];
   }) {
     this.cellsData = cellsData;
 
@@ -106,6 +111,8 @@ export class TableCreator {
     tableBodyEl.classList.add("bg-white");
 
     cellsData.forEach((cellData, idx) => {
+      console.log("", cellData);
+
       // Tr
       const tableRowEl = document.createElement("tr");
       const tableRowId = Math.random().toString();
@@ -152,23 +159,20 @@ export class TableCreator {
               ]
             : [];
 
-        const stylesTdMonths = idx > 0 ? ["cursor-pointer"] : [];
-
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
         td.classList.add(
-          "whitespace-nowrap",
           "border",
           "border-primary_dark",
           "p-3",
           "lg:p-0",
           "lg:px-3",
           ...stylesTdName,
-          ...stylesTdMonths
+          ...stylesTd(idx)
         );
 
-        td.innerHTML = cellInnerHtml(value);
+        td.innerHTML = idx === 0 ? value : cellInnerHtml(value);
         tableRowEl.append(td);
       });
 

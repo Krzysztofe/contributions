@@ -16,20 +16,26 @@ export class TableMembersPrinter {
       this.#table.noDataContainer();
     } else {
       this.#table.createTable(["max-w-[1000px]"]);
-      this.#table.createTableHead([
-        `${StateMembers.sortedMembers.length}`,
-        "Imię i Nazwisko",
-        "Telefon",
-        "",
-      ]);
+      this.#table.createTableHead({
+        headers: [
+          `${StateMembers.sortedMembers.length}`,
+          "Imię i Nazwisko",
+          "Telefon",
+          "",
+        ],
+      });
       this.#table.createTableBody({
         cellsData: StateMembers.sortedMembers,
         icons: ["fa-trash"],
         cellInnerHtml: this.#cellInnerHtml,
+        stylesTd: this.#cellStyles
       });
     }
   }
   #cellInnerHtml(value: string | { [key: string]: any }) {
     return `${value}`;
+  }
+  #cellStyles() {
+    return ["whitespace-nowrap"];
   }
 }

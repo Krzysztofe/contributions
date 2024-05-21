@@ -47,4 +47,21 @@ export class Helpers {
     };
     return timeoutFunction;
   }
+
+  static sortList(array: { [key: string]: string }[]) {
+    const sortedList = array.sort((a, b) => {
+      let nameA = a.fullname.toLowerCase();
+      let nameB = b.fullname.toLowerCase();
+
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return sortedList;
+  }
 }
