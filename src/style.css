@@ -70,27 +70,12 @@ body::-webkit-scrollbar {
   }
 }
 
-.collapseClose{
+.collapseClose {
   display: grid;
   grid-template-rows: 0fr;
-  transition:  grid-template-rows 500ms;
+  transition: grid-template-rows 300ms;
 }
 
-.collapseOpen{
-grid-template-rows: 1fr
-}
-
-
-.animateHeight {
-  animation: collapseHeight 1.5s forwards;
-}
-
-@keyframes collapseHeight {
-  0% {
-    height: 4rem;
-  }
-
-  100% {
-    height: 100px;
-  }
+.collapseOpen {
+  grid-template-rows: 1fr;
 }

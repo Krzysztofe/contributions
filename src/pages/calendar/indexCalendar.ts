@@ -26,9 +26,9 @@ class CalendarManager {
     new LoadigPageCreator();
     new HeaderCalendar(["flex", "items-center", "justify-between"]);
     const calendarDatabase = await Helpers.fetchData(this.GETOptions);
-    console.log("", calendarDatabase?.fetchedData);
+    // console.log("", calendarDatabase?.fetchedData);
     StateCalendar.setCalendar(calendarDatabase?.fetchedData);
-    // console.log('',StateCalendar.sortedCalendar)
+    console.log('',StateCalendar.sortedCalendar)
     new TableCalendarPrinter();
     new PopupTable();
     new AutoLogoutCreator();

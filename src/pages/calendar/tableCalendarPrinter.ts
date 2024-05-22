@@ -36,6 +36,8 @@ export class TableCalendarPrinter {
     table.createSelect();
     table.selectEvent();
     // table.tdBgColor();
+    table.createArrowCollapse();
+
     table.collapseEvent();
   }
 
@@ -44,8 +46,10 @@ export class TableCalendarPrinter {
 
     return `
     <div>${amount || "0"} zł</div> 
-    <div data = "memberDetailsPrint" class = "collapseClose">
-      <div class = "overflow-hidden">    
+    <div data = "memberDetailsPrint" class = "collapseClose" >
+      <div class = "overflow-hidden" data = ${
+        pay_date === "" && comment === "" ? "emptyCollapse" : "fullCollapse"
+      }>    
         <div class = "text-[0.6rem]">${pay_date || ""}</div> 
         <div class = "text-[0.6rem]">${comment || ""}</div> 
       </div>
@@ -53,6 +57,8 @@ export class TableCalendarPrinter {
   }
 
   #cellStyles(idx: number): string[] | [] {
-    return ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
+    return idx === 0
+      ? ["whitespace-nowrap"]
+      : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
   }
 }

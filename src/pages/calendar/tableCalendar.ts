@@ -71,13 +71,35 @@ export class TableCalendar extends TableCreator {
     // console.log('',tdElems)
   }
 
+  createArrowCollapse() {
+    const tdFullnameElems = document.querySelectorAll("[data=member]");
+
+    tdFullnameElems.forEach(fullnaleEl => {
+      const areEmptyCollapses =
+        fullnaleEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
+          .length === 12;
+
+      const icon = document.createElement("i");
+      const isIconVisible = areEmptyCollapses ? "invisible" : "visible";
+      icon.classList.add("fa-solid", "fa-caret-down", "mr-1", isIconVisible);
+      fullnaleEl.prepend(icon);
+    });
+  }
+
   #handleCollapse(e: Event) {
-    if ((e.target as HTMLElement)?.getAttribute("data") === "member") {
-      const memberDetailsElems = document.querySelectorAll(
-        `[data=memberDetailsPrint]`
-      );
-      memberDetailsElems.forEach(elem => {
-        elem.classList.toggle("collapseOpen");
+    const icon = document.getElementById(
+      (e.target as HTMLElement).id
+    )?.firstElementChild;
+
+    icon?.classList.toggle("rotate-180");
+
+    const collapseELems = document
+      .getElementById((e.target as HTMLElement).id)
+      ?.parentElement?.querySelectorAll("[data = memberDetailsPrint]");
+
+    if (collapseELems) {
+      Array.from(collapseELems).forEach((element: Element) => {
+        element.classList.toggle("collapseOpen");
       });
     }
   }
