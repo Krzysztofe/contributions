@@ -7,6 +7,7 @@ export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
   #select: HTMLSelectElement | null = null;
   #loading = new LoadingTableCreator();
+
   constructor(parentEl: string) {
     super(parentEl);
   }
@@ -39,7 +40,6 @@ export class TableCalendar extends TableCreator {
 
   async #handleSelect(e: Event) {
     const selectedYear = (e.target as HTMLInputElement).value;
-    console.log("", selectedYear);
 
     this.#loading.createLoading();
     const GETOptions = {
@@ -52,7 +52,40 @@ export class TableCalendar extends TableCreator {
     this.#loading.removeLoading();
   }
 
+  tdBgColor() {
+    const amountElems = document.querySelectorAll("[data=amount]");
+    // amountElems.forEach(elem => elem?.parentElement?.classList.add("bg-red-100"));
 
+    // console.log("", amountElems);
+    // const tdElems = document.querySelectorAll("td");
+    // tdElems.forEach(elem => {
+    //   const ff = elem.querySelector("div");
+
+    //   if (ff?.textContent === "0 zł") {
+    //     ff?.parentElement?.classList.add("bg-red-100");
+    //   } else {
+    //     ff?.parentElement?.classList.add("bg-green-100");
+    //   }
+    // });
+
+    // console.log('',tdElems)
+  }
+
+  #handleCollapse(e: Event) {
+    if ((e.target as HTMLElement)?.getAttribute("data") === "member") {
+      const memberDetailsElems = document.querySelectorAll(
+        `[data=memberDetailsPrint]`
+      );
+      memberDetailsElems.forEach(elem => {
+        elem.classList.toggle("collapseOpen");
+      });
+    }
+  }
+
+  collapseEvent() {
+    const tbodyEl = document.querySelector("tbody");
+    tbodyEl?.addEventListener("click", this.#handleCollapse.bind(this));
+  }
 
   selectEvent() {
     this.#select?.addEventListener("input", this.#handleSelect.bind(this));

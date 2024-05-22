@@ -5,7 +5,6 @@ export class StateCalendar {
 
   static setCalendar(members: any) {
     const monthsKeys = [
-      "fullname",
       "january",
       "febuary",
       "march",
@@ -22,14 +21,20 @@ export class StateCalendar {
 
     const processMembersList = members.map(
       (member: { [key: string]: string }) => ({
-        ...monthsKeys.reduce<{ [key: string]: string }>((acc, key) => {
-          acc[key] = member[key] || "0";
-          return acc;
-        }, {}),
+        ...monthsKeys.reduce<{ [key: string]: string }>(
+          (acc, key) => {
+            acc[key] = member[key] || {
+              amount: "0",
+              comment: "",
+              pay_date: "",
+            };
+            return acc;
+          },
+          { fullname: member.fullname }
+        ),
       })
     );
 
     this.sortedCalendar = Helpers.sortList(processMembersList);
-  
   }
 }

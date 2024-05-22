@@ -33,10 +33,10 @@ export class TableCreator {
 
   createTableHead({
     headers,
-    stylesTh = (value: any) => [],
+    stylesTh = [],
   }: {
     headers: string[];
-    stylesTh?: (value: any) => string[] | [];
+    stylesTh?: string[];
   }) {
     // head
     const tableHeadEl = document.createElement("thead");
@@ -60,8 +60,8 @@ export class TableCreator {
         "font-normal",
         "p-0",
         "text-accent",
-        ...stylesTh(arr),
-        ...stickyTh
+        ...stickyTh,
+        ...stylesTh
       );
 
       tableRowEl.append(th);
@@ -98,11 +98,13 @@ export class TableCreator {
     icons = [],
     cellInnerHtml,
     stylesTd = () => [],
+    styles = [],
   }: {
     cellsData: { [key: string]: string }[];
     icons?: string[];
     cellInnerHtml: (value: string | { [key: string]: any }) => string;
     stylesTd?: (value?: any) => string[] | string[];
+    styles?: string[];
   }) {
     this.cellsData = cellsData;
 
@@ -111,13 +113,12 @@ export class TableCreator {
     tableBodyEl.classList.add("bg-white");
 
     cellsData.forEach((cellData, idx) => {
-      console.log("", cellData);
-
       // Tr
       const tableRowEl = document.createElement("tr");
       const tableRowId = Math.random().toString();
       tableRowEl.id = tableRowId;
       const stylesTr = ["odd:bg-grey_light", "even:bg-white"];
+
       tableRowEl.classList.add(...stylesTr);
       tableBodyEl.append(tableRowEl);
 
@@ -162,17 +163,24 @@ export class TableCreator {
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
+        idx > 0 ? td.setAttribute("data", "memberDetails") : null;
         td.classList.add(
           "border",
           "border-primary_dark",
-          "p-3",
-          "lg:p-0",
-          "lg:px-3",
-          ...stylesTdName,
-          ...stylesTd(idx)
+          // "p-0",
+          // "p-3",
+          // "lg:p-0",
+          // "lg:px-3",
+          // "inline-block",
+          // "h-2",
+          // "overflow-hidden",
+          // ...stylesTdName,
+          ...stylesTd(idx),
+          ...styles
         );
-
+     
         td.innerHTML = idx === 0 ? value : cellInnerHtml(value);
+        //  td.innerHTML = ""
         tableRowEl.append(td);
       });
 
