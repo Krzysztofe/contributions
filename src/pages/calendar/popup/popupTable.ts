@@ -1,5 +1,5 @@
 import { StateAmount } from "../StateAmount";
-import { FormCreator } from "../../../components/formsCreators/formCreator";
+import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
 import { Helpers } from "../../../utils/helpers";
@@ -27,19 +27,18 @@ export class PopupTable {
     document.querySelector("form")?.prepend(xmarkEL);
   }
 
-
   #createHeader() {
     const monthDetails =
       this.#eventTarget &&
       this.#eventTarget?.getAttribute("data-mnth-details")?.split("/");
 
     const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
-    const monthhName = monthDetails &&  Helpers.translateMonth(monthDetails[2]) ;
+    const monthhName = monthDetails && Helpers.translateMonth(monthDetails[2]);
 
     const hederEl = document.createElement("h3");
     memberFullname &&
       (hederEl.innerHTML = `
-    <div class = "flex justify-between">
+    <div class = "flex justify-between font-semibold">
          <div>${memberFullname}</div>
          <div>${monthhName}</div>
     </div>`);

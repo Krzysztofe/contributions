@@ -5,8 +5,8 @@ export class StateMembers {
   static sortedMembers: [] | any = [];
 
   static setMembers(members: ModelMember[]) {
-    const processMembers = members.map(({ fullname, phone, id }) => {
-      return { id, fullname, phone };
+    const processMembers = members.map(({ fullname, phone, id, join_date }) => {
+      return { id, fullname, phone, join_date };
     });
 
     const sortedMembers = Helpers.sortList(processMembers);

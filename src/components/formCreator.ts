@@ -122,7 +122,7 @@ export class FormCreator {
           labelEl.innerText = label;
           labelEl.setAttribute("for", name);
           field.append(labelEl);
-          if (type === "date") {
+          if (type === "date" || type === "month") {
             labelEl.classList.add(
               "px-3",
               "py-[5px]",

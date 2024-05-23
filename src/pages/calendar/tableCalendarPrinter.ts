@@ -14,7 +14,7 @@ export class TableCalendarPrinter {
     "Lip.",
     "Sie.",
     "Wrz.",
-    "Paź",
+    "Paź.",
     "Lis.",
     "Gru.",
   ];

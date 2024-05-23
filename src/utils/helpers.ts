@@ -67,18 +67,18 @@ export class Helpers {
 
   static translateMonth(month: string) {
     const monthTranslations: { [key: string]: string } = {
-      january: "Styczeń",
-      february: "Luty",
-      march: "Marzec",
-      april: "Kwiecień",
+      january: "Sty.",
+      february: "Lut.",
+      march: "Mar.",
+      april: "Kwi.",
       may: "Maj",
-      june: "Czerwiec",
-      july: "Lipiec",
-      august: "Sierpień",
-      september: "Wrzesień",
-      october: "Październik",
-      november: "Listopad",
-      december: "Grudzień",
+      june: "Cze.",
+      july: "Lip.",
+      august: "Sie.",
+      september: "Wrz.",
+      october: "Paź.",
+      november: "Lis.",
+      december: "Gru.",
     };
 
     return monthTranslations[month.toLowerCase()] || "";

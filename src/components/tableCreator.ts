@@ -170,6 +170,7 @@ export class TableCreator {
           "border",
           "border-primary_dark",
           "align-top",
+          "py-2",
           ...stylesTdName,
           ...stylesTd(idx),
           ...styles

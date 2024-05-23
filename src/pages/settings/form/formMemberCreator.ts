@@ -1,4 +1,4 @@
-import { FormCreator } from "../../../components/formsCreators/formCreator";
+import { FormCreator } from "../../../components/formCreator";
 
 export class FormMemberCreator extends FormCreator {
   #body = document.querySelector("body");
@@ -36,6 +36,6 @@ export class FormMemberCreator extends FormCreator {
       "z-40"
     );
     toastEl.style.transform = "translate(-50%, -100%)";
-   this.#body?.prepend(toastEl);
+    this.#body?.prepend(toastEl);
   }
 }

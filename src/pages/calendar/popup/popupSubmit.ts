@@ -18,16 +18,16 @@ export class PopupSubmit {
       body: {
         client_id: "4",
         year: "2024",
-        month: "4",
+        month: "7",
         amount: "195",
         pay_date: "2024-05-13",
+        comment:"eeeee"
       },
     };
   }
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    console.log("yyy");
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
     const calendarDatabase = await Helpers.fetchData(this.#POSTOptions());

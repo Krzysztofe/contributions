@@ -27,13 +27,14 @@ export class FormMemberSubmit {
         firstname: Helpers.capitalize(Helpers.getFormValues(e).firstname),
         lastname: Helpers.capitalize(Helpers.getFormValues(e).lastname),
         phone: Helpers.getFormValues(e).phone,
+        join_date: Helpers.getFormValues(e).join_date,
       },
     };
   }
 
   #createNewMembers(fetchedData: { [key: string]: any }) {
-    const { firstname, lastname, phone, id } = fetchedData;
-    const newMember = { fullname: `${firstname} ${lastname}`, phone, id };
+    const { firstname, lastname, phone, id, join_date } = fetchedData;
+    const newMember = { fullname: `${firstname} ${lastname}`, phone, id, join_date };
     return [...StateMembers.sortedMembers, newMember];
   }
 

@@ -9,6 +9,7 @@ export class TableMembersPrinter {
   }
 
   #init() {
+
     if (
       !StateMembers.sortedMembers ||
       StateMembers.sortedMembers.length === 0
@@ -21,6 +22,7 @@ export class TableMembersPrinter {
           `${StateMembers.sortedMembers.length}`,
           "Imię i Nazwisko",
           "Telefon",
+          "Data wstąpienia",
           "",
         ],
       });

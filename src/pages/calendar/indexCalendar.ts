@@ -7,8 +7,6 @@ import { PopupTable } from "./popup/popupTable";
 import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./StateCalendar";
 
-
-
 class CalendarManager {
   GETOptions = {
     url: `${URL_CALENDAR}2024`,
@@ -26,7 +24,7 @@ class CalendarManager {
     new LoadigPageCreator();
     new HeaderCalendar(["flex", "items-center", "justify-between"]);
     const calendarDatabase = await Helpers.fetchData(this.GETOptions);
-    // console.log("", calendarDatabase?.fetchedData);
+    // console.log("ee", calendarDatabase);
     StateCalendar.setCalendar(calendarDatabase?.fetchedData);
     console.log('',StateCalendar.sortedCalendar)
     new TableCalendarPrinter();
@@ -36,8 +34,6 @@ class CalendarManager {
 }
 
 new CalendarManager();
-
-
 
 // fetch('https://kkrol.host83.nstrefa.pl/nowe/auth/contrib', {
 //         method: "post",
