@@ -49,53 +49,68 @@ export class TableCalendar extends TableCreator {
       },
     };
     const database = await Helpers.fetchData(GETOptions);
+    console.log("", database);
     this.#loading.removeLoading();
   }
 
   tdBgColor() {
     const amountElems = document.querySelectorAll("[data=amount]");
-    // amountElems.forEach(elem => elem?.parentElement?.classList.add("bg-red-100"));
-
-    // console.log("", amountElems);
-    // const tdElems = document.querySelectorAll("td");
-    // tdElems.forEach(elem => {
-    //   const ff = elem.querySelector("div");
-
-    //   if (ff?.textContent === "0 zł") {
-    //     ff?.parentElement?.classList.add("bg-red-100");
-    //   } else {
-    //     ff?.parentElement?.classList.add("bg-green-100");
-    //   }
-    // });
-
-    // console.log('',tdElems)
+    amountElems.forEach(amountEl => {
+      if (amountEl.textContent === "0 zł") {
+        amountEl?.parentElement &&
+          amountEl?.parentElement.classList.add("bg-red-100");
+      }
+    });
   }
 
   createArrowCollapse() {
     const tdFullnameElems = document.querySelectorAll("[data=member]");
 
-    tdFullnameElems.forEach(fullnaleEl => {
+    tdFullnameElems.forEach(fullnameEl => {
       const areEmptyCollapses =
-        fullnaleEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
+        fullnameEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
           .length === 12;
 
       const icon = document.createElement("i");
       const isIconVisible = areEmptyCollapses ? "invisible" : "visible";
-      icon.classList.add("fa-solid", "fa-caret-down", "mr-1", isIconVisible);
-      fullnaleEl.prepend(icon);
+      icon.classList.add(
+        "fa-solid",
+        "fa-caret-down",
+        "mr-1",
+        "transition",
+        "duration-300",
+        isIconVisible
+      );
+      icon.setAttribute("data-parent-id", fullnameEl.id);
+      fullnameEl.prepend(icon);
     });
   }
 
   #handleCollapse(e: Event) {
-    const icon = document.getElementById(
-      (e.target as HTMLElement).id
-    )?.firstElementChild;
+    const isIcon = (e.target as HTMLElement).classList.value.includes(
+      "fa-caret-down"
+    );
 
-    icon?.classList.toggle("rotate-180");
+    const tdFullnameId = isIcon
+      ? (e.target as HTMLElement).getAttribute("data-parent-id")
+      : (e.target as HTMLElement).id;
 
-    const collapseELems = document
-      .getElementById((e.target as HTMLElement).id)
-      ?.parentElement?.querySelectorAll("[data = memberDetailsPrint]");
+    const iconEL =
+      tdFullnameId &&
+      (document.getElementById(tdFullnameId)?.firstElementChild as Element);
+
+    if (iconEL instanceof Element) {
+      iconEL.classList.toggle("rotate-180");
+    }
+
+    console.log("", tdFullnameId);
+    console.log("", (e.target as HTMLElement).getAttribute("data-parent-id"));
+
+    const collapseELems =
+      tdFullnameId &&
+      document
+        .getElementById(tdFullnameId)
+        ?.parentElement?.querySelectorAll("[data = memberDetailsPrint]");
 
     if (collapseELems) {
       Array.from(collapseELems).forEach((element: Element) => {

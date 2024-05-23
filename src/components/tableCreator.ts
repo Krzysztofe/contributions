@@ -146,17 +146,16 @@ export class TableCreator {
                 "after:top-0",
                 "after:left-[100%]",
                 "after:w-[1px]",
-                "after:h-[41px]",
-                "lg:after:h-[25px]",
+                "after:h-full",
                 "after:bg-primary_dark",
                 "before:content-['']",
                 "before:absolute",
                 "before:top-0",
                 "before:right-[100%]",
                 "before:w-[1px]",
-                "before:h-[41px]",
-                "lg:before:h-[25px]",
+                "before:h-full",
                 "before:bg-primary_dark",
+                "cursor-pointer",
               ]
             : [];
 
@@ -165,10 +164,11 @@ export class TableCreator {
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
-        idx > 0 ? td.setAttribute("data", value) : null;
+        idx > 0 ? td.setAttribute("data", "memberDetails") : null;
         td.classList.add(
           "border",
           "border-primary_dark",
+          "align-top",
           // "p-0",
           // "p-3",
           // "lg:p-0",
@@ -176,7 +176,7 @@ export class TableCreator {
           // "inline-block",
           // "h-2",
           // "overflow-hidden",
-          // ...stylesTdName,
+          ...stylesTdName,
           ...stylesTd(idx),
           ...styles
         );

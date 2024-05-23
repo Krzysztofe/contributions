@@ -31,11 +31,10 @@ export class TableCalendarPrinter {
       cellsData: this.#dataTableBody,
       cellInnerHtml: this.#cellInnerHtml,
       stylesTd: this.#cellStyles,
-      // styles: ["p-0"],
     });
     table.createSelect();
     table.selectEvent();
-    // table.tdBgColor();
+    table.tdBgColor();
     table.createArrowCollapse();
 
     table.collapseEvent();
@@ -44,8 +43,8 @@ export class TableCalendarPrinter {
   #cellInnerHtml(month: any) {
     const { amount, comment, pay_date } = month;
 
-    return `
-    <div>${amount || "0"} zł</div> 
+    return ` 
+    <div data = "amount">${amount || "0"} zł</div> 
     <div data = "memberDetailsPrint" class = "collapseClose" >
       <div class = "overflow-hidden" data = ${
         pay_date === "" && comment === "" ? "emptyCollapse" : "fullCollapse"

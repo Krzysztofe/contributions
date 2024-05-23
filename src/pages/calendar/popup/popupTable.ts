@@ -58,7 +58,10 @@ export class PopupTable {
   }
 
   #createPopup(e: Event) {
-    if ((e.target as HTMLElement)?.getAttribute("data") === "memberDetails") {
+
+const dataAtribute = (e.target as HTMLElement)?.getAttribute("data") 
+
+    if (dataAtribute === "memberDetails" || dataAtribute === "amount") {
       const popupContainer = document.createElement("div");
       popupContainer.id = "popupContainer";
       popupContainer.classList.add(

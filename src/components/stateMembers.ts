@@ -2,7 +2,7 @@ import { ModelMember } from "../sharedModels/moedelMember";
 import { Helpers } from "../utils/helpers";
 
 export class StateMembers {
-  static sortedMembers: [] | ModelMember[] = [];
+  static sortedMembers: [] | any = [];
 
   static setMembers(members: ModelMember[]) {
     const processMembers = members.map(({ fullname, phone, id }) => {
