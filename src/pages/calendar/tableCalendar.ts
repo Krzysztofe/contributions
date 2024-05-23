@@ -58,7 +58,7 @@ export class TableCalendar extends TableCreator {
     amountElems.forEach(amountEl => {
       if (amountEl.textContent === "0 zł") {
         amountEl?.parentElement &&
-          amountEl?.parentElement.classList.add("bg-red-100");
+          amountEl?.parentElement.classList.add("bg-td_red");
       }
     });
   }
@@ -87,33 +87,21 @@ export class TableCalendar extends TableCreator {
   }
 
   #handleCollapse(e: Event) {
-    const isIcon = (e.target as HTMLElement).classList.value.includes(
-      "fa-caret-down"
-    );
-
+    const target = e.target as HTMLElement;
+    const isIcon = target.classList.contains("fa-caret-down");
     const tdFullnameId = isIcon
-      ? (e.target as HTMLElement).getAttribute("data-parent-id")
-      : (e.target as HTMLElement).id;
+      ? target.getAttribute("data-parent-id")
+      : target.id;
 
-    const iconEL =
-      tdFullnameId &&
-      (document.getElementById(tdFullnameId)?.firstElementChild as Element);
+    if (tdFullnameId) {
+      const iconEL = document.getElementById(tdFullnameId)
+        ?.firstElementChild as HTMLElement;
+      iconEL?.classList.toggle("rotate-180");
 
-    if (iconEL instanceof Element) {
-      iconEL.classList.toggle("rotate-180");
-    }
-
-    console.log("", tdFullnameId);
-    console.log("", (e.target as HTMLElement).getAttribute("data-parent-id"));
-
-    const collapseELems =
-      tdFullnameId &&
-      document
+      const collapseElems = document
         .getElementById(tdFullnameId)
-        ?.parentElement?.querySelectorAll("[data = memberDetailsPrint]");
-
-    if (collapseELems) {
-      Array.from(collapseELems).forEach((element: Element) => {
+        ?.parentElement?.querySelectorAll("[data=memberDetailsPrint]");
+      collapseElems?.forEach(element => {
         element.classList.toggle("collapseOpen");
       });
     }

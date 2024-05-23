@@ -6,6 +6,7 @@ import { PopupSubmit } from "./popupSubmit";
 export class PopupTable {
   #bodyEl = document.querySelector("body");
   #popupContainer: HTMLElement | null = null;
+  #event: Event | null = null;
 
   constructor() {
     this.#printPopupEvent();
@@ -23,6 +24,15 @@ export class PopupTable {
       "cursor-pointer"
     );
     document.querySelector("form")?.prepend(xmarkEL);
+  }
+
+  #createHeader() {
+    console.log("", this.#event?.target as HTMLElement);
+    const hederEl = document.createElement("h3");
+    hederEl.innerText = "lllll";
+    hederEl.classList.add("mb-4");
+    this.#popupContainer?.append(hederEl);
+    document.getElementById("popupForm")?.prepend(hederEl);
   }
 
   #createForm() {
@@ -53,15 +63,33 @@ export class PopupTable {
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
+    this.#createHeader();
     this.#createIconXmark();
     new PopupSubmit();
   }
 
+  isNestedInTd(elem: HTMLElement | null) {
+    let currentElement = elem;
+
+    while (currentElement) {
+      if (currentElement.tagName.toLowerCase() === "td") {
+        return true;
+      }
+      currentElement = currentElement.parentElement;
+    }
+
+    return false;
+  }
+
   #createPopup(e: Event) {
+    console.log("eee", e.target as HTMLElement);
 
-const dataAtribute = (e.target as HTMLElement)?.getAttribute("data") 
+    const result = this.isNestedInTd(e.target as HTMLElement);
 
-    if (dataAtribute === "memberDetails" || dataAtribute === "amount") {
+    this.#event = e;
+    const dataAtribute = (e.target as HTMLElement)?.getAttribute("data");
+
+    if (dataAtribute !== "member" && result) {
       const popupContainer = document.createElement("div");
       popupContainer.id = "popupContainer";
       popupContainer.classList.add(

@@ -39,3 +39,20 @@ new CalendarManager();
 
 
 
+// fetch('https://kkrol.host83.nstrefa.pl/nowe/auth/contrib', {
+//         method: "post",
+//         headers: {
+//             'Authorization': Bearer ${localStorage.getItem("jwt")}
+//         },
+//         body: JSON.stringify({
+//             client_id,
+//             year,
+//             month,
+//             amount,
+//             pay_date
+//         })
+//     }).then(res => {
+//         if(res){
+//             console.log(res);
+//         }
+//     })
