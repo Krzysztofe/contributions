@@ -2,6 +2,7 @@ import { StateAmount } from "../StateAmount";
 import { FormCreator } from "../../../components/formsCreators/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
+import { Helpers } from "../../../utils/helpers";
 
 export class PopupTable {
   #bodyEl = document.querySelector("body");
@@ -26,13 +27,14 @@ export class PopupTable {
     document.querySelector("form")?.prepend(xmarkEL);
   }
 
+
   #createHeader() {
     const monthDetails =
       this.#eventTarget &&
       this.#eventTarget?.getAttribute("data-mnth-details")?.split("/");
 
     const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
-    const monthhName = monthDetails && monthDetails[2];
+    const monthhName = monthDetails &&  Helpers.translateMonth(monthDetails[2]) ;
 
     const hederEl = document.createElement("h3");
     memberFullname &&

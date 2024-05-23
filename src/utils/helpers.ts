@@ -64,4 +64,23 @@ export class Helpers {
 
     return sortedList;
   }
+
+  static translateMonth(month: string) {
+    const monthTranslations: { [key: string]: string } = {
+      january: "Styczeń",
+      february: "Luty",
+      march: "Marzec",
+      april: "Kwiecień",
+      may: "Maj",
+      june: "Czerwiec",
+      july: "Lipiec",
+      august: "Sierpień",
+      september: "Wrzesień",
+      october: "Październik",
+      november: "Listopad",
+      december: "Grudzień",
+    };
+
+    return monthTranslations[month.toLowerCase()] || "";
+  }
 }
