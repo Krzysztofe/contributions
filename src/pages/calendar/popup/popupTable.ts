@@ -6,7 +6,7 @@ import { PopupSubmit } from "./popupSubmit";
 export class PopupTable {
   #bodyEl = document.querySelector("body");
   #popupContainer: HTMLElement | null = null;
-  #event: Event | null = null;
+  #eventTarget: HTMLElement | null = null;
 
   constructor() {
     this.#printPopupEvent();
@@ -27,9 +27,20 @@ export class PopupTable {
   }
 
   #createHeader() {
-    console.log("", this.#event?.target as HTMLElement);
+    const monthDetails =
+      this.#eventTarget &&
+      this.#eventTarget?.getAttribute("data-mnth-details")?.split("/");
+
+    const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
+    const monthhName = monthDetails && monthDetails[2];
+
     const hederEl = document.createElement("h3");
-    hederEl.innerText = "lllll";
+    memberFullname &&
+      (hederEl.innerHTML = `
+    <div class = "flex justify-between">
+         <div>${memberFullname}</div>
+         <div>${monthhName}</div>
+    </div>`);
     hederEl.classList.add("mb-4");
     this.#popupContainer?.append(hederEl);
     document.getElementById("popupForm")?.prepend(hederEl);
@@ -82,14 +93,14 @@ export class PopupTable {
   }
 
   #createPopup(e: Event) {
-    console.log("eee", e.target as HTMLElement);
+    this.#eventTarget = e.target as HTMLElement;
+    // console.log("eee", this.#eventTarget);
 
-    const result = this.isNestedInTd(e.target as HTMLElement);
+    const isNestedInTd = this.isNestedInTd(this.#eventTarget);
 
-    this.#event = e;
-    const dataAtribute = (e.target as HTMLElement)?.getAttribute("data");
+    const dataAtribute = this.#eventTarget?.getAttribute("data");
 
-    if (dataAtribute !== "member" && result) {
+    if (dataAtribute !== "member" && isNestedInTd) {
       const popupContainer = document.createElement("div");
       popupContainer.id = "popupContainer";
       popupContainer.classList.add(
@@ -109,9 +120,11 @@ export class PopupTable {
   }
 
   #removePopup(e: Event) {
+    const eventTarget = e.target as HTMLElement;
+
     if (
-      (e.target as HTMLElement)?.classList.value.includes("bg-black_opacity") ||
-      (e.target as HTMLElement)?.classList.value.includes("fa-xmark")
+      eventTarget?.classList.value.includes("bg-black_opacity") ||
+      eventTarget?.classList.value.includes("fa-xmark")
     ) {
       this.#popupContainer?.remove();
     }

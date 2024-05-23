@@ -24,18 +24,29 @@ export class StateCalendar {
         ...monthsKeys.reduce<{
           [key: string]:
             | string
-            | { amount: string; comment: string; pay_date: string; id: string };
+            | {
+                amount: string;
+                comment: string;
+                pay_date: string;
+                id: string;
+                fullname: string;
+                monthName: string;
+              };
         }>(
           (acc, key) => {
             acc[key] = member[key]
               ? {
-                  id: `${member.id}-${key}`,
+                  id: member.id,
+                  fullname: member.fullname,
+                  monthName: key,
                   amount: member[key].amount || "0",
                   comment: member[key].comment || "",
                   pay_date: member[key].pay_date || "",
                 }
               : {
-                  id: `${member.id}-${key}`,
+                  id: member.id,
+                  fullname: member.fullname,
+                  monthName: key,
                   amount: "0",
                   comment: "",
                   pay_date: "",

@@ -56,7 +56,7 @@ export class TableCalendar extends TableCreator {
   tdBgColor() {
     const amountElems = document.querySelectorAll("[data=amount]");
     amountElems.forEach(amountEl => {
-      if (amountEl.textContent === "0 zł") {
+      if (amountEl.textContent?.trim() === "0 zł") {
         amountEl?.parentElement &&
           amountEl?.parentElement.classList.add("bg-td_red");
       }

@@ -31,6 +31,7 @@ export class TableCalendarPrinter {
       cellsData: this.#dataTableBody,
       cellInnerHtml: this.#cellInnerHtml,
       stylesTd: this.#cellStyles,
+      tdSetAtribut: this.#tdSetAtribut
     });
     table.createSelect();
     table.selectEvent();
@@ -41,16 +42,22 @@ export class TableCalendarPrinter {
   }
 
   #cellInnerHtml(month: any) {
-    const { amount, comment, pay_date } = month;
+    const { amount, comment, pay_date, id, fullname, monthName } = month;
+
+    const monthDetails = `${id}/${fullname}/${monthName}`.replace(" ", "-");
+    const dataMonthDetails = `data-mnth-details = ${monthDetails}`;
 
     return ` 
-    <div data = "amount">${amount || "0"} zł</div> 
-    <div data = "memberDetailsPrint" class = "collapseClose" >
+    <div data = "amount" ${dataMonthDetails} >${amount || "0"} zł</div> 
+
+    <div data = "memberDetailsPrint" class = "collapseClose">
       <div class = "overflow-hidden" data = ${
         pay_date === "" && comment === "" ? "emptyCollapse" : "fullCollapse"
-      }>    
-        <div class = "text-[0.6rem]">${pay_date || ""}</div> 
-        <div class = "text-[0.6rem]">${comment || ""}</div> 
+      } >    
+        <div ${dataMonthDetails} class = "text-[0.6rem]">${
+      pay_date || ""
+    }</div> 
+        <div ${dataMonthDetails} class = "text-[0.6rem]">${comment || ""}</div> 
       </div>
     </div>`;
   }
@@ -59,5 +66,24 @@ export class TableCalendarPrinter {
     return idx === 0
       ? ["whitespace-nowrap"]
       : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
+  }
+
+  #tdSetAtribut({
+    tdElement,
+    idx,
+    month,
+  }: {
+    tdElement: any;
+    idx: number;
+    month: any;
+  }) {
+    const { id, fullname, monthName } = month;
+
+    const monthDetails = `${id}/${fullname}/${monthName}`.replace(" ", "-");
+    const dataMonthDetails = `data-mnth-details = ${monthDetails}`;
+
+    if (idx > 0) {
+      return tdElement.setAttribute("data-mnth-details", dataMonthDetails);
+    }
   }
 }

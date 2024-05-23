@@ -99,12 +99,14 @@ export class TableCreator {
     cellInnerHtml,
     stylesTd = () => [],
     styles = [],
+    tdSetAtribut = null,
   }: {
     cellsData: { [key: string]: string }[];
     icons?: string[];
     cellInnerHtml: (value: string | { [key: string]: any }) => string;
     stylesTd?: (value?: any) => string[] | string[];
     styles?: string[];
+    tdSetAtribut?: any;
   }) {
     this.cellsData = cellsData;
 
@@ -159,28 +161,20 @@ export class TableCreator {
               ]
             : [];
 
-
-           
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
         idx > 0 ? td.setAttribute("data", "memberDetails") : null;
+        tdSetAtribut && tdSetAtribut({ tdElement: td, idx: idx, month: value });
         td.classList.add(
           "border",
           "border-primary_dark",
           "align-top",
-          // "p-0",
-          // "p-3",
-          // "lg:p-0",
-          // "lg:px-3",
-          // "inline-block",
-          // "h-2",
-          // "overflow-hidden",
           ...stylesTdName,
           ...stylesTd(idx),
           ...styles
         );
-     
+
         td.innerHTML = idx === 0 ? value : cellInnerHtml(value);
         //  td.innerHTML = ""
         tableRowEl.append(td);

@@ -2,5 +2,6 @@ export type ModelRequestOptions = {
   url: string;
   method?: string;
   headers: { [key: string]: string };
-  body?: { [key: string]: string | null };
+  // body?: { [key: string]: string | null };
+  body?: any
 };
