@@ -8,6 +8,8 @@ export class PopupTable {
   #bodyEl = document.querySelector("body");
   #popupContainer: HTMLElement | null = null;
   #eventTarget: HTMLElement | null = null;
+  #memberId: string | null | undefined = null;
+  #monthNumber: string | null | undefined = null;
 
   constructor() {
     this.#printPopupEvent();
@@ -32,15 +34,19 @@ export class PopupTable {
       this.#eventTarget &&
       this.#eventTarget?.getAttribute("data-mnth-details")?.split("/");
 
+    const id = monthDetails;
     const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
-    const monthhName = monthDetails && Helpers.translateMonth(monthDetails[2]);
+    const monthName = monthDetails && Helpers.numberOnMonth(monthDetails[2]);
+
+    this.#memberId = monthDetails?.[0];
+    this.#monthNumber = monthDetails?.[2];
 
     const hederEl = document.createElement("h3");
     memberFullname &&
       (hederEl.innerHTML = `
-    <div class = "flex justify-between font-semibold">
-         <div>${memberFullname}</div>
-         <div>${monthhName}</div>
+    <div class = "sm:flex justify-between font-semibold">
+         <div data-member-id = ${id}>${memberFullname}</div>
+         <div data-header-monthname>${monthName}</div>
     </div>`);
     hederEl.classList.add("mb-4");
     this.#popupContainer?.append(hederEl);
@@ -77,31 +83,19 @@ export class PopupTable {
     });
     this.#createHeader();
     this.#createIconXmark();
-    new PopupSubmit();
-  }
 
-  isNestedInTd(elem: HTMLElement | null) {
-    let currentElement = elem;
-
-    while (currentElement) {
-      if (currentElement.tagName.toLowerCase() === "td") {
-        return true;
-      }
-      currentElement = currentElement.parentElement;
-    }
-
-    return false;
+    this.#memberId &&
+      this.#monthNumber &&
+      new PopupSubmit(this.#memberId, (+this.#monthNumber + 1).toString());
   }
 
   #createPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
-    // console.log("eee", this.#eventTarget);
 
-    const isNestedInTd = this.isNestedInTd(this.#eventTarget);
-
+    const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
 
-    if (dataAtribute !== "member" && isNestedInTd) {
+    if (dataAtribute !== "member" && dataAtribute !== "idx" && isNestedInTd) {
       const popupContainer = document.createElement("div");
       popupContainer.id = "popupContainer";
       popupContainer.classList.add(
@@ -120,7 +114,7 @@ export class PopupTable {
     }
   }
 
-  #removePopup(e: Event) {
+  #removePopupOnClick(e: Event) {
     const eventTarget = e.target as HTMLElement;
 
     if (
@@ -139,7 +133,7 @@ export class PopupTable {
   #removePopupEvent() {
     this.#popupContainer?.addEventListener(
       "click",
-      this.#removePopup.bind(this)
+      this.#removePopupOnClick.bind(this)
     );
   }
 }

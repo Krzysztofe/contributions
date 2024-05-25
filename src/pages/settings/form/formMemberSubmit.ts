@@ -11,12 +11,13 @@ export class FormMemberSubmit {
   #errorsEL = document.querySelectorAll(".h-4");
   #formKeys: string[] | null = null;
   #loading = new LoadingTableSettings();
+  #formValues: { [key: string]: string } | null = null;
 
   constructor() {
     this.submitEvent();
   }
 
-  #POSTOptions(e: SubmitEvent) {
+  #POSTOptions() {
     return {
       url: URL_MEMBERS,
       method: "POST",
@@ -24,28 +25,37 @@ export class FormMemberSubmit {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        firstname: Helpers.capitalize(Helpers.getFormValues(e).firstname),
-        lastname: Helpers.capitalize(Helpers.getFormValues(e).lastname),
-        phone: Helpers.getFormValues(e).phone,
-        join_date: Helpers.getFormValues(e).join_date,
+        firstname:
+          this.#formValues && Helpers.capitalize(this.#formValues.firstname),
+        lastname:
+          this.#formValues && Helpers.capitalize(this.#formValues.lastname),
+        phone: this.#formValues?.phone,
+        join_date: this.#formValues?.join_date,
       },
     };
   }
 
   #createNewMembers(fetchedData: { [key: string]: any }) {
     const { firstname, lastname, phone, id, join_date } = fetchedData;
-    const newMember = { fullname: `${firstname} ${lastname}`, phone, id, join_date };
+
+    const newMember = {
+      fullname: `${firstname} ${lastname}`,
+      phone,
+      id,
+      join_date: join_date.slice(0, -3),
+    };
+
     return [...StateMembers.sortedMembers, newMember];
   }
 
-  formValues(e: SubmitEvent) {
+  #processFormValues() {
     const processFormValues = this.#formKeys?.map(item => {
-      return { [item]: Helpers.getFormValues(e)[item] };
+      return { [item]: this.#formValues?.[item] };
     });
     return processFormValues && Object.assign({}, ...processFormValues);
   }
 
-  #validations(e: SubmitEvent) {
+  #validations() {
     this.#errorsEL.forEach(error => ((error as HTMLElement).innerText = ""));
 
     const errors =
@@ -55,7 +65,7 @@ export class FormMemberSubmit {
 
     const isMember = new ValidationMember(
       StateMembers.sortedMembers,
-      this.formValues(e)
+      this.#processFormValues()
     ).isMember;
     if (isMember.length > 0) return;
     return "go";
@@ -63,17 +73,16 @@ export class FormMemberSubmit {
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    this.#formKeys = Object.keys(Helpers.getFormValues(e));
-    if (this.#validations(e) !== "go") return;
+    this.#formValues = Helpers.getFormValues(e);
+    this.#formKeys = Object.keys(this.#formValues);
+    if (this.#validations() !== "go") return;
 
     // POST Member Request;
 
     this.#loading.createLoading();
-    const data = await Helpers.fetchData(this.#POSTOptions(e));
-    // this.#formEl?.reset();
+    const data = await Helpers.fetchData(this.#POSTOptions());
     const newMembers = this.#createNewMembers(data?.fetchedData);
     document.getElementById("noDataContainer")?.remove();
-
     new RecreateSettingPanel(newMembers, "Zapisano");
   }
 

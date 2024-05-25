@@ -92,6 +92,10 @@ export class FormCreator {
       input.style.textTransform = "none";
     }
 
+    if (type === "number") {
+      input.setAttribute("min", "0");
+    }
+
     if (name === "login") {
       input.value = import.meta.env.VITE_LOGIN;
     }

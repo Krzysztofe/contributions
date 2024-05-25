@@ -26,7 +26,7 @@ class CalendarManager {
     const calendarDatabase = await Helpers.fetchData(this.GETOptions);
     // console.log("ee", calendarDatabase);
     StateCalendar.setCalendar(calendarDatabase?.fetchedData);
-    console.log('',StateCalendar.sortedCalendar)
+    // console.log('',StateCalendar.sortedCalendar)
     new TableCalendarPrinter();
     new PopupTable();
     new AutoLogoutCreator();

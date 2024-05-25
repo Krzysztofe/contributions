@@ -9,7 +9,6 @@ export class TableMembersPrinter {
   }
 
   #init() {
-
     if (
       !StateMembers.sortedMembers ||
       StateMembers.sortedMembers.length === 0
@@ -30,7 +29,7 @@ export class TableMembersPrinter {
         cellsData: StateMembers.sortedMembers,
         icons: ["fa-trash"],
         cellInnerHtml: this.#cellInnerHtml,
-        stylesTd: this.#cellStyles
+        stylesTd: this.#cellStyles,
       });
     }
   }

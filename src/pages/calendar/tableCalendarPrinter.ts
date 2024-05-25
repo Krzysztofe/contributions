@@ -47,15 +47,18 @@ export class TableCalendarPrinter {
     const monthDetails = `${id}/${fullname}/${monthName}`.replace(" ", "-");
     const dataMonthDetails = `data-mnth-details = ${monthDetails}`;
 
+
     return ` 
     <div data = "amount" ${dataMonthDetails} >${amount || "0"} zł</div> 
 
     <div data = "memberDetailsPrint" class = "collapseClose">
       <div class = "overflow-hidden" data = ${
-        pay_date === "" && comment === "" ? "emptyCollapse" : "fullCollapse"
+        (pay_date === "" || pay_date === "0000-00-00") && comment === ""
+          ? "emptyCollapse"
+          : "fullCollapse"
       } >    
         <div ${dataMonthDetails} class = "text-[0.6rem]">${
-      pay_date || ""
+      pay_date === "0000-00-00" ? "" : pay_date
     }</div> 
         <div ${dataMonthDetails} class = "text-[0.6rem]">${comment || ""}</div> 
       </div>
@@ -80,10 +83,10 @@ export class TableCalendarPrinter {
     const { id, fullname, monthName } = month;
 
     const monthDetails = `${id}/${fullname}/${monthName}`.replace(" ", "-");
-    const dataMonthDetails = `data-mnth-details = ${monthDetails}`;
+   
 
     if (idx > 0) {
-      return tdElement.setAttribute("data-mnth-details", dataMonthDetails);
+      return tdElement.setAttribute("data-mnth-details", monthDetails);
     }
   }
 }

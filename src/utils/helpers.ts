@@ -83,4 +83,36 @@ export class Helpers {
 
     return monthTranslations[month.toLowerCase()] || "";
   }
+
+  static numberOnMonth(month: string) {
+    const monthTranslations: { [key: string]: string } = {
+      "0": "Sty.",
+      "1": "Lut.",
+      "2": "Mar.",
+      "3": "Kwi.",
+      "4": "Maj",
+      "5": "Cze.",
+      "6": "Lip.",
+      "7": "Sie.",
+      "8": "Wrz.",
+      "9": "Paź.",
+      "10": "Lis.",
+      "11": "Gru.",
+    };
+
+    return monthTranslations[month.toLowerCase()] || "";
+  }
+
+  static isNestedEl(parentEl: string, elem: HTMLElement | null) {
+    let currentElement = elem;
+
+    while (currentElement) {
+      if (currentElement.tagName.toLowerCase() === parentEl) {
+        return true;
+      }
+      currentElement = currentElement.parentElement;
+    }
+
+    return false;
+  }
 }

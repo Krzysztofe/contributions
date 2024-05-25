@@ -1,39 +1,54 @@
 import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
+// import { StateCalendar } from "../StateCalendar";
+import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { StateCalendar } from "../StateCalendar";
 
 export class PopupSubmit {
   #formEl = document.querySelector("form");
-  constructor() {
+  #formValues: { [key: string]: string } | null = null;
+  #memberId: string | null = null;
+  #monthNumber: string | null = null;
+
+  constructor(memberId: string, monthNumber: string) {
+    this.#memberId = memberId;
+    this.#monthNumber = monthNumber;
     this.#submetEvent();
   }
 
   #POSTOptions() {
     return {
-      url: "https://kkrol.host83.nstrefa.pl/nowe/auth/contrib",
+      url: URL_MONTH_DETAILS,
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        client_id: "4",
+        client_id: this.#memberId,
         year: "2024",
-        month: "7",
-        amount: "195",
-        pay_date: "2024-05-13",
-        comment:"eeeee"
+        month: this.#monthNumber,
+        amount: this.#formValues?.amount,
+        pay_date: this.#formValues?.date,
+        comment: this.#formValues?.comment,
       },
     };
   }
 
+  
+
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
+    this.#formValues = Helpers.getFormValues(e);
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
+    console.log("", StateCalendar.sortedCalendar);
+
+   
     const calendarDatabase = await Helpers.fetchData(this.#POSTOptions());
-    // console.log("", Helpers.getFormValues(e));
-    StateCalendar.setCalendar(calendarDatabase?.fetchedData);
+ 
+    document.getElementById("popupContainer")?.remove();
   }
+
   #submetEvent() {
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));
   }
