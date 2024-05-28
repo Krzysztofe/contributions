@@ -11,6 +11,7 @@ export class PopupTable {
   #memberId: string | null | undefined = null;
   #monthNumber: string | null | undefined = null;
   #monthDetails: string | null | undefined = null;
+
   constructor() {
     this.#printPopupEvent();
   }
@@ -33,7 +34,6 @@ export class PopupTable {
     const monthDetails =
       this.#eventTarget &&
       this.#eventTarget?.getAttribute("data-month-details")?.split("_");
-      
 
     this.#monthDetails = monthDetails?.join("_");
     const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
@@ -52,6 +52,28 @@ export class PopupTable {
     hederEl.classList.add("mb-4");
     this.#popupContainer?.append(hederEl);
     document.getElementById("popupForm")?.prepend(hederEl);
+  }
+
+  #passValuesToInputs() {
+    const inputsElems = document
+      .getElementById("popupForm")
+      ?.querySelectorAll("input");
+    const textareaEl = document.querySelector("textarea");
+    const tdInternalElems = document.querySelectorAll(
+      `[data-month-details="${this.#monthDetails}"]`
+    );
+
+    const tdAmountContent =
+      tdInternalElems[1].textContent?.replace("zł", "").trim() || "";
+    const tdDateContent = tdInternalElems[2].textContent || "";
+    const tdCommentsContent = tdInternalElems[3].textContent || "";
+
+    if (inputsElems && textareaEl) {
+      inputsElems[0].value =
+        +tdAmountContent > 0 ? tdAmountContent : StateAmount.amount;
+      inputsElems[1].value = tdDateContent;
+      textareaEl.value = tdCommentsContent;
+    }
   }
 
   #createForm() {
@@ -75,15 +97,14 @@ export class PopupTable {
     });
     form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0"] });
 
-    const inputAmountEl = document.getElementById("amount") as HTMLInputElement;
-    inputAmountEl.value = StateAmount.amount;
+    this.#createHeader();
+    this.#createIconXmark();
+    this.#passValuesToInputs();
 
     form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
-    this.#createHeader();
-    this.#createIconXmark();
 
     this.#memberId &&
       this.#monthNumber &&

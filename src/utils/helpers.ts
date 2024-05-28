@@ -119,7 +119,7 @@ export class Helpers {
   static tdInnerHtmlPattern(month: any, monthDetails: string) {
     const dataMonthDetails = `data-month-details = ${monthDetails}`;
 
-    console.log('',month)
+    // console.log('',month)
 
     return `<div data = "amount" ${dataMonthDetails} >${
       month.amount || "0"
