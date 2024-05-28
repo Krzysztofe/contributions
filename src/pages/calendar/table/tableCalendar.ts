@@ -1,7 +1,7 @@
-import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
-import { TableCreator } from "../../components/tableCreator";
-import { Helpers } from "../../utils/helpers";
-import { URL_CALENDAR } from "./../../data/dataUrl";
+import { LoadingTableCreator } from "../../../components/loadingsCreators/loadingTableCreator";
+import { TableCreator } from "../../../components/tableCreator";
+import { Helpers } from "../../../utils/helpers";
+import { URL_CALENDAR } from "../../../data/dataUrl";
 
 export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
@@ -53,7 +53,7 @@ export class TableCalendar extends TableCreator {
     this.#loading.removeLoading();
   }
 
-  tdBgColor() {
+  tdElemsBgColor() {
     const amountElems = document.querySelectorAll("[data=amount]");
     amountElems.forEach(amountEl => {
       if (amountEl.textContent?.trim() === "0 zł") {

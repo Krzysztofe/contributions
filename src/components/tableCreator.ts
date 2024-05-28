@@ -128,7 +128,7 @@ export class TableCreator {
       const td = document.createElement("td");
       td.classList.add("border", "border-primary_dark", "px-3");
       td.innerText = (idx + 1).toString();
-      td.setAttribute("data", "idx")
+      td.setAttribute("data", "idx");
       tableRowEl.append(td);
 
       // td - others
@@ -136,8 +136,10 @@ export class TableCreator {
       const memberId = cellData.id;
       const printCells = { ...cellData };
       delete printCells.id;
+      delete printCells.join_date;
 
       Object.values(printCells).forEach((value: string, idx) => {
+     
         const stylesTdName =
           idx === 0
             ? [
@@ -178,7 +180,6 @@ export class TableCreator {
         );
 
         td.innerHTML = idx === 0 ? value : cellInnerHtml(value);
-        //  td.innerHTML = ""
         tableRowEl.append(td);
       });
 

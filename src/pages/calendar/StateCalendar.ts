@@ -33,14 +33,14 @@ export class StateCalendar {
     const processMembersList = members.map(
       (member: { [key: string]: any }) => ({
         ...monthsKeys.reduce<{
-          [key: string]: MonthModel
+          [key: string]: MonthModel;
         }>(
           (acc, key, idx) => {
             acc[key] = member[key]
               ? {
                   id: member.id,
                   fullname: member.fullname,
-                  monthName: idx.toString(),
+                  monthName: (idx + 1).toString(),
                   amount: member[key].amount || "0",
                   comment: member[key].comment || "",
                   pay_date: member[key].pay_date || "",
@@ -48,14 +48,18 @@ export class StateCalendar {
               : {
                   id: member.id,
                   fullname: member.fullname,
-                  monthName: idx.toString(),
+                  monthName: (idx + 1).toString(),
                   amount: "0",
                   comment: "",
                   pay_date: "",
                 };
             return acc;
           },
-          { fullname: member.fullname, id: member.id }
+          {
+            fullname: member.fullname,
+            id: member.id,
+            join_date: member.join_date,
+          }
         ),
       })
     );

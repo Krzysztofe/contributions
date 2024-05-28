@@ -10,7 +10,7 @@ export class PopupTable {
   #eventTarget: HTMLElement | null = null;
   #memberId: string | null | undefined = null;
   #monthNumber: string | null | undefined = null;
-
+  #monthDetails: string | null | undefined = null;
   constructor() {
     this.#printPopupEvent();
   }
@@ -32,9 +32,10 @@ export class PopupTable {
   #createHeader() {
     const monthDetails =
       this.#eventTarget &&
-      this.#eventTarget?.getAttribute("data-mnth-details")?.split("/");
+      this.#eventTarget?.getAttribute("data-month-details")?.split("_");
+      
 
-    const id = monthDetails;
+    this.#monthDetails = monthDetails?.join("_");
     const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
     const monthName = monthDetails && Helpers.numberOnMonth(monthDetails[2]);
 
@@ -45,7 +46,7 @@ export class PopupTable {
     memberFullname &&
       (hederEl.innerHTML = `
     <div class = "sm:flex justify-between font-semibold">
-         <div data-member-id = ${id}>${memberFullname}</div>
+         <div>${memberFullname}</div>
          <div data-header-monthname>${monthName}</div>
     </div>`);
     hederEl.classList.add("mb-4");
@@ -86,7 +87,11 @@ export class PopupTable {
 
     this.#memberId &&
       this.#monthNumber &&
-      new PopupSubmit(this.#memberId, (+this.#monthNumber + 1).toString());
+      new PopupSubmit(
+        this.#memberId,
+        (+this.#monthNumber).toString(),
+        this.#monthDetails
+      );
   }
 
   #createPopup(e: Event) {

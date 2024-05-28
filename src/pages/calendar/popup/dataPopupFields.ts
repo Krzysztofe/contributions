@@ -9,6 +9,6 @@ import { DataFieldCreator } from "../../../components/dataFieldCreator";
 
 export const dataPopupFields = [
   new DataFieldCreator("amount", "", "", "number", "Kwota", "x"),
-  new DataFieldCreator("date", "Data", "", "date", "", "x"),
+  new DataFieldCreator("pay_date", "Data", "", "date", "", "x"),
   new DataFieldCreator("comment", "", "", "textarea", "Uwagi", "x"),
 ];

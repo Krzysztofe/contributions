@@ -1,6 +1,6 @@
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
 import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
-import { TableCalendarPrinter } from "./tableCalendarPrinter";
+import { TableCalendarPrinter } from "./table/tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar";
 import { PopupTable } from "./popup/popupTable";

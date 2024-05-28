@@ -86,18 +86,18 @@ export class Helpers {
 
   static numberOnMonth(month: string) {
     const monthTranslations: { [key: string]: string } = {
-      "0": "Sty.",
-      "1": "Lut.",
-      "2": "Mar.",
-      "3": "Kwi.",
-      "4": "Maj",
-      "5": "Cze.",
-      "6": "Lip.",
-      "7": "Sie.",
-      "8": "Wrz.",
-      "9": "Paź.",
-      "10": "Lis.",
-      "11": "Gru.",
+      "1": "Sty.",
+      "2": "Lut.",
+      "3": "Mar.",
+      "4": "Kwi.",
+      "5": "Maj",
+      "6": "Cze.",
+      "7": "Lip.",
+      "8": "Sie.",
+      "9": "Wrz.",
+      "10": "Paź.",
+      "11": "Lis.",
+      "12": "Gru.",
     };
 
     return monthTranslations[month.toLowerCase()] || "";
@@ -114,5 +114,31 @@ export class Helpers {
     }
 
     return false;
+  }
+
+  static tdInnerHtmlPattern(month: any, monthDetails: string) {
+    const dataMonthDetails = `data-month-details = ${monthDetails}`;
+
+    console.log('',month)
+
+    return `<div data = "amount" ${dataMonthDetails} >${
+      month.amount || "0"
+    } zł</div> 
+
+    <div data = "memberDetailsPrint" class = "collapseClose">
+      <div class = "overflow-hidden" data = ${
+        (month.pay_date === "" || month.pay_date === "0000-00-00") &&
+        month.comment === ""
+          ? "emptyCollapse"
+          : "fullCollapse"
+      } >    
+        <div ${dataMonthDetails} class = "text-[0.6rem]">${
+            month.pay_date === "0000-00-00" ? "" : month.pay_date
+       }</div> 
+        <div ${dataMonthDetails} class = "text-[0.6rem]">${
+      month.comment || ""
+    }</div> 
+      </div>
+    </div>`;
   }
 }
