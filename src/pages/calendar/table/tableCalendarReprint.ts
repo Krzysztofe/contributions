@@ -33,10 +33,16 @@ export class TableCalendarReprint {
 
     if (this.#tdEl.firstElementChild?.textContent?.trim() === "0 zł") {
       this.#tdEl?.classList.add("bg-td_red");
-      this.#tdEl?.classList.remove("bg-white");
+      this.#tdEl?.classList.remove("bg-inherit");
     } else {
-      this.#tdEl?.classList.add("bg-white");
+      this.#tdEl?.classList.add("bg-inherit");
+      this.#tdEl?.classList.remove("bg-td_red");
     }
+    this.#tdEl.classList.add("animateTd");
+
+    setTimeout(() => {
+      this.#tdEl?.classList.remove("animateTd");
+    }, 400);
   }
 
   #printCollapseArrow() {
@@ -55,11 +61,8 @@ export class TableCalendarReprint {
       iconEL && iconEL.classList.add("invisible");
       iconEL && iconEL.classList.remove("visible");
     } else {
-        iconEL && iconEL.classList.add("visible");
-        iconEL && iconEL.classList.remove("invisible");
+      iconEL && iconEL.classList.add("visible");
+      iconEL && iconEL.classList.remove("invisible");
     }
-
-
-
   }
 }

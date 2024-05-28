@@ -79,3 +79,19 @@ body::-webkit-scrollbar {
 .collapseOpen {
   grid-template-rows: 1fr;
 }
+
+.animateTd {
+  animation: pulseBg 700ms forwards;
+}
+
+@keyframes pulseBg {
+  0% {
+    background-color: inherit;
+  }
+  50% {
+    background-color: #CCDDFF;
+  }
+  80% {
+    background-color: inherit;
+  }
+}

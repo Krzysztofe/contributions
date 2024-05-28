@@ -2,7 +2,7 @@ import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 // import { StateCalendar } from "../StateCalendar";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
-import { StateCalendar } from "../StateCalendar";
+// import { StateCalendar } from "../StateCalendar";
 import { TableCalendarReprint } from "../table/tableCalendarReprint";
 
 export class PopupSubmit {
@@ -18,9 +18,6 @@ export class PopupSubmit {
     this.#monthDetails = monthDetails;
     this.#submetEvent();
   }
-
-
-
 
   #POSTOptions() {
     return {
@@ -45,9 +42,6 @@ export class PopupSubmit {
     this.#formValues = Helpers.getFormValues(e);
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
-    console.log("", StateCalendar.sortedCalendar);
-   
-    console.log('',this.#POSTOptions())
 
     await Helpers.fetchData(this.#POSTOptions());
 
