@@ -96,11 +96,13 @@ export class TableCalendar extends TableCreator {
     if (tdFullnameId) {
       const iconEL = document.getElementById(tdFullnameId)
         ?.firstElementChild as HTMLElement;
+
       iconEL?.classList.toggle("rotate-180");
 
       const collapseElems = document
         .getElementById(tdFullnameId)
         ?.parentElement?.querySelectorAll("[data=memberDetailsPrint]");
+
       collapseElems?.forEach(element => {
         element.classList.toggle("collapseOpen");
       });

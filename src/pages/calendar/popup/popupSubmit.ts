@@ -47,6 +47,7 @@ export class PopupSubmit {
     btnLoader.createSpinner();
     console.log("", StateCalendar.sortedCalendar);
    
+    console.log('',this.#POSTOptions())
 
     await Helpers.fetchData(this.#POSTOptions());
 

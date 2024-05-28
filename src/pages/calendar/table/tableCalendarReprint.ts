@@ -12,6 +12,7 @@ export class TableCalendarReprint {
       `[data-month-details="${monthDetails}"]`
     );
     this.#tdInnerHtml();
+    this.#printCollapseArrow();
   }
 
   #tdInnerHtml() {
@@ -25,14 +26,40 @@ export class TableCalendarReprint {
       this.#tdBgColor();
     }
   }
-  #tdBgColor() { 
-// console.log('',this.#tdEl?.textContent?.trim())
+  #tdBgColor() {
+    if (!this.#tdEl) {
+      return;
+    }
 
-    if (this.#tdEl?.textContent?.trim() === "0 zł") {
+    if (this.#tdEl.firstElementChild?.textContent?.trim() === "0 zł") {
       this.#tdEl?.classList.add("bg-td_red");
       this.#tdEl?.classList.remove("bg-white");
     } else {
       this.#tdEl?.classList.add("bg-white");
     }
+  }
+
+  #printCollapseArrow() {
+    const memberId = this.#monthDetails?.split("_")[1].replace("-", " ");
+
+    const tdFullnameEl = memberId && document.getElementById(memberId);
+
+    const iconEL = tdFullnameEl && tdFullnameEl.querySelector(".fa-caret-down");
+
+    const allEmptyCollapses =
+      tdFullnameEl &&
+      tdFullnameEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
+        .length === 12;
+
+    if (allEmptyCollapses) {
+      iconEL && iconEL.classList.add("invisible");
+      iconEL && iconEL.classList.remove("visible");
+    } else {
+        iconEL && iconEL.classList.add("visible");
+        iconEL && iconEL.classList.remove("invisible");
+    }
+
+
+
   }
 }

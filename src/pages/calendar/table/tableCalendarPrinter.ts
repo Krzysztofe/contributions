@@ -39,7 +39,7 @@ export class TableCalendarPrinter {
     table.tdElemsBgColor();
     table.createArrowCollapse();
     table.collapseEvent();
-    console.log("", this.#dataTableBody);
+    // console.log("", this.#dataTableBody);
   }
 
   #tdStyles(idx: number): string[] | [] {

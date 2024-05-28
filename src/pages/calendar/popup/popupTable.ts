@@ -122,6 +122,17 @@ export class PopupTable {
     const dataAtribute = this.#eventTarget?.getAttribute("data");
 
     if (dataAtribute !== "member" && dataAtribute !== "idx" && isNestedInTd) {
+      
+      document
+        .querySelectorAll("[data=memberDetailsPrint]")
+        .forEach(element => {
+          element.classList.remove("collapseOpen");
+        });
+
+        document.querySelectorAll(".fa-caret-down").forEach(icon => {
+          icon.classList.remove("rotate-180");
+        });
+
       const popupContainer = document.createElement("div");
       popupContainer.id = "popupContainer";
       popupContainer.classList.add(
