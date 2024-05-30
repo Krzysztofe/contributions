@@ -116,10 +116,12 @@ export class PopupTable {
     const dataAtribute = this.#eventTarget?.getAttribute("data");
     const isIconArrow =
       this.#eventTarget.classList.value.includes("fa-caret-down");
+    const isDataNoActive = this.#eventTarget?.getAttribute("data-not-active");
 
     if (
       dataAtribute !== "member" &&
       dataAtribute !== "idx" &&
+      !isDataNoActive &&
       !isIconArrow &&
       isNestedInTd
     ) {

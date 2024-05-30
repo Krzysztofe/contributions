@@ -16,7 +16,6 @@ export class PopupSubmit {
     this.#monthNumber = monthDetails.monthName;
     this.#monthDetails = monthDetails;
     this.#submetEvent();
-    console.log('ee',StateYear.year)
   }
 
   #POSTOptions() {
@@ -28,7 +27,7 @@ export class PopupSubmit {
       },
       body: {
         client_id: this.#memberId,
-        year: "2024",
+        year: StateYear.year,
         month: this.#monthNumber,
         amount: this.#formValues?.amount,
         pay_date: this.#formValues?.pay_date,

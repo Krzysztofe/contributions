@@ -117,27 +117,30 @@ export class Helpers {
   }
 
   static tdInnerHtmlPattern(month: any, monthDetails: string) {
+    const { id, pay_date, amount, comment, monthName, join_date } = month;
+
+    
+
     const dataMonthDetails = `data-month-details = ${monthDetails}`;
-    const dataMonthId = `data-month-id = ${month.id}_${month.monthName}`;
+    const dataMonthId = `data-month-id = ${id}_${monthName}`;
 
     return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${
-      month.amount || "0"
+      amount || "0"
     } zł</div> 
 
     <div data = "memberDetailsPrint" class = "collapseClose">
       <div class = "overflow-hidden" data = ${
-        (month.pay_date === "" || month.pay_date === "0000-00-00") &&
-        month.comment === ""
+        (pay_date === "" || pay_date === "0000-00-00") && comment === ""
           ? "emptyCollapse"
           : "fullCollapse"
       } >    
         <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem] ${
-      month.comment && "h-3"
+      comment && "h-3"
     }">
-            ${month.pay_date === "0000-00-00" ? "" : month.pay_date}
+            ${pay_date === "0000-00-00" ? "" : pay_date}
         </div> 
         <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem]">${
-      month.comment || ""
+      comment || ""
     }
         </div> 
       
@@ -145,7 +148,7 @@ export class Helpers {
     </div>`;
   }
 
-  static currentYear(){
+  static currentYear() {
     return new Date().getFullYear().toString();
   }
 }

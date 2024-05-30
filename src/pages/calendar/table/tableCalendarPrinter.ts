@@ -36,13 +36,14 @@ export class TableCalendarPrinter {
     });
     this.#table.createTableBody({
       cellsData: this.#dataTableBody,
-      cellInnerHtml: this.tdInnerHtml.bind(this),
+      cellInnerHtml: this.#tdInnerHtml.bind(this),
       stylesTd: this.#tdStyles,
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
     this.#table.createSelect();
     this.#table.selectEvent();
     this.#table.tdElemsBgColor();
+    this.#table.tdJoinDateBgColor();
     this.#table.createArrowCollapse();
     this.#table.collapseEvent();
   }
@@ -53,7 +54,7 @@ export class TableCalendarPrinter {
       : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
   }
 
-  #createMonthDetails(month: any) {
+  #createDataMonthDetails(month: any) {
     const { id, fullname, monthName } = month;
     const transformedFulllName = fullname?.replace(/ /g, "_");
     const details = {
@@ -74,18 +75,25 @@ export class TableCalendarPrinter {
     idx: number;
     month: any;
   }) {
-    const monthDetails = this.#createMonthDetails(month);
+    const monthDetails = this.#createDataMonthDetails(month);
+    // console.log('',month.join_date)
     const monthId = `${month.id}_${month.monthName}`;
     if (idx > 0) {
       return [
         tdElement.setAttribute("data-month-details", monthDetails),
         tdElement.setAttribute("data-month-id", monthId),
+        tdElement.setAttribute("data-join-date", month.join_date),
       ];
     }
   }
 
-  tdInnerHtml(month: any) {
-    const monthDetails = this.#createMonthDetails(month);
+  #tdInnerHtml(month: any) {
+    const monthDetails = this.#createDataMonthDetails(month);
     return Helpers.tdInnerHtmlPattern(month, monthDetails);
   }
+
+  joinDateStyles(){
+    
+  }
+
 }

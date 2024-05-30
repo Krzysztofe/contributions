@@ -4,6 +4,7 @@ type MonthModel =
   | {
       amount: string;
       comment: string;
+      join_date: string
       pay_date: string;
       id: string;
       fullname: string;
@@ -40,6 +41,7 @@ export class StateCalendar {
               ? {
                   id: member.id,
                   fullname: member.fullname,
+                  join_date: member.join_date,
                   monthName: (idx + 1).toString(),
                   amount: member[key].amount || "0",
                   comment: member[key].comment || "",
@@ -48,6 +50,7 @@ export class StateCalendar {
               : {
                   id: member.id,
                   fullname: member.fullname,
+                  join_date: member.join_date,
                   monthName: (idx + 1).toString(),
                   amount: "0",
                   comment: "",

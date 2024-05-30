@@ -51,7 +51,7 @@ export class TableCalendar extends TableCreator {
       },
     };
     await Helpers.fetchData(GETOptions);
-  
+
     this.#loading.removeLoading();
   }
 
@@ -61,6 +61,27 @@ export class TableCalendar extends TableCreator {
       if (amountEl.textContent?.trim() === "0 zł") {
         amountEl?.parentElement &&
           amountEl?.parentElement.classList.add("bg-td_red");
+      }
+    });
+  }
+
+  tdJoinDateBgColor() {
+    const tdElems = document.querySelectorAll("[data-join-date]");
+    tdElems.forEach(tdEl => {
+      const joinDate = tdEl.getAttribute("data-join-date");
+      const monthDetails = tdEl.getAttribute("data-month-details");
+      const number = monthDetails && JSON.parse(monthDetails).monthName;
+      const monthNumber = number < 10 ? "0" + number : number;
+      const tdDate = `${StateYear.year}-${monthNumber}`;
+
+      const joinDateCompare = new Date(joinDate + "-01");
+      const tdDateCompare = new Date(tdDate + "-01");
+
+      if (joinDateCompare > tdDateCompare) {
+        tdEl.classList.add("bg-primary", "cursor-auto");
+        tdEl.classList.remove("bg-td_red");
+        tdEl.innerHTML = "";
+        tdEl.setAttribute("data-not-active", "true");
       }
     });
   }
