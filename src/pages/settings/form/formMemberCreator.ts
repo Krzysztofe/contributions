@@ -32,7 +32,7 @@ export class FormMemberCreator extends FormCreator {
       "p-1",
       "px-6",
       "text-white",
-      "bg-black_opacity",
+      "bg-dark",
       "z-40"
     );
     toastEl.style.transform = "translate(-50%, -100%)";

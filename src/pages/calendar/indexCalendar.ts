@@ -26,7 +26,7 @@ class CalendarManager {
     new HeaderCalendar(["flex", "items-center", "justify-between"]);
     const calendarDatabase = await Helpers.fetchData(this.GETOptions);
     // console.log("ee", calendarDatabase);
-    StateCalendar.setCalendar(calendarDatabase?.fetchedData);
+    StateCalendar.setCalendar(calendarDatabase);
     // console.log('',StateCalendar.sortedCalendar)
     new TableCalendarPrinter();
     new PopupTable();

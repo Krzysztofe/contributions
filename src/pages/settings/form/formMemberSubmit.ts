@@ -81,7 +81,7 @@ export class FormMemberSubmit {
 
     this.#loading.createLoading();
     const data = await Helpers.fetchData(this.#POSTOptions());
-    const newMembers = this.#createNewMembers(data?.fetchedData);
+    const newMembers = this.#createNewMembers(data);
     document.getElementById("noDataContainer")?.remove();
     new RecreateSettingPanel(newMembers, "Zapisano");
   }

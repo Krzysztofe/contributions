@@ -79,7 +79,7 @@ export class TableCalendar extends TableCreator {
 
       if (joinDateCompare > tdDateCompare) {
         tdEl.classList.add("bg-primary", "cursor-auto");
-        tdEl.classList.remove("bg-td_red");
+        tdEl.classList.remove("bg-td_red", "cursor-pointer");
         tdEl.innerHTML = "";
         tdEl.setAttribute("data-not-active", "true");
       }

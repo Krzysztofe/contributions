@@ -35,10 +35,9 @@ export class DeleteMember {
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
     const data = await this.fetchData();
-    // const data = await Helpers.fetchData(this.DELETEMemberOptions);
     const updatedData = StateMembers.sortedMembers?.filter(
       ({ id }: { id: string }) => {
-        return id !== data?.fetchedData;
+        return id !== data
       }
     );
     new RecreateSettingPanel(updatedData, "Usunięto");

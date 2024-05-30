@@ -50,7 +50,7 @@ export class HttpRequest {
         } else {
           data = await resp.json();
         }
-        return { isLoading: false, fetchedData: data };
+        return data;
       }
     } catch (err: any) {
       this.#createErrorPage(err.message);

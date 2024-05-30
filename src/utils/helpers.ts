@@ -117,9 +117,9 @@ export class Helpers {
   }
 
   static tdInnerHtmlPattern(month: any, monthDetails: string) {
-    const { id, pay_date, amount, comment, monthName, join_date } = month;
+    const { id, pay_date, amount, comment, monthName } = month;
 
-    
+
 
     const dataMonthDetails = `data-month-details = ${monthDetails}`;
     const dataMonthId = `data-month-id = ${id}_${monthName}`;
