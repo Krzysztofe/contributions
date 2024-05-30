@@ -1,5 +1,5 @@
 import { Helpers } from "../../../utils/helpers";
-import { StateCalendar } from "../StateCalendar";
+import { StateCalendar } from "../states/StateCalendar";
 import { TableCalendar } from "./tableCalendar";
 
 export class TableCalendarPrinter {

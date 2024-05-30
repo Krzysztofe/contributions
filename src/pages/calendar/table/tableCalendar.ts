@@ -2,6 +2,7 @@ import { LoadingTableCreator } from "../../../components/loadingsCreators/loadin
 import { TableCreator } from "../../../components/tableCreator";
 import { Helpers } from "../../../utils/helpers";
 import { URL_CALENDAR } from "../../../data/dataUrl";
+import { StateYear } from "../states/StateYear";
 
 export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
@@ -40,6 +41,7 @@ export class TableCalendar extends TableCreator {
 
   async #handleSelect(e: Event) {
     const selectedYear = (e.target as HTMLInputElement).value;
+    StateYear.year = selectedYear;
 
     this.#loading.createLoading();
     const GETOptions = {
@@ -48,8 +50,8 @@ export class TableCalendar extends TableCreator {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const database = await Helpers.fetchData(GETOptions);
-    console.log("", database);
+    await Helpers.fetchData(GETOptions);
+  
     this.#loading.removeLoading();
   }
 

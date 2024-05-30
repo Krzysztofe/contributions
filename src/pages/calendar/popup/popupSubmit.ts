@@ -1,9 +1,8 @@
 import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
-// import { StateCalendar } from "../StateCalendar";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
-// import { StateCalendar } from "../StateCalendar";
 import { TableCalendarReprint } from "../table/tableCalendarReprint";
+import { StateYear } from "../states/StateYear";
 
 export class PopupSubmit {
   #formEl = document.querySelector("form");
@@ -12,11 +11,12 @@ export class PopupSubmit {
   #monthNumber: string | null = null;
   #monthDetails: string | null = null;
 
-  constructor(memberId: string, monthNumber: string, monthDetails: any) {
-    this.#memberId = memberId;
-    this.#monthNumber = monthNumber;
+  constructor(monthDetails: any) {
+    this.#memberId = monthDetails.id;
+    this.#monthNumber = monthDetails.monthName;
     this.#monthDetails = monthDetails;
     this.#submetEvent();
+    console.log('ee',StateYear.year)
   }
 
   #POSTOptions() {

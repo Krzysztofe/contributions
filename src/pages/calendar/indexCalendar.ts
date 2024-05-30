@@ -5,11 +5,12 @@ import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar";
 import { PopupTable } from "./popup/popupTable";
 import { URL_CALENDAR } from "../../data/dataUrl";
-import { StateCalendar } from "./StateCalendar";
+import { StateCalendar } from "./states/StateCalendar";
+
 
 class CalendarManager {
   GETOptions = {
-    url: `${URL_CALENDAR}2024`,
+    url: `${URL_CALENDAR}${Helpers.currentYear()}`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },

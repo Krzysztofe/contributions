@@ -1,4 +1,4 @@
-import { StateAmount } from "../StateAmount";
+import { StateAmount } from "../states/StateAmount";
 import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
@@ -106,14 +106,7 @@ export class PopupTable {
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
-
-    this.#memberId &&
-      this.#monthNumber &&
-      new PopupSubmit(
-        this.#memberId,
-        (+this.#monthNumber).toString(),
-        this.#monthDetails
-      );
+    new PopupSubmit(this.#monthDetails);
   }
 
   #createPopup(e: Event) {

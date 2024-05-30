@@ -168,7 +168,7 @@ export class TableCreator {
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
-        idx > 0 ? td.setAttribute("data", "memberDetails") : null;
+        // idx > 0 ? td.setAttribute("data", "memberDetails") : null;
         tdSetAtribut && tdSetAtribut({ tdElement: td, idx: idx, month: value });
         td.classList.add(
           "border",

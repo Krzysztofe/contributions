@@ -1,6 +1,6 @@
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { dataAmountInput } from "../../components/headerCreator/dataInputs";
-import { StateAmount } from "./StateAmount";
+import { StateAmount } from "./states/StateAmount";
 import { LoadingSpinner } from "../../components/loadingsCreators/loadingSpinner";
 import { Helpers } from "../../utils/helpers";
 import jsPDFInvoiceTemplate, { OutputType } from "jspdf-invoice-template";
@@ -155,6 +155,3 @@ let props = {
   pageEnable: true,
   pageLabel: "Strona ",
 };
-
-
-

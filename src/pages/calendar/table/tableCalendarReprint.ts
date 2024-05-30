@@ -2,14 +2,14 @@ import { Helpers } from "../../../utils/helpers";
 
 export class TableCalendarReprint {
   #formValues: any = null;
-  #monthDetails: string | null = null;
+  #monthDetails: any = null;
   #tdEl: HTMLElement | null = null;
 
-  constructor(monthDetails: string | null, formValues: any) {
+  constructor(monthDetails: any, formValues: any) {
     this.#formValues = formValues;
     this.#monthDetails = monthDetails;
     this.#tdEl = document.querySelector(
-      `[data-month-details="${monthDetails}"]`
+      `[data-month-id="${monthDetails.id}_${monthDetails.monthName}"]`
     );
     this.#tdInnerHtml();
     this.#printCollapseArrow();
@@ -46,9 +46,12 @@ export class TableCalendarReprint {
   }
 
   #printCollapseArrow() {
-    const memberId = this.#monthDetails?.split("_")[1].replace("-", " ");
 
-    const tdFullnameEl = memberId && document.getElementById(memberId);
+    const memberId = this.#monthDetails?.id;
+    const memberFullname = this.#monthDetails?.fullname.replace(/\_/g, " ");
+
+    const tdFullnameEl = memberId && document.getElementById(memberFullname);
+
 
     const iconEL = tdFullnameEl && tdFullnameEl.querySelector(".fa-caret-down");
 

@@ -144,4 +144,8 @@ export class Helpers {
         </div>
     </div>`;
   }
+
+  static currentYear(){
+    return new Date().getFullYear().toString();
+  }
 }
