@@ -24,6 +24,7 @@ export class TableCreator {
       "table-xs",
       "bg-primary_dark",
       "relative",
+      "rounded-sm",
       ...styles
     );
     tableEl.id = "tableMembers";
@@ -46,13 +47,14 @@ export class TableCreator {
     const tableRowEl = document.createElement("tr");
     tableHeadEl.append(tableRowEl);
 
+
     // th
     headers.forEach((header, idx, arr) => {
       const th = document.createElement("th");
 
       const stickyTh =
         ({
-          0: ["bg-primary_dark"],
+          0: ["bg-primary_dark", "text-accent"],
           1: ["bg-primary_dark", "sticky", "left-0", "text-accent"],
         }[idx] as string[]) ?? [];
 
@@ -81,7 +83,7 @@ export class TableCreator {
         "h-[24.4px]",
         "flex",
         "items-center",
-        "px-3",
+        "px-2",
         ...stickyTh,
         ...divStyles
       );
@@ -136,7 +138,6 @@ export class TableCreator {
       const memberId = cellData.id;
       const printCells = { ...cellData };
       delete printCells.id;
-      delete printCells.join_date;
 
       Object.values(printCells).forEach((value: string, idx) => {
      

@@ -118,8 +118,9 @@ export class Helpers {
 
   static tdInnerHtmlPattern(month: any, monthDetails: string) {
     const dataMonthDetails = `data-month-details = ${monthDetails}`;
+    const dataMonthId = `data-month-id = ${month.id}_${month.monthName}`;
 
-    return `<div data = "amount" ${dataMonthDetails} >${
+    return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${
       month.amount || "0"
     } zł</div> 
 
@@ -130,13 +131,17 @@ export class Helpers {
           ? "emptyCollapse"
           : "fullCollapse"
       } >    
-        <div ${dataMonthDetails} class = "text-[0.6rem] ${
+        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem] ${
       month.comment && "h-3"
-    }">${month.pay_date === "0000-00-00" ? "" : month.pay_date}</div> 
-        <div ${dataMonthDetails} class = "text-[0.6rem]">${
+    }">
+            ${month.pay_date === "0000-00-00" ? "" : month.pay_date}
+        </div> 
+        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem]">${
       month.comment || ""
-    }</div> 
-      </div>
+    }
+        </div> 
+      
+        </div>
     </div>`;
   }
 }

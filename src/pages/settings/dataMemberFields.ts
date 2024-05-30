@@ -10,7 +10,7 @@ export const dataMemberFields = [
   new DataFieldCreator(
     "firstname",
     "",
-    "^(?:\\p{L}\\s*){3,}$",
+    "^(?:(?:\\p{L}|[\\s-]){3,})$",
     "text",
     "Imię",
     "Imię min. 3 litery"
@@ -18,7 +18,7 @@ export const dataMemberFields = [
   new DataFieldCreator(
     "lastname",
     "",
-    "^(?:\\p{L}\\s*){3,}$",
+    "^(?:(?:\\p{L}|[\\s-]){3,})$",
     "text",
     "Nazwisko",
     "Nazwisko min. 3 litery"

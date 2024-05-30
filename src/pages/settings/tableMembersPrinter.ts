@@ -9,29 +9,31 @@ export class TableMembersPrinter {
   }
 
   #init() {
-    if (
-      !StateMembers.sortedMembers ||
-      StateMembers.sortedMembers.length === 0
-    ) {
+    const { sortedMembers } = StateMembers;
+
+    if (!sortedMembers || sortedMembers.length === 0) {
       this.#table.noDataContainer();
-    } else {
-      this.#table.createTable(["max-w-[1000px]"]);
-      this.#table.createTableHead({
-        headers: [
-          `${StateMembers.sortedMembers.length}`,
-          "Imię i Nazwisko",
-          "Telefon",
-          "Data wstąpienia",
-          "",
-        ],
-      });
-      this.#table.createTableBody({
-        cellsData: StateMembers.sortedMembers,
-        icons: ["fa-trash"],
-        cellInnerHtml: this.#cellInnerHtml,
-        stylesTd: this.#cellStyles,
-      });
+      return;
     }
+
+    this.#table.createTable(["max-w-[1000px]"]);
+    this.#table.createTableHead({
+      headers: [
+        `${sortedMembers.length}`,
+        "Imię i Nazwisko",
+        "Telefon",
+        "Data wstąpienia",
+        "",
+      ],
+      stylesTh: ["bg-primary_dark"],
+    });
+
+    this.#table.createTableBody({
+      cellsData: sortedMembers,
+      icons: ["fa-trash"],
+      cellInnerHtml: this.#cellInnerHtml,
+      stylesTd: this.#cellStyles,
+    });
   }
   #cellInnerHtml(value: string | { [key: string]: any }) {
     return `${value}`;

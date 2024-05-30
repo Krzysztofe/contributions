@@ -31,16 +31,17 @@ export class PopupTable {
   }
 
   #createHeader() {
-    const monthDetails =
+    const monthDetailsString =
       this.#eventTarget &&
-      this.#eventTarget?.getAttribute("data-month-details")?.split("_");
+      this.#eventTarget?.getAttribute("data-month-details");
+    const monthDetails = monthDetailsString && JSON.parse(monthDetailsString);
 
-    this.#monthDetails = monthDetails?.join("_");
-    const memberFullname = monthDetails && monthDetails[1].replace("-", " ");
-    const monthName = monthDetails && Helpers.numberOnMonth(monthDetails[2]);
+    this.#monthDetails = monthDetails;
 
-    this.#memberId = monthDetails?.[0];
-    this.#monthNumber = monthDetails?.[2];
+    const memberFullname = monthDetails.fullname.replace(/\_/g, " ");
+    const monthName = Helpers.numberOnMonth(monthDetails.monthName);
+    this.#memberId = monthDetails.id;
+    this.#monthNumber = monthDetails.monthName;
 
     const hederEl = document.createElement("h3");
     memberFullname &&
@@ -59,20 +60,20 @@ export class PopupTable {
       .getElementById("popupForm")
       ?.querySelectorAll("input");
     const textareaEl = document.querySelector("textarea");
+
     const tdInternalElems = document.querySelectorAll(
-      `[data-month-details="${this.#monthDetails}"]`
+      `[data-month-id="${this.#memberId}_${this.#monthNumber}"]`
     );
 
-    const tdAmountContent =
+    const amountText =
       tdInternalElems[1].textContent?.replace("zł", "").trim() || "";
-    const tdDateContent = tdInternalElems[2].textContent || "";
-    const tdCommentsContent = tdInternalElems[3].textContent || "";
+    const dateText = tdInternalElems[2].textContent?.trim() || "";
+    const commentText = tdInternalElems[3].textContent || "";
 
     if (inputsElems && textareaEl) {
-      inputsElems[0].value =
-        +tdAmountContent > 0 ? tdAmountContent : StateAmount.amount;
-      inputsElems[1].value = tdDateContent;
-      textareaEl.value = tdCommentsContent;
+      inputsElems[0].value = +amountText > 0 ? amountText : StateAmount.amount;
+      inputsElems[1].value = dateText;
+      textareaEl.value = commentText;
     }
   }
 
@@ -120,18 +121,24 @@ export class PopupTable {
 
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
+    const isIconArrow =
+      this.#eventTarget.classList.value.includes("fa-caret-down");
 
-    if (dataAtribute !== "member" && dataAtribute !== "idx" && isNestedInTd) {
-      
+    if (
+      dataAtribute !== "member" &&
+      dataAtribute !== "idx" &&
+      !isIconArrow &&
+      isNestedInTd
+    ) {
       document
         .querySelectorAll("[data=memberDetailsPrint]")
         .forEach(element => {
           element.classList.remove("collapseOpen");
         });
 
-        document.querySelectorAll(".fa-caret-down").forEach(icon => {
-          icon.classList.remove("rotate-180");
-        });
+      document.querySelectorAll(".fa-caret-down").forEach(icon => {
+        icon.classList.remove("rotate-180");
+      });
 
       const popupContainer = document.createElement("div");
       popupContainer.id = "popupContainer";
