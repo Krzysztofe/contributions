@@ -5,7 +5,6 @@ import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 
-
 export class TableCalendarPrinter {
   #dataTableHead: string[] = [
     `${StateCalendar.sortedCalendar.length}`,
@@ -40,7 +39,6 @@ export class TableCalendarPrinter {
       stylesTh: ["bg-accent", "text-white"],
     });
 
-    console.log("", this.#dataTableBody);
     this.#table.createTableBody({
       tdDataList: this.#dataTableBody,
       tdInnerHtml: this.#tdInnerHtml.bind(this),
@@ -84,6 +82,6 @@ export class TableCalendarPrinter {
   }
 
   #tdInnerHtml(value: string | ModelObjectString) {
-    return Helpers.tdInnerHtmlPattern(value);
+    if (typeof value !== "string") {return Helpers.tdInnerHtmlPattern(value)} else return ""
   }
 }

@@ -14,7 +14,6 @@ export class ReprintTableCalendar {
     );
     this.#tdInnerHtml();
     this.#printCollapseArrow();
-    console.log("", newMonth);
   }
 
   #tdInnerHtml() {

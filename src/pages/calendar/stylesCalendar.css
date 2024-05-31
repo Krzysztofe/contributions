@@ -1,0 +1,27 @@
+.collapseClose {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms;
+}
+
+.collapseOpen {
+  grid-template-rows: 1fr;
+}
+
+
+
+.animateTd {
+  animation: pulseBg 700ms forwards;
+}
+
+@keyframes pulseBg {
+  0% {
+    background-color: inherit;
+  }
+  50% {
+    background-color: #CCDDFF;
+  }
+  80% {
+    background-color: inherit;
+  }
+}

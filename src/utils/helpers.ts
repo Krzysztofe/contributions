@@ -1,4 +1,5 @@
 import { HttpRequest } from "../services/httpRequest";
+import { ModelMonth } from "../sharedModels/modelMonth";
 import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
@@ -38,11 +39,12 @@ export class Helpers {
 
     return formValues;
   }
-
   static debounce(func: (...args: Event[]) => void, delay: number) {
-    let timeoutId: any;
-    const timeoutFunction = (...args: any[]) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const timeoutFunction = (...args: Event[]) => {
       clearTimeout(timeoutId);
+
       timeoutId = setTimeout(() => {
         func.apply(this, args);
       }, delay);
@@ -120,7 +122,7 @@ export class Helpers {
     return false;
   }
 
-  static createDataMonthDetails(month: any) {
+  static createDataMonthDetails(month: ModelObjectAny) {
     const { id, fullname, monthNumber } = month;
     const transformedFulllName = fullname?.replace(/ /g, "_");
     const details = {
@@ -132,7 +134,7 @@ export class Helpers {
     return JSON.stringify(details);
   }
 
-  static tdInnerHtmlPattern(month: any) {
+  static tdInnerHtmlPattern(month:  ModelObjectString) {
     const { id, pay_date, amount, comment, monthNumber } = month;
     const monthDetailsJSON = this.createDataMonthDetails(month);
 
