@@ -1,19 +1,8 @@
 import { Helpers } from "../../../utils/helpers";
-
-type MonthModel =
-  | {
-      amount: string;
-      comment: string;
-      join_date: string
-      pay_date: string;
-      id: string;
-      fullname: string;
-      monthName: string;
-    }
-  | string;
+import { ModelMonth } from "../../../sharedModels/modelMonth";
 
 export class StateCalendar {
-  static sortedCalendar: any = [];
+  static sortedCalendar: ModelMonth[] | [] = [];
 
   static setCalendar(members: any) {
     const monthsKeys = [
@@ -34,7 +23,7 @@ export class StateCalendar {
     const processMembersList = members.map(
       (member: { [key: string]: any }) => ({
         ...monthsKeys.reduce<{
-          [key: string]: MonthModel;
+          [key: string]: ModelMonth;
         }>(
           (acc, key, idx) => {
             acc[key] = member[key]
@@ -67,6 +56,6 @@ export class StateCalendar {
       })
     );
 
-    this.sortedCalendar = Helpers.sortList(processMembersList);
+    this.sortedCalendar = Helpers.sortList<ModelMonth>(processMembersList);
   }
 }

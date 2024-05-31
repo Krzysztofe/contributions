@@ -31,7 +31,7 @@ export class TableMembersPrinter {
     this.#table.createTableBody({
       cellsData: sortedMembers,
       icons: ["fa-trash"],
-      cellInnerHtml: this.#cellInnerHtml,
+      tdInnerHtml: this.#cellInnerHtml,
       stylesTd: this.#cellStyles,
     });
   }

@@ -3,6 +3,7 @@ import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
 import { Helpers } from "../../../utils/helpers";
+import { ModelMonth } from "../../../sharedModels/modelMonth";
 
 export class PopupTable {
   #bodyEl = document.querySelector("body");
@@ -10,7 +11,7 @@ export class PopupTable {
   #eventTarget: HTMLElement | null = null;
   #memberId: string | null | undefined = null;
   #monthNumber: string | null | undefined = null;
-  #monthDetails: string | null | undefined = null;
+  #monthDetails: ModelMonth | null = null;
 
   constructor() {
     this.#printPopupEvent();
@@ -108,7 +109,8 @@ export class PopupTable {
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
-    new PopupSubmit(this.#monthDetails);
+
+    this.#monthDetails && new PopupSubmit(this.#monthDetails);
   }
 
   #createPopup(e: Event) {

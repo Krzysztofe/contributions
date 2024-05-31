@@ -15,10 +15,9 @@ export class HttpRequest {
       "fixed",
       "top-0",
       "left-0",
-      "right-0",
-      "z-50"
+      "right-0"
     );
-
+    errorContainer.style.zIndex = "60";
     body?.prepend(errorContainer);
   };
 

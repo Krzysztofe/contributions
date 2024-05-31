@@ -1,16 +1,20 @@
 import { Helpers } from "../../../utils/helpers";
+import { ModelMonth } from "../../../sharedModels/modelMonth";
+
+type ModelNewMonth = Omit<ModelMonth, "join_date">;
 
 export class ReprintTableCalendar {
-  #newMonth: any = null;
+  #newMonth: ModelNewMonth | null = null;
   #tdEl: HTMLElement | null = null;
 
-  constructor(newMonth: any) {
+  constructor(newMonth: ModelNewMonth) {
     this.#newMonth = newMonth;
     this.#tdEl = document.querySelector(
       `[data-month-id="${newMonth.id}_${newMonth.monthName}"]`
     );
     this.#tdInnerHtml();
     this.#printCollapseArrow();
+    console.log("", newMonth);
   }
 
   #tdInnerHtml() {
@@ -41,11 +45,13 @@ export class ReprintTableCalendar {
 
   #printCollapseArrow() {
     const memberFullname = this.#newMonth?.fullname.replace(/\_/g, " ");
-    const tdFullnameEl = document.getElementById(memberFullname);
+    const tdFullnameEl =
+      memberFullname && document.getElementById(memberFullname);
     const iconEL = tdFullnameEl && tdFullnameEl.querySelector(".fa-caret-down");
 
     const allEmptyCollapses =
-      tdFullnameEl?.parentElement?.querySelectorAll("[data=emptyCollapse]")
+      tdFullnameEl instanceof HTMLElement &&
+      tdFullnameEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
         .length === 12;
 
     if (allEmptyCollapses) {

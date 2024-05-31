@@ -1,4 +1,4 @@
-export type ModelMember = {
+export type ModelMemberSettings = {
   fullname: string;
   phone: string;
   id: string;

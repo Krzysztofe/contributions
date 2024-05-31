@@ -1,4 +1,4 @@
-import { ModelMember } from "./../../sharedModels/moedelMember";
+import { ModelMemberSettings } from "../../sharedModels/moedelMemberSettings";
 import { StateMembers } from "../../components/stateMembers";
 import { TableMembersPrinter } from "./tableMembersPrinter";
 import { AlertCreator } from "../../components/alertCreator/alertCreator";
@@ -7,7 +7,7 @@ import { ToastPrinter } from "../../components/toastPrinter";
 
 export class ReprintSettingsPanel {
   #loading = new LoadingTableSettings();
-  constructor(updatedData: ModelMember[], toastText: string) {
+  constructor(updatedData: ModelMemberSettings[], toastText: string) {
     StateMembers.setMembers(updatedData);
     document.querySelector("table")?.remove();
     new TableMembersPrinter();

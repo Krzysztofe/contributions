@@ -1,3 +1,16 @@
+type ModelTableBody = {
+  cellsData: { [key: string]: any }[];
+  icons?: string[];
+  tdInnerHtml: (value: string | { [key: string]: any }) => string;
+  stylesTd?: (idx?: number) => string[] | string[];
+  styles?: string[];
+  tdSetAtribut?: (params: {
+    tdEl: any;
+    idx: number;
+    databaseValues: any;
+  }) => void | any[];
+};
+
 export class TableCreator {
   parentEl: HTMLElement | null;
   tableEl: HTMLTableElement | null = null;
@@ -46,7 +59,6 @@ export class TableCreator {
     // tr
     const tableRowEl = document.createElement("tr");
     tableHeadEl.append(tableRowEl);
-
 
     // th
     headers.forEach((header, idx, arr) => {
@@ -98,18 +110,11 @@ export class TableCreator {
   createTableBody({
     cellsData,
     icons = [],
-    cellInnerHtml,
+    tdInnerHtml,
     stylesTd = () => [],
     styles = [],
-    tdSetAtribut = null,
-  }: {
-    cellsData: { [key: string]: string }[];
-    icons?: string[];
-    cellInnerHtml: (value: string | { [key: string]: any }) => string;
-    stylesTd?: (value?: any) => string[] | string[];
-    styles?: string[];
-    tdSetAtribut?: any;
-  }) {
+    tdSetAtribut,
+  }: ModelTableBody) {
     this.cellsData = cellsData;
 
     // Tbody
@@ -139,8 +144,7 @@ export class TableCreator {
       const printCells = { ...cellData };
       delete printCells.id;
 
-      Object.values(printCells).forEach((value: string, idx) => {
-     
+      Object.values(printCells).forEach((value, idx) => {
         const stylesTdName =
           idx === 0
             ? [
@@ -168,8 +172,8 @@ export class TableCreator {
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
-        // idx > 0 ? td.setAttribute("data", "memberDetails") : null;
-        tdSetAtribut && tdSetAtribut({ tdElement: td, idx: idx, month: value });
+        tdSetAtribut && tdSetAtribut({ tdEl: td, idx, databaseValues: value });
+
         td.classList.add(
           "border",
           "border-primary_dark",
@@ -180,7 +184,7 @@ export class TableCreator {
           ...styles
         );
 
-        td.innerHTML = idx === 0 ? value : cellInnerHtml(value);
+        td.innerHTML = idx === 0 ? value : tdInnerHtml(value);
         tableRowEl.append(td);
       });
 

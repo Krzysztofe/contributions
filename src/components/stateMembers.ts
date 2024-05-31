@@ -1,10 +1,10 @@
-import { ModelMember } from "../sharedModels/moedelMember";
+import { ModelMemberSettings } from "../sharedModels/moedelMemberSettings";
 import { Helpers } from "../utils/helpers";
 
 export class StateMembers {
   static sortedMembers: [] | any = [];
 
-  static setMembers(members: ModelMember[]) {
+  static setMembers(members: ModelMemberSettings[]) {
     const processMembers = members.map(({ fullname, phone, id, join_date }) => {
       return { id, fullname, phone, join_date };
     });

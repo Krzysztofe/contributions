@@ -1,4 +1,4 @@
-import { ModelMember } from "../../sharedModels/moedelMember";
+import { ModelMemberSettings } from "../../sharedModels/moedelMemberSettings";
 
 type ModelNewMember = {
   firstname: string;
@@ -7,13 +7,13 @@ type ModelNewMember = {
 };
 
 export class ValidationMember {
-  #members: ModelMember[];
+  #members: ModelMemberSettings[];
   #newMember: ModelNewMember;
   #fullnameNewMember: string | null = null;
-  isMember: ModelMember[] | [] = [];
+  isMember: ModelMemberSettings[] | [] = [];
   #errorEl: HTMLElement | null;
 
-  constructor(members: ModelMember[], formValues: ModelNewMember) {
+  constructor(members: ModelMemberSettings[], formValues: ModelNewMember) {
     this.#members = members;
     this.#newMember = formValues;
     this.isMember;

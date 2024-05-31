@@ -1,6 +1,7 @@
 import { Helpers } from "../../../utils/helpers";
 import { StateCalendar } from "../states/StateCalendar";
 import { TableCalendar } from "./tableCalendar";
+import { ModelMonth } from "../../../sharedModels/modelMonth";
 
 export class TableCalendarPrinter {
   #dataTableHead: string[] = [
@@ -19,6 +20,7 @@ export class TableCalendarPrinter {
     "Lis.",
     "Gru.",
   ];
+
   #dataTableBody = JSON.parse(JSON.stringify(StateCalendar.sortedCalendar)).map(
     (member: any) => {
       delete member.join_date;
@@ -36,8 +38,8 @@ export class TableCalendarPrinter {
     });
     this.#table.createTableBody({
       cellsData: this.#dataTableBody,
-      cellInnerHtml: this.#tdInnerHtml.bind(this),
-      stylesTd: this.#tdStyles,
+      tdInnerHtml: this.#tdInnerHtml.bind(this),
+      stylesTd: this.#stylesTd,
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
     this.#table.createSelect();
@@ -46,36 +48,38 @@ export class TableCalendarPrinter {
     this.#table.tdJoinDateBgColor();
     this.#table.createArrowCollapse();
     this.#table.collapseEvent();
+    console.log('',this.#dataTableBody)
   }
 
-  #tdStyles(idx: number): string[] | [] {
+  #stylesTd(idx?: number): string[] | [] {
     return idx === 0
       ? ["whitespace-nowrap"]
       : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
   }
 
   #tdSetAtribut({
-    tdElement,
+    tdEl,
     idx,
-    month,
+    databaseValues,
   }: {
-    tdElement: any;
+    tdEl: HTMLElement;
     idx: number;
-    month: any;
+    databaseValues: ModelMonth;
   }) {
-    const monthDetails = Helpers.createDataMonthDetails(month);
+    const month = databaseValues;
+    const monthDetailsJSON = Helpers.createDataMonthDetails(month);
     const monthId = `${month.id}_${month.monthName}`;
-    
+
     if (idx > 0) {
       return [
-        tdElement.setAttribute("data-month-details", monthDetails),
-        tdElement.setAttribute("data-month-id", monthId),
-        tdElement.setAttribute("data-join-date", month.join_date),
+        tdEl.setAttribute("data-month-details", monthDetailsJSON),
+        tdEl.setAttribute("data-month-id", monthId),
+        tdEl.setAttribute("data-join-date", month.join_date),
       ];
     }
   }
 
-  #tdInnerHtml(month: any) {
-    return Helpers.tdInnerHtmlPattern(month);
+  #tdInnerHtml(value: any) {
+    return Helpers.tdInnerHtmlPattern(value);
   }
 }

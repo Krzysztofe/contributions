@@ -48,7 +48,7 @@ export class Helpers {
     return timeoutFunction;
   }
 
-  static sortList(array: { [key: string]: string }[]) {
+  static sortList<T extends { fullname: string }>(array: T[]): T[] {
     const sortedList = array.sort((a, b) => {
       let nameA = a.fullname.toLowerCase();
       let nameB = b.fullname.toLowerCase();
