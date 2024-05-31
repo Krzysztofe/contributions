@@ -23,7 +23,9 @@ export class PopupTable {
       "fa-xmark",
       "absolute",
       "top-0",
-      "right-2",
+      "right-0",
+      "px-5",
+      "py-3",
       "text-2xl",
       "cursor-pointer"
     );

@@ -8,7 +8,6 @@ export class LoadingSpinner {
 
   createSpinner() {
     const spinner = document.createElement("div");
-    spinner.innerText = "ppppp";
     spinner.classList.add(
       "loading",
       "loading-spinner",

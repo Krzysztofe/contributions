@@ -54,18 +54,6 @@ export class TableCalendarPrinter {
       : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
   }
 
-  #createDataMonthDetails(month: any) {
-    const { id, fullname, monthName } = month;
-    const transformedFulllName = fullname?.replace(/ /g, "_");
-    const details = {
-      id,
-      fullname: transformedFulllName,
-      monthName,
-    };
-
-    return JSON.stringify(details);
-  }
-
   #tdSetAtribut({
     tdElement,
     idx,
@@ -75,9 +63,9 @@ export class TableCalendarPrinter {
     idx: number;
     month: any;
   }) {
-    const monthDetails = this.#createDataMonthDetails(month);
-    // console.log('',month.join_date)
+    const monthDetails = Helpers.createDataMonthDetails(month);
     const monthId = `${month.id}_${month.monthName}`;
+    
     if (idx > 0) {
       return [
         tdElement.setAttribute("data-month-details", monthDetails),
@@ -88,12 +76,6 @@ export class TableCalendarPrinter {
   }
 
   #tdInnerHtml(month: any) {
-    const monthDetails = this.#createDataMonthDetails(month);
-    return Helpers.tdInnerHtmlPattern(month, monthDetails);
+    return Helpers.tdInnerHtmlPattern(month);
   }
-
-  joinDateStyles(){
-    
-  }
-
 }

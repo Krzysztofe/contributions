@@ -1,7 +1,7 @@
 import { URL_MEMBERS } from "../../data/dataUrl";
 import { LoadingTableSettings } from "../../pages/settings/loadingTableSettings";
-import { RecreateSettingPanel } from "../../pages/settings/recreateSettingsPanel";
-import { HttpRequest } from "../../services/httpRequest";
+import { ReprintSettingsPanel } from "../../pages/settings/reprintSettingsPanel";
+import { Helpers } from "../../utils/helpers";
 import { StateMembers } from "../stateMembers";
 
 export class DeleteMember {
@@ -16,8 +16,14 @@ export class DeleteMember {
     this.#clickEvent();
   }
 
-  fetchData() {
-    const DELETEMemberOptions = {
+  #updatedData(memberId: string) {
+    return StateMembers.sortedMembers?.filter(({ id }: { id: string }) => {
+      return id !== memberId;
+    });
+  }
+
+  #DELETEOptions() {
+    return {
       url: URL_MEMBERS,
       method: "DELETE",
       headers: {
@@ -25,22 +31,14 @@ export class DeleteMember {
       },
       body: { id: this?.memberId },
     };
-
-    const reqest = new HttpRequest();
-    return reqest.sendRequest(DELETEMemberOptions);
   }
 
   async #handleDelete() {
     document.querySelector("dialog")?.remove();
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
-    const data = await this.fetchData();
-    const updatedData = StateMembers.sortedMembers?.filter(
-      ({ id }: { id: string }) => {
-        return id !== data
-      }
-    );
-    new RecreateSettingPanel(updatedData, "Usunięto");
+    const deletedMemberId = await Helpers.fetchData(this.#DELETEOptions());
+    new ReprintSettingsPanel(this.#updatedData(deletedMemberId), "Usunięto");
   }
   #clickEvent() {
     this.clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));

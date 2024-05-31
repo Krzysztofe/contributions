@@ -3,7 +3,7 @@ import { URL_MEMBERS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { LoadingTableSettings } from "../loadingTableSettings";
-import { RecreateSettingPanel } from "../recreateSettingsPanel";
+import { ReprintSettingsPanel } from "../reprintSettingsPanel";
 import { ValidationMember } from "../validationMember";
 
 export class FormMemberSubmit {
@@ -14,7 +14,7 @@ export class FormMemberSubmit {
   #formValues: { [key: string]: string } | null = null;
 
   constructor() {
-    this.submitEvent();
+    this.#submitEvent();
   }
 
   #POSTOptions() {
@@ -77,16 +77,14 @@ export class FormMemberSubmit {
     this.#formKeys = Object.keys(this.#formValues);
     if (this.#validations() !== "go") return;
 
-    // POST Member Request;
-
     this.#loading.createLoading();
     const data = await Helpers.fetchData(this.#POSTOptions());
     const newMembers = this.#createNewMembers(data);
     document.getElementById("noDataContainer")?.remove();
-    new RecreateSettingPanel(newMembers, "Zapisano");
+    new ReprintSettingsPanel(newMembers, "Zapisano");
   }
 
-  submitEvent() {
+  #submitEvent() {
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));
   }
 }

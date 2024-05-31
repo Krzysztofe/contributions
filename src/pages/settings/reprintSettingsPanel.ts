@@ -5,7 +5,7 @@ import { AlertCreator } from "../../components/alertCreator/alertCreator";
 import { LoadingTableSettings } from "./loadingTableSettings";
 import { ToastPrinter } from "../../components/toastPrinter";
 
-export class RecreateSettingPanel {
+export class ReprintSettingsPanel {
   #loading = new LoadingTableSettings();
   constructor(updatedData: ModelMember[], toastText: string) {
     StateMembers.setMembers(updatedData);

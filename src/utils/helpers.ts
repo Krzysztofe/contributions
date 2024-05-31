@@ -116,12 +116,23 @@ export class Helpers {
     return false;
   }
 
-  static tdInnerHtmlPattern(month: any, monthDetails: string) {
+  static createDataMonthDetails(month: any) {
+    const { id, fullname, monthName } = month;
+    const transformedFulllName = fullname?.replace(/ /g, "_");
+    const details = {
+      id,
+      fullname: transformedFulllName,
+      monthName,
+    };
+
+    return JSON.stringify(details);
+  }
+
+  static tdInnerHtmlPattern(month: any) {
     const { id, pay_date, amount, comment, monthName } = month;
+    const monthDetailsJSON = this.createDataMonthDetails(month);
 
-
-
-    const dataMonthDetails = `data-month-details = ${monthDetails}`;
+    const dataMonthDetails = `data-month-details = ${monthDetailsJSON}`;
     const dataMonthId = `data-month-id = ${id}_${monthName}`;
 
     return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${

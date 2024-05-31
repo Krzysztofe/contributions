@@ -128,7 +128,7 @@ export class TableCreator {
 
       //   td - first
       const td = document.createElement("td");
-      td.classList.add("border", "border-primary_dark", "px-3");
+      td.classList.add("border", "border-primary_dark", "px-2");
       td.innerText = (idx + 1).toString();
       td.setAttribute("data", "idx");
       tableRowEl.append(td);

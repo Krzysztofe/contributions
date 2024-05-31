@@ -1,21 +1,40 @@
 import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
-import { TableCalendarReprint } from "../table/tableCalendarReprint";
 import { StateYear } from "../states/StateYear";
+import { ReprintTableCalendar } from "../table/reprintTableCalendar";
+
+type ModelMonthDetails = {
+  id: string;
+  fullname: string;
+  monthName: string;
+};
 
 export class PopupSubmit {
   #formEl = document.querySelector("form");
   #formValues: { [key: string]: string } | null = null;
   #memberId: string | null = null;
   #monthNumber: string | null = null;
-  #monthDetails: string | null = null;
+  #monthDetails: ModelMonthDetails | null = null;
 
   constructor(monthDetails: any) {
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthName;
     this.#monthDetails = monthDetails;
     this.#submetEvent();
+  }
+
+  #newMonth() {
+    if (!this.#monthDetails) {
+      return;
+    }
+
+    return {
+      ...this.#monthDetails,
+      amount: this.#formValues?.amount,
+      pay_date: this.#formValues?.pay_date,
+      comment: this.#formValues?.comment,
+    };
   }
 
   #POSTOptions() {
@@ -41,11 +60,10 @@ export class PopupSubmit {
     this.#formValues = Helpers.getFormValues(e);
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
-
     await Helpers.fetchData(this.#POSTOptions());
+    this.#newMonth();
 
-    new TableCalendarReprint(this.#monthDetails, this.#formValues);
-
+    new ReprintTableCalendar(this.#newMonth());
     document.getElementById("popupContainer")?.remove();
   }
 

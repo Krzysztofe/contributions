@@ -1,3 +1,4 @@
+import { URL_AMOUNT_GLOBAL } from "./../../data/dataUrl";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { dataAmountInput } from "../../components/headerCreator/dataInputs";
 import { StateAmount } from "./states/StateAmount";
@@ -8,6 +9,7 @@ import jsPDFInvoiceTemplate, { OutputType } from "jspdf-invoice-template";
 export class HeaderCalendar extends HeaderLogedIn {
   #h1 = document.querySelector("h1");
   #navEl = document.querySelector("nav");
+  #inputValue: string | null = null;
 
   constructor(styles: string[]) {
     super(styles);
@@ -15,11 +17,25 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#createPdfIcon();
   }
 
+  #POSTOptions() {
+    return {
+      url: "https://kkrol.host83.nstrefa.pl/nowe/auth/global",
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: {
+        amount: this.#inputValue,
+      },
+    };
+  }
+
   async #handleChangeInput(e: Event) {
+    this.#inputValue = (e.target as HTMLInputElement).value;
     const spinner = new LoadingSpinner("#defaultAmount");
     spinner.createSpinner();
-    const inputValue = (e.target as HTMLInputElement).value;
-    StateAmount.amount = inputValue;
+    await Helpers.fetchData(this.#POSTOptions());
+    StateAmount.amount = this.#inputValue;
     spinner.removeSpinner();
   }
 

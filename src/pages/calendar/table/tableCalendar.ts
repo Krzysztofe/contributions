@@ -81,6 +81,7 @@ export class TableCalendar extends TableCreator {
         tdEl.classList.add("bg-primary", "cursor-auto");
         tdEl.classList.remove("bg-td_red", "cursor-pointer");
         tdEl.innerHTML = "";
+        tdEl.setAttribute("data", "emptyCollapse");
         tdEl.setAttribute("data-not-active", "true");
       }
     });
@@ -115,8 +116,9 @@ export class TableCalendar extends TableCreator {
     const tdFullnameId = isIcon
       ? target.getAttribute("data-parent-id")
       : target.id;
+    const tdTagEl = target.tagName;
 
-    if (tdFullnameId) {
+    if (tdFullnameId && tdTagEl === "TD") {
       const iconEL = document.getElementById(tdFullnameId)
         ?.firstElementChild as HTMLElement;
 
