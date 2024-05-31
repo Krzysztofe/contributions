@@ -1,4 +1,6 @@
 import { HttpRequest } from "../services/httpRequest";
+import { ModelObjectAny } from "../sharedModels/modelObjectAny";
+import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
 
 export class Helpers {
@@ -26,7 +28,7 @@ export class Helpers {
     const formEl = document.getElementById(elementId) as HTMLFormElement;
     const formData = formEl && new FormData(formEl);
 
-    const formValues: { [key: string]: string } = {};
+    const formValues: ModelObjectString = {};
 
     if (formData) {
       for (const [key, value] of formData.entries()) {
@@ -37,7 +39,7 @@ export class Helpers {
     return formValues;
   }
 
-  static debounce(func: (...args: any[]) => void, delay: number) {
+  static debounce(func: (...args: Event[]) => void, delay: number) {
     let timeoutId: any;
     const timeoutFunction = (...args: any[]) => {
       clearTimeout(timeoutId);
@@ -48,16 +50,18 @@ export class Helpers {
     return timeoutFunction;
   }
 
-  static sortList<T extends { fullname: string }>(array: T[]): T[] {
+  static sortList(array: ModelObjectAny[]) {
     const sortedList = array.sort((a, b) => {
-      let nameA = a.fullname.toLowerCase();
-      let nameB = b.fullname.toLowerCase();
+      if ("fullname" in a && "fullname" in b) {
+        let nameA = a.fullname.toLowerCase();
+        let nameB = b.fullname.toLowerCase();
 
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
       }
       return 0;
     });
@@ -66,7 +70,7 @@ export class Helpers {
   }
 
   static translateMonth(month: string) {
-    const monthTranslations: { [key: string]: string } = {
+    const monthTranslations: ModelObjectString = {
       january: "Sty.",
       february: "Lut.",
       march: "Mar.",
@@ -85,7 +89,7 @@ export class Helpers {
   }
 
   static numberOnMonth(month: string) {
-    const monthTranslations: { [key: string]: string } = {
+    const monthTranslations: ModelObjectString = {
       "1": "Sty.",
       "2": "Lut.",
       "3": "Mar.",
@@ -117,23 +121,23 @@ export class Helpers {
   }
 
   static createDataMonthDetails(month: any) {
-    const { id, fullname, monthName } = month;
+    const { id, fullname, monthNumber } = month;
     const transformedFulllName = fullname?.replace(/ /g, "_");
     const details = {
       id,
       fullname: transformedFulllName,
-      monthName,
+      monthNumber,
     };
 
     return JSON.stringify(details);
   }
 
   static tdInnerHtmlPattern(month: any) {
-    const { id, pay_date, amount, comment, monthName } = month;
+    const { id, pay_date, amount, comment, monthNumber } = month;
     const monthDetailsJSON = this.createDataMonthDetails(month);
 
     const dataMonthDetails = `data-month-details = ${monthDetailsJSON}`;
-    const dataMonthId = `data-month-id = ${id}_${monthName}`;
+    const dataMonthId = `data-month-id = ${id}_${monthNumber}`;
 
     return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${
       amount || "0"

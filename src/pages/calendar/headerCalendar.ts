@@ -1,4 +1,4 @@
-import { URL_AMOUNT_GLOBAL } from "./../../data/dataUrl";
+// import { URL_AMOUNT_GLOBAL } from "./../../data/dataUrl";
 import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { dataAmountInput } from "../../components/headerCreator/dataInputs";
 import { StateAmount } from "./states/StateAmount";
@@ -25,7 +25,7 @@ export class HeaderCalendar extends HeaderLogedIn {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        amount: this.#inputValue,
+        amount: this.#inputValue || ""
       },
     };
   }

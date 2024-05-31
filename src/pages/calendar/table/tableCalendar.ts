@@ -70,7 +70,7 @@ export class TableCalendar extends TableCreator {
     tdElems.forEach(tdEl => {
       const joinDate = tdEl.getAttribute("data-join-date");
       const monthDetails = tdEl.getAttribute("data-month-details");
-      const number = monthDetails && JSON.parse(monthDetails).monthName;
+      const number = monthDetails && JSON.parse(monthDetails).monthNumber;
       const monthNumber = number < 10 ? "0" + number : number;
       const tdDate = `${StateYear.year}-${monthNumber}`;
 

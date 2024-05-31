@@ -1,3 +1,4 @@
+import { ModelObjectString } from './../../../sharedModels/modelObjectString';
 import { StateMembers } from "../../../components/stateMembers";
 import { URL_MEMBERS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
@@ -5,13 +6,16 @@ import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { LoadingTableSettings } from "../loadingTableSettings";
 import { ReprintSettingsPanel } from "../reprintSettingsPanel";
 import { ValidationMember } from "../validationMember";
+import { ModelObjectAny } from '../../../sharedModels/modelObjectAny';
+
 
 export class FormMemberSubmit {
   #formEl = document.querySelector("form");
   #errorsEL = document.querySelectorAll(".h-4");
+  #noDataContainer = document.getElementById("noDataContainer");
   #formKeys: string[] | null = null;
   #loading = new LoadingTableSettings();
-  #formValues: { [key: string]: string } | null = null;
+  #formValues: ModelObjectString | null = null;
 
   constructor() {
     this.#submitEvent();
@@ -26,16 +30,19 @@ export class FormMemberSubmit {
       },
       body: {
         firstname:
-          this.#formValues && Helpers.capitalize(this.#formValues.firstname),
+          (this.#formValues &&
+            Helpers.capitalize(this.#formValues.firstname)) ||
+          "",
         lastname:
-          this.#formValues && Helpers.capitalize(this.#formValues.lastname),
-        phone: this.#formValues?.phone,
-        join_date: this.#formValues?.join_date,
+          (this.#formValues && Helpers.capitalize(this.#formValues.lastname)) ||
+          "",
+        phone: this.#formValues?.phone || "",
+        join_date: this.#formValues?.join_date || "",
       },
     };
   }
 
-  #createNewMembers(fetchedData: { [key: string]: any }) {
+  #createNewMembers(fetchedData: ModelObjectAny) {
     const { firstname, lastname, phone, id, join_date } = fetchedData;
 
     const newMember = {
@@ -78,9 +85,9 @@ export class FormMemberSubmit {
     if (this.#validations() !== "go") return;
 
     this.#loading.createLoading();
-    const data = await Helpers.fetchData(this.#POSTOptions());
-    const newMembers = this.#createNewMembers(data);
-    document.getElementById("noDataContainer")?.remove();
+    const newMember = await Helpers.fetchData(this.#POSTOptions());
+    const newMembers = this.#createNewMembers(newMember);
+    this.#noDataContainer?.remove()
     new ReprintSettingsPanel(newMembers, "Zapisano");
   }
 

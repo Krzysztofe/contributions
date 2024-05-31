@@ -1,13 +1,16 @@
+import { ModelObjectAny } from "../sharedModels/modelObjectAny";
+import { ModelObjectString } from "../sharedModels/modelObjectString";
+
 type ModelTableBody = {
-  cellsData: { [key: string]: any }[];
+  tdDataList: ModelObjectAny[];
   icons?: string[];
-  tdInnerHtml: (value: string | { [key: string]: any }) => string;
+  tdInnerHtml: (value: string | ModelObjectString) => string;
   stylesTd?: (idx?: number) => string[] | string[];
   styles?: string[];
   tdSetAtribut?: (params: {
-    tdEl: any;
+    tdEl: HTMLElement;
     idx: number;
-    databaseValues: any;
+    databaseValue: ModelObjectAny[];
   }) => void | any[];
 };
 
@@ -15,7 +18,7 @@ export class TableCreator {
   parentEl: HTMLElement | null;
   tableEl: HTMLTableElement | null = null;
   td: NodeListOf<HTMLTableCellElement> | null = null;
-  cellsData: { [key: string]: string }[] | null = null;
+  cellsData: ModelObjectString[] | null = null;
 
   constructor(parentEl: string) {
     this.parentEl = document.getElementById(parentEl);
@@ -108,20 +111,20 @@ export class TableCreator {
   }
 
   createTableBody({
-    cellsData,
+    tdDataList,
     icons = [],
     tdInnerHtml,
     stylesTd = () => [],
     styles = [],
     tdSetAtribut,
   }: ModelTableBody) {
-    this.cellsData = cellsData;
+    this.cellsData = tdDataList;
 
     // Tbody
     const tableBodyEl = document.createElement("tbody");
     tableBodyEl.classList.add("bg-white");
 
-    cellsData.forEach((cellData, idx) => {
+    tdDataList.forEach((tdData, idx) => {
       // Tr
       const tableRowEl = document.createElement("tr");
       const tableRowId = Math.random().toString();
@@ -140,8 +143,8 @@ export class TableCreator {
 
       // td - others
 
-      const memberId = cellData.id;
-      const printCells = { ...cellData };
+      const memberId = tdData.id;
+      const printCells = { ...tdData };
       delete printCells.id;
 
       Object.values(printCells).forEach((value, idx) => {
@@ -172,7 +175,7 @@ export class TableCreator {
         const td = document.createElement("td");
         idx === 0 ? (td.id = value) : null;
         idx === 0 ? td.setAttribute("data", "member") : null;
-        tdSetAtribut && tdSetAtribut({ tdEl: td, idx, databaseValues: value });
+        tdSetAtribut && tdSetAtribut({ tdEl: td, idx, databaseValue: value });
 
         td.classList.add(
           "border",

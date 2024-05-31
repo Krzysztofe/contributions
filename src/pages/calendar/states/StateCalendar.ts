@@ -1,10 +1,12 @@
 import { Helpers } from "../../../utils/helpers";
 import { ModelMonth } from "../../../sharedModels/modelMonth";
 
-export class StateCalendar {
-  static sortedCalendar: ModelMonth[] | [] = [];
+import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 
-  static setCalendar(members: any) {
+export class StateCalendar {
+  static sortedCalendar: ModelObjectAny[] | [] = [];
+
+  static setCalendar(members: ModelObjectAny[]) {
     const monthsKeys = [
       "january",
       "february",
@@ -21,7 +23,7 @@ export class StateCalendar {
     ];
 
     const processMembersList = members.map(
-      (member: { [key: string]: any }) => ({
+      (member: ModelObjectAny) => ({
         ...monthsKeys.reduce<{
           [key: string]: ModelMonth;
         }>(
@@ -31,7 +33,7 @@ export class StateCalendar {
                   id: member.id,
                   fullname: member.fullname,
                   join_date: member.join_date,
-                  monthName: (idx + 1).toString(),
+                  monthNumber: (idx + 1).toString(),
                   amount: member[key].amount || "0",
                   comment: member[key].comment || "",
                   pay_date: member[key].pay_date || "",
@@ -40,7 +42,7 @@ export class StateCalendar {
                   id: member.id,
                   fullname: member.fullname,
                   join_date: member.join_date,
-                  monthName: (idx + 1).toString(),
+                  monthNumber: (idx + 1).toString(),
                   amount: "0",
                   comment: "",
                   pay_date: "",
@@ -56,6 +58,6 @@ export class StateCalendar {
       })
     );
 
-    this.sortedCalendar = Helpers.sortList<ModelMonth>(processMembersList);
+    this.sortedCalendar = Helpers.sortList(processMembersList);
   }
 }

@@ -42,9 +42,9 @@ export class PopupTable {
     this.#monthDetails = monthDetails;
 
     const memberFullname = monthDetails.fullname.replace(/\_/g, " ");
-    const monthName = Helpers.numberOnMonth(monthDetails.monthName);
+    const monthName = Helpers.numberOnMonth(monthDetails.monthNumber);
     this.#memberId = monthDetails.id;
-    this.#monthNumber = monthDetails.monthName;
+    this.#monthNumber = monthDetails.monthNumber;
 
     const hederEl = document.createElement("h3");
     memberFullname &&

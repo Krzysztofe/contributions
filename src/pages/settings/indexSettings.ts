@@ -25,8 +25,8 @@ class SettingsManager {
     Helpers.isUserLoged();
     new LoadigPageCreator();
     new HeaderLogedIn(["flex", "items-center", "justify-between"]);
-    const membersDatabase = await Helpers.fetchData(this.#GETMembersOptions);
-    StateMembers.setMembers(membersDatabase);
+    const members = await Helpers.fetchData(this.#GETMembersOptions);
+    StateMembers.setMembers(members);
     new FormMemberPrinter();
     new TableMembersPrinter();
     new AlertCreator();

@@ -10,7 +10,7 @@ export class ReprintTableCalendar {
   constructor(newMonth: ModelNewMonth) {
     this.#newMonth = newMonth;
     this.#tdEl = document.querySelector(
-      `[data-month-id="${newMonth.id}_${newMonth.monthName}"]`
+      `[data-month-id="${newMonth.id}_${newMonth.monthNumber}"]`
     );
     this.#tdInnerHtml();
     this.#printCollapseArrow();

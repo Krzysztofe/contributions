@@ -1,7 +1,10 @@
 import { Helpers } from "../../../utils/helpers";
 import { StateCalendar } from "../states/StateCalendar";
 import { TableCalendar } from "./tableCalendar";
-import { ModelMonth } from "../../../sharedModels/modelMonth";
+import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
+import { ModelObjectString } from "../../../sharedModels/modelObjectString";
+import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
+
 
 export class TableCalendarPrinter {
   #dataTableHead: string[] = [
@@ -22,7 +25,7 @@ export class TableCalendarPrinter {
   ];
 
   #dataTableBody = JSON.parse(JSON.stringify(StateCalendar.sortedCalendar)).map(
-    (member: any) => {
+    (member: ModelMemberCalendar) => {
       delete member.join_date;
       return member;
     }
@@ -36,8 +39,10 @@ export class TableCalendarPrinter {
       headers: this.#dataTableHead,
       stylesTh: ["bg-accent", "text-white"],
     });
+
+    console.log("", this.#dataTableBody);
     this.#table.createTableBody({
-      cellsData: this.#dataTableBody,
+      tdDataList: this.#dataTableBody,
       tdInnerHtml: this.#tdInnerHtml.bind(this),
       stylesTd: this.#stylesTd,
       tdSetAtribut: this.#tdSetAtribut.bind(this),
@@ -48,7 +53,6 @@ export class TableCalendarPrinter {
     this.#table.tdJoinDateBgColor();
     this.#table.createArrowCollapse();
     this.#table.collapseEvent();
-    console.log('',this.#dataTableBody)
   }
 
   #stylesTd(idx?: number): string[] | [] {
@@ -60,15 +64,15 @@ export class TableCalendarPrinter {
   #tdSetAtribut({
     tdEl,
     idx,
-    databaseValues,
+    databaseValue,
   }: {
     tdEl: HTMLElement;
     idx: number;
-    databaseValues: ModelMonth;
+    databaseValue: ModelObjectAny;
   }) {
-    const month = databaseValues;
+    const month = databaseValue;
     const monthDetailsJSON = Helpers.createDataMonthDetails(month);
-    const monthId = `${month.id}_${month.monthName}`;
+    const monthId = `${month.id}_${month.monthNumber}`;
 
     if (idx > 0) {
       return [
@@ -79,7 +83,7 @@ export class TableCalendarPrinter {
     }
   }
 
-  #tdInnerHtml(value: any) {
+  #tdInnerHtml(value: string | ModelObjectString) {
     return Helpers.tdInnerHtmlPattern(value);
   }
 }

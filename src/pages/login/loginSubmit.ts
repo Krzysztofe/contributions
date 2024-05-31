@@ -42,10 +42,10 @@ export class LoginSubmit {
 
     const btnLoader = new LoadingButtonCreator("btnSubmit");
     btnLoader.createSpinner();
-    const data = await Helpers.fetchData(this.#POSTOptions(e));
+    const jwt = await Helpers.fetchData(this.#POSTOptions(e));
 
-    if (data) {
-      localStorage.setItem("jwt", data);
+    if (jwt) {
+      localStorage.setItem("jwt", jwt);
       location.href = "/src/pages/calendar/calendar.html";
     } else {
       this.#errorAuthEl &&

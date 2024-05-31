@@ -3,7 +3,7 @@ export type ModelMonth = {
   fullname: string;
   join_date: string;
   amount: string,
-  monthName: string;
+  monthNumber: string;
   comment: string;
   pay_date: string;
 };

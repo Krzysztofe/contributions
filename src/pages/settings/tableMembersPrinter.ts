@@ -29,16 +29,16 @@ export class TableMembersPrinter {
     });
 
     this.#table.createTableBody({
-      cellsData: sortedMembers,
+      tdDataList: sortedMembers,
       icons: ["fa-trash"],
-      tdInnerHtml: this.#cellInnerHtml,
-      stylesTd: this.#cellStyles,
+      tdInnerHtml: this.#tdInnerHtml,
+      stylesTd: this.#stylesTd,
     });
   }
-  #cellInnerHtml(value: string | { [key: string]: any }) {
+  #tdInnerHtml(value: string | {[key:string]: string}) {
     return `${value}`;
   }
-  #cellStyles() {
+  #stylesTd() {
     return ["whitespace-nowrap"];
   }
 }

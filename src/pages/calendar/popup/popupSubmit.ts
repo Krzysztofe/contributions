@@ -4,17 +4,18 @@ import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadi
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { StateYear } from "../states/StateYear";
 import { ReprintTableCalendar } from "../table/reprintTableCalendar";
+import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 
 export class PopupSubmit {
   #formEl = document.querySelector("form");
-  #formValues: { [key: string]: string } | null = null;
+  #formValues: ModelObjectString | null = null;
   #memberId: string | null = null;
   #monthNumber: string | null = null;
   #monthDetails: ModelMonth | null = null;
 
   constructor(monthDetails: ModelMonth) {
     this.#memberId = monthDetails.id;
-    this.#monthNumber = monthDetails.monthName;
+    this.#monthNumber = monthDetails.monthNumber;
     this.#monthDetails = monthDetails;
     this.#submetEvent();
   }
@@ -38,12 +39,12 @@ export class PopupSubmit {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        client_id: this.#memberId,
-        year: StateYear.year,
-        month: this.#monthNumber,
-        amount: this.#formValues?.amount,
-        pay_date: this.#formValues?.pay_date,
-        comment: this.#formValues?.comment,
+        client_id: this.#memberId || "",
+        year: StateYear.year || "",
+        month: this.#monthNumber || "",
+        amount: this.#formValues?.amount || "",
+        pay_date: this.#formValues?.pay_date || "",
+        comment: this.#formValues?.comment || "",
       },
     };
   }
