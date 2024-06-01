@@ -7,26 +7,21 @@
   --padingY: 32px;
 }
 
-/* Hide scrollbar for Webkit/Blink */
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-/* Scrollbar Track */
 *::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-/* Scrollbar Handle */
 *::-webkit-scrollbar-thumb {
-  background: #888; /* You can change this color */
-  /* border-radius: 4px; */
+  background: #888;
 }
 
-/* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: #555; /* You can change this color */
+  background: #555;
 }
 
 body {
@@ -48,10 +43,3 @@ body::-webkit-scrollbar {
 .h_main {
   min-height: calc(100vh - var(--headerHeight));
 }
-
-
-
-
-
-
-

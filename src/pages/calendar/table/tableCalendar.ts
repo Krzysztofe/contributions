@@ -3,11 +3,16 @@ import { TableCreator } from "../../../components/tableCreator";
 import { Helpers } from "../../../utils/helpers";
 import { URL_CALENDAR } from "../../../data/dataUrl";
 import { StateYear } from "../states/StateYear";
+import { TableCalendarPrinter } from "./tableCalendarPrinter";
+import { StateCalendar } from "../states/StateCalendar";
+import { PopupTable } from "../popup/popupTable";
+import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
 
 export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
   #select: HTMLSelectElement | null = null;
   #loading = new LoadingTableCreator();
+  #selectedYear: string | null = null
 
   constructor(parentEl: string) {
     super(parentEl);
@@ -39,19 +44,28 @@ export class TableCalendar extends TableCreator {
     return selectEl;
   }
 
-  async #handleSelect(e: Event) {
-    const selectedYear = (e.target as HTMLInputElement).value;
-    StateYear.year = selectedYear;
-
-    this.#loading.createLoading();
-    const GETOptions = {
-      url: `${URL_CALENDAR}${selectedYear}`,
+  #GETOptions() {
+    return {
+      url: `${URL_CALENDAR}${this.#selectedYear}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    await Helpers.fetchData(GETOptions);
-
+  }
+  async #handleSelect(e: Event) {
+    this.#selectedYear = (e.target as HTMLInputElement).value;
+    StateYear.year = this.#selectedYear;
+    this.#loading.createLoading();
+    const calendalFromYear = await Helpers.fetchData(
+      this.#GETOptions()
+    );
+    StateCalendar.setCalendar(calendalFromYear);
+    document.getElementById("tableMembers")?.remove();
+    new TableCalendarPrinter();
+    const selectEl = document.querySelector(".select") as HTMLSelectElement;
+    selectEl && (selectEl.value = this.#selectedYear);
+    new PopupTable();
+    new AutoLogoutCreator();
     this.#loading.removeLoading();
   }
 

@@ -115,7 +115,6 @@ export class PopupTable {
 
   #createPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
-
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
     const isIconArrow =

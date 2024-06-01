@@ -6,6 +6,7 @@ import { LoadingSpinner } from "../../components/loadingsCreators/loadingSpinner
 import { Helpers } from "../../utils/helpers";
 import jsPDFInvoiceTemplate, { OutputType } from "jspdf-invoice-template";
 
+
 export class HeaderCalendar extends HeaderLogedIn {
   #h1 = document.querySelector("h1");
   #navEl = document.querySelector("nav");
@@ -25,7 +26,7 @@ export class HeaderCalendar extends HeaderLogedIn {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        amount: this.#inputValue || ""
+        amount: this.#inputValue || "",
       },
     };
   }
