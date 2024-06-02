@@ -11,6 +11,7 @@ export class TableMembersPrinter {
   #init() {
     const { sortedMembers } = StateMembers;
 
+   
     if (!sortedMembers || sortedMembers.length === 0) {
       this.#table.noDataContainer();
       return;
@@ -36,6 +37,7 @@ export class TableMembersPrinter {
     });
   }
   #tdInnerHtml(value: string | {[key:string]: string}) {
+    
     return `${value}`;
   }
   #stylesTd() {

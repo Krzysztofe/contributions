@@ -9,7 +9,7 @@ import { StateCalendar } from "./states/StateCalendar";
 
 
 class CalendarManager {
-  GETOptions = {
+  GETCalendarOptions = {
     url: `${URL_CALENDAR}${Helpers.currentYear()}`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -21,11 +21,10 @@ class CalendarManager {
   }
 
   async #init() {
-
     Helpers.isUserLoged();
     new LoadigPageCreator();
     new HeaderCalendar(["flex", "items-center", "justify-between"]);
-    const calendarDatabase = await Helpers.fetchData(this.GETOptions);
+    const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
     new PopupTable();

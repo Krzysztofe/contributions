@@ -1,4 +1,4 @@
-import { ModelObjectString } from './../../../sharedModels/modelObjectString';
+import { ModelObjectString } from "./../../../sharedModels/modelObjectString";
 import { StateMembers } from "../../../components/stateMembers";
 import { URL_MEMBERS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
@@ -6,8 +6,7 @@ import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { LoadingTableSettings } from "../loadingTableSettings";
 import { ReprintSettingsPanel } from "../reprintSettingsPanel";
 import { ValidationMember } from "../validationMember";
-import { ModelObjectAny } from '../../../sharedModels/modelObjectAny';
-
+import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 
 export class FormMemberSubmit {
   #formEl = document.querySelector("form");
@@ -87,7 +86,7 @@ export class FormMemberSubmit {
     this.#loading.createLoading();
     const newMember = await Helpers.fetchData(this.#POSTOptions());
     const newMembers = this.#createNewMembers(newMember);
-    this.#noDataContainer?.remove()
+    this.#noDataContainer?.remove();
     new ReprintSettingsPanel(newMembers, "Zapisano");
   }
 

@@ -1,13 +1,12 @@
 import { AlertCreator } from "../../components/alertCreator/alertCreator";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
-import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
 import { StateMembers } from "../../components/stateMembers";
 import { URL_MEMBERS } from "../../data/dataUrl";
-
+import { HeaderLogedIn } from "../../components/headerCreator/headerLogedIn";
+import { Helpers } from "../../utils/helpers";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
 import { TableMembersPrinter } from "./tableMembersPrinter";
-import { Helpers } from "../../utils/helpers";
 
 class SettingsManager {
   #GETMembersOptions = {

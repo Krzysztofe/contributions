@@ -136,7 +136,7 @@ export class TableCreator {
 
       //   td - first
       const td = document.createElement("td");
-      td.classList.add("border", "border-primary_dark", "px-2");
+      td.classList.add("border", "border-primary_dark", "p-2", "align-top");
       td.innerText = (idx + 1).toString();
       td.setAttribute("data", "idx");
       tableRowEl.append(td);
@@ -182,12 +182,15 @@ export class TableCreator {
           "border-primary_dark",
           "align-top",
           "py-2",
+          "lg:py-1",
+          // "h-4",
           ...stylesTdName,
           ...stylesTd(idx),
           ...styles
         );
 
         td.innerHTML = idx === 0 ? value : tdInnerHtml(value);
+
         tableRowEl.append(td);
       });
 

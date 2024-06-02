@@ -1,16 +1,17 @@
 // import { URL_AMOUNT_GLOBAL } from "./../../data/dataUrl";
-import { HeaderLogedIn } from "../../components/headerCreator/headerCreator";
+
+import jsPDFInvoiceTemplate, { OutputType } from "jspdf-invoice-template";
 import { dataAmountInput } from "../../components/headerCreator/dataInputs";
-import { StateAmount } from "./states/StateAmount";
+import { HeaderLogedIn } from "../../components/headerCreator/headerLogedIn";
 import { LoadingSpinner } from "../../components/loadingsCreators/loadingSpinner";
 import { Helpers } from "../../utils/helpers";
-import jsPDFInvoiceTemplate, { OutputType } from "jspdf-invoice-template";
-
+import { StateAmount } from "./states/StateAmount";
 
 export class HeaderCalendar extends HeaderLogedIn {
-  #h1 = document.querySelector("h1");
   #navEl = document.querySelector("nav");
-  #inputValue: string | null = null;
+  #iconPdfEl: HTMLElement | null = null
+  #inputAmountEl = document.getElementById("defaultAmount");
+  #inputAmountValue: string | null = null;
 
   constructor(styles: string[]) {
     super(styles);
@@ -26,17 +27,17 @@ export class HeaderCalendar extends HeaderLogedIn {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        amount: this.#inputValue || "",
+        amount: this.#inputAmountValue || "",
       },
     };
   }
 
-  async #handleChangeInput(e: Event) {
-    this.#inputValue = (e.target as HTMLInputElement).value;
+  async #onChangeAmountInput(e: Event) {
+    this.#inputAmountValue = (e.target as HTMLInputElement).value;
     const spinner = new LoadingSpinner("#defaultAmount");
     spinner.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
-    StateAmount.amount = this.#inputValue;
+    StateAmount.amount = this.#inputAmountValue;
     spinner.removeSpinner();
   }
 
@@ -57,30 +58,29 @@ export class HeaderCalendar extends HeaderLogedIn {
       );
     });
 
-    const inputEl = document.getElementById("defaultAmount");
-
-    if (inputEl) {
-      inputEl.addEventListener(
-        "input",
-        Helpers.debounce(this.#handleChangeInput.bind(this), 1500)
-      );
-    }
+    this.#inputAmountEl?.addEventListener(
+      "input",
+      Helpers.debounce(this.#onChangeAmountInput.bind(this), 1500)
+    );
   }
 
   #createPdfIcon() {
-    const iconEl = document.createElement("i");
-    iconEl.classList.add(
-      "fa-sharp",
-      "fa-solid",
-      "fa-file-pdf",
-      "hidden",
-      "sm:inline-block",
-      "text-lg",
-      "ml-8",
-      "cursor-pointer"
-    );
-    this.#h1?.append(iconEl);
-    iconEl?.addEventListener("click", this.#handleCreatePDF.bind(this));
+   this.#iconPdfEl = document.createElement("i");
+     this.#iconPdfEl.classList.add(
+       "fa-sharp",
+       "fa-solid",
+       "fa-file-pdf",
+       "hidden",
+       "sm:inline-block",
+       "text-lg",
+       "ml-8",
+       "cursor-pointer"
+     );
+    this.h1El?.append(this.#iconPdfEl);
+     this.#iconPdfEl?.addEventListener(
+       "click",
+       this.#handleCreatePDF.bind(this)
+     );
   }
   #handleCreatePDF() {
     jsPDFInvoiceTemplate(props);

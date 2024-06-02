@@ -4,6 +4,7 @@ import { ReprintSettingsPanel } from "../../pages/settings/reprintSettingsPanel"
 import { Helpers } from "../../utils/helpers";
 import { StateMembers } from "../stateMembers";
 
+
 export class DeleteMember {
   #loading = new LoadingTableSettings();
   #bodyEL = document.querySelector("body");
@@ -29,7 +30,7 @@ export class DeleteMember {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: { id: this?.memberId },
+      body: { id: this?.memberId || "" },
     };
   }
 

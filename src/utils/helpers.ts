@@ -1,5 +1,4 @@
 import { HttpRequest } from "../services/httpRequest";
-import { ModelMonth } from "../sharedModels/modelMonth";
 import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";

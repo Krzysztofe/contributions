@@ -1,6 +1,6 @@
 import { HeaderCreator } from "../../components/headerCreator/headerCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { FormLoginPrinter } from "./FormLoginPrinter";
+import { FormLoginPrinter } from "./formLoginPrinter";
 
 class LoginManager {
   constructor() {

@@ -1,15 +1,10 @@
 import { headerHeight } from "../../data/dataNumbers";
-import { FormCreator } from "../formCreator";
-import { ListCreator } from "../listCreator";
-import { dataNavList } from "./dataNavList";
-import { dataSearchInput } from "./dataInputs";
 
 export class HeaderCreator {
-  #body = document.querySelector("body");
-  #header: HTMLElement | null = null;
-  protected headerWrapper: HTMLElement | null = null;
-  #h1: HTMLHeadingElement | null = null;
-  form = new FormCreator("header");
+  #bodyEl = document.querySelector("body");
+  #headerEl: HTMLElement | null = null;
+  protected headerWrapperEl: HTMLElement | null = null;
+  protected h1El: HTMLHeadingElement | null = null;
 
   constructor(styles: string[]) {
     this.#createHeader();
@@ -18,8 +13,8 @@ export class HeaderCreator {
   }
 
   #createHeader() {
-    this.#header = document.createElement("header");
-    this.#header.classList.add(
+    this.#headerEl = document.createElement("header");
+    this.#headerEl.classList.add(
       headerHeight,
       "sticky",
       "top-0",
@@ -28,11 +23,12 @@ export class HeaderCreator {
       "z-50"
     );
 
-    this.#body?.prepend(this.#header);
+    this.#bodyEl?.prepend(this.#headerEl);
   }
+
   #createHeaderWrapper(styles: string[]) {
-    this.headerWrapper = document.createElement("div");
-    this.headerWrapper.classList.add(
+    this.headerWrapperEl = document.createElement("div");
+    this.headerWrapperEl.classList.add(
       headerHeight,
       "max-w-[1350px]",
       "mx-auto",
@@ -41,51 +37,13 @@ export class HeaderCreator {
       "h-full",
       ...styles
     );
-    this.#header?.prepend(this.headerWrapper);
+    this.#headerEl?.prepend(this.headerWrapperEl);
   }
 
   #createH1() {
-    this.#h1 = document.createElement("h1");
-    this.#h1.innerText = "OZZIP";
-    this.#h1.classList.add();
-    this.headerWrapper?.prepend(this.#h1);
-  }
-}
-
-export class HeaderLogedIn extends HeaderCreator {
-  constructor(styles: string[]) {
-    super(styles);
-    this.#createSearchContainer();
-    new ListCreator("header div", dataNavList);
-  }
-
-  #createSearchContainer() {
-    const inputContainer = document.createElement("div");
-    inputContainer.classList.add(
-      "absolute",
-      "top-50",
-      "end-1/2",
-      "translate-x-2/4",
-      "bg-white"
-    );
-
-    const icon = document.createElement("div");
-    icon.classList.add(
-      "fa",
-      "fa-magnifying-glass",
-      "mt-2",
-      "ml-1",
-      "absolute",
-      "bottom-50"
-    );
-    inputContainer.append(icon);
-
-    dataSearchInput.forEach(input => {
-      inputContainer.append(
-        this.form.createInput(input, ["max-w-28", "sm:max-w-40", "pl-6"])
-      );
-    });
-
-    this.headerWrapper?.append(inputContainer);
+    this.h1El = document.createElement("h1");
+    this.h1El.innerText = "OZZIP";
+    this.h1El.classList.add();
+    this.headerWrapperEl?.prepend(this.h1El);
   }
 }

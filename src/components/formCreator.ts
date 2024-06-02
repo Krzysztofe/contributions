@@ -6,66 +6,54 @@ type ModelInputData = {
   errorMsg: string;
   regEx: string;
 };
+type ModelCreateForm = { formId: string; styles: string[] };
+type ModelCreateInput = Omit<ModelInputData, "label" | "errorMsg">;
+type ModelCreateFields = {
+  inputsData: ModelInputData[];
+  fieldStyles?: string[];
+  inputStyles?: string[];
+};
 
 export class FormCreator {
   #parentEl: HTMLElement | null;
-  formEl: HTMLFormElement | null = null;
+  protected formEl: HTMLFormElement | null = null;
+  #inputEl: HTMLInputElement | HTMLTextAreaElement | null = null;
+  #fieldEl: HTMLElement | null = null;
+  #labelEl: HTMLElement | null = null;
+  #errorEl: HTMLElement | null = null;
+  #btnEl: HTMLButtonElement | null = null;
+  #membersElems: NodeListOf<Element> | null = null;
 
   constructor(elementId: string) {
     this.#parentEl = document.getElementById(elementId);
   }
 
-  createForm({ formId, styles }: { formId: string; styles: string[] }) {
+  createForm({ formId, styles }: ModelCreateForm) {
     this.formEl = document.createElement("form");
     this.formEl.id = formId;
     this.formEl.classList.add(...styles);
-    this.formEl.setAttribute("novalidate", "");
     this.#parentEl?.prepend(this.formEl);
   }
 
-  handleChangeInput(e: Event) {
-    const inputValue = (e.target as HTMLInputElement).value;
-    const members = document.querySelectorAll("[data='member']");
-
-    members.forEach(member => {
-      const memberTexContent = member?.textContent ?? "";
-      const match = new RegExp(inputValue, "i").test(memberTexContent);
-
-      if (member && member.parentElement) {
-        member.parentElement.classList.toggle("hidden", !match);
-      }
-    });
-  }
-
-  handlePhoneFormatting(e: Event) {
-    const inputValue = (e.target as HTMLInputElement).value.replace(/-/g, "");
-    const formattedValue = inputValue.replace(/(\d{3})(?=\d)/g, "$1-");
-    (e.target as HTMLInputElement).value = formattedValue;
-  }
-
   createInput(
-    {
-      name,
-      type,
-      placeholder,
-      regEx,
-    }: { name: string; type: string; placeholder: string; regEx: string },
+    { name, type, placeholder, regEx }: ModelCreateInput,
     inputStyles: string[] = []
   ) {
-    const input =
+    this.#inputEl =
       type === "textarea"
         ? document.createElement("textarea")
         : document.createElement("input");
-    input.id = name;
-    input.setAttribute("type", type);
-    input.setAttribute("name", name);
-    input.setAttribute("placeholder", placeholder);
-    input.setAttribute("data-regEx", regEx);
-    type === "password" && input.setAttribute("autocomplete", "username");
+    this.#inputEl.id = name;
+    this.#inputEl.setAttribute("type", type);
+    this.#inputEl.setAttribute("name", name);
+    this.#inputEl.setAttribute("placeholder", placeholder);
+    this.#inputEl.setAttribute("data-regEx", regEx);
+    type === "password" &&
+      this.#inputEl.setAttribute("autocomplete", "username");
     const textAreaStyles =
       type === "textarea" ? ["textarea", "textarea-bordered", "py-0"] : [];
 
-    input.classList.add(
+    this.#inputEl.classList.add(
       "input",
       "input-bordered",
       "focus:border-accent",
@@ -80,99 +68,97 @@ export class FormCreator {
       ...inputStyles
     );
 
-    if (type === "search") {
-      input.addEventListener("input", this.handleChangeInput.bind(this));
-    }
-
-    if (type === "tel") {
-      input.addEventListener("input", this.handlePhoneFormatting.bind(this));
-    }
-
-    if (type === "date") {
-      input.style.textTransform = "none";
-    }
-
-    if (type === "number") {
-      input.setAttribute("min", "0");
-    }
+    this.#inputEvents(type);
+    this.#addInputProperties(type);
 
     if (name === "login") {
-      input.value = import.meta.env.VITE_LOGIN;
+      this.#inputEl.value = import.meta.env.VITE_LOGIN;
     }
 
     if (name === "password") {
-      input.value = import.meta.env.VITE_PASSWORD;
+      this.#inputEl.value = import.meta.env.VITE_PASSWORD;
     }
 
-    return input;
+    return this.#inputEl;
   }
 
   createFields({
     inputsData,
     fieldStyles = [],
     inputStyles = [],
-  }: {
-    inputsData: ModelInputData[];
-    fieldStyles?: string[] | [];
-    inputStyles?: string[] | [];
-  }) {
-    inputsData.forEach(
-      ({ name, type, placeholder, label, errorMsg, regEx }) => {
-        const field = document.createElement("div");
-        field.classList.add("relative", ...fieldStyles);
+  }: ModelCreateFields) {
+    inputsData.forEach(inputData => {
+      const fieldEl = this.#createField(inputData, fieldStyles, inputStyles);
+      this.formEl?.append(fieldEl);
+    });
+  }
 
-        if (label) {
-          const labelEl = document.createElement("label");
-          labelEl.innerText = label;
-          labelEl.setAttribute("for", name);
-          field.append(labelEl);
-          if (type === "date" || type === "month") {
-            labelEl.classList.add(
-              "px-3",
-              "py-[5px]",
-              "absolute",
-              "top-0",
-              "w-full",
-              "border",
-              "border-stone-300",
-              "rounded-sm",
-              "bg-white",
-              "text-sm",
-              "cursor-text"
-            );
+  #createField(
+    inputData: ModelInputData,
+    fieldStyles: string[],
+    inputStyles: string[]
+  ): HTMLElement {
+    this.#fieldEl = document.createElement("div");
+    this.#fieldEl.classList.add("relative", ...fieldStyles);
 
-            labelEl.addEventListener("click", () =>
-              labelEl.classList.add("-z-10")
-            );
-          }
-        }
+    if (inputData.label) {
+      const labelEl = this.#createLabel(inputData);
+      this.#fieldEl.append(labelEl);
+    }
 
-        const inputs = this.createInput(
-          { name, type, placeholder, regEx },
-          inputStyles
-        );
+    const inputEl = this.createInput(inputData, inputStyles);
+    this.#fieldEl.append(inputEl);
 
-        field.append(inputs);
+    if (inputData.errorMsg) {
+      const errorEl = this.#createError(inputData);
+      this.#fieldEl.append(errorEl);
+    }
 
-        if (errorMsg) {
-          const error = document.createElement("div");
-          error.id = `${name}Error`;
-          error.classList.add("text-xs", "h-4", "text-red-500", "mb-1");
-          error.setAttribute("data-error", errorMsg);
-          field.append(error);
-        }
+    return this.#fieldEl;
+  }
 
-        this.formEl?.append(field);
-      }
-    );
+  #createLabel({ name, type, label }: ModelInputData): HTMLElement {
+    this.#labelEl = document.createElement("label");
+    this.#labelEl.innerText = label;
+    this.#labelEl.setAttribute("for", name);
+
+    if (type === "date" || type === "month") {
+      this.#labelEl.classList.add(
+        "px-3",
+        "py-[5px]",
+        "absolute",
+        "top-0",
+        "w-full",
+        "border",
+        "border-stone-300",
+        "rounded-sm",
+        "bg-white",
+        "text-sm",
+        "cursor-text"
+      );
+      this.#labelEl.addEventListener("click", () =>
+        this.#labelEl?.classList.add("-z-10")
+      );
+    }
+
+    return this.#labelEl;
+  }
+
+  #createError({ name, errorMsg }: ModelInputData): HTMLElement {
+    this.#errorEl = document.createElement("div");
+    this.#errorEl.id = `${name}Error`;
+    this.#errorEl.classList.add("text-xs", "h-4", "text-red-500", "mb-1");
+    this.#errorEl.setAttribute("data-error", errorMsg);
+
+    return this.#errorEl;
   }
 
   createBtn({ innerText, styles }: { innerText: string; styles: string[] }) {
-    const btnEl = document.createElement("button");
-    btnEl.setAttribute("type", "submit");
-    btnEl.id = "btnSubmit";
-    btnEl.innerText = innerText;
-    btnEl.classList.add(
+    this.#btnEl = document.createElement("button");
+    this.#btnEl.setAttribute("type", "submit");
+    this.#btnEl.id = "btnSubmit";
+    this.#btnEl.innerText = innerText;
+    this.#btnEl.classList.add(
       "btn",
       "bg-accent",
       "hover:bg-accent_light",
@@ -183,6 +169,56 @@ export class FormCreator {
       ...styles
     );
 
-    this.formEl?.append(btnEl);
+    this.formEl?.append(this.#btnEl);
+  }
+
+  #onChangeInputSearch(e: Event) {
+    const inputValue = (e.target as HTMLInputElement).value;
+    this.#membersElems = document.querySelectorAll("[data='member']");
+
+    this.#membersElems.forEach(member => {
+      const memberTexContent = member?.textContent ?? "";
+      const match = new RegExp(inputValue, "i").test(memberTexContent);
+
+      if (member && member.parentElement) {
+        member.parentElement.classList.toggle("hidden", !match);
+      }
+    });
+  }
+
+  #handlePhoneFormat(e: Event) {
+    const eTarget = e.target as HTMLInputElement;
+    const inputValue = eTarget.value.replace(/-/g, "");
+    const formattedValue = inputValue.replace(/(\d{3})(?=\d)/g, "$1-");
+    eTarget.value = formattedValue;
+  }
+
+  #inputEvents(inputType: string) {
+    if (!this.#inputEl) return;
+
+    if (inputType === "search") {
+      this.#inputEl.addEventListener(
+        "input",
+        this.#onChangeInputSearch.bind(this)
+      );
+    }
+
+    if (inputType === "tel") {
+      this.#inputEl.addEventListener(
+        "input",
+        this.#handlePhoneFormat.bind(this)
+      );
+    }
+  }
+
+  #addInputProperties(inputType: string) {
+    if (!this.#inputEl) return;
+    if (inputType === "date") {
+      this.#inputEl.style.textTransform = "none";
+    }
+
+    if (inputType === "number") {
+      this.#inputEl.setAttribute("min", "0");
+    }
   }
 }
