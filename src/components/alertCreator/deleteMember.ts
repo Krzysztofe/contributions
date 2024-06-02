@@ -3,7 +3,7 @@ import { LoadingTableSettings } from "../../pages/settings/loadingTableSettings"
 import { ReprintSettingsPanel } from "../../pages/settings/reprintSettingsPanel";
 import { Helpers } from "../../utils/helpers";
 import { StateMembers } from "../stateMembers";
-
+import { ToastPrinter } from "../toastPrinter";
 
 export class DeleteMember {
   #loading = new LoadingTableSettings();
@@ -39,7 +39,9 @@ export class DeleteMember {
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
     const deletedMemberId = await Helpers.fetchData(this.#DELETEOptions());
-    new ReprintSettingsPanel(this.#updatedData(deletedMemberId), "Usunięto");
+    new ReprintSettingsPanel(this.#updatedData(deletedMemberId));
+    this.#loading.removeLoading();
+    new ToastPrinter("Usunięto");
   }
   #clickEvent() {
     this.clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));

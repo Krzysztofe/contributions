@@ -2,15 +2,17 @@ import { FormCreator } from "../../../components/formCreator";
 
 export class FormMemberCreator extends FormCreator {
   #body = document.querySelector("body");
+  #errorMemberEl: HTMLElement | null = null;
+  #toastEl: HTMLElement | null = null;
 
   constructor(elementId: string) {
     super(elementId);
   }
 
   createMemberErrorMsg() {
-    const printMemberError = document.createElement("div");
-    printMemberError.id = "customErrorMessage";
-    printMemberError.classList.add(
+    this.#errorMemberEl = document.createElement("div");
+    this.#errorMemberEl.id = "customErrorMessage";
+    this.#errorMemberEl.classList.add(
       "text-xs",
       "h-4",
       "text-red-500",
@@ -19,13 +21,13 @@ export class FormMemberCreator extends FormCreator {
       "md:bottom-1",
       "md:left-0"
     );
-    this.formEl?.append(printMemberError);
+    this.formEl?.append(this.#errorMemberEl);
   }
 
   createToast() {
-    const toastEl = document.createElement("div");
-    toastEl.id = "toast";
-    toastEl.classList.add(
+    this.#toastEl = document.createElement("div");
+    this.#toastEl.id = "toast";
+    this.#toastEl.classList.add(
       "fixed",
       "left-[50%]",
       "top-14",
@@ -35,7 +37,7 @@ export class FormMemberCreator extends FormCreator {
       "bg-dark",
       "z-40"
     );
-    toastEl.style.transform = "translate(-50%, -100%)";
-    this.#body?.prepend(toastEl);
+    this.#toastEl.style.transform = "translate(-50%, -100%)";
+    this.#body?.prepend(this.#toastEl);
   }
 }

@@ -7,11 +7,12 @@ import { LoadingTableSettings } from "../loadingTableSettings";
 import { ReprintSettingsPanel } from "../reprintSettingsPanel";
 import { ValidationMember } from "../validationMember";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
+import { ToastPrinter } from "../../../components/toastPrinter";
 
 export class FormMemberSubmit {
   #formEl = document.querySelector("form");
-  #errorsEL = document.querySelectorAll(".h-4");
-  #noDataContainer = document.getElementById("noDataContainer");
+  #errorsElems = document.querySelectorAll(".h-4");
+  #noDataEl = document.getElementById("noDataContainer");
   #formKeys: string[] | null = null;
   #loading = new LoadingTableSettings();
   #formValues: ModelObjectString | null = null;
@@ -62,12 +63,12 @@ export class FormMemberSubmit {
   }
 
   #validations() {
-    this.#errorsEL.forEach(error => ((error as HTMLElement).innerText = ""));
+    this.#errorsElems.forEach(error => ((error as HTMLElement).innerText = ""));
 
-    const errors =
+    const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
 
-    if (errors && errors.length > 0) return;
+    if (areErrors && areErrors.length > 0) return;
 
     const isMember = new ValidationMember(
       StateMembers.sortedMembers,
@@ -86,8 +87,10 @@ export class FormMemberSubmit {
     this.#loading.createLoading();
     const newMember = await Helpers.fetchData(this.#POSTOptions());
     const newMembers = this.#createNewMembers(newMember);
-    this.#noDataContainer?.remove();
-    new ReprintSettingsPanel(newMembers, "Zapisano");
+    this.#noDataEl?.remove();
+    new ReprintSettingsPanel(newMembers);
+    this.#loading.removeLoading();
+    new ToastPrinter("Zapisano");
   }
 
   #submitEvent() {

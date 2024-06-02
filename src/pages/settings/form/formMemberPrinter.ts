@@ -4,6 +4,7 @@ import { FormMemberSubmit } from "./formMemberSubmit";
 
 export class FormMemberPrinter {
   #form = new FormMemberCreator("sectionMemberForm");
+  
   constructor() {
     this.#init();
   }
