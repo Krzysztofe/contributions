@@ -4,6 +4,7 @@ import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
 import { Helpers } from "../../../utils/helpers";
 import { ModelMonth } from "../../../sharedModels/modelMonth";
+import { StateFillMode } from "../states/stateFillMode";
 
 export class PopupTable {
   #bodyEl = document.querySelector("body");
@@ -99,7 +100,7 @@ export class PopupTable {
         "mt-14",
       ],
     });
-    form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0"] });
+    form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0", "w-full"] });
 
     this.#createHeader();
     this.#createIconXmark();
@@ -122,6 +123,7 @@ export class PopupTable {
     const isDataNoActive = this.#eventTarget?.getAttribute("data-not-active");
 
     if (
+      !StateFillMode.isFast &&
       dataAtribute !== "member" &&
       dataAtribute !== "idx" &&
       !isDataNoActive &&

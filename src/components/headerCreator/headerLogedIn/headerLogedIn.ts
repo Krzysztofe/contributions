@@ -1,9 +1,8 @@
 import { FormCreator } from "../../formCreator";
-import { ListCreator } from "../../listCreator";
-import { dataSearchInput } from "../dataInputs";
-import { dataNavList } from "../dataNavList";
+import { dataNavList } from "./dataNavList";
 import { HeaderCreator } from "../headerCreator";
 import { ListMenu } from "./listMenu";
+import { dataInputSearch } from "./dataInputSearch";
 
 export class HeaderLogedIn extends HeaderCreator {
   #navEl: HTMLElement | null = null;
@@ -14,7 +13,6 @@ export class HeaderLogedIn extends HeaderCreator {
   constructor(styles: string[]) {
     super(styles);
     document.querySelector("h1")?.remove();
-    this.#createSearchContainer();
     this.#creataNav();
   }
 
@@ -22,6 +20,7 @@ export class HeaderLogedIn extends HeaderCreator {
     this.#navEl = document.createElement("nav");
     this.#navEl.classList.add("relative", "ml-auto");
     this.headerWrapperEl?.append(this.#navEl);
+    this.#createSearchContainer();
     new ListMenu({
       parentEl: "nav",
       elementsData: dataNavList,
@@ -49,7 +48,7 @@ export class HeaderLogedIn extends HeaderCreator {
     );
     this.#searchContainerEl.append(this.#iconGlassEl);
 
-    dataSearchInput.forEach(input => {
+    dataInputSearch.forEach(input => {
       this.#searchContainerEl?.append(
         this.form.createInput(input, ["w-28", "pl-10"])
       );

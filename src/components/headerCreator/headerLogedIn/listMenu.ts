@@ -9,12 +9,11 @@ type ModelElementData = {
 type ModelListCreator = {
   parentEl: string;
   elementsData: ModelElementData[];
-  navStyles?: string[];
 };
 
 export class ListMenu extends ListCreator {
   constructor({ parentEl, elementsData}: ModelListCreator) {
-    super({ parentEl, elementsData });
+    super(parentEl);
     this.#createLiElems(elementsData);
   }
 

@@ -2,11 +2,10 @@ import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPage
 import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 import { TableCalendarPrinter } from "./table/tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
-import { HeaderCalendar } from "./headerCalendar";
+import { HeaderCalendar } from "./headerCalendar/headerCalendar";
 import { PopupTable } from "./popup/popupTable";
 import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
-
 
 class CalendarManager {
   GETCalendarOptions = {
@@ -33,5 +32,3 @@ class CalendarManager {
 }
 
 new CalendarManager();
-
-

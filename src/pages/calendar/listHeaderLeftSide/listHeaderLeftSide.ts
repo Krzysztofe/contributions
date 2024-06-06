@@ -1,30 +1,30 @@
 import { ListCreator } from "../../../components/listCreator";
 import jsPDFInvoiceTemplate, { OutputType } from "jspdf-invoice-template";
-
-type ModelElementData = {
-  text: string;
-  iconClass: string;
-  path: string;
-};
+import { StateFillMode } from "../states/stateFillMode";
 
 type ModelListCreator = {
   parentEl: string;
-  elementsData: any;
-  navStyles?: string[];
+  elementsData: { iconClass: string }[];
 };
 
 export class ListHeaderLeftSide extends ListCreator {
   #liEl: HTMLElement | null = null;
   #iEl: HTMLElement | null = null;
+  #iconFast: HTMLElement | null = null;
+  #iconSlow: HTMLElement | null = null;
 
   constructor({ parentEl, elementsData }: ModelListCreator) {
-    super({ parentEl, elementsData });
+    super(parentEl);
     this.#createLiElems(elementsData);
+    this.#eventFastMode();
+    this.#eventSlowMode();
     this.#eventCreatePDF();
   }
 
-  #createLiElems(elementsData: ModelElementData[]) {
+  #createLiElems(elementsData: { iconClass: string }[]) {
+
     elementsData.forEach(({ iconClass }: { iconClass: string }, idx) => {
+      
       this.#liEl = document.createElement("li");
       idx === elementsData.length - 1 &&
         this.#liEl.classList.add("hidden", "sm:block");
@@ -34,10 +34,33 @@ export class ListHeaderLeftSide extends ListCreator {
 
       this.#liEl.append(this.#iEl);
       this.ulEl?.append(this.#liEl);
+      this.#iconFast = document.querySelector(".fa-forward");
+      StateFillMode.isFast && this.#iconFast?.classList.add("text-accent");
+      this.#iconSlow = document.querySelector(".fa-pen-to-square");
     });
   }
+
+  #handlefastMode() {
+    this.#iconFast?.classList.add("text-accent");
+    this.#iconSlow?.classList.remove("text-accent");
+    StateFillMode.isFast = true;
+  }
+  #handleSlowMode() {
+    this.#iconFast?.classList.remove("text-accent");
+    this.#iconSlow?.classList.add("text-accent");
+    StateFillMode.isFast = false;
+  }
+
   #handleCreatePDF() {
     jsPDFInvoiceTemplate(props);
+  }
+
+  #eventFastMode() {
+    this.#iconFast?.addEventListener("click", this.#handlefastMode.bind(this));
+  }
+
+  #eventSlowMode() {
+    this.#iconSlow?.addEventListener("click", this.#handleSlowMode.bind(this));
   }
 
   #eventCreatePDF() {
