@@ -118,7 +118,7 @@ export class PopupTable {
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
     const isIconArrow =
-      this.#eventTarget.classList.value.includes("fa-caret-down");
+      this.#eventTarget.classList.value.includes("fa-chevron-down");
     const isDataNoActive = this.#eventTarget?.getAttribute("data-not-active");
 
     if (
@@ -134,7 +134,7 @@ export class PopupTable {
           element.classList.remove("collapseOpen");
         });
 
-      document.querySelectorAll(".fa-caret-down").forEach(icon => {
+      document.querySelectorAll(".fa-chevron-down").forEach(icon => {
         icon.classList.remove("rotate-180");
       });
 

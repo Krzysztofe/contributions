@@ -3,7 +3,7 @@ import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
 import { StateMembers } from "../../components/stateMembers";
 import { URL_MEMBERS } from "../../data/dataUrl";
-import { HeaderLogedIn } from "../../components/headerCreator/headerLogedIn";
+import { HeaderLogedIn } from "../../components/headerCreator/headerLogedIn/headerLogedIn";
 import { Helpers } from "../../utils/helpers";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
 import { TableMembersPrinter } from "./tableMembersPrinter";

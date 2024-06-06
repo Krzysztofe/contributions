@@ -46,7 +46,8 @@ export class ReprintTableCalendar {
     const memberFullname = this.#newMonth?.fullname.replace(/\_/g, " ");
     const tdFullnameEl =
       memberFullname && document.getElementById(memberFullname);
-    const iconEL = tdFullnameEl && tdFullnameEl.querySelector(".fa-caret-down");
+    const iconEL =
+      tdFullnameEl && tdFullnameEl.querySelector(".fa-chevron-down");
 
     const allEmptyCollapses =
       tdFullnameEl instanceof HTMLElement &&

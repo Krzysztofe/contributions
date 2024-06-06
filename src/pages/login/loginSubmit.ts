@@ -48,7 +48,7 @@ export class LoginSubmit {
     if (this.#validations() !== "go") return;
 
     // POST Login
-    this.#btnLoader.removeSpinner();
+    this.#btnLoader.createSpinner();
     const postOptions = this.#POSTOptions();
     if (!postOptions) {
       return;

@@ -12,7 +12,7 @@ export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
   #select: HTMLSelectElement | null = null;
   #loading = new LoadingTableCreator();
-  #selectedYear: string | null = null
+  #selectedYear: string | null = null;
 
   constructor(parentEl: string) {
     super(parentEl);
@@ -56,9 +56,7 @@ export class TableCalendar extends TableCreator {
     this.#selectedYear = (e.target as HTMLInputElement).value;
     StateYear.year = this.#selectedYear;
     this.#loading.createLoading();
-    const calendalFromYear = await Helpers.fetchData(
-      this.#GETOptions()
-    );
+    const calendalFromYear = await Helpers.fetchData(this.#GETOptions());
     StateCalendar.setCalendar(calendalFromYear);
     document.getElementById("tableMembers")?.remove();
     new TableCalendarPrinter();
@@ -113,7 +111,8 @@ export class TableCalendar extends TableCreator {
       const isIconVisible = areEmptyCollapses ? "invisible" : "visible";
       icon.classList.add(
         "fa-solid",
-        "fa-caret-down",
+        "fa-chevron-down",
+        "text-[0.5rem]",
         "mr-1",
         "transition",
         "duration-300",
@@ -126,13 +125,14 @@ export class TableCalendar extends TableCreator {
 
   #handleCollapse(e: Event) {
     const target = e.target as HTMLElement;
-    const isIcon = target.classList.contains("fa-caret-down");
+    const isIcon = target.classList.contains("fa-chevron-down");
+
     const tdFullnameId = isIcon
       ? target.getAttribute("data-parent-id")
       : target.id;
     const tdTagEl = target.tagName;
 
-    if (tdFullnameId && tdTagEl === "TD") {
+    if (tdFullnameId && (tdTagEl === "TD" || tdTagEl === "I")) {
       const iconEL = document.getElementById(tdFullnameId)
         ?.firstElementChild as HTMLElement;
 

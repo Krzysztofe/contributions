@@ -10,7 +10,6 @@ export class TableMembersPrinter {
 
   #init() {
     const { sortedMembers } = StateMembers;
-
    
     if (!sortedMembers || sortedMembers.length === 0) {
       this.#table.noDataContainer();
@@ -21,7 +20,7 @@ export class TableMembersPrinter {
     this.#table.createTableHead({
       headers: [
         `${sortedMembers.length}`,
-        "Imię i Nazwisko",
+        "Nazwisko i imię",
         "Telefon",
         "Data wstąpienia",
         "",
@@ -37,7 +36,6 @@ export class TableMembersPrinter {
     });
   }
   #tdInnerHtml(value: string | {[key:string]: string}) {
-    
     return `${value}`;
   }
   #stylesTd() {

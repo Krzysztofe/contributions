@@ -13,7 +13,6 @@ export default {
         dark: "#3e3e3e",
         white_opacity: "rgba(255,255,255,0.8)",
         black_opacity: "rgba(0,0,0,0.4)",
-        // td_red: "rgba(254, 226, 226, 0.5)",
         td_red: "rgb(226, 0, 34, 0.1)",
       },
       fontFamily: {

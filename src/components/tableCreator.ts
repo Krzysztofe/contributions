@@ -182,8 +182,6 @@ export class TableCreator {
           "border-primary_dark",
           "align-top",
           "py-2",
-          "lg:py-1",
-          // "h-4",
           ...stylesTdName,
           ...stylesTd(idx),
           ...styles
@@ -208,7 +206,7 @@ export class TableCreator {
           const btnIcon = document.createElement("button");
           btnIcon.id = memberId;
           btnIcon.setAttribute("data-row-id", tableRowId);
-          btnIcon.classList.add("fa", icon);
+          btnIcon.classList.add("fa", icon, "text-dark");
           btnsContainer.append(btnIcon);
         });
         tableRowEl.append(btnsContainer);

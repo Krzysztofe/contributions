@@ -59,8 +59,7 @@ export class FormCreator {
       "focus:border-accent",
       "focus:outline-none",
       "input-sm",
-      "bg-white",
-      "w-full",
+      "bg-grey_light",
       "max-w-xs",
       "rounded-sm",
       "placeholder-black",
@@ -132,7 +131,7 @@ export class FormCreator {
         "border",
         "border-stone-300",
         "rounded-sm",
-        "bg-white",
+        "bg-grey_light",
         "text-sm",
         "cursor-text"
       );

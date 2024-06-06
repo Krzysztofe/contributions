@@ -8,12 +8,12 @@ import { ToastPrinter } from "../toastPrinter";
 export class DeleteMember {
   #loading = new LoadingTableSettings();
   #bodyEL = document.querySelector("body");
-  memberId: string | null;
-  clikedBtnEl: HTMLButtonElement | null;
+  #memberId: string | null;
+  #clikedBtnEl: HTMLButtonElement | null;
 
   constructor(memberId: string, clikedBtnEl: HTMLButtonElement | null) {
-    this.memberId = memberId;
-    this.clikedBtnEl = clikedBtnEl;
+    this.#memberId = memberId;
+    this.#clikedBtnEl = clikedBtnEl;
     this.#clickEvent();
   }
 
@@ -30,7 +30,7 @@ export class DeleteMember {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      body: { id: this?.memberId || "" },
+      body: { id: this.#memberId || "" },
     };
   }
 
@@ -39,11 +39,12 @@ export class DeleteMember {
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
     const deletedMemberId = await Helpers.fetchData(this.#DELETEOptions());
-    new ReprintSettingsPanel(this.#updatedData(deletedMemberId));
+    StateMembers.setMembers(this.#updatedData(deletedMemberId));
+    new ReprintSettingsPanel();
     this.#loading.removeLoading();
     new ToastPrinter("Usunięto");
   }
   #clickEvent() {
-    this.clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));
+    this.#clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));
   }
 }

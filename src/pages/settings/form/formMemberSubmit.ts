@@ -42,11 +42,11 @@ export class FormMemberSubmit {
     };
   }
 
-  #createNewMembers(fetchedData: ModelObjectAny) {
-    const { firstname, lastname, phone, id, join_date } = fetchedData;
+  #createNewMembers(fetchedMember: ModelObjectAny) {
+    const { firstname, lastname, phone, id, join_date } = fetchedMember;
 
     const newMember = {
-      fullname: `${firstname} ${lastname}`,
+      fullname: `${lastname} ${firstname}`,
       phone,
       id,
       join_date: join_date.slice(0, -3),
@@ -56,8 +56,8 @@ export class FormMemberSubmit {
   }
 
   #processFormValues() {
-    const processFormValues = this.#formKeys?.map(item => {
-      return { [item]: this.#formValues?.[item] };
+    const processFormValues = this.#formKeys?.map(key => {
+      return { [key]: this.#formValues?.[key] };
     });
     return processFormValues && Object.assign({}, ...processFormValues);
   }
@@ -70,11 +70,11 @@ export class FormMemberSubmit {
 
     if (areErrors && areErrors.length > 0) return;
 
-    const isMember = new ValidationMember(
+    const isMemberRecord = new ValidationMember(
       StateMembers.sortedMembers,
       this.#processFormValues()
     ).isMember;
-    if (isMember.length > 0) return;
+    if (isMemberRecord.length > 0) return;
     return "go";
   }
 
@@ -88,7 +88,9 @@ export class FormMemberSubmit {
     const newMember = await Helpers.fetchData(this.#POSTOptions());
     const newMembers = this.#createNewMembers(newMember);
     this.#noDataEl?.remove();
-    new ReprintSettingsPanel(newMembers);
+    StateMembers.setMembers(newMembers);
+    new ReprintSettingsPanel();
+    this.#formEl?.reset()
     this.#loading.removeLoading();
     new ToastPrinter("Zapisano");
   }

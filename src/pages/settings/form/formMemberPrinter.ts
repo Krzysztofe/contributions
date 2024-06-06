@@ -4,7 +4,7 @@ import { FormMemberSubmit } from "./formMemberSubmit";
 
 export class FormMemberPrinter {
   #form = new FormMemberCreator("sectionMemberForm");
-  
+
   constructor() {
     this.#init();
   }
@@ -26,10 +26,10 @@ export class FormMemberPrinter {
     this.#form.createFields({
       inputsData: dataMemberFields,
       fieldStyles: ["max-w-48", "md:max-w-40", "md:mr-2"],
-      inputStyles: ["max-w-48", "md:max-w-40", "capitalize"],
+      inputStyles: ["max-w-48", "md:max-w-40", "capitalize", "w-full"],
     });
     this.#form.createBtn({
-      innerText: "Zapisz",
+      innerText: "Dodaj osobę",
       styles: ["w-48", "md:w-auto", "mb-auto", "border-none"],
     });
     this.#form.createMemberErrorMsg();

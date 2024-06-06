@@ -4,7 +4,7 @@ import { LoginSubmit } from "./loginSubmit";
 
 export class FormLoginPrinter {
   #form = new FormLogin("main");
-  
+
   constructor() {
     this.#form.createForm({
       formId: "loginForm",

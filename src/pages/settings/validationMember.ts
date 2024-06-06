@@ -16,7 +16,6 @@ export class ValidationMember {
   constructor(members: ModelMemberSettings[], formValues: ModelNewMember) {
     this.#members = members;
     this.#newMember = formValues;
-    this.isMember;
     this.#errorEl = document.getElementById("customErrorMessage");
     this.#createFullname();
     this.#isMemberRecodred();

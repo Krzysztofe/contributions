@@ -23,7 +23,7 @@ class CalendarManager {
   async #init() {
     Helpers.isUserLoged();
     new LoadigPageCreator();
-    new HeaderCalendar(["flex", "items-center", "justify-between"]);
+    new HeaderCalendar(["flex", "items-center"]);
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
