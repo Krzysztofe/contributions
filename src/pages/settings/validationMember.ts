@@ -2,7 +2,6 @@ import { ModelMemberSettings } from "../../sharedModels/moedelMemberSettings";
 import { ModelNewMember } from "../../sharedModels/modelNewMember";
 
 
-
 export class ValidationMember {
   #members: ModelMemberSettings[];
   #newMember: ModelNewMember;

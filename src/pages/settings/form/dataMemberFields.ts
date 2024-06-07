@@ -1,4 +1,4 @@
-import { DataFieldCreator } from "../../components/dataFieldCreator";
+import { DataFieldCreator } from "../../../components/dataFieldCreator";
 //   name: string,
 //   label: string,
 //   regEx: string,
@@ -31,5 +31,5 @@ export const dataMemberFields = [
     "Telefon",
     "Telefon min. 9 cyfr"
   ),
-  new DataFieldCreator("join_date", "Data", "", "month", "", "x"),
+  new DataFieldCreator("join_date", "Data", "", "month", "", " "),
 ];

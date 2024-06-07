@@ -51,10 +51,10 @@ export class TableCalendarPrinter {
     this.#table.tdJoinDateBgColor();
     this.#table.createArrowCollapse();
     this.#table.collapseEvent();
-    this.#table.POSTMonthEvent()
+    this.#table.POSTMonthEvent();
   }
 
-  #stylesTd(idx?: number): string[] | [] {
+  #stylesTd(idx?: number) {
     return idx === 0
       ? ["whitespace-nowrap"]
       : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
@@ -67,8 +67,9 @@ export class TableCalendarPrinter {
   }: {
     tdEl: HTMLElement;
     idx: number;
-    databaseValue: ModelObjectAny;
+    databaseValue: ModelObjectAny | string;
   }) {
+    if (typeof databaseValue !== "object") return;
     const month = databaseValue;
     const monthDetailsJSON = Helpers.createDataMonthDetails(month);
     const monthId = `${month.id}_${month.monthNumber}`;
@@ -83,6 +84,8 @@ export class TableCalendarPrinter {
   }
 
   #tdInnerHtml(value: string | ModelObjectString) {
-    if (typeof value !== "string") {return Helpers.tdInnerHtmlPattern(value)} else return ""
+    if (typeof value !== "string") {
+      return Helpers.tdInnerHtmlPattern(value);
+    } else return "";
   }
 }

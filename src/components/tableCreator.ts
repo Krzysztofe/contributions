@@ -5,23 +5,29 @@ type ModelTableBody = {
   tdDataList: ModelObjectAny[];
   icons?: string[];
   tdInnerHtml: (value: string | ModelObjectString) => string;
-  stylesTd?: (idx?: number) => string[] | string[];
+  stylesTd?: (idx?: number) => string[];
   styles?: string[];
   tdSetAtribut?: (params: {
     tdEl: HTMLElement;
     idx: number;
-    databaseValue: ModelObjectAny[];
+    databaseValue: ModelObjectAny | string;
   }) => void | any[];
 };
 
 export class TableCreator {
   parentEl: HTMLElement | null;
-  tableEl: HTMLTableElement | null = null;
+  tableEl = document.createElement("table");
+  tableHeadEl = document.createElement("thead");
+  tableRowEl = document.createElement("tr");
+  tableBodyEl: HTMLElement | null = null;
+  trEl: HTMLElement | null = null;
   td: NodeListOf<HTMLTableCellElement> | null = null;
   cellsData: ModelObjectString[] | null = null;
+  memberId: string | null = null;
 
   constructor(parentEl: string) {
     this.parentEl = document.getElementById(parentEl);
+    this.tableBodyEl = document.createElement("tbody");
   }
 
   noDataContainer() {
@@ -34,8 +40,7 @@ export class TableCreator {
   }
 
   createTable(styles: string[] = []) {
-    const tableEl = document.createElement("table");
-    tableEl.classList.add(
+    this.tableEl.classList.add(
       "table",
       "table-xs",
       "bg-primary_dark",
@@ -43,9 +48,9 @@ export class TableCreator {
       "rounded-sm",
       ...styles
     );
-    tableEl.id = "tableMembers";
-    this.parentEl?.append(tableEl);
-    this.tableEl = tableEl;
+    this.tableEl.id = "tableMembers";
+    this.parentEl?.append(this.tableEl);
+    this.tableEl = this.tableEl;
   }
 
   createTableHead({
@@ -55,15 +60,9 @@ export class TableCreator {
     headers: string[];
     stylesTh?: string[];
   }) {
-    // head
-    const tableHeadEl = document.createElement("thead");
-    tableHeadEl.classList.add("sticky", "top-0", "z-30");
+    this.tableHeadEl.classList.add("sticky", "top-0", "z-30");
+    this.tableHeadEl.append(this.tableRowEl);
 
-    // tr
-    const tableRowEl = document.createElement("tr");
-    tableHeadEl.append(tableRowEl);
-
-    // th
     headers.forEach((header, idx, arr) => {
       const th = document.createElement("th");
 
@@ -81,7 +80,7 @@ export class TableCreator {
         ...stylesTh
       );
 
-      tableRowEl.append(th);
+      this.tableRowEl.append(th);
 
       const internalDiv = document.createElement("div");
       internalDiv.setAttribute("data", "internalDiv");
@@ -104,10 +103,110 @@ export class TableCreator {
       );
       internalDiv.textContent = header;
       th.append(internalDiv);
-      tableRowEl.append(th);
+      this.tableRowEl.append(th);
     });
 
-    this.tableEl?.append(tableHeadEl);
+    this.tableEl?.append(this.tableHeadEl);
+  }
+
+  #createTr(tableRowId: string) {
+    this.trEl = document.createElement("tr");
+    this.trEl.id = tableRowId;
+    const stylesTr = ["odd:bg-grey_light", "even:bg-white"];
+    this.trEl.classList.add(...stylesTr);
+    this.tableBodyEl?.append(this.trEl);
+  }
+
+  #createTdFirst(idx: number) {
+    const td = document.createElement("td");
+    td.classList.add("border", "border-primary_dark", "p-2", "align-top");
+    td.innerText = (idx + 1).toString();
+    td.setAttribute("data", "idx");
+    this.trEl?.append(td);
+  }
+
+  #createtTdElems(
+    tdData: ModelObjectAny,
+
+    stylesTd: (idx?: number) => string[] = () => [],
+    styles: string[] = [],
+    tdInnerHtml: (value: string | ModelObjectString) => string,
+    tdSetAtribut?: (params: {
+      tdEl: HTMLElement;
+      idx: number;
+      databaseValue: ModelObjectAny | string;
+    }) => void
+  ) {
+    const printCells = { ...tdData };
+    delete printCells.id;
+
+    Object.values(printCells).forEach((value, idx) => {
+      const stylesTdName =
+        idx === 0
+          ? [
+              "sticky",
+              "left-0",
+              "bg-inherit",
+              "after:content-['']",
+              "after:absolute",
+              "after:top-0",
+              "after:left-[100%]",
+              "after:w-[1px]",
+              "after:h-full",
+              "after:bg-primary_dark",
+              "before:content-['']",
+              "before:absolute",
+              "before:top-0",
+              "before:right-[100%]",
+              "before:w-[1px]",
+              "before:h-full",
+              "before:bg-primary_dark",
+              "cursor-pointer",
+            ]
+          : [];
+
+      const td = document.createElement("td");
+      if (idx === 0 && typeof value === "string") td.id = value;
+      idx === 0 ? td.setAttribute("data", "member") : null;
+      tdSetAtribut &&
+        tdSetAtribut({
+          tdEl: td,
+          idx,
+          databaseValue: value,
+        });
+
+      td.classList.add(
+        "border",
+        "border-primary_dark",
+        "align-top",
+        "py-2",
+        ...stylesTdName,
+        ...stylesTd(idx),
+        ...styles
+      );
+
+      td.innerHTML = idx === 0 ? value : tdInnerHtml(value);
+
+      this.trEl?.append(td);
+    });
+  }
+
+  #createBtnsContainer(tableRowId: any, icons: any) {
+    const btnsContainer = document.createElement("td");
+    btnsContainer.classList.add(
+      "min-w-24",
+      "text-center",
+      "border",
+      "border-primary_dark"
+    );
+    icons.forEach((icon: any) => {
+      const btnIcon = document.createElement("button");
+      this.memberId && (btnIcon.id = this.memberId);
+      btnIcon.setAttribute("data-row-id", tableRowId);
+      btnIcon.classList.add("fa", icon, "text-dark");
+      btnsContainer.append(btnIcon);
+    });
+    this.trEl?.append(btnsContainer);
   }
 
   createTableBody({
@@ -118,101 +217,20 @@ export class TableCreator {
     styles = [],
     tdSetAtribut,
   }: ModelTableBody) {
-    this.cellsData = tdDataList;
-
-    // Tbody
-    const tableBodyEl = document.createElement("tbody");
-    tableBodyEl.classList.add("bg-white");
+    if (!this.tableBodyEl) return;
+    this.tableBodyEl.classList.add("bg-white");
 
     tdDataList.forEach((tdData, idx) => {
-      // Tr
-      const tableRowEl = document.createElement("tr");
+      this.memberId = tdData.id;
       const tableRowId = Math.random().toString();
-      tableRowEl.id = tableRowId;
-      const stylesTr = ["odd:bg-grey_light", "even:bg-white"];
 
-      tableRowEl.classList.add(...stylesTr);
-      tableBodyEl.append(tableRowEl);
+      this.#createTr(tableRowId);
+      this.#createTdFirst(idx);
+      this.#createtTdElems(tdData, stylesTd, styles, tdInnerHtml, tdSetAtribut);
 
-      //   td - first
-      const td = document.createElement("td");
-      td.classList.add("border", "border-primary_dark", "p-2", "align-top");
-      td.innerText = (idx + 1).toString();
-      td.setAttribute("data", "idx");
-      tableRowEl.append(td);
-
-      // td - others
-
-      const memberId = tdData.id;
-      const printCells = { ...tdData };
-      delete printCells.id;
-
-      Object.values(printCells).forEach((value, idx) => {
-        const stylesTdName =
-          idx === 0
-            ? [
-                "sticky",
-                "left-0",
-                "bg-inherit",
-                "after:content-['']",
-                "after:absolute",
-                "after:top-0",
-                "after:left-[100%]",
-                "after:w-[1px]",
-                "after:h-full",
-                "after:bg-primary_dark",
-                "before:content-['']",
-                "before:absolute",
-                "before:top-0",
-                "before:right-[100%]",
-                "before:w-[1px]",
-                "before:h-full",
-                "before:bg-primary_dark",
-                "cursor-pointer",
-              ]
-            : [];
-
-        const td = document.createElement("td");
-        idx === 0 ? (td.id = value) : null;
-        idx === 0 ? td.setAttribute("data", "member") : null;
-        tdSetAtribut && tdSetAtribut({ tdEl: td, idx, databaseValue: value });
-
-        td.classList.add(
-          "border",
-          "border-primary_dark",
-          "align-top",
-          "py-2",
-          ...stylesTdName,
-          ...stylesTd(idx),
-          ...styles
-        );
-
-        td.innerHTML = idx === 0 ? value : tdInnerHtml(value);
-
-        tableRowEl.append(td);
-      });
-
-      // Buttons container
-
-      if (icons.length > 0) {
-        const btnsContainer = document.createElement("td");
-        btnsContainer.classList.add(
-          "min-w-24",
-          "text-center",
-          "border",
-          "border-primary_dark"
-        );
-        icons.forEach(icon => {
-          const btnIcon = document.createElement("button");
-          btnIcon.id = memberId;
-          btnIcon.setAttribute("data-row-id", tableRowId);
-          btnIcon.classList.add("fa", icon, "text-dark");
-          btnsContainer.append(btnIcon);
-        });
-        tableRowEl.append(btnsContainer);
-      }
+      icons.length > 0 && this.#createBtnsContainer(tableRowId, icons);
     });
 
-    this.tableEl?.append(tableBodyEl);
+    this.tableEl?.append(this.tableBodyEl);
   }
 }

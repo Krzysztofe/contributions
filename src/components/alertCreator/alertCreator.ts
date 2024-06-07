@@ -1,13 +1,14 @@
 import { DeleteMember } from "./deleteMember";
 
 export class AlertCreator {
-  bodyEL = document.querySelector("body");
-  tableEl = document.getElementById("tableMembers");
-  parentEl = document.getElementById("sectionTable");
-  btnDelete: HTMLButtonElement | null = null;
-  rowId: string | null = null;
-  memberId: string | null = null;
-  modalEl: HTMLDialogElement | null = null;
+  #bodyEL = document.querySelector("body");
+  #tableEl = document.getElementById("tableMembers");
+  #parentEl = document.getElementById("sectionTable");
+  #btnDeleteEl: HTMLButtonElement | null = null;
+  #rowId: string | null = null;
+  #memberId: string | null = null;
+  #modalEl: HTMLDialogElement | null = null;
+  #eventTarget: HTMLElement | null =  null
 
   constructor() {
     this.printAlertEvent();
@@ -39,36 +40,36 @@ export class AlertCreator {
       </div>
     </div>`;
 
-    this.parentEl?.append(dialogEl);
-    this.modalEl = dialogEl;
+    this.#parentEl?.append(dialogEl);
+    this.#modalEl = dialogEl;
     const btnNo = document.getElementById("btnNo");
     btnNo?.addEventListener("click", this.addScroll.bind(this));
-    const btnDelete = document.getElementById(
+    this.#btnDeleteEl = document.getElementById(
       `${modalId}_delete`
     ) as HTMLButtonElement;
-    this.memberId && new DeleteMember(this.memberId, btnDelete);
+    this.#memberId && new DeleteMember(this.#memberId, this.#btnDeleteEl);
   }
 
   addScroll() {
-    this.bodyEL?.classList.add("overflow-y-scroll");
+    this.#bodyEL?.classList.add("overflow-y-scroll");
     document.querySelector("dialog")?.remove();
   }
 
-  handleAlert(e: MouseEvent) {
-    const btnTarget = e.target as HTMLButtonElement;
-    this.rowId = btnTarget.getAttribute("data-row-id");
-    this.memberId = btnTarget.id;
+  handleAlert(e: Event) {
+    this.#eventTarget = e.target as HTMLButtonElement;
+    this.#rowId = this.#eventTarget.getAttribute("data-row-id");
+    this.#memberId = this.#eventTarget.id;
 
-    if (this.rowId) {
-      const memberName = document.getElementById(this.rowId)?.children[1]
+    if (this.#rowId) {
+      const memberName = document.getElementById(this.#rowId)?.children[1]
         .textContent;
       memberName && this.createModal(memberName);
-      this.modalEl?.showModal();
-      this.bodyEL?.classList.remove("overflow-y-scroll");
+      this.#modalEl?.showModal();
+      this.#bodyEL?.classList.remove("overflow-y-scroll");
     }
   }
 
   printAlertEvent() {
-    this.tableEl?.addEventListener("click", this.handleAlert.bind(this));
+    this.#tableEl?.addEventListener("click", this.handleAlert.bind(this));
   }
 }

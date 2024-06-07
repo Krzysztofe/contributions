@@ -1,4 +1,4 @@
-import { dataMemberFields } from "../dataMemberFields";
+import { dataMemberFields } from "./dataMemberFields";
 import { FormMemberCreator } from "./formMemberCreator";
 import { FormMemberSubmit } from "./formMemberSubmit";
 
