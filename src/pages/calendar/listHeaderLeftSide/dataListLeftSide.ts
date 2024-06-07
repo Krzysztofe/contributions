@@ -1,6 +1,6 @@
 export const dataListLeftSide = [
   {
-    iconClass: "fa-forward",
+    iconClass: "fa-rocket",
   },
   {
     iconClass: "fa-pen-to-square",

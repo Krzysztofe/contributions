@@ -2,9 +2,9 @@ import { headerHeight } from "../../data/dataNumbers";
 
 export class HeaderCreator {
   #bodyEl = document.querySelector("body");
-  #headerEl: HTMLElement | null = null;
-  protected headerWrapperEl: HTMLElement | null = null;
-  protected h1El: HTMLHeadingElement | null = null;
+  #headerEl = document.createElement("header");
+  protected headerWrapperEl = document.createElement("div");
+  protected h1El = document.createElement("h1");
 
   constructor(styles: string[]) {
     this.#createHeader();
@@ -13,7 +13,6 @@ export class HeaderCreator {
   }
 
   #createHeader() {
-    this.#headerEl = document.createElement("header");
     this.#headerEl.classList.add(
       headerHeight,
       "sticky",
@@ -27,7 +26,6 @@ export class HeaderCreator {
   }
 
   #createHeaderWrapper(styles: string[]) {
-    this.headerWrapperEl = document.createElement("div");
     this.headerWrapperEl.classList.add(
       headerHeight,
       "max-w-[1350px]",
@@ -41,7 +39,6 @@ export class HeaderCreator {
   }
 
   #createH1() {
-    this.h1El = document.createElement("h1");
     this.h1El.innerText = "OZZIP";
     this.h1El.classList.add();
     this.headerWrapperEl?.prepend(this.h1El);

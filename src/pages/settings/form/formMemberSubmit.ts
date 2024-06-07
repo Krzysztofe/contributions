@@ -1,5 +1,5 @@
 import { ModelObjectString } from "./../../../sharedModels/modelObjectString";
-import { StateMembers } from "../../../components/stateMembers";
+import { StateMembers } from "../stateMembers";
 import { URL_MEMBERS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
@@ -8,6 +8,7 @@ import { ReprintSettingsPanel } from "../reprintSettingsPanel";
 import { ValidationMember } from "../validationMember";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 import { ToastPrinter } from "../../../components/toastPrinter";
+import { ModelNewMember } from "../../../sharedModels/modelNewMember";
 
 export class FormMemberSubmit {
   #formEl = document.querySelector("form");
@@ -55,15 +56,29 @@ export class FormMemberSubmit {
     return [...StateMembers.sortedMembers, newMember];
   }
 
-  #processFormValues() {
-    const processFormValues = this.#formKeys?.map(key => {
-      return { [key]: this.#formValues?.[key] };
-    });
-    return processFormValues && Object.assign({}, ...processFormValues);
+  #processFormValues(): ModelNewMember {
+    if (!this.#formKeys || !this.#formValues) {
+      return {
+        firstname: "",
+        lastname: "",
+        phone: "",
+      };
+    }
+
+    return this.#formKeys.reduce((acc, key) => {
+      if (this.#formValues) {
+        acc[key as keyof ModelNewMember] = this.#formValues[key];
+      }
+      return acc;
+    }, {} as ModelNewMember);
+  }
+
+  #clearErrors() {
+    this.#errorsElems.forEach(error => ((error as HTMLElement).innerText = ""));
   }
 
   #validations() {
-    this.#errorsElems.forEach(error => ((error as HTMLElement).innerText = ""));
+    this.#clearErrors();
 
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
@@ -90,7 +105,7 @@ export class FormMemberSubmit {
     this.#noDataEl?.remove();
     StateMembers.setMembers(newMembers);
     new ReprintSettingsPanel();
-    this.#formEl?.reset()
+    this.#formEl?.reset();
     this.#loading.removeLoading();
     new ToastPrinter("Zapisano");
   }

@@ -8,17 +8,17 @@ import { dataListLeftSide } from "../listHeaderLeftSide/dataListLeftSide";
 import { dataInputAmount } from "./dataInputAmount";
 
 export class HeaderCalendar extends HeaderLogedIn {
-  #leftSideContainerEl: HTMLElement | null = null;
+  #leftSideContainerEl = document.createElement("div");
   #inputAmountEl: HTMLElement | null = null;
   #inputAmountValue: string | null = null;
 
   constructor(styles: string[]) {
     super(styles);
     this.#createLeftSideContainer();
+    this.#changeAmountEvent();
   }
 
   #createLeftSideContainer() {
-    this.#leftSideContainerEl = document.createElement("div");
     this.#leftSideContainerEl.id = "leftSideContainerEl";
     this.#leftSideContainerEl.classList.add("flex", "items-center");
     this.headerWrapperEl?.prepend(this.#leftSideContainerEl);
@@ -42,11 +42,6 @@ export class HeaderCalendar extends HeaderLogedIn {
       );
     });
     this.#inputAmountEl = document.getElementById("defaultAmount");
-
-    this.#inputAmountEl?.addEventListener(
-      "input",
-      Helpers.debounce(this.#onChangeInputAmount.bind(this), 1500)
-    );
   }
 
   #POSTOptions() {
@@ -69,5 +64,12 @@ export class HeaderCalendar extends HeaderLogedIn {
     await Helpers.fetchData(this.#POSTOptions());
     StateAmount.amount = this.#inputAmountValue;
     spinner.removeSpinner();
+  }
+
+  #changeAmountEvent() {
+    this.#inputAmountEl?.addEventListener(
+      "input",
+      Helpers.debounce(this.#onChangeInputAmount.bind(this), 1500)
+    );
   }
 }

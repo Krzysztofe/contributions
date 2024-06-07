@@ -51,6 +51,7 @@ export class TableCalendarPrinter {
     this.#table.tdJoinDateBgColor();
     this.#table.createArrowCollapse();
     this.#table.collapseEvent();
+    this.#table.POSTMonthEvent()
   }
 
   #stylesTd(idx?: number): string[] | [] {

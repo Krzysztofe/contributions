@@ -1,18 +1,23 @@
 import { LoadingTableCreator } from "../../../components/loadingsCreators/loadingTableCreator";
 import { TableCreator } from "../../../components/tableCreator";
 import { Helpers } from "../../../utils/helpers";
-import { URL_CALENDAR } from "../../../data/dataUrl";
+import { URL_CALENDAR, URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { StateYear } from "../states/StateYear";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { StateCalendar } from "../states/StateCalendar";
 import { PopupTable } from "../popup/popupTable";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
+import { StateFillMode } from "../states/stateFillMode";
+import { PopupSubmit } from "../popup/popupSubmit";
+import { LoadingTdCreator } from "../../../components/loadingsCreators/loadingTdCreator";
 
 export class TableCalendar extends TableCreator {
   #thDivSelect: HTMLElement | null = null;
   #select: HTMLSelectElement | null = null;
   #loading = new LoadingTableCreator();
   #selectedYear: string | null = null;
+  #eventTarget: HTMLElement | null = null;
+  #tdLoader = new LoadingTdCreator();
 
   constructor(parentEl: string) {
     super(parentEl);
@@ -148,6 +153,60 @@ export class TableCalendar extends TableCreator {
     }
   }
 
+  #POSTOptions() {
+    return {
+      url: URL_MONTH_DETAILS,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: {
+        // client_id: this.#memberId || "",
+        // year: StateYear.year || "",
+        // month: this.#monthNumber || "",
+        // amount: this.#formValues?.amount || "",
+        // pay_date: this.#formValues?.pay_date || "",
+        // comment: this.#formValues?.comment || "",
+      },
+    };
+  }
+
+  async #handlePOSTMonth(e: Event) {
+    this.#eventTarget = e.target as HTMLElement;
+    const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
+    const dataAtribute = this.#eventTarget?.getAttribute("data");
+    const isIconArrow =
+      this.#eventTarget.classList.value.includes("fa-chevron-down");
+    const isDataNoActive = this.#eventTarget?.getAttribute("data-not-active");
+
+    if (
+      StateFillMode.isFast &&
+      dataAtribute !== "member" &&
+      dataAtribute !== "idx" &&
+      !isDataNoActive &&
+      !isIconArrow &&
+      isNestedInTd
+    ) {
+      document
+        .querySelectorAll("[data=memberDetailsPrint]")
+        .forEach(element => {
+          element.classList.remove("collapseOpen");
+        });
+
+      document.querySelectorAll(".fa-chevron-down").forEach(icon => {
+        icon.classList.remove("rotate-180");
+      });
+      const monthDetailsString =
+        this.#eventTarget &&
+        this.#eventTarget?.getAttribute("data-month-details");
+      const monthDetails = monthDetailsString && JSON.parse(monthDetailsString);
+
+      this.#tdLoader.createSpiner();
+      // await Helpers.fetchData(this.#POSTOptions());
+      this.#tdLoader.removeSpinner();
+    }
+  }
+
   collapseEvent() {
     const tbodyEl = document.querySelector("tbody");
     tbodyEl?.addEventListener("click", this.#handleCollapse.bind(this));
@@ -155,5 +214,10 @@ export class TableCalendar extends TableCreator {
 
   selectEvent() {
     this.#select?.addEventListener("input", this.#handleSelect.bind(this));
+  }
+
+  POSTMonthEvent() {
+    const tableBodyEl = document.querySelector("tbody");
+    tableBodyEl?.addEventListener("click", this.#handlePOSTMonth.bind(this));
   }
 }

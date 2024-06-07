@@ -1,5 +1,5 @@
-import { ModelMemberSettings } from "../sharedModels/moedelMemberSettings";
-import { Helpers } from "../utils/helpers";
+import { ModelMemberSettings } from "../../sharedModels/moedelMemberSettings";
+import { Helpers } from "../../utils/helpers";
 
 export class StateMembers {
   static sortedMembers: [] | any = [];

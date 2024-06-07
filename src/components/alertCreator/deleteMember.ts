@@ -2,7 +2,7 @@ import { URL_MEMBERS } from "../../data/dataUrl";
 import { LoadingTableSettings } from "../../pages/settings/loadingTableSettings";
 import { ReprintSettingsPanel } from "../../pages/settings/reprintSettingsPanel";
 import { Helpers } from "../../utils/helpers";
-import { StateMembers } from "../stateMembers";
+import { StateMembers } from "../../pages/settings/stateMembers";
 import { ToastPrinter } from "../toastPrinter";
 
 export class DeleteMember {

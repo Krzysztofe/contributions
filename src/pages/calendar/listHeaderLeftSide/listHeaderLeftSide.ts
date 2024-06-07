@@ -34,7 +34,7 @@ export class ListHeaderLeftSide extends ListCreator {
 
       this.#liEl.append(this.#iEl);
       this.ulEl?.append(this.#liEl);
-      this.#iconFast = document.querySelector(".fa-forward");
+      this.#iconFast = document.querySelector(".fa-rocket");
       StateFillMode.isFast && this.#iconFast?.classList.add("text-accent");
       this.#iconSlow = document.querySelector(".fa-pen-to-square");
     });

@@ -1,12 +1,13 @@
 import { AlertCreator } from "../../components/alertCreator/alertCreator";
 import { AutoLogoutCreator } from "../../components/autoLogoutCreator";
 import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
-import { StateMembers } from "../../components/stateMembers";
+import { StateMembers } from "./stateMembers";
 import { URL_MEMBERS } from "../../data/dataUrl";
 import { HeaderLogedIn } from "../../components/headerCreator/headerLogedIn/headerLogedIn";
 import { Helpers } from "../../utils/helpers";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
 import { TableMembersPrinter } from "./tableMembersPrinter";
+import { PopupCreator } from "../../components/popupCreator";
 
 class SettingsManager {
   #GETMembersOptions = {
@@ -29,6 +30,7 @@ class SettingsManager {
     new FormMemberPrinter();
     new TableMembersPrinter();
     new AlertCreator();
+    new PopupCreator()
     new AutoLogoutCreator();
   }
 }

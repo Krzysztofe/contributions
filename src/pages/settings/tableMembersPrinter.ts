@@ -1,5 +1,5 @@
 import { TableCreator } from "../../components/tableCreator";
-import { StateMembers } from "../../components/stateMembers";
+import { StateMembers } from "./stateMembers";
 
 export class TableMembersPrinter {
   #table = new TableCreator("sectionTable");
@@ -10,7 +10,7 @@ export class TableMembersPrinter {
 
   #init() {
     const { sortedMembers } = StateMembers;
-   
+
     if (!sortedMembers || sortedMembers.length === 0) {
       this.#table.noDataContainer();
       return;
@@ -35,7 +35,7 @@ export class TableMembersPrinter {
       stylesTd: this.#stylesTd,
     });
   }
-  #tdInnerHtml(value: string | {[key:string]: string}) {
+  #tdInnerHtml(value: string | { [key: string]: string }) {
     return `${value}`;
   }
   #stylesTd() {

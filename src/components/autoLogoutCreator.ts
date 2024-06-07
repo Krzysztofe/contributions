@@ -1,11 +1,12 @@
 export class AutoLogoutCreator {
+  #bodyEl = document.querySelector("body");
   #logoutTimer: ReturnType<typeof setTimeout> | undefined;
   #logoutAlert: ReturnType<typeof setTimeout> | undefined;
   #counterInterval: ReturnType<typeof setInterval> | undefined;
 
   constructor() {
     this.#startLogoutTimer();
-    this.#setupListeners();
+    this.#EventsSetup();
   }
 
   #logout() {
@@ -14,8 +15,7 @@ export class AutoLogoutCreator {
   }
 
   #createAlert() {
-    const body = document.querySelector("body");
-    body?.classList.add("overflow-hidden");
+    this.#bodyEl?.classList.add("overflow-hidden");
     const alertContainer = document.createElement("div");
     alertContainer.id = "alert";
     alertContainer.classList.add(
@@ -50,7 +50,7 @@ export class AutoLogoutCreator {
     }, 1000);
 
     alertContainer.append(printCounter);
-    body?.append(alertContainer);
+    this.#bodyEl?.append(alertContainer);
   }
 
   #removeAlert() {
@@ -70,7 +70,7 @@ export class AutoLogoutCreator {
     this.#removeAlert();
     this.#startLogoutTimer();
   }
-  #setupListeners() {
+  #EventsSetup() {
     document.addEventListener("mousemove", this.#resetLogoutTimer.bind(this));
     document.addEventListener("click", this.#resetLogoutTimer.bind(this));
   }

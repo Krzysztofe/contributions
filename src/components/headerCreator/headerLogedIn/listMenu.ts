@@ -12,24 +12,30 @@ type ModelListCreator = {
 };
 
 export class ListMenu extends ListCreator {
-  constructor({ parentEl, elementsData}: ModelListCreator) {
+  #liEl: HTMLElement | null = null;
+  #linkEl: HTMLElement | null = null;
+  #textEl: HTMLElement | null = null;
+  #iconEl: HTMLElement | null = null;
+
+  constructor({ parentEl, elementsData }: ModelListCreator) {
     super(parentEl);
     this.#createLiElems(elementsData);
   }
 
-  #createLiElems(elementsData:ModelElementData[]) {
+  #createLiElems(elementsData: ModelElementData[]) {
     elementsData.forEach(({ text, iconClass, path }: ModelElementData) => {
-      const li = document.createElement("li");
-      li.classList.add("flex");
+      this.#liEl = document.createElement("li");
+      this.#liEl.classList.add("flex");
 
-      const link = document.createElement("a");
-      link.setAttribute("href", path);
-      link.classList.add("flex");
-      li.append(link);
+      this.#linkEl = document.createElement("a");
+      this.#linkEl.setAttribute("href", path);
+      this.#linkEl.classList.add("flex");
 
-      const textSpan = document.createElement("div");
-      textSpan.innerText = text;
-      textSpan.classList.add(
+      this.#liEl.append(this.#linkEl);
+
+      this.#textEl = document.createElement("div");
+      this.#textEl.innerText = text;
+      this.#textEl.classList.add(
         "hidden",
         "lg:block",
         "text-sm",
@@ -38,10 +44,11 @@ export class ListMenu extends ListCreator {
         "self-center"
       );
 
-      link.append(textSpan);
+      this.#linkEl.append(this.#textEl);
+
       if (iconClass) {
-        const iconSpan = document.createElement("div");
-        iconSpan.classList.add(
+        this.#iconEl = document.createElement("i");
+        this.#iconEl.classList.add(
           "fa",
           iconClass,
           "m-1",
@@ -51,9 +58,9 @@ export class ListMenu extends ListCreator {
           "text-sm",
           "lg:text-base"
         );
-        iconSpan.style.color = "dark";
-        iconSpan.setAttribute("aria-hidden", "true");
-        link.prepend(iconSpan);
+        this.#iconEl.style.color = "dark";
+        this.#iconEl.setAttribute("aria-hidden", "true");
+        this.#linkEl.prepend(this.#iconEl);
       }
 
       if (text === "Wyloguj") {
@@ -61,11 +68,9 @@ export class ListMenu extends ListCreator {
           localStorage.removeItem("jwt");
           location.href = "/";
         };
-
-        li.addEventListener("click", logout);
+        this.#liEl.addEventListener("click", logout);
       }
-
-      this.ulEl?.append(li);
+      this.ulEl?.append(this.#liEl);
     });
   }
 }

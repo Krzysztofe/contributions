@@ -2,15 +2,14 @@ import { FormCreator } from "../../../components/formCreator";
 
 export class FormMemberCreator extends FormCreator {
   #body = document.querySelector("body");
-  #errorMemberEl: HTMLElement | null = null;
-  #toastEl: HTMLElement | null = null;
+  #errorMemberEl = document.createElement("div");
+  #toastEl = document.createElement("div");
 
   constructor(elementId: string) {
     super(elementId);
   }
 
   createMemberErrorMsg() {
-    this.#errorMemberEl = document.createElement("div");
     this.#errorMemberEl.id = "customErrorMessage";
     this.#errorMemberEl.classList.add(
       "text-xs",
@@ -25,7 +24,6 @@ export class FormMemberCreator extends FormCreator {
   }
 
   createToast() {
-    this.#toastEl = document.createElement("div");
     this.#toastEl.id = "toast";
     this.#toastEl.classList.add(
       "fixed",

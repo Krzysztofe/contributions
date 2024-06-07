@@ -16,12 +16,12 @@ type ModelCreateFields = {
 
 export class FormCreator {
   #parentEl: HTMLElement | null;
-  protected formEl: HTMLFormElement | null = null;
-  #inputEl: HTMLInputElement | HTMLTextAreaElement | null = null;
+  protected formEl = document.createElement("form");
   #fieldEl: HTMLElement | null = null;
   #labelEl: HTMLElement | null = null;
+  #inputEl: HTMLInputElement | HTMLTextAreaElement | null = null;
   #errorEl: HTMLElement | null = null;
-  #btnEl: HTMLButtonElement | null = null;
+  #btnEl = document.createElement("button");
   #membersElems: NodeListOf<Element> | null = null;
 
   constructor(elementId: string) {
@@ -29,7 +29,6 @@ export class FormCreator {
   }
 
   createForm({ formId, styles }: ModelCreateForm) {
-    this.formEl = document.createElement("form");
     this.formEl.id = formId;
     this.formEl.classList.add(...styles);
     this.#parentEl?.prepend(this.formEl);
@@ -153,7 +152,6 @@ export class FormCreator {
   }
 
   createBtn({ innerText, styles }: { innerText: string; styles: string[] }) {
-    this.#btnEl = document.createElement("button");
     this.#btnEl.setAttribute("type", "submit");
     this.#btnEl.id = "btnSubmit";
     this.#btnEl.innerText = innerText;
