@@ -14,6 +14,70 @@ type ModelTableBody = {
   }) => void | any[];
 };
 
+class TableHeadCreator {
+  tableEl = document.querySelector("table");
+  tableHeadEl = document.createElement("thead");
+  tableRowEl = document.createElement("tr");
+  #headersData: string[] | null = null;
+  #stylesTh: string[] | [] = [];
+
+  constructor(headers: string[], stylesTh: string[] = []) {
+    this.#headersData = headers;
+    this.#stylesTh = stylesTh;
+    this.createTableHead();
+  }
+
+  createTableHead() {
+    this.tableHeadEl.classList.add("sticky", "top-0", "z-30");
+    this.tableHeadEl.append(this.tableRowEl);
+
+    this.#headersData?.forEach((header, idx, arr) => {
+      const th = document.createElement("th");
+
+      const stickyTh =
+        ({
+          0: ["bg-primary_dark", "text-accent"],
+          1: ["bg-primary_dark", "sticky", "left-0", "text-accent"],
+        }[idx] as string[]) ?? [];
+
+      th.classList.add(
+        "font-normal",
+        "p-0",
+        "text-accent",
+        ...stickyTh,
+        ...this.#stylesTh
+      );
+
+      this.tableRowEl.append(th);
+
+      const internalDiv = document.createElement("div");
+      internalDiv.setAttribute("data", "internalDiv");
+
+      const divStyles =
+        ({
+          0: ["border-l-0", "h-[24.4px]"],
+          [arr.length - 1]: ["border-r-0", "h-[24.4px]"],
+        }[idx] as string[]) ?? [];
+
+      internalDiv.classList.add(
+        "border-x",
+        "border-white",
+        "h-[24.4px]",
+        "flex",
+        "items-center",
+        "px-2",
+        ...stickyTh,
+        ...divStyles
+      );
+      internalDiv.textContent = header;
+      th.append(internalDiv);
+      this.tableRowEl.append(th);
+    });
+
+    this.tableEl?.append(this.tableHeadEl);
+  }
+}
+
 export class TableCreator {
   parentEl: HTMLElement | null;
   tableEl = document.createElement("table");
@@ -52,7 +116,6 @@ export class TableCreator {
     this.parentEl?.append(this.tableEl);
     this.tableEl = this.tableEl;
   }
-
   createTableHead({
     headers,
     stylesTh = [],
@@ -60,53 +123,7 @@ export class TableCreator {
     headers: string[];
     stylesTh?: string[];
   }) {
-    this.tableHeadEl.classList.add("sticky", "top-0", "z-30");
-    this.tableHeadEl.append(this.tableRowEl);
-
-    headers.forEach((header, idx, arr) => {
-      const th = document.createElement("th");
-
-      const stickyTh =
-        ({
-          0: ["bg-primary_dark", "text-accent"],
-          1: ["bg-primary_dark", "sticky", "left-0", "text-accent"],
-        }[idx] as string[]) ?? [];
-
-      th.classList.add(
-        "font-normal",
-        "p-0",
-        "text-accent",
-        ...stickyTh,
-        ...stylesTh
-      );
-
-      this.tableRowEl.append(th);
-
-      const internalDiv = document.createElement("div");
-      internalDiv.setAttribute("data", "internalDiv");
-
-      const divStyles =
-        ({
-          0: ["border-l-0", "h-[24.4px]"],
-          [arr.length - 1]: ["border-r-0", "h-[24.4px]"],
-        }[idx] as string[]) ?? [];
-
-      internalDiv.classList.add(
-        "border-x",
-        "border-white",
-        "h-[24.4px]",
-        "flex",
-        "items-center",
-        "px-2",
-        ...stickyTh,
-        ...divStyles
-      );
-      internalDiv.textContent = header;
-      th.append(internalDiv);
-      this.tableRowEl.append(th);
-    });
-
-    this.tableEl?.append(this.tableHeadEl);
+    new TableHeadCreator(headers, stylesTh);
   }
 
   #createTr(tableRowId: string) {
