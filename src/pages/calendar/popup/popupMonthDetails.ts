@@ -1,28 +1,29 @@
-import { StateAmount } from "../states/StateAmount";
+import { ModelMonth } from "./../../../sharedModels/modelMonth";
+import { PopupCreator } from "../../../components/popupCreator";
+import { Helpers } from "../../../utils/helpers";
+import { StateFillMode } from "../states/stateFillMode";
 import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { PopupSubmit } from "./popupSubmit";
-import { Helpers } from "../../../utils/helpers";
-import { ModelMonth } from "../../../sharedModels/modelMonth";
-import { StateFillMode } from "../states/stateFillMode";
-import { PopupCreator } from "../../../components/popupCreator";
+import { StateAmount } from "../states/StateAmount";
 
-export class PopupTable{
-  #bodyEl = document.querySelector("body");
-  #popupContainer: HTMLElement | null = null;
-  #eventTarget: HTMLElement | null = null;
+class FormMonthDetails {
+  #xmarkEL = document.createElement("i");
+  #hederEl = document.createElement("h3");
+  #monthDetails: ModelMonth | null = null;
+  #formEl: HTMLFormElement | null = null;
   #memberId: string | null | undefined = null;
   #monthNumber: string | null | undefined = null;
-  #monthDetails: ModelMonth | null = null;
+  #form = new FormCreator("popupContainer");
+  #eventTarget: HTMLElement | null = null;
 
-  constructor() {
- 
-    this.#printPopupEvent();
+  constructor(eventTarget: HTMLElement) {
+    this.#eventTarget = eventTarget;
+    this.#createForm();
   }
 
   #createIconXmark() {
-    const xmarkEL = document.createElement("i");
-    xmarkEL.classList.add(
+    this.#xmarkEL.classList.add(
       "fa-solid",
       "fa-xmark",
       "absolute",
@@ -33,7 +34,7 @@ export class PopupTable{
       "text-2xl",
       "cursor-pointer"
     );
-    document.querySelector("form")?.prepend(xmarkEL);
+    document.querySelector("form")?.prepend(this.#xmarkEL);
   }
 
   #createHeader() {
@@ -49,21 +50,21 @@ export class PopupTable{
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
 
-    const hederEl = document.createElement("h3");
+    this.#hederEl = document.createElement("h3");
     memberFullname &&
-      (hederEl.innerHTML = `
-    <div class = "sm:flex justify-between font-semibold">
-         <div>${memberFullname}</div>
-         <div data-header-monthname>${monthName}</div>
-    </div>`);
-    hederEl.classList.add("mb-4");
-    this.#popupContainer?.append(hederEl);
-    document.getElementById("popupForm")?.prepend(hederEl);
+      (this.#hederEl.innerHTML = `
+      <div class = "sm:flex justify-between font-semibold">
+           <div>${memberFullname}</div>
+           <div data-header-monthname>${monthName}</div>
+      </div>`);
+    this.#hederEl.classList.add("mb-4");
+    this.#formEl?.prepend(this.#hederEl);
+    document.getElementById("popupMonthDetails")?.prepend(this.#hederEl);
   }
 
   #passValuesToInputs() {
     const inputsElems = document
-      .getElementById("popupForm")
+      .getElementById("popupMonthDetails")
       ?.querySelectorAll("input");
     const textareaEl = document.querySelector("textarea");
 
@@ -84,9 +85,9 @@ export class PopupTable{
   }
 
   #createForm() {
-    const form = new FormCreator("popupContainer");
-    form.createForm({
-      formId: "popupForm",
+    document.querySelector("form")?.remove();
+    this.#form.createForm({
+      formId: "popupMonthDetails",
       styles: [
         "flex",
         "flex-col",
@@ -102,21 +103,44 @@ export class PopupTable{
         "mt-14",
       ],
     });
-    form.createFields({ inputsData: dataPopupFields, inputStyles: ["pr-0", "w-full"] });
-
+    this.#form.createFields({
+      inputsData: dataPopupFields,
+      inputStyles: ["pr-0", "w-full"],
+    });
+    this.#formEl = document.querySelector("form");
+    this.#createIconXmark();
     this.#createHeader();
     this.#createIconXmark();
     this.#passValuesToInputs();
 
-    form.createBtn({
+    this.#form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
 
     this.#monthDetails && new PopupSubmit(this.#monthDetails);
   }
+}
 
-  #createPopup(e: Event) {
+export class PopupMonthDetails extends PopupCreator {
+  #eventTarget: HTMLElement | null = null;
+
+  constructor() {
+    super();
+    this.#printPopupEvent();
+  }
+
+  #closeCollapse() {
+    document.querySelectorAll("[data=memberDetailsPrint]").forEach(element => {
+      element.classList.remove("collapseOpen");
+    });
+
+    document.querySelectorAll(".fa-chevron-down").forEach(icon => {
+      icon.classList.remove("rotate-180");
+    });
+  }
+
+  #printPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
@@ -132,54 +156,14 @@ export class PopupTable{
       !isIconArrow &&
       isNestedInTd
     ) {
-      document
-        .querySelectorAll("[data=memberDetailsPrint]")
-        .forEach(element => {
-          element.classList.remove("collapseOpen");
-        });
-
-      document.querySelectorAll(".fa-chevron-down").forEach(icon => {
-        icon.classList.remove("rotate-180");
-      });
-
-      const popupContainer = document.createElement("div");
-      popupContainer.id = "popupContainer";
-      popupContainer.classList.add(
-        "fixed",
-        "top-0",
-        "w-screen",
-        "h-screen",
-        "bg-black_opacity",
-        "overflow-y-scroll",
-        "z-50"
-      );
-      this.#bodyEl?.append(popupContainer);
-      this.#popupContainer = popupContainer;
-      this.#createForm();
-      this.#removePopupEvent();
-    }
-  }
-
-  #removePopupOnClick(e: Event) {
-    const eventTarget = e.target as HTMLElement;
-
-    if (
-      eventTarget?.classList.value.includes("bg-black_opacity") ||
-      eventTarget?.classList.value.includes("fa-xmark")
-    ) {
-      this.#popupContainer?.remove();
+      this.#closeCollapse();
+      this.createPopupContainetr();
+      new FormMonthDetails(this.#eventTarget);
     }
   }
 
   #printPopupEvent() {
     const tableBodyEl = document.querySelector("tbody");
-    tableBodyEl?.addEventListener("click", this.#createPopup.bind(this));
-  }
-
-  #removePopupEvent() {
-    this.#popupContainer?.addEventListener(
-      "click",
-      this.#removePopupOnClick.bind(this)
-    );
+    tableBodyEl?.addEventListener("click", this.#printPopup.bind(this));
   }
 }

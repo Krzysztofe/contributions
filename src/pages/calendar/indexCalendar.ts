@@ -6,6 +6,7 @@ import { HeaderCalendar } from "./headerCalendar/headerCalendar";
 import { PopupTable } from "./popup/popupTable";
 import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
+import { PopupMonthDetails } from "./popup/popupMonthDetails";
 
 class CalendarManager {
   GETCalendarOptions = {
@@ -26,7 +27,8 @@ class CalendarManager {
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
-    new PopupTable();
+    new PopupMonthDetails()
+    // new PopupTable();
     new AutoLogoutCreator();
   }
 }

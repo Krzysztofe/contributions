@@ -47,12 +47,9 @@ export class TableCalendarPrinter {
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
     this.#table.createSelect();
-    // this.#table.selectEvent();
+    this.#table.createArrowCollapse();
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
-    this.#table.createArrowCollapse();
-    this.#table.collapseEvent();
-    this.#table.POSTMonthEvent();
   }
 
   #tdStylesCustom(idx?: number) {

@@ -1,5 +1,5 @@
 export class LoadingTdCreator {
-  #tdElems = document.querySelectorAll("[data-month-details]");
+  // #tdElems = document.querySelectorAll("[data-month-details]");
   constructor() {}
   createSpiner(){
 

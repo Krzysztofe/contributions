@@ -50,6 +50,8 @@ export class PopupSubmit {
   }
 
   async #handleSubmit(e: SubmitEvent) {
+
+    console.log('submit',)
     e.preventDefault();
     this.#formValues = Helpers.getFormValues(e);
     const btnLoader = new LoadingButtonCreator("btnSubmit");

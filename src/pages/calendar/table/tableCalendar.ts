@@ -1,18 +1,18 @@
 import { LoadingTableCreator } from "../../../components/loadingsCreators/loadingTableCreator";
 import { TableCreator } from "../../../components/tableCreator";
 import { Helpers } from "../../../utils/helpers";
-import { URL_CALENDAR, URL_MONTH_DETAILS } from "../../../data/dataUrl";
+import { URL_CALENDAR } from "../../../data/dataUrl";
 import { StateYear } from "../states/StateYear";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { StateCalendar } from "../states/StateCalendar";
 import { PopupTable } from "../popup/popupTable";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
-import { StateFillMode } from "../states/stateFillMode";
-import { PopupSubmit } from "../popup/popupSubmit";
-import { LoadingTdCreator } from "../../../components/loadingsCreators/loadingTdCreator";
+
 
 class SelectCreator {
-  #thDivSelect: HTMLElement | null = null;
+  #thDivSelect = document.querySelectorAll(
+    "[data = internalDiv]"
+  )[1] as HTMLElement;
   #selectEl = document.createElement("select");
   #selectedYear: string | null = null;
   #loading = new LoadingTableCreator();
@@ -23,10 +23,6 @@ class SelectCreator {
   }
 
   #createSelect() {
-    this.#thDivSelect = document.querySelectorAll(
-      "[data = internalDiv]"
-    )[1] as HTMLElement;
-
     this.#selectEl.classList.add(
       "select",
       "select-xs",
@@ -56,10 +52,10 @@ class SelectCreator {
 
   async #handleSelect(e: Event) {
     this.#selectedYear = (e.target as HTMLInputElement).value;
-    StateYear.year = this.#selectedYear;
     this.#loading.createLoading();
-    const calendalFromYear = await Helpers.fetchData(this.#GETOptions());
-    StateCalendar.setCalendar(calendalFromYear);
+    StateYear.year = this.#selectedYear;
+    const year = await Helpers.fetchData(this.#GETOptions());
+    StateCalendar.setCalendar(year);
     document.getElementById("tableMembers")?.remove();
     new TableCalendarPrinter();
     const selectEl = document.querySelector(".select") as HTMLSelectElement;
@@ -73,54 +69,16 @@ class SelectCreator {
   }
 }
 
-export class TableCalendar extends TableCreator {
-  #eventTarget: HTMLElement | null = null;
-  #tdLoader = new LoadingTdCreator();
-
-  constructor(parentEl: string) {
-    super(parentEl);
+class CollapseCreator {
+  #tdFullnameElems = document.querySelectorAll("[data=member]");
+  #tbodyEl = document.querySelector("tbody");
+  constructor() {
+    this.#createArrowInCollapse();
+    this.#collapseEvent();
   }
 
-  createSelect() {
-    new SelectCreator();
-  }
-
-  tdElemsBgColor() {
-    const amountElems = document.querySelectorAll("[data=amount]");
-    amountElems.forEach(amountEl => {
-      if (amountEl.textContent?.trim() === "0 zł") {
-        amountEl?.parentElement &&
-          amountEl?.parentElement.classList.add("bg-td_red");
-      }
-    });
-  }
-
-  tdJoinDateBgColor() {
-    const tdElems = document.querySelectorAll("[data-join-date]");
-    tdElems.forEach(tdEl => {
-      const joinDate = tdEl.getAttribute("data-join-date");
-      const monthDetails = tdEl.getAttribute("data-month-details");
-      const number = monthDetails && JSON.parse(monthDetails).monthNumber;
-      const monthNumber = number < 10 ? "0" + number : number;
-      const tdDate = `${StateYear.year}-${monthNumber}`;
-
-      const joinDateCompare = new Date(joinDate + "-01");
-      const tdDateCompare = new Date(tdDate + "-01");
-
-      if (joinDateCompare > tdDateCompare) {
-        tdEl.classList.add("bg-primary", "cursor-auto");
-        tdEl.classList.remove("bg-td_red", "cursor-pointer");
-        tdEl.innerHTML = "";
-        tdEl.setAttribute("data", "emptyCollapse");
-        tdEl.setAttribute("data-not-active", "true");
-      }
-    });
-  }
-
-  createArrowCollapse() {
-    const tdFullnameElems = document.querySelectorAll("[data=member]");
-
-    tdFullnameElems.forEach(fullnameEl => {
+  #createArrowInCollapse() {
+    this.#tdFullnameElems.forEach(fullnameEl => {
       const areEmptyCollapses =
         fullnameEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
           .length === 12;
@@ -166,71 +124,57 @@ export class TableCalendar extends TableCreator {
     }
   }
 
-  #POSTOptions() {
-    return {
-      url: URL_MONTH_DETAILS,
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-      body: {
-        // client_id: this.#memberId || "",
-        // year: StateYear.year || "",
-        // month: this.#monthNumber || "",
-        // amount: this.#formValues?.amount || "",
-        // pay_date: this.#formValues?.pay_date || "",
-        // comment: this.#formValues?.comment || "",
-      },
-    };
+  #collapseEvent() {
+    this.#tbodyEl?.addEventListener("click", this.#handleCollapse.bind(this));
+  }
+}
+
+export class TableCalendar extends TableCreator {
+  #amountElems: NodeListOf<Element> | null = null;
+  #tdElems: NodeListOf<Element> | null = null;
+
+  constructor(parentEl: string) {
+    super(parentEl);
+    this.tdElemsBgColor();
+    this.tdJoinDateBgColor();
   }
 
-  async #handlePOSTMonth(e: Event) {
-    this.#eventTarget = e.target as HTMLElement;
-    const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
-    const dataAtribute = this.#eventTarget?.getAttribute("data");
-    const isIconArrow =
-      this.#eventTarget.classList.value.includes("fa-chevron-down");
-    const isDataNoActive = this.#eventTarget?.getAttribute("data-not-active");
-
-    if (
-      StateFillMode.isFast &&
-      dataAtribute !== "member" &&
-      dataAtribute !== "idx" &&
-      !isDataNoActive &&
-      !isIconArrow &&
-      isNestedInTd
-    ) {
-      document
-        .querySelectorAll("[data=memberDetailsPrint]")
-        .forEach(element => {
-          element.classList.remove("collapseOpen");
-        });
-
-      document.querySelectorAll(".fa-chevron-down").forEach(icon => {
-        icon.classList.remove("rotate-180");
-      });
-      const monthDetailsString =
-        this.#eventTarget &&
-        this.#eventTarget?.getAttribute("data-month-details");
-      const monthDetails = monthDetailsString && JSON.parse(monthDetailsString);
-
-      this.#tdLoader.createSpiner();
-      await Helpers.fetchData(this.#POSTOptions());
-      this.#tdLoader.removeSpinner();
-    }
+  createSelect() {
+    new SelectCreator();
+  }
+  createArrowCollapse() {
+    new CollapseCreator();
   }
 
-  collapseEvent() {
-    const tbodyEl = document.querySelector("tbody");
-    tbodyEl?.addEventListener("click", this.#handleCollapse.bind(this));
+  tdElemsBgColor() {
+    this.#amountElems = document.querySelectorAll("[data=amount]");
+    this.#amountElems?.forEach(amountEl => {
+      if (amountEl.textContent?.trim() === "0 zł") {
+        amountEl?.parentElement &&
+          amountEl?.parentElement.classList.add("bg-td_red");
+      }
+    });
   }
 
-  // selectEvent() {
-  //   this.#selectEl?.addEventListener("input", this.#handleSelect.bind(this));
-  // }
+  tdJoinDateBgColor() {
+    this.#tdElems = document.querySelectorAll("[data-join-date]");
+     this.#tdElems.forEach(tdEl => {
+       const joinDate = tdEl.getAttribute("data-join-date");
+       const monthDetails = tdEl.getAttribute("data-month-details");
+       const number = monthDetails && JSON.parse(monthDetails).monthNumber;
+       const monthNumber = number < 10 ? "0" + number : number;
+       const tdDate = `${StateYear.year}-${monthNumber}`;
 
-  POSTMonthEvent() {
-    const tableBodyEl = document.querySelector("tbody");
-    tableBodyEl?.addEventListener("click", this.#handlePOSTMonth.bind(this));
+       const joinDateCompare = new Date(joinDate + "-01");
+       const tdDateCompare = new Date(tdDate + "-01");
+
+       if (joinDateCompare > tdDateCompare) {
+         tdEl.classList.add("bg-primary", "cursor-auto");
+         tdEl.classList.remove("bg-td_red", "cursor-pointer");
+         tdEl.innerHTML = "";
+         tdEl.setAttribute("data", "emptyCollapse");
+         tdEl.setAttribute("data-not-active", "true");
+       }
+     });
   }
 }
