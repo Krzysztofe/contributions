@@ -5,9 +5,8 @@ import { URL_CALENDAR } from "../../../data/dataUrl";
 import { StateYear } from "../states/StateYear";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { StateCalendar } from "../states/StateCalendar";
-import { PopupTable } from "../popup/popupTable";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
-
+import { PopupMonthDetails } from "../popup/popupMonthDetails";
 
 class SelectCreator {
   #thDivSelect = document.querySelectorAll(
@@ -60,7 +59,7 @@ class SelectCreator {
     new TableCalendarPrinter();
     const selectEl = document.querySelector(".select") as HTMLSelectElement;
     selectEl && (selectEl.value = this.#selectedYear);
-    new PopupTable();
+    new PopupMonthDetails();
     new AutoLogoutCreator();
     this.#loading.removeLoading();
   }
@@ -158,23 +157,23 @@ export class TableCalendar extends TableCreator {
 
   tdJoinDateBgColor() {
     this.#tdElems = document.querySelectorAll("[data-join-date]");
-     this.#tdElems.forEach(tdEl => {
-       const joinDate = tdEl.getAttribute("data-join-date");
-       const monthDetails = tdEl.getAttribute("data-month-details");
-       const number = monthDetails && JSON.parse(monthDetails).monthNumber;
-       const monthNumber = number < 10 ? "0" + number : number;
-       const tdDate = `${StateYear.year}-${monthNumber}`;
+    this.#tdElems.forEach(tdEl => {
+      const joinDate = tdEl.getAttribute("data-join-date");
+      const monthDetails = tdEl.getAttribute("data-month-details");
+      const number = monthDetails && JSON.parse(monthDetails).monthNumber;
+      const monthNumber = number < 10 ? "0" + number : number;
+      const tdDate = `${StateYear.year}-${monthNumber}`;
 
-       const joinDateCompare = new Date(joinDate + "-01");
-       const tdDateCompare = new Date(tdDate + "-01");
+      const joinDateCompare = new Date(joinDate + "-01");
+      const tdDateCompare = new Date(tdDate + "-01");
 
-       if (joinDateCompare > tdDateCompare) {
-         tdEl.classList.add("bg-primary", "cursor-auto");
-         tdEl.classList.remove("bg-td_red", "cursor-pointer");
-         tdEl.innerHTML = "";
-         tdEl.setAttribute("data", "emptyCollapse");
-         tdEl.setAttribute("data-not-active", "true");
-       }
-     });
+      if (joinDateCompare > tdDateCompare) {
+        tdEl.classList.add("bg-primary", "cursor-auto");
+        tdEl.classList.remove("bg-td_red", "cursor-pointer");
+        tdEl.innerHTML = "";
+        tdEl.setAttribute("data", "emptyCollapse");
+        tdEl.setAttribute("data-not-active", "true");
+      }
+    });
   }
 }

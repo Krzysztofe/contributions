@@ -80,39 +80,15 @@ export class FormCreator {
     return this.#inputEl;
   }
 
-  createFields({
-    inputsData,
-    fieldStyles = [],
-    inputStyles = [],
-  }: ModelCreateFields) {
-    inputsData.forEach(inputData => {
-      const fieldEl = this.#createField(inputData, fieldStyles, inputStyles);
-      this.formEl?.append(fieldEl);
-    });
-  }
-
-  #createField(
-    inputData: ModelInputData,
-    fieldStyles: string[],
-    inputStyles: string[]
-  ): HTMLElement {
-    this.#fieldEl = document.createElement("div");
-    this.#fieldEl.classList.add("relative", ...fieldStyles);
-
-    if (inputData.label) {
-      const labelEl = this.#createLabel(inputData);
-      this.#fieldEl.append(labelEl);
+  #addInputProperties(inputType: string) {
+    if (!this.#inputEl) return;
+    if (inputType === "date") {
+      this.#inputEl.style.textTransform = "none";
     }
 
-    const inputEl = this.createInput(inputData, inputStyles);
-    this.#fieldEl.append(inputEl);
-
-    if (inputData.errorMsg) {
-      const errorEl = this.#createError(inputData);
-      this.#fieldEl.append(errorEl);
+    if (inputType === "number") {
+      this.#inputEl.setAttribute("min", "0");
     }
-
-    return this.#fieldEl;
   }
 
   #createLabel({ name, type, label }: ModelInputData): HTMLElement {
@@ -169,7 +145,42 @@ export class FormCreator {
     this.formEl?.append(this.#btnEl);
   }
 
-  #onChangeInputSearch(e: Event) {
+  #createField(
+    inputData: ModelInputData,
+    fieldStyles: string[],
+    inputStyles: string[]
+  ): HTMLElement {
+    this.#fieldEl = document.createElement("div");
+    this.#fieldEl.classList.add("relative", ...fieldStyles);
+
+    if (inputData.label) {
+      const labelEl = this.#createLabel(inputData);
+      this.#fieldEl.append(labelEl);
+    }
+
+    const inputEl = this.createInput(inputData, inputStyles);
+    this.#fieldEl.append(inputEl);
+
+    if (inputData.errorMsg) {
+      const errorEl = this.#createError(inputData);
+      this.#fieldEl.append(errorEl);
+    }
+
+    return this.#fieldEl;
+  }
+
+  createFields({
+    inputsData,
+    fieldStyles = [],
+    inputStyles = [],
+  }: ModelCreateFields) {
+    inputsData.forEach(inputData => {
+      const fieldEl = this.#createField(inputData, fieldStyles, inputStyles);
+      this.formEl?.append(fieldEl);
+    });
+  }
+
+  #handleChangeInputSearch(e: Event) {
     const inputValue = (e.target as HTMLInputElement).value;
     this.#membersElems = document.querySelectorAll("[data='member']");
 
@@ -196,7 +207,7 @@ export class FormCreator {
     if (inputType === "search") {
       this.#inputEl.addEventListener(
         "input",
-        this.#onChangeInputSearch.bind(this)
+        this.#handleChangeInputSearch.bind(this)
       );
     }
 
@@ -205,17 +216,6 @@ export class FormCreator {
         "input",
         this.#handlePhoneFormat.bind(this)
       );
-    }
-  }
-
-  #addInputProperties(inputType: string) {
-    if (!this.#inputEl) return;
-    if (inputType === "date") {
-      this.#inputEl.style.textTransform = "none";
-    }
-
-    if (inputType === "number") {
-      this.#inputEl.setAttribute("min", "0");
     }
   }
 }

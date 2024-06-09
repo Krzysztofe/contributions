@@ -6,12 +6,13 @@ import { StateYear } from "../states/StateYear";
 import { ReprintTableCalendar } from "../table/reprintTableCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 
-export class PopupSubmit {
+export class MonthDetailsSubmit {
   #formEl = document.querySelector("form");
   #formValues: ModelObjectString | null = null;
   #memberId: string | null = null;
   #monthNumber: string | null = null;
   #monthDetails: ModelMonth | null = null;
+  #btnLoader = new LoadingButtonCreator("btnSubmit");
 
   constructor(monthDetails: ModelMonth) {
     this.#memberId = monthDetails.id;
@@ -50,12 +51,9 @@ export class PopupSubmit {
   }
 
   async #handleSubmit(e: SubmitEvent) {
-
-    console.log('submit',)
     e.preventDefault();
     this.#formValues = Helpers.getFormValues(e);
-    const btnLoader = new LoadingButtonCreator("btnSubmit");
-    btnLoader.createSpinner();
+    this.#btnLoader.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
     const newMonth = this.#newMonth();
     if (newMonth) {

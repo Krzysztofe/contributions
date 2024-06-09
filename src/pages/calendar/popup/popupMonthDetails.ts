@@ -4,10 +4,10 @@ import { Helpers } from "../../../utils/helpers";
 import { StateFillMode } from "../states/stateFillMode";
 import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
-import { PopupSubmit } from "./popupSubmit";
+import { MonthDetailsSubmit } from "./monthDetailsSubmit";
 import { StateAmount } from "../states/StateAmount";
 
-class FormMonthDetails {
+class FormMonthDetailsPrinter {
   #xmarkEL = document.createElement("i");
   #hederEl = document.createElement("h3");
   #monthDetails: ModelMonth | null = null;
@@ -118,11 +118,12 @@ class FormMonthDetails {
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
 
-    this.#monthDetails && new PopupSubmit(this.#monthDetails);
+    this.#monthDetails && new MonthDetailsSubmit(this.#monthDetails);
   }
 }
 
 export class PopupMonthDetails extends PopupCreator {
+  tableBodyEl = document.querySelector("tbody");
   #eventTarget: HTMLElement | null = null;
 
   constructor() {
@@ -158,12 +159,11 @@ export class PopupMonthDetails extends PopupCreator {
     ) {
       this.#closeCollapse();
       this.createPopupContainetr();
-      new FormMonthDetails(this.#eventTarget);
+      new FormMonthDetailsPrinter(this.#eventTarget);
     }
   }
 
   #printPopupEvent() {
-    const tableBodyEl = document.querySelector("tbody");
-    tableBodyEl?.addEventListener("click", this.#printPopup.bind(this));
+    this.tableBodyEl?.addEventListener("click", this.#printPopup.bind(this));
   }
 }

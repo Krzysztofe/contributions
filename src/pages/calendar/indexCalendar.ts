@@ -3,7 +3,6 @@ import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 import { TableCalendarPrinter } from "./table/tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar/headerCalendar";
-import { PopupTable } from "./popup/popupTable";
 import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
 import { PopupMonthDetails } from "./popup/popupMonthDetails";
@@ -28,7 +27,6 @@ class CalendarManager {
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
     new PopupMonthDetails()
-    // new PopupTable();
     new AutoLogoutCreator();
   }
 }

@@ -9,7 +9,7 @@ import { dataInputAmount } from "./dataInputAmount";
 
 export class HeaderCalendar extends HeaderLogedIn {
   #leftSideContainerEl = document.createElement("div");
-  #inputAmountEl: HTMLElement | null = null;
+  #inputAmountEl: HTMLInputElement | null = null;
   #inputAmountValue: string | null = null;
 
   constructor(styles: string[]) {
@@ -29,7 +29,7 @@ export class HeaderCalendar extends HeaderLogedIn {
     });
   }
 
-  #createInputAmount() {
+  async #createInputAmount() {
     dataInputAmount.forEach(input => {
       this.#leftSideContainerEl?.prepend(
         this.form.createInput(input, [
@@ -41,7 +41,11 @@ export class HeaderCalendar extends HeaderLogedIn {
         ])
       );
     });
-    this.#inputAmountEl = document.getElementById("defaultAmount");
+    this.#inputAmountEl = document.getElementById(
+      "defaultAmount"
+    ) as HTMLInputElement;
+    await StateAmount.getAmount();
+    this.#inputAmountEl.value = StateAmount.amount;
   }
 
   #POSTOptions() {
