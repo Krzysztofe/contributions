@@ -31,5 +31,5 @@ export const dataMemberFields = [
     "Telefon",
     "Telefon min. 9 cyfr"
   ),
-  new DataFieldCreator("join_date", "Data", "", "month", "", " "),
+  new DataFieldCreator("join_date", "Data", "\\S", "month", "", " "),
 ];

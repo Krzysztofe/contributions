@@ -42,7 +42,7 @@ export class TableCalendarPrinter {
     this.#table.createTableBody({
       tdDataList: this.#dataTableBody,
       tdInnerHtml: this.#tdInnerHtml.bind(this),
-      stylesTd: this.#stylesTd,
+      tdStylesCustom: this.#tdStylesCustom,
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
     this.#table.createSelect();
@@ -54,7 +54,7 @@ export class TableCalendarPrinter {
     this.#table.POSTMonthEvent();
   }
 
-  #stylesTd(idx?: number) {
+  #tdStylesCustom(idx?: number) {
     return idx === 0
       ? ["whitespace-nowrap"]
       : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];

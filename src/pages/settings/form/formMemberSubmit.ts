@@ -83,6 +83,8 @@ export class FormMemberSubmit {
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
 
+console.log('',areErrors)
+
     if (areErrors && areErrors.length > 0) return;
 
     const isMemberRecord = new ValidationMember(

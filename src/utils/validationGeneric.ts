@@ -26,16 +26,19 @@ export class ValidationGeneric {
 
     inputsElems.forEach((inputEl: InputElement) => {
       const patternStr = inputEl.getAttribute("data-regEx");
+
       if (!patternStr) return;
 
       const pattern = new RegExp(patternStr, "u");
       const errorEl = `${inputEl.id}Error`;
 
       if (inputEl?.value.trim().length === 0) {
+        // console.log("e", inputEl?.value.trim().length);
         this.errorsElems[errorEl].innerText = "Wymagne";
         this.errors.push("error");
       } else if (!pattern.test(inputEl?.value.trim())) {
         const errorElement = this.errorsElems[errorEl];
+        console.log('',errorElement)
         if (errorElement) {
           const dataError = errorElement.getAttribute("data-error");
           if (dataError) {

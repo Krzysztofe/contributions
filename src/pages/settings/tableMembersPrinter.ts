@@ -32,13 +32,10 @@ export class TableMembersPrinter {
       tdDataList: sortedMembers,
       icons: ["fa-trash"],
       tdInnerHtml: this.#tdInnerHtml,
-      stylesTd: this.#stylesTd,
+      tdStyles: ["whitespace-nowrap"],
     });
   }
   #tdInnerHtml(value: string | { [key: string]: string }) {
     return `${value}`;
-  }
-  #stylesTd() {
-    return ["whitespace-nowrap"];
   }
 }

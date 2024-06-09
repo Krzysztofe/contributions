@@ -8,7 +8,7 @@ export class FormLoginPrinter {
   constructor() {
     this.#form.createForm({
       formId: "loginForm",
-      styles: ["flex", "flex-col", "sm:bg-white", "sm:border", "px-16", "py-8"],
+      styles: ["flex", "flex-col", "sm:bg-white", "sm:border", "sm:px-16","py-8"],
     });
     this.#form.createFields({ inputsData: dataLoginFields });
     this.#form.createBtn({

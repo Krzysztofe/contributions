@@ -202,7 +202,7 @@ export class TableCalendar extends TableCreator {
       const monthDetails = monthDetailsString && JSON.parse(monthDetailsString);
 
       this.#tdLoader.createSpiner();
-      // await Helpers.fetchData(this.#POSTOptions());
+      await Helpers.fetchData(this.#POSTOptions());
       this.#tdLoader.removeSpinner();
     }
   }

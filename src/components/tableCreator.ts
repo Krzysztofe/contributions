@@ -1,12 +1,17 @@
 import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 
+type ModelTableHaed = {
+  headers: string[];
+  stylesTh?: string[];
+};
+
 type ModelTableBody = {
   tdDataList: ModelObjectAny[];
   icons?: string[];
   tdInnerHtml: (value: string | ModelObjectString) => string;
-  stylesTd?: (idx?: number) => string[];
-  styles?: string[];
+  tdStylesCustom?: (idx?: number) => string[];
+  tdStyles?: string[];
   tdSetAtribut?: (params: {
     tdEl: HTMLElement;
     idx: number;
@@ -15,21 +20,21 @@ type ModelTableBody = {
 };
 
 class TableHeadCreator {
-  tableEl = document.querySelector("table");
-  tableHeadEl = document.createElement("thead");
-  tableRowEl = document.createElement("tr");
+  #tableEl = document.querySelector("table");
+  #tableHeadEl = document.createElement("thead");
+  #tableRowEl = document.createElement("tr");
   #headersData: string[] | null = null;
   #stylesTh: string[] | [] = [];
 
   constructor(headers: string[], stylesTh: string[] = []) {
     this.#headersData = headers;
     this.#stylesTh = stylesTh;
-    this.createTableHead();
+    this.#createTableHead();
   }
 
-  createTableHead() {
-    this.tableHeadEl.classList.add("sticky", "top-0", "z-30");
-    this.tableHeadEl.append(this.tableRowEl);
+  #createTableHead() {
+    this.#tableHeadEl.classList.add("sticky", "top-0", "z-30");
+    this.#tableHeadEl.append(this.#tableRowEl);
 
     this.#headersData?.forEach((header, idx, arr) => {
       const th = document.createElement("th");
@@ -37,7 +42,7 @@ class TableHeadCreator {
       const stickyTh =
         ({
           0: ["bg-primary_dark", "text-accent"],
-          1: ["bg-primary_dark", "sticky", "left-0", "text-accent"],
+          1: ["bg-primary_dark", "sticky", "left-0", "text-accent", "min-w-36"],
         }[idx] as string[]) ?? [];
 
       th.classList.add(
@@ -48,7 +53,7 @@ class TableHeadCreator {
         ...this.#stylesTh
       );
 
-      this.tableRowEl.append(th);
+      this.#tableRowEl.append(th);
 
       const internalDiv = document.createElement("div");
       internalDiv.setAttribute("data", "internalDiv");
@@ -71,67 +76,43 @@ class TableHeadCreator {
       );
       internalDiv.textContent = header;
       th.append(internalDiv);
-      this.tableRowEl.append(th);
+      this.#tableRowEl.append(th);
     });
 
-    this.tableEl?.append(this.tableHeadEl);
+    this.#tableEl?.append(this.#tableHeadEl);
   }
 }
 
-export class TableCreator {
-  parentEl: HTMLElement | null;
-  tableEl = document.createElement("table");
-  tableHeadEl = document.createElement("thead");
-  tableRowEl = document.createElement("tr");
-  tableBodyEl: HTMLElement | null = null;
-  trEl: HTMLElement | null = null;
-  td: NodeListOf<HTMLTableCellElement> | null = null;
-  cellsData: ModelObjectString[] | null = null;
-  memberId: string | null = null;
+class TableBodyCreator {
+  #tableEl = document.querySelector("table");
+  #tableBodyEl = document.createElement("tbody");
+  #memberId: string | null = null;
+  #trEl: HTMLElement | null = null;
 
-  constructor(parentEl: string) {
-    this.parentEl = document.getElementById(parentEl);
-    this.tableBodyEl = document.createElement("tbody");
-  }
-
-  noDataContainer() {
-    const containerEl = document.createElement("div");
-    containerEl.innerText = "Brak danych";
-    containerEl.id = "noDataContainer";
-    containerEl.classList.add("text-center", "text-red-500", "h-10");
-
-    this.parentEl?.append(containerEl);
-  }
-
-  createTable(styles: string[] = []) {
-    this.tableEl.classList.add(
-      "table",
-      "table-xs",
-      "bg-primary_dark",
-      "relative",
-      "rounded-sm",
-      ...styles
-    );
-    this.tableEl.id = "tableMembers";
-    this.parentEl?.append(this.tableEl);
-    this.tableEl = this.tableEl;
-  }
-  createTableHead({
-    headers,
-    stylesTh = [],
-  }: {
-    headers: string[];
-    stylesTh?: string[];
-  }) {
-    new TableHeadCreator(headers, stylesTh);
+  constructor({
+    tdDataList,
+    icons = [],
+    tdInnerHtml,
+    tdStylesCustom = () => [],
+    tdStyles = [],
+    tdSetAtribut,
+  }: ModelTableBody) {
+    this.#createTableBody({
+      tdDataList,
+      icons,
+      tdInnerHtml,
+      tdStylesCustom,
+      tdStyles,
+      tdSetAtribut,
+    });
   }
 
   #createTr(tableRowId: string) {
-    this.trEl = document.createElement("tr");
-    this.trEl.id = tableRowId;
+    this.#trEl = document.createElement("tr");
+    this.#trEl.id = tableRowId;
     const stylesTr = ["odd:bg-grey_light", "even:bg-white"];
-    this.trEl.classList.add(...stylesTr);
-    this.tableBodyEl?.append(this.trEl);
+    this.#trEl.classList.add(...stylesTr);
+    this.#tableBodyEl?.append(this.#trEl);
   }
 
   #createTdFirst(idx: number) {
@@ -139,13 +120,12 @@ export class TableCreator {
     td.classList.add("border", "border-primary_dark", "p-2", "align-top");
     td.innerText = (idx + 1).toString();
     td.setAttribute("data", "idx");
-    this.trEl?.append(td);
+    this.#trEl?.append(td);
   }
 
   #createtTdElems(
     tdData: ModelObjectAny,
-
-    stylesTd: (idx?: number) => string[] = () => [],
+    tdStylesCustom: (idx?: number) => string[] = () => [],
     styles: string[] = [],
     tdInnerHtml: (value: string | ModelObjectString) => string,
     tdSetAtribut?: (params: {
@@ -198,13 +178,13 @@ export class TableCreator {
         "align-top",
         "py-2",
         ...stylesTdName,
-        ...stylesTd(idx),
+        ...tdStylesCustom(idx),
         ...styles
       );
 
       td.innerHTML = idx === 0 ? value : tdInnerHtml(value);
 
-      this.trEl?.append(td);
+      this.#trEl?.append(td);
     });
   }
 
@@ -218,36 +198,94 @@ export class TableCreator {
     );
     icons.forEach((icon: any) => {
       const btnIcon = document.createElement("button");
-      this.memberId && (btnIcon.id = this.memberId);
+      this.#memberId && (btnIcon.id = this.#memberId);
       btnIcon.setAttribute("data-row-id", tableRowId);
       btnIcon.classList.add("fa", icon, "text-dark");
       btnsContainer.append(btnIcon);
     });
-    this.trEl?.append(btnsContainer);
+    this.#trEl?.append(btnsContainer);
+  }
+
+  #createTableBody({
+    tdDataList,
+    icons = [],
+    tdInnerHtml,
+    tdStylesCustom = () => [],
+    tdStyles = [],
+    tdSetAtribut,
+  }: ModelTableBody) {
+    this.#tableBodyEl.classList.add("bg-white");
+    tdDataList.forEach((tdData, idx) => {
+      this.#memberId = tdData.id;
+      const tableRowId = Math.random().toString();
+      this.#createTr(tableRowId);
+      this.#createTdFirst(idx);
+      this.#createtTdElems(
+        tdData,
+        tdStylesCustom,
+        tdStyles,
+        tdInnerHtml,
+        tdSetAtribut
+      );
+      icons.length > 0 && this.#createBtnsContainer(tableRowId, icons);
+      this.#tableEl?.append(this.#tableBodyEl);
+    });
+  }
+}
+
+export class TableCreator {
+  #parentEl: HTMLElement | null;
+  #tableEl = document.createElement("table");
+  #noDataContainerEl = document.createElement("div");
+
+  constructor(parentEl: string) {
+    this.#parentEl = document.getElementById(parentEl);
+  }
+
+  noDataContainer() {
+    this.#noDataContainerEl.innerText = "Brak danych";
+    this.#noDataContainerEl.id = "noDataContainer";
+    this.#noDataContainerEl.classList.add(
+      "text-center",
+      "text-red-500",
+      "h-10"
+    );
+    this.#parentEl?.append(this.#noDataContainerEl);
+  }
+
+  createTable(styles: string[] = []) {
+    this.#tableEl.classList.add(
+      "table",
+      "table-xs",
+      "bg-primary_dark",
+      "relative",
+      "rounded-sm",
+      ...styles
+    );
+    this.#tableEl.id = "tableMembers";
+    this.#parentEl?.append(this.#tableEl);
+    this.#tableEl = this.#tableEl;
+  }
+
+  createTableHead({ headers, stylesTh = [] }: ModelTableHaed) {
+    new TableHeadCreator(headers, stylesTh);
   }
 
   createTableBody({
     tdDataList,
     icons = [],
     tdInnerHtml,
-    stylesTd = () => [],
-    styles = [],
+    tdStylesCustom = () => [],
+    tdStyles = [],
     tdSetAtribut,
   }: ModelTableBody) {
-    if (!this.tableBodyEl) return;
-    this.tableBodyEl.classList.add("bg-white");
-
-    tdDataList.forEach((tdData, idx) => {
-      this.memberId = tdData.id;
-      const tableRowId = Math.random().toString();
-
-      this.#createTr(tableRowId);
-      this.#createTdFirst(idx);
-      this.#createtTdElems(tdData, stylesTd, styles, tdInnerHtml, tdSetAtribut);
-
-      icons.length > 0 && this.#createBtnsContainer(tableRowId, icons);
+    new TableBodyCreator({
+      tdDataList,
+      icons,
+      tdInnerHtml,
+      tdStylesCustom,
+      tdStyles,
+      tdSetAtribut,
     });
-
-    this.tableEl?.append(this.tableBodyEl);
   }
 }
