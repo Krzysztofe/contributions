@@ -33,7 +33,6 @@ export class ValidationGeneric {
       const errorEl = `${inputEl.id}Error`;
 
       if (inputEl?.value.trim().length === 0) {
-        // console.log("e", inputEl?.value.trim().length);
         this.errorsElems[errorEl].innerText = "Wymagne";
         this.errors.push("error");
       } else if (!pattern.test(inputEl?.value.trim())) {

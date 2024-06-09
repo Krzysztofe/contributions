@@ -4,6 +4,7 @@ import { TableCalendar } from "./tableCalendar";
 import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
+import { wrapperWidth } from "../../../data/dataNumbers";
 
 export class TableCalendarPrinter {
   #dataTableHead: string[] = [
@@ -33,7 +34,7 @@ export class TableCalendarPrinter {
   #table = new TableCalendar("sectionTable");
 
   constructor() {
-    this.#table.createTable(["max-w-[1200px]"]);
+    this.#table.createTable([wrapperWidth]);
     this.#table.createTableHead({
       headers: this.#dataTableHead,
       stylesTh: ["bg-accent", "text-white"],
@@ -46,7 +47,7 @@ export class TableCalendarPrinter {
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
     this.#table.createSelect();
-    this.#table.selectEvent();
+    // this.#table.selectEvent();
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
     this.#table.createArrowCollapse();

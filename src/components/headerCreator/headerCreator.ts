@@ -1,4 +1,5 @@
-import { headerHeight } from "../../data/dataNumbers";
+import { headerHeight, wrapperWidth } from "../../data/dataNumbers";
+wrapperWidth
 
 export class HeaderCreator {
   #bodyEl = document.querySelector("body");
@@ -28,7 +29,7 @@ export class HeaderCreator {
   #createHeaderWrapper(styles: string[]) {
     this.headerWrapperEl.classList.add(
       headerHeight,
-      "max-w-[1350px]",
+      wrapperWidth,
       "mx-auto",
       "px-2",
       "md:px-4",

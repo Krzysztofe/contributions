@@ -11,25 +11,23 @@ import { StateFillMode } from "../states/stateFillMode";
 import { PopupSubmit } from "../popup/popupSubmit";
 import { LoadingTdCreator } from "../../../components/loadingsCreators/loadingTdCreator";
 
-export class TableCalendar extends TableCreator {
+class SelectCreator {
   #thDivSelect: HTMLElement | null = null;
-  #select: HTMLSelectElement | null = null;
-  #loading = new LoadingTableCreator();
+  #selectEl = document.createElement("select");
   #selectedYear: string | null = null;
-  #eventTarget: HTMLElement | null = null;
-  #tdLoader = new LoadingTdCreator();
+  #loading = new LoadingTableCreator();
 
-  constructor(parentEl: string) {
-    super(parentEl);
+  constructor() {
+    this.#createSelect();
+    this.#selectEvent();
   }
 
-  createSelect() {
+  #createSelect() {
     this.#thDivSelect = document.querySelectorAll(
       "[data = internalDiv]"
     )[1] as HTMLElement;
 
-    const selectEl = document.createElement("select");
-    selectEl.classList.add(
+    this.#selectEl.classList.add(
       "select",
       "select-xs",
       "border-0",
@@ -38,15 +36,13 @@ export class TableCalendar extends TableCreator {
       "w-full",
       "bg-primary_dark"
     );
-    selectEl.innerHTML = `<option>2024</option>
+    this.#selectEl.innerHTML = `<option>2024</option>
           <option>2025</option>
            <option>2026</option>
             <option>2027</option> 
           <option>2028</option>
           `;
-    this.#thDivSelect?.append(selectEl);
-    this.#select = selectEl;
-    return selectEl;
+    this.#thDivSelect?.append(this.#selectEl);
   }
 
   #GETOptions() {
@@ -57,6 +53,7 @@ export class TableCalendar extends TableCreator {
       },
     };
   }
+
   async #handleSelect(e: Event) {
     this.#selectedYear = (e.target as HTMLInputElement).value;
     StateYear.year = this.#selectedYear;
@@ -70,6 +67,22 @@ export class TableCalendar extends TableCreator {
     new PopupTable();
     new AutoLogoutCreator();
     this.#loading.removeLoading();
+  }
+  #selectEvent() {
+    this.#selectEl?.addEventListener("input", this.#handleSelect.bind(this));
+  }
+}
+
+export class TableCalendar extends TableCreator {
+  #eventTarget: HTMLElement | null = null;
+  #tdLoader = new LoadingTdCreator();
+
+  constructor(parentEl: string) {
+    super(parentEl);
+  }
+
+  createSelect() {
+    new SelectCreator();
   }
 
   tdElemsBgColor() {
@@ -212,9 +225,9 @@ export class TableCalendar extends TableCreator {
     tbodyEl?.addEventListener("click", this.#handleCollapse.bind(this));
   }
 
-  selectEvent() {
-    this.#select?.addEventListener("input", this.#handleSelect.bind(this));
-  }
+  // selectEvent() {
+  //   this.#selectEl?.addEventListener("input", this.#handleSelect.bind(this));
+  // }
 
   POSTMonthEvent() {
     const tableBodyEl = document.querySelector("tbody");

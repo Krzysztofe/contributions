@@ -24,6 +24,7 @@ export class StateCalendar {
 
     const processMembersList = members.map(
       (member: ModelObjectAny) => ({
+        
         ...monthsKeys.reduce<{
           [key: string]: ModelMonth;
         }>(
