@@ -88,6 +88,7 @@ export class FormCreator {
 
     if (inputType === "number") {
       this.#inputEl.setAttribute("min", "0");
+      this.#inputEl.setAttribute("max", "99");
     }
   }
 
@@ -127,24 +128,6 @@ export class FormCreator {
     return this.#errorEl;
   }
 
-  createBtn({ innerText, styles }: { innerText: string; styles: string[] }) {
-    this.#btnEl.setAttribute("type", "submit");
-    this.#btnEl.id = "btnSubmit";
-    this.#btnEl.innerText = innerText;
-    this.#btnEl.classList.add(
-      "btn",
-      "bg-accent",
-      "hover:bg-accent_light",
-      "btn-sm",
-      "rounded-sm",
-      "text-white",
-      "relative",
-      ...styles
-    );
-
-    this.formEl?.append(this.#btnEl);
-  }
-
   #createField(
     inputData: ModelInputData,
     fieldStyles: string[],
@@ -178,6 +161,24 @@ export class FormCreator {
       const fieldEl = this.#createField(inputData, fieldStyles, inputStyles);
       this.formEl?.append(fieldEl);
     });
+  }
+
+  createBtn({ innerText, styles }: { innerText: string; styles: string[] }) {
+    this.#btnEl.setAttribute("type", "submit");
+    this.#btnEl.id = "btnSubmit";
+    this.#btnEl.innerText = innerText;
+    this.#btnEl.classList.add(
+      "btn",
+      "bg-accent",
+      "hover:bg-accent_light",
+      "btn-sm",
+      "rounded-sm",
+      "text-white",
+      "relative",
+      ...styles
+    );
+
+    this.formEl?.append(this.#btnEl);
   }
 
   #handleChangeInputSearch(e: Event) {

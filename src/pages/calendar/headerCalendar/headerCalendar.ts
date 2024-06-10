@@ -9,7 +9,9 @@ import { dataInputAmount } from "./dataInputAmount";
 
 export class HeaderCalendar extends HeaderLogedIn {
   #leftSideContainerEl = document.createElement("div");
+  #inputAmountContainer = document.createElement("div");
   #inputAmountEl: HTMLInputElement | null = null;
+  #inputCurrency = document.createElement("span");
   #inputAmountValue: string | null = null;
 
   constructor(styles: string[]) {
@@ -28,10 +30,24 @@ export class HeaderCalendar extends HeaderLogedIn {
       elementsData: dataListLeftSide,
     });
   }
+  #displayCurrency() {
+    const currencyStyles =
+      this.#inputAmountValue || StateAmount.amount ? "block" : "hidden";
+
+    this.#inputCurrency.innerText = "zł";
+    this.#inputCurrency.classList.add(
+      "absolute",
+      "top-1",
+      "left-8",
+      currencyStyles
+    );
+    this.#inputAmountContainer.append(this.#inputCurrency);
+  }
 
   async #createInputAmount() {
+    this.#inputAmountContainer.classList.add("relative");
     dataInputAmount.forEach(input => {
-      this.#leftSideContainerEl?.prepend(
+      this.#inputAmountContainer?.prepend(
         this.form.createInput(input, [
           "w-[75px]",
           "hidden",
@@ -41,11 +57,35 @@ export class HeaderCalendar extends HeaderLogedIn {
         ])
       );
     });
+
+    this.#leftSideContainerEl.append(this.#inputAmountContainer);
+
     this.#inputAmountEl = document.getElementById(
       "defaultAmount"
     ) as HTMLInputElement;
     await StateAmount.getAmount();
+
     this.#inputAmountEl.value = StateAmount.amount;
+    this.#displayCurrency();
+  }
+
+  #handleChangeInputCurrency(e: Event) {
+    const eventTarget = e.target as HTMLInputElement;
+    this.#inputAmountValue = (e.target as HTMLInputElement).value;
+
+    const hasValue = !!this.#inputAmountValue;
+
+    this.#inputCurrency.classList.toggle("hidden", !hasValue);
+    this.#inputCurrency.classList.toggle("block", hasValue);
+
+    let value = eventTarget?.value;
+
+    if (value.length > 2) {
+      value = value.slice(0, 2);
+    }
+
+    eventTarget.value = value;
+    this.#inputAmountValue = eventTarget.value;
   }
 
   #POSTOptions() {
@@ -61,19 +101,24 @@ export class HeaderCalendar extends HeaderLogedIn {
     };
   }
 
-  async #onChangeInputAmount(e: Event) {
-    this.#inputAmountValue = (e.target as HTMLInputElement).value;
+  async #handleChangeInputAmount() {
     const spinner = new LoadingSpinner("#defaultAmount");
     spinner.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
-    StateAmount.amount = this.#inputAmountValue;
+    this.#inputAmountValue
+      ? (StateAmount.amount = this.#inputAmountValue)
+      : (StateAmount.amount = "0");
     spinner.removeSpinner();
   }
 
   #changeAmountEvent() {
     this.#inputAmountEl?.addEventListener(
       "input",
-      Helpers.debounce(this.#onChangeInputAmount.bind(this), 1500)
+      this.#handleChangeInputCurrency.bind(this)
+    );
+    this.#inputAmountEl?.addEventListener(
+      "input",
+      Helpers.debounce(this.#handleChangeInputAmount.bind(this), 1500)
     );
   }
 }
