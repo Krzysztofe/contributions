@@ -11,8 +11,7 @@ export class HeaderCalendar extends HeaderLogedIn {
   #leftSideContainerEl = document.createElement("div");
   #inputAmountContainer = document.createElement("div");
   #inputAmountEl: HTMLInputElement | null = null;
-  #inputCurrency = document.createElement("span");
-  #inputAmountValue: string | null = null;
+  #currencyEl: HTMLElement | null = null;
 
   constructor(styles: string[]) {
     super(styles);
@@ -29,19 +28,6 @@ export class HeaderCalendar extends HeaderLogedIn {
       parentEl: "#leftSideContainerEl",
       elementsData: dataListLeftSide,
     });
-  }
-  #displayCurrency() {
-    const currencyStyles =
-      this.#inputAmountValue || StateAmount.amount ? "block" : "hidden";
-
-    this.#inputCurrency.innerText = "zł";
-    this.#inputCurrency.classList.add(
-      "absolute",
-      "top-1",
-      "left-8",
-      currencyStyles
-    );
-    this.#inputAmountContainer.append(this.#inputCurrency);
   }
 
   async #createInputAmount() {
@@ -64,28 +50,12 @@ export class HeaderCalendar extends HeaderLogedIn {
       "defaultAmount"
     ) as HTMLInputElement;
     await StateAmount.getAmount();
-
     this.#inputAmountEl.value = StateAmount.amount;
-    this.#displayCurrency();
-  }
-
-  #handleChangeInputCurrency(e: Event) {
-    const eventTarget = e.target as HTMLInputElement;
-    this.#inputAmountValue = (e.target as HTMLInputElement).value;
-
-    const hasValue = !!this.#inputAmountValue;
-
-    this.#inputCurrency.classList.toggle("hidden", !hasValue);
-    this.#inputCurrency.classList.toggle("block", hasValue);
-
-    let value = eventTarget?.value;
-
-    if (value.length > 2) {
-      value = value.slice(0, 2);
-    }
-
-    eventTarget.value = value;
-    this.#inputAmountValue = eventTarget.value;
+    Helpers.createCurrencyInInput({
+      parentEl: this.#inputAmountContainer,
+      elementId: "amountGlobal",
+    });
+    this.#currencyEl = document.getElementById("amountGlobal");
   }
 
   #POSTOptions() {
@@ -96,7 +66,7 @@ export class HeaderCalendar extends HeaderLogedIn {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: {
-        amount: this.#inputAmountValue || "",
+        amount: this.#inputAmountEl?.value || "",
       },
     };
   }
@@ -105,17 +75,17 @@ export class HeaderCalendar extends HeaderLogedIn {
     const spinner = new LoadingSpinner("#defaultAmount");
     spinner.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
-    this.#inputAmountValue
-      ? (StateAmount.amount = this.#inputAmountValue)
+    this.#inputAmountEl?.value
+      ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
     spinner.removeSpinner();
   }
 
   #changeAmountEvent() {
-    this.#inputAmountEl?.addEventListener(
-      "input",
-      this.#handleChangeInputCurrency.bind(this)
-    );
+    this.#inputAmountEl?.addEventListener("input", e => {
+      this.#currencyEl && Helpers.handlePrintInputCurrency(e, this.#currencyEl);
+    });
+
     this.#inputAmountEl?.addEventListener(
       "input",
       Helpers.debounce(this.#handleChangeInputAmount.bind(this), 1500)

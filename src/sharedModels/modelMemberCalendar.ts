@@ -14,4 +14,5 @@ export type ModelMemberCalendar = ModelMemberSettings & {
   october: ModelMonth;
   november: ModelMonth;
   december: ModelMonth;
+  summ?: number
 };

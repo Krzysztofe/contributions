@@ -42,7 +42,7 @@ class TableHeadCreator {
       const stickyTh =
         ({
           0: ["bg-primary_dark", "text-accent"],
-          1: ["bg-primary_dark", "sticky", "left-0", "text-accent", "min-w-36"],
+          1: ["bg-primary_dark", "sticky", "left-0", "text-accent", "min-w-24"],
         }[idx] as string[]) ?? [];
 
       th.classList.add(
@@ -247,7 +247,7 @@ export class TableCreator {
     this.#noDataContainerEl.id = "noDataContainer";
     this.#noDataContainerEl.classList.add(
       "text-center",
-      "text-red-500",
+      "text-danger",
       "h-10"
     );
     this.#parentEl?.append(this.#noDataContainerEl);

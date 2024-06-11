@@ -14,7 +14,7 @@ export class FormMemberCreator extends FormCreator {
     this.#errorMemberEl.classList.add(
       "text-xs",
       "h-4",
-      "text-red-500",
+      "text-danger",
       "w-48",
       "md:absolute",
       "md:bottom-1",

@@ -1,9 +1,13 @@
+import { StateAmount } from "../pages/calendar/states/StateAmount";
 import { HttpRequest } from "../services/httpRequest";
 import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
 
 export class Helpers {
+  static currentYear = new Date().getFullYear().toString();
+  static currentMonth = new Date().getMonth() + 1;
+
   static fetchData(requestOptions: ModelRequestOptions) {
     const request = new HttpRequest();
     return request.sendRequest(requestOptions);
@@ -133,7 +137,7 @@ export class Helpers {
     return JSON.stringify(details);
   }
 
-  static tdInnerHtmlPattern(month:  ModelObjectString) {
+  static tdInnerHtmlPattern(month: ModelObjectString) {
     const { id, pay_date, amount, comment, monthNumber } = month;
     const monthDetailsJSON = this.createDataMonthDetails(month);
 
@@ -164,7 +168,45 @@ export class Helpers {
     </div>`;
   }
 
-  static currentYear() {
-    return new Date().getFullYear().toString();
+  static createCurrencyInInput({
+    parentEl,
+    elementId,
+    styles = [],
+  }: {
+    parentEl: HTMLElement;
+    elementId: string;
+    styles?: string[];
+  }) {
+    const currencyEl = document.createElement("span");
+    currencyEl.id = elementId;
+
+    const currencyStyles = StateAmount.amount ? "md:block" : "hidden";
+    currencyEl.innerText = "zł";
+    currencyEl.classList.add(
+      "absolute",
+      "top-1",
+      "left-8",
+      "hidden",
+      currencyStyles
+    );
+    parentEl.append(currencyEl);
+  }
+
+  static handlePrintInputCurrency(e: Event, currencyEl: HTMLElement) {
+    const eventTarget = e.target as HTMLInputElement;
+    let inputAmountValue = eventTarget.value;
+
+    const hasValue = !!inputAmountValue;
+
+    currencyEl.classList.toggle("md:block", hasValue);
+
+    let value = eventTarget?.value;
+
+    if (value.length > 2) {
+      value = value.slice(0, 2);
+    }
+
+    eventTarget.value = value;
+    inputAmountValue = eventTarget.value;
   }
 }

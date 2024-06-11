@@ -32,9 +32,7 @@ body {
 body::-webkit-scrollbar {
   width: 16px;
 }
-/* body::-webkit-scrollbar-thumb {
-  background: red;
-} */
+
 
 .h_sectionTable {
   max-height: calc(100vh - var(--headerHeight) - var(--padingY));

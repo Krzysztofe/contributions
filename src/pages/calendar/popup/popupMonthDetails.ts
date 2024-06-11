@@ -12,6 +12,8 @@ class FormMonthDetailsPrinter {
   #hederEl = document.createElement("h3");
   #monthDetails: ModelMonth | null = null;
   #formEl: HTMLFormElement | null = null;
+  #inputAmountEl: HTMLInputElement | null = null;
+  #currencyEl: HTMLElement | null = null;
   #memberId: string | null | undefined = null;
   #monthNumber: string | null | undefined = null;
   #form = new FormCreator("popupContainer");
@@ -108,10 +110,21 @@ class FormMonthDetailsPrinter {
       inputStyles: ["pr-0", "w-full"],
     });
     this.#formEl = document.querySelector("form");
+    const firstFieldEl = this.#formEl?.querySelector("div");
+    this.#inputAmountEl = document.getElementById("amount") as HTMLInputElement;
+    firstFieldEl &&
+      Helpers.createCurrencyInInput({
+        parentEl: firstFieldEl,
+        elementId: "amountPopup",
+      });
+    this.#currencyEl = document.getElementById("amountPopup");
+    const currencyStyles = StateAmount.amount ? "block" : "hidden";
+    this.#currencyEl?.classList.add(currencyStyles);
     this.#createIconXmark();
     this.#createHeader();
     this.#createIconXmark();
     this.#passValuesToInputs();
+    this.#printCurrencyEvent();
 
     this.#form.createBtn({
       innerText: "Zapisz",
@@ -119,6 +132,12 @@ class FormMonthDetailsPrinter {
     });
 
     this.#monthDetails && new MonthDetailsSubmit(this.#monthDetails);
+  }
+
+  #printCurrencyEvent() {
+    this.#inputAmountEl?.addEventListener("input", e => {
+      this.#currencyEl && Helpers.handlePrintInputCurrency(e, this.#currencyEl);
+    });
   }
 }
 
@@ -160,6 +179,15 @@ export class PopupMonthDetails extends PopupCreator {
       this.#closeCollapse();
       this.createPopupContainetr();
       new FormMonthDetailsPrinter(this.#eventTarget);
+    } else if (
+      StateFillMode.isFast &&
+      dataAtribute !== "member" &&
+      dataAtribute !== "idx" &&
+      !isDataNoActive &&
+      !isIconArrow &&
+      isNestedInTd
+    ) {
+      this.#closeCollapse();
     }
   }
 

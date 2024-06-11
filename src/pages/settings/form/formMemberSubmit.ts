@@ -13,7 +13,6 @@ import { ModelNewMember } from "../../../sharedModels/modelNewMember";
 export class FormMemberSubmit {
   #formEl = document.querySelector("form");
   #errorsElems = document.querySelectorAll(".h-4");
-  #noDataEl = document.getElementById("noDataContainer");
   #formKeys: string[] | null = null;
   #loading = new LoadingTableSettings();
   #formValues: ModelObjectString | null = null;
@@ -83,8 +82,6 @@ export class FormMemberSubmit {
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
 
-console.log('',areErrors)
-
     if (areErrors && areErrors.length > 0) return;
 
     const isMemberRecord = new ValidationMember(
@@ -101,10 +98,11 @@ console.log('',areErrors)
     this.#formKeys = Object.keys(this.#formValues);
     if (this.#validations() !== "go") return;
 
+
     this.#loading.createLoading();
     const newMember = await Helpers.fetchData(this.#POSTOptions());
     const newMembers = this.#createNewMembers(newMember);
-    this.#noDataEl?.remove();
+    document.getElementById("noDataContainer")?.remove();
     StateMembers.setMembers(newMembers);
     new ReprintSettingsPanel();
     this.#formEl?.reset();

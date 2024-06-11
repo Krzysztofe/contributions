@@ -122,7 +122,7 @@ export class FormCreator {
   #createError({ name, errorMsg }: ModelInputData): HTMLElement {
     this.#errorEl = document.createElement("div");
     this.#errorEl.id = `${name}Error`;
-    this.#errorEl.classList.add("text-xs", "h-4", "text-red-500", "mb-1");
+    this.#errorEl.classList.add("text-xs", "h-4", "text-danger", "mb-1");
     this.#errorEl.setAttribute("data-error", errorMsg);
 
     return this.#errorEl;

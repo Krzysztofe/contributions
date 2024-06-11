@@ -11,7 +11,7 @@ export class HttpRequest {
       "place-content-center",
       "h-screen",
       "bg-white_opacity",
-      "text-red-500",
+      "text-danger",
       "fixed",
       "top-0",
       "left-0",

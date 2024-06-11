@@ -14,6 +14,7 @@ export default {
         white_opacity: "rgba(255,255,255,0.8)",
         black_opacity: "rgba(0,0,0,0.4)",
         td_red: "rgb(226, 0, 34, 0.1)",
+        danger: "#ff0101",
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

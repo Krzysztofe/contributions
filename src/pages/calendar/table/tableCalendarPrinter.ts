@@ -22,32 +22,41 @@ export class TableCalendarPrinter {
     "Paź.",
     "Lis.",
     "Gru.",
+    "Suma",
   ];
 
   #dataTableBody = JSON.parse(JSON.stringify(StateCalendar.sortedCalendar)).map(
     (member: ModelMemberCalendar) => {
       delete member.join_date;
+      delete member.summ;
       return member;
+    }
+  );
+
+  #dataTableSumm = JSON.parse(JSON.stringify(StateCalendar.sortedCalendar)).map(
+    (member: ModelMemberCalendar) => {
+      return member.summ;
     }
   );
 
   #table = new TableCalendar("sectionTable");
 
   constructor() {
-    this.#table.createTable([wrapperWidth]);
+    this.#table.createTable([wrapperWidth, "m-auto"]);
     this.#table.createTableHead({
       headers: this.#dataTableHead,
       stylesTh: ["bg-accent", "text-white"],
     });
-
+    this.#table.createSelect();
     this.#table.createTableBody({
       tdDataList: this.#dataTableBody,
       tdInnerHtml: this.#tdInnerHtml.bind(this),
       tdStylesCustom: this.#tdStylesCustom,
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
-    this.#table.createSelect();
+ 
     this.#table.createArrowCollapse();
+    this.#table.createTdSummary(this.#dataTableSumm);
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
   }

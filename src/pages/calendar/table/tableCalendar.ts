@@ -7,6 +7,7 @@ import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { StateCalendar } from "../states/StateCalendar";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
 import { PopupMonthDetails } from "../popup/popupMonthDetails";
+import { StateAmount } from "../states/StateAmount";
 
 class SelectCreator {
   #thDivSelect = document.querySelectorAll(
@@ -27,7 +28,6 @@ class SelectCreator {
       "select-xs",
       "border-0",
       "focus:outline-none",
-      "min-w-24",
       "w-full",
       "bg-primary_dark"
     );
@@ -129,6 +129,7 @@ class CollapseCreator {
 }
 
 export class TableCalendar extends TableCreator {
+  #tbodyEl: NodeListOf<Element> | null = null;
   #amountElems: NodeListOf<Element> | null = null;
   #tdElems: NodeListOf<Element> | null = null;
 
@@ -174,6 +175,34 @@ export class TableCalendar extends TableCreator {
         tdEl.setAttribute("data", "emptyCollapse");
         tdEl.setAttribute("data-not-active", "true");
       }
+    });
+  }
+
+  async createTdSummary(data: any) {
+    await StateAmount.getAmount();
+    const expectedSumOfContributions = StateAmount.amount &&
+      Helpers.currentMonth * parseInt(StateAmount.amount) || 0;
+
+    this.#tbodyEl = document.querySelectorAll("tbody tr");
+    this.#tbodyEl.forEach((tr, idx) => {
+      const summaryAmount = data[idx] - expectedSumOfContributions;
+      const tdEl = document.createElement("td");
+
+   
+
+      const innerText =
+        summaryAmount < 0 ? `${summaryAmount} zł` : `+${summaryAmount} zł`;
+      const textColor = summaryAmount < 0 ? "text-danger" : "text-dark";
+
+      tdEl.innerText = innerText;
+      tdEl.classList.add(
+        "whitespace-nowrap",
+        "min-w-20",
+        "max-w-20",
+        "align-top",
+        textColor
+      );
+      tr.append(tdEl);
     });
   }
 }

@@ -9,7 +9,7 @@ import { PopupMonthDetails } from "./popup/popupMonthDetails";
 
 class CalendarManager {
   GETCalendarOptions = {
-    url: `${URL_CALENDAR}${Helpers.currentYear()}`,
+    url: `${URL_CALENDAR}${Helpers.currentYear}`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
