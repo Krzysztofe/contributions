@@ -7,8 +7,9 @@ import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 import { wrapperWidth } from "../../../data/dataNumbers";
 
 export class TableCalendarPrinter {
+  #membersSum = StateCalendar.sortedCalendar?.length || "";
   #dataTableHead: string[] = [
-    `${StateCalendar.sortedCalendar.length}`,
+    `${this.#membersSum}`,
     "",
     "Sty.",
     "Lut.",
@@ -25,18 +26,26 @@ export class TableCalendarPrinter {
     "Suma",
   ];
 
-  #dataTableBody = JSON.parse(JSON.stringify(StateCalendar.sortedCalendar)).map(
-    (member: ModelMemberCalendar) => {
-      delete member.join_date;
-      delete member.summ;
-      return member;
-    }
-  );
-
+  #dataTableBody =
+    StateCalendar.sortedCalendar &&
+    Helpers.copy(StateCalendar.sortedCalendar).map(
+      (member: ModelMemberCalendar) => {
+        delete member.join_date;
+        delete member.summ;
+        return member;
+      }
+    );
 
   #table = new TableCalendar("sectionTable");
 
   constructor() {
+    if (
+      !StateCalendar.sortedCalendar ||
+      StateCalendar.sortedCalendar.length === 0
+    ) {
+      this.#table.noDataContainer();
+      return;
+    }
     this.#table.createTable([wrapperWidth, "m-auto"]);
     this.#table.createTableHead({
       headers: this.#dataTableHead,
@@ -49,10 +58,10 @@ export class TableCalendarPrinter {
       tdStylesCustom: this.#tdStylesCustom,
       tdSetAtribut: this.#tdSetAtribut.bind(this),
     });
- 
+
     this.#table.createArrowCollapse();
     this.#table.tdElemsBgColor();
-    this.#table.tdJoinDateBgColor();    
+    this.#table.tdJoinDateBgColor();
     this.#table.createTdSum(Helpers.getTableSums());
   }
 

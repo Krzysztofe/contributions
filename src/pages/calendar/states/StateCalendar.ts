@@ -56,10 +56,10 @@ export class StateCalendar {
   }
 
   static setCalendar(members: ModelObjectAny[]) {
-    const createMembersList = members.map((member: ModelObjectAny) => {
+    const createMembersList = members?.map((member: ModelObjectAny) => {
       return this.createMember(member);
     });
 
-    this.sortedCalendar = Helpers.sortList(createMembersList);
+    this.sortedCalendar = createMembersList && Helpers.sortList(createMembersList);
   }
 }

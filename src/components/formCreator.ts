@@ -1,3 +1,5 @@
+import { Helpers } from "../utils/helpers";
+
 type ModelInputData = {
   name: string;
   type: string;
@@ -89,6 +91,10 @@ export class FormCreator {
     if (inputType === "number") {
       this.#inputEl.setAttribute("min", "0");
       this.#inputEl.setAttribute("max", "99");
+    }
+
+    if (inputType === "month") {
+      this.#inputEl.setAttribute("max", Helpers.getCurrentMonth());
     }
   }
 

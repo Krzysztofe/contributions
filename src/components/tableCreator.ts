@@ -243,7 +243,7 @@ export class TableCreator {
   }
 
   noDataContainer() {
-    this.#noDataContainerEl.innerText = "Brak danych";
+    this.#noDataContainerEl.innerText = "Brak zapisanych danych";
     this.#noDataContainerEl.id = "noDataContainer";
     this.#noDataContainerEl.classList.add(
       "text-center",

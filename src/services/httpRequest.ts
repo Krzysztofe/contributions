@@ -1,11 +1,11 @@
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
 
 export class HttpRequest {
-  #createErrorPage = (err: string) => {
+  #createErrorPage = () => {
     const body = document.querySelector("body");
     if (!body) return;
     const errorContainer = document.createElement("div");
-    errorContainer.innerText = err;
+    errorContainer.innerText = "Błąd. Ponów próbę";
     errorContainer.classList.add(
       "grid",
       "place-content-center",
@@ -52,7 +52,7 @@ export class HttpRequest {
         return data;
       }
     } catch (err: any) {
-      this.#createErrorPage(err.message);
+      this.#createErrorPage();
     }
   }
 }

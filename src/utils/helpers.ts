@@ -8,7 +8,14 @@ import { StateCalendar } from "../pages/calendar/states/StateCalendar";
 
 export class Helpers {
   static currentYear = new Date().getFullYear().toString();
-  static currentMonth = new Date().getMonth() + 1;
+  static currentMonthInNumber = new Date().getMonth() + 1;
+
+  static getCurrentMonth(){
+    const currentDate = new Date();
+    const year = new Date().getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); 
+    return `${year}-${month}`;
+  }
 
   static copy(object: ModelObjectAny) {
     return JSON.parse(JSON.stringify(object));

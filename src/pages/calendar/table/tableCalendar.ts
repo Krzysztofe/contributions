@@ -132,7 +132,7 @@ export class TableCalendar extends TableCreator {
   #trElems: NodeListOf<Element> | null = null;
   #amountElems: NodeListOf<Element> | null = null;
   #tdElems: NodeListOf<Element> | null = null;
-  #tdNotActiveElems: NodeListOf<Element> | null = null;
+  // #tdNotActiveElems: NodeListOf<Element> | null = null;
 
   constructor(parentEl: string) {
     super(parentEl);
@@ -163,7 +163,7 @@ export class TableCalendar extends TableCreator {
       const joinDate = tdEl.getAttribute("data-join-date");
       const monthDetails = tdEl.getAttribute("data-month-details");
       const number = monthDetails && JSON.parse(monthDetails).monthNumber;
-      const monthNumber = number < 10 ? "0" + number : number;
+      const monthNumber = number.padStart(2, "0");
       const tdDate = `${StateYear.year}-${monthNumber}`;
 
       const joinDateCompare = new Date(joinDate + "-01");
@@ -182,7 +182,7 @@ export class TableCalendar extends TableCreator {
   createTdSum(payedSum: number[]) {
     const currentSumOfContrib =
       (StateAmount.amount &&
-        Helpers.currentMonth * parseInt(StateAmount.amount)) ||
+        Helpers.currentMonthInNumber * parseInt(StateAmount.amount)) ||
       0;
 
     this.#trElems = document.querySelectorAll("tbody tr");
