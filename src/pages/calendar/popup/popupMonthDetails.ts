@@ -116,6 +116,7 @@ class FormMonthDetailsPrinter {
       Helpers.createCurrencyInInput({
         parentEl: firstFieldEl,
         elementId: "amountPopup",
+        styles: "block",
       });
     this.#currencyEl = document.getElementById("amountPopup");
     const currencyStyles = StateAmount.amount ? "block" : "hidden";
@@ -136,7 +137,12 @@ class FormMonthDetailsPrinter {
 
   #printCurrencyEvent() {
     this.#inputAmountEl?.addEventListener("input", e => {
-      this.#currencyEl && Helpers.handlePrintInputCurrency(e, this.#currencyEl);
+      this.#currencyEl &&
+        Helpers.handlePrintInputCurrency({
+          e: e,
+          currencyEl: this.#currencyEl,
+          styles:"block",
+        });
     });
   }
 }

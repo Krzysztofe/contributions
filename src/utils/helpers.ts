@@ -1,12 +1,18 @@
+import { ModelObjectAny } from "./../sharedModels/modelObjectAny";
+import { ModelMemberCalendar } from "./../sharedModels/modelMemberCalendar";
 import { StateAmount } from "../pages/calendar/states/StateAmount";
 import { HttpRequest } from "../services/httpRequest";
-import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
+import { StateCalendar } from "../pages/calendar/states/StateCalendar";
 
 export class Helpers {
   static currentYear = new Date().getFullYear().toString();
   static currentMonth = new Date().getMonth() + 1;
+
+  static copy(object: ModelObjectAny) {
+    return JSON.parse(JSON.stringify(object));
+  }
 
   static fetchData(requestOptions: ModelRequestOptions) {
     const request = new HttpRequest();
@@ -171,34 +177,43 @@ export class Helpers {
   static createCurrencyInInput({
     parentEl,
     elementId,
-    styles = [],
+    styles,
   }: {
     parentEl: HTMLElement;
     elementId: string;
-    styles?: string[];
+    styles: string;
   }) {
     const currencyEl = document.createElement("span");
     currencyEl.id = elementId;
 
-    const currencyStyles = StateAmount.amount ? "md:block" : "hidden";
+    const currencyStyles = StateAmount.amount ? styles : "hidden";
     currencyEl.innerText = "zł";
     currencyEl.classList.add(
       "absolute",
       "top-1",
       "left-8",
-      "hidden",
+      `${styles === "block" ? null : "hidden"}`,
       currencyStyles
     );
     parentEl.append(currencyEl);
   }
 
-  static handlePrintInputCurrency(e: Event, currencyEl: HTMLElement) {
+  static handlePrintInputCurrency({
+    e,
+    currencyEl,
+    styles,
+  }: {
+    e: Event;
+    currencyEl: HTMLElement;
+    styles: string;
+  }) {
     const eventTarget = e.target as HTMLInputElement;
     let inputAmountValue = eventTarget.value;
 
     const hasValue = !!inputAmountValue;
 
-    currencyEl.classList.toggle("md:block", hasValue);
+    currencyEl.classList.toggle(styles, hasValue);
+    styles === "block" && currencyEl.classList.toggle("hidden", !hasValue);
 
     let value = eventTarget?.value;
 
@@ -208,5 +223,13 @@ export class Helpers {
 
     eventTarget.value = value;
     inputAmountValue = eventTarget.value;
+  }
+
+  static getTableSums() {
+    return this.copy(StateCalendar.sortedCalendar).map(
+      (member: ModelMemberCalendar) => {
+        return member.summ;
+      }
+    );
   }
 }

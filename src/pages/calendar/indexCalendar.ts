@@ -6,6 +6,7 @@ import { HeaderCalendar } from "./headerCalendar/headerCalendar";
 import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
 import { PopupMonthDetails } from "./popup/popupMonthDetails";
+import { StateAmount } from "./states/StateAmount";
 
 class CalendarManager {
   GETCalendarOptions = {
@@ -22,11 +23,12 @@ class CalendarManager {
   async #init() {
     Helpers.isUserLoged();
     new LoadigPageCreator();
+    await StateAmount.getAmount();
     new HeaderCalendar(["flex", "items-center"]);
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
-    new PopupMonthDetails()
+    new PopupMonthDetails();
     new AutoLogoutCreator();
   }
 }

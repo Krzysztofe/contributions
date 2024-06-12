@@ -33,11 +33,6 @@ export class TableCalendarPrinter {
     }
   );
 
-  #dataTableSumm = JSON.parse(JSON.stringify(StateCalendar.sortedCalendar)).map(
-    (member: ModelMemberCalendar) => {
-      return member.summ;
-    }
-  );
 
   #table = new TableCalendar("sectionTable");
 
@@ -56,9 +51,9 @@ export class TableCalendarPrinter {
     });
  
     this.#table.createArrowCollapse();
-    this.#table.createTdSummary(this.#dataTableSumm);
     this.#table.tdElemsBgColor();
-    this.#table.tdJoinDateBgColor();
+    this.#table.tdJoinDateBgColor();    
+    this.#table.createTdSum(Helpers.getTableSums());
   }
 
   #tdStylesCustom(idx?: number) {

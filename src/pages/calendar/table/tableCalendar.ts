@@ -129,9 +129,10 @@ class CollapseCreator {
 }
 
 export class TableCalendar extends TableCreator {
-  #tbodyEl: NodeListOf<Element> | null = null;
+  #trElems: NodeListOf<Element> | null = null;
   #amountElems: NodeListOf<Element> | null = null;
   #tdElems: NodeListOf<Element> | null = null;
+  #tdNotActiveElems: NodeListOf<Element> | null = null;
 
   constructor(parentEl: string) {
     super(parentEl);
@@ -178,28 +179,34 @@ export class TableCalendar extends TableCreator {
     });
   }
 
-  async createTdSummary(data: any) {
-    await StateAmount.getAmount();
-    const expectedSumOfContributions = StateAmount.amount &&
-      Helpers.currentMonth * parseInt(StateAmount.amount) || 0;
+  createTdSum(payedSum: number[]) {
+    const currentSumOfContrib =
+      (StateAmount.amount &&
+        Helpers.currentMonth * parseInt(StateAmount.amount)) ||
+      0;
 
-    this.#tbodyEl = document.querySelectorAll("tbody tr");
-    this.#tbodyEl.forEach((tr, idx) => {
-      const summaryAmount = data[idx] - expectedSumOfContributions;
+    this.#trElems = document.querySelectorAll("tbody tr");
+
+    this.#trElems.forEach((tr, idx) => {
+      const tdNotActiveElemsSum =
+        tr.querySelectorAll("[data-not-active]").length *
+        parseInt(StateAmount.amount);
+
+      const sumToPay = currentSumOfContrib - tdNotActiveElemsSum;
+
+      const summaryAmount = payedSum[idx] - sumToPay;
       const tdEl = document.createElement("td");
-
-   
-
-      const innerText =
-        summaryAmount < 0 ? `${summaryAmount} zł` : `+${summaryAmount} zł`;
+      tdEl.setAttribute("data", "sum")
       const textColor = summaryAmount < 0 ? "text-danger" : "text-dark";
 
-      tdEl.innerText = innerText;
+      tdEl.innerText =
+        summaryAmount < 0 ? `${summaryAmount} zł` : `+${summaryAmount} zł`;
       tdEl.classList.add(
         "whitespace-nowrap",
         "min-w-20",
         "max-w-20",
         "align-top",
+        "pt-2",
         textColor
       );
       tr.append(tdEl);

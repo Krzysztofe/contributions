@@ -6,6 +6,7 @@ import { StateAmount } from "../states/StateAmount";
 import { ListHeaderLeftSide } from "../listHeaderLeftSide/listHeaderLeftSide";
 import { dataListLeftSide } from "../listHeaderLeftSide/dataListLeftSide";
 import { dataInputAmount } from "./dataInputAmount";
+import { ReprintTdSum } from "../reprintTdSum";
 
 export class HeaderCalendar extends HeaderLogedIn {
   #leftSideContainerEl = document.createElement("div");
@@ -16,7 +17,7 @@ export class HeaderCalendar extends HeaderLogedIn {
   constructor(styles: string[]) {
     super(styles);
     this.#createLeftSideContainer();
-    this.#changeAmountEvent();
+    this.#changeAmountEvents();
   }
 
   #createLeftSideContainer() {
@@ -49,11 +50,11 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#inputAmountEl = document.getElementById(
       "defaultAmount"
     ) as HTMLInputElement;
-    await StateAmount.getAmount();
     this.#inputAmountEl.value = StateAmount.amount;
     Helpers.createCurrencyInInput({
       parentEl: this.#inputAmountContainer,
       elementId: "amountGlobal",
+      styles: "md:block",
     });
     this.#currencyEl = document.getElementById("amountGlobal");
   }
@@ -78,12 +79,18 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#inputAmountEl?.value
       ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
+    new ReprintTdSum();
     spinner.removeSpinner();
   }
 
-  #changeAmountEvent() {
+  #changeAmountEvents() {
     this.#inputAmountEl?.addEventListener("input", e => {
-      this.#currencyEl && Helpers.handlePrintInputCurrency(e, this.#currencyEl);
+      this.#currencyEl &&
+        Helpers.handlePrintInputCurrency({
+          e: e,
+          currencyEl: this.#currencyEl,
+          styles: "md:block",
+        });
     });
 
     this.#inputAmountEl?.addEventListener(
