@@ -62,7 +62,7 @@ export class TableCalendarPrinter {
     this.#table.createArrowCollapse();
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
-    this.#table.createTdSum(Helpers.getTableSums());
+    this.#table.createTdSums(Helpers.getTableSums());
   }
 
   #tdStylesCustom(idx?: number) {

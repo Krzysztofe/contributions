@@ -6,7 +6,7 @@ import { StateAmount } from "../states/StateAmount";
 import { ListHeaderLeftSide } from "../listHeaderLeftSide/listHeaderLeftSide";
 import { dataListLeftSide } from "../listHeaderLeftSide/dataListLeftSide";
 import { dataInputAmount } from "./dataInputAmount";
-import { ReprintTdSum } from "../reprintTdSum";
+import { ReprintAllTdSums } from "./reprintAllTdSums";
 
 export class HeaderCalendar extends HeaderLogedIn {
   #leftSideContainerEl = document.createElement("div");
@@ -79,7 +79,7 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#inputAmountEl?.value
       ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
-    new ReprintTdSum();
+    new ReprintAllTdSums();
     spinner.removeSpinner();
   }
 

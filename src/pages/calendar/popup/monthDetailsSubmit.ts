@@ -3,8 +3,9 @@ import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { StateYear } from "../states/StateYear";
-import { ReprintTableCalendar } from "../table/reprintTableCalendar";
+import { ReprintTdInCalendar } from "../table/reprintTdInCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
+import { ReprintTdSum } from "../reprintTdSum";
 
 export class MonthDetailsSubmit {
   #formEl = document.querySelector("form");
@@ -12,12 +13,14 @@ export class MonthDetailsSubmit {
   #memberId: string | null = null;
   #monthNumber: string | null = null;
   #monthDetails: ModelMonth | null = null;
+  #dataAtributeId: string | null = null;
   #btnLoader = new LoadingButtonCreator("btnSubmit");
 
   constructor(monthDetails: ModelMonth) {
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
     this.#monthDetails = monthDetails;
+    this.#dataAtributeId = `${monthDetails.id}_${monthDetails.monthNumber}`;
     this.#submetEvent();
   }
 
@@ -57,8 +60,10 @@ export class MonthDetailsSubmit {
     await Helpers.fetchData(this.#POSTOptions());
     const newMonth = this.#newMonth();
     if (newMonth) {
-      new ReprintTableCalendar(newMonth);
+      new ReprintTdInCalendar(newMonth);
     }
+
+    new ReprintTdSum(this.#dataAtributeId, this.#formValues?.amount);
     document.getElementById("popupContainer")?.remove();
   }
 

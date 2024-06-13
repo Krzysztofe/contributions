@@ -123,7 +123,6 @@ class FormMonthDetailsPrinter {
     this.#currencyEl?.classList.add(currencyStyles);
     this.#createIconXmark();
     this.#createHeader();
-    this.#createIconXmark();
     this.#passValuesToInputs();
     this.#printCurrencyEvent();
 
@@ -141,7 +140,7 @@ class FormMonthDetailsPrinter {
         Helpers.handlePrintInputCurrency({
           e: e,
           currencyEl: this.#currencyEl,
-          styles:"block",
+          styles: "block",
         });
     });
   }
@@ -166,7 +165,7 @@ export class PopupMonthDetails extends PopupCreator {
     });
   }
 
-  #printPopup(e: Event) {
+  #handlePrintPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
@@ -178,6 +177,7 @@ export class PopupMonthDetails extends PopupCreator {
       !StateFillMode.isFast &&
       dataAtribute !== "member" &&
       dataAtribute !== "idx" &&
+      dataAtribute !== "sum" &&
       !isDataNoActive &&
       !isIconArrow &&
       isNestedInTd
@@ -198,6 +198,9 @@ export class PopupMonthDetails extends PopupCreator {
   }
 
   #printPopupEvent() {
-    this.tableBodyEl?.addEventListener("click", this.#printPopup.bind(this));
+    this.tableBodyEl?.addEventListener(
+      "click",
+      this.#handlePrintPopup.bind(this)
+    );
   }
 }

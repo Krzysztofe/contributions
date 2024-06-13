@@ -189,21 +189,28 @@ class TableBodyCreator {
   }
 
   #createBtnsContainer(tableRowId: any, icons: any) {
-    const btnsContainer = document.createElement("td");
-    btnsContainer.classList.add(
+    const tdEL= document.createElement("td");
+    tdEL.classList.add("border", "border-primary_dark");
+
+    const btnsContainerEL = document.createElement("div");
+
+    btnsContainerEL.classList.add(
       "min-w-24",
-      "text-center",
-      "border",
-      "border-primary_dark"
+      "h-full",
+      "md:flex",
+      "md:justify-center",
+      "gap-2",
     );
+    
     icons.forEach((icon: any) => {
       const btnIcon = document.createElement("button");
       this.#memberId && (btnIcon.id = this.#memberId);
       btnIcon.setAttribute("data-row-id", tableRowId);
       btnIcon.classList.add("fa", icon, "text-dark");
-      btnsContainer.append(btnIcon);
+      btnsContainerEL.append(btnIcon);
     });
-    this.#trEl?.append(btnsContainer);
+    tdEL.append(btnsContainerEL)
+    this.#trEl?.append(tdEL);
   }
 
   #createTableBody({

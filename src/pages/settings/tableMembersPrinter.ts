@@ -30,7 +30,7 @@ export class TableMembersPrinter {
 
     this.#table.createTableBody({
       tdDataList: sortedMembers,
-      icons: ["fa-trash"],
+      icons: ["fa-pen-to-square", "fa-trash"],
       tdInnerHtml: this.#tdInnerHtml,
       tdStyles: ["whitespace-nowrap"],
     });

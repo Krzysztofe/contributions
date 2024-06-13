@@ -22,7 +22,7 @@ export class PopupCreator {
     this.bodyEl?.append(this.popupContainer);
   }
 
-  #removePopup(e: Event) {
+  #handleRremovePopup(e: Event) {
     const eventTarget = e.target as HTMLElement;
 
     if (
@@ -35,7 +35,7 @@ export class PopupCreator {
   #removePopupEvent() {
     this.popupContainer?.addEventListener(
       "click",
-      this.#removePopup.bind(this)
+      this.#handleRremovePopup.bind(this)
     );
   }
 }

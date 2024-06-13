@@ -8,7 +8,7 @@ export class AlertCreator {
   #rowId: string | null = null;
   #memberId: string | null = null;
   #modalEl: HTMLDialogElement | null = null;
-  #eventTarget: HTMLElement | null =  null
+  #eventTarget: HTMLElement | null = null;
 
   constructor() {
     this.printAlertEvent();
@@ -60,7 +60,7 @@ export class AlertCreator {
     this.#rowId = this.#eventTarget.getAttribute("data-row-id");
     this.#memberId = this.#eventTarget.id;
 
-    if (this.#rowId) {
+    if (this.#rowId && this.#eventTarget.classList.value.includes("fa-trash")) {
       const memberName = document.getElementById(this.#rowId)?.children[1]
         .textContent;
       memberName && this.createModal(memberName);

@@ -8,6 +8,7 @@ import { StateCalendar } from "../states/StateCalendar";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
 import { PopupMonthDetails } from "../popup/popupMonthDetails";
 import { StateAmount } from "../states/StateAmount";
+import { StateSum } from "../states/stateSum";
 
 class SelectCreator {
   #thDivSelect = document.querySelectorAll(
@@ -179,7 +180,43 @@ export class TableCalendar extends TableCreator {
     });
   }
 
-  createTdSum(payedSum: number[]) {
+  createTdSum(
+    payedSums: number[],
+    currentSumOfContrib: number,
+    idx: number,
+    tr: Element
+  ) {
+    const tdNotActiveElemsSum =
+      tr.querySelectorAll("[data-not-active]").length *
+      parseInt(StateAmount.amount);
+
+    const sumToPay = currentSumOfContrib - tdNotActiveElemsSum;
+    const summaryAmount = payedSums[idx] - sumToPay;
+    const tdEl = document.createElement("td");
+    tdEl.setAttribute("data", "sum");
+    tdEl.setAttribute("data-sum-to-pay", sumToPay.toString());
+    const textColor = summaryAmount < 0 ? "text-danger" : "text-dark";
+
+    if (summaryAmount < 0) {
+      tdEl.innerText = `${summaryAmount} zł`;
+    } else if (summaryAmount > 0) {
+      tdEl.innerText = `+${summaryAmount} zł`;
+    } else {
+      tdEl.innerText = `\u00A0 ${summaryAmount} zł`;
+    }
+
+    tdEl.classList.add(
+      "whitespace-nowrap",
+      "min-w-20",
+      "max-w-20",
+      "align-top",
+      "pt-2",
+      textColor
+    );
+    tr.append(tdEl);
+  }
+
+  createTdSums(payedSums: number[]) {
     const currentSumOfContrib =
       (StateAmount.amount &&
         Helpers.currentMonthInNumber * parseInt(StateAmount.amount)) ||
@@ -188,28 +225,7 @@ export class TableCalendar extends TableCreator {
     this.#trElems = document.querySelectorAll("tbody tr");
 
     this.#trElems.forEach((tr, idx) => {
-      const tdNotActiveElemsSum =
-        tr.querySelectorAll("[data-not-active]").length *
-        parseInt(StateAmount.amount);
-
-      const sumToPay = currentSumOfContrib - tdNotActiveElemsSum;
-
-      const summaryAmount = payedSum[idx] - sumToPay;
-      const tdEl = document.createElement("td");
-      tdEl.setAttribute("data", "sum")
-      const textColor = summaryAmount < 0 ? "text-danger" : "text-dark";
-
-      tdEl.innerText =
-        summaryAmount < 0 ? `${summaryAmount} zł` : `+${summaryAmount} zł`;
-      tdEl.classList.add(
-        "whitespace-nowrap",
-        "min-w-20",
-        "max-w-20",
-        "align-top",
-        "pt-2",
-        textColor
-      );
-      tr.append(tdEl);
+      this.createTdSum(payedSums, currentSumOfContrib, idx, tr);
     });
   }
 }

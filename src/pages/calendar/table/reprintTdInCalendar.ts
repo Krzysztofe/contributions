@@ -3,7 +3,7 @@ import { ModelMonth } from "../../../sharedModels/modelMonth";
 
 type ModelNewMonth = Omit<ModelMonth, "join_date">;
 
-export class ReprintTableCalendar {
+export class ReprintTdInCalendar {
   #newMonth: ModelNewMonth | null = null;
   #tdEl: HTMLElement | null = null;
 
