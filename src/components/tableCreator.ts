@@ -197,9 +197,9 @@ class TableBodyCreator {
     btnsContainerEL.classList.add(
       "min-w-24",
       "h-full",
-      "md:flex",
-      "md:justify-center",
-      "gap-2",
+      "flex",
+      "justify-center",
+      "gap-6",
     );
     
     icons.forEach((icon: any) => {

@@ -4,18 +4,19 @@ import { dataMemberFields } from "../form/dataMemberFields";
 import { MemberEditSubmit } from "./memberEditSubmit";
 
 class FormMemberEditPrinter {
-  #form = new FormCreator("popupContainer");
-  #eventTarget: HTMLElement | null = null;
+  #form = new FormCreator("popupInnerContainer");
+  // #eventTarget: HTMLElement | null = null;
 
   constructor(eventTarget: HTMLElement) {
-    this.#eventTarget = eventTarget;
+    // this.#eventTarget = eventTarget;
+    console.log('',eventTarget)
     this.#createForm();
   }
 
   #passValuesToInputs() {
-    const inputsElems = document
-      .getElementById("popupMemberEdit")
-      ?.querySelectorAll("input");
+    // const inputsElems = document
+    //   .getElementById("popupMemberEdit")
+    //   ?.querySelectorAll("input");
 
     // const tdInternalElems = document.querySelectorAll(
     //   `[data-month-id="${this.#memberId}_${this.#monthNumber}"]`
@@ -37,20 +38,7 @@ class FormMemberEditPrinter {
     document.getElementById("popupMemberEdit")?.remove();
     this.#form.createForm({
       formId: "popupMemberEdit",
-      styles: [
-        "flex",
-        "flex-col",
-        "sm:bg-white",
-        "sm:border",
-        "px-16",
-        "py-8",
-        "max-w-96",
-        "m-auto",
-        "rounded-sm",
-        "bg-white",
-        "relative",
-        "mt-14",
-      ],
+      styles: ["flex", "flex-col", "m-auto"],
     });
     this.#form.createFields({
       inputsData: dataMemberFields,

@@ -6,9 +6,10 @@ import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { MonthDetailsSubmit } from "./monthDetailsSubmit";
 import { StateAmount } from "../states/StateAmount";
+import { HandleUpdateMonthAmount } from "./handleUpdateMonthAmount";
+import { ReprintAmountInMontch } from "./reprintAmountInMonth";
 
 class FormMonthDetailsPrinter {
-  #xmarkEL = document.createElement("i");
   #hederEl = document.createElement("h3");
   #monthDetails: ModelMonth | null = null;
   #formEl: HTMLFormElement | null = null;
@@ -16,27 +17,12 @@ class FormMonthDetailsPrinter {
   #currencyEl: HTMLElement | null = null;
   #memberId: string | null | undefined = null;
   #monthNumber: string | null | undefined = null;
-  #form = new FormCreator("popupContainer");
+  #form = new FormCreator("popupInnerContainer");
   #eventTarget: HTMLElement | null = null;
 
   constructor(eventTarget: HTMLElement) {
     this.#eventTarget = eventTarget;
     this.#createForm();
-  }
-
-  #createIconXmark() {
-    this.#xmarkEL.classList.add(
-      "fa-solid",
-      "fa-xmark",
-      "absolute",
-      "top-0",
-      "right-0",
-      "px-5",
-      "py-3",
-      "text-2xl",
-      "cursor-pointer"
-    );
-    document.querySelector("form")?.prepend(this.#xmarkEL);
   }
 
   #createHeader() {
@@ -90,20 +76,7 @@ class FormMonthDetailsPrinter {
     document.querySelector("form")?.remove();
     this.#form.createForm({
       formId: "popupMonthDetails",
-      styles: [
-        "flex",
-        "flex-col",
-        "sm:bg-white",
-        "sm:border",
-        "px-16",
-        "py-8",
-        "max-w-96",
-        "m-auto",
-        "rounded-sm",
-        "bg-white",
-        "relative",
-        "mt-14",
-      ],
+      styles: ["flex", "flex-col", "m-auto"],
     });
     this.#form.createFields({
       inputsData: dataPopupFields,
@@ -121,7 +94,6 @@ class FormMonthDetailsPrinter {
     this.#currencyEl = document.getElementById("amountPopup");
     const currencyStyles = StateAmount.amount ? "block" : "hidden";
     this.#currencyEl?.classList.add(currencyStyles);
-    this.#createIconXmark();
     this.#createHeader();
     this.#passValuesToInputs();
     this.#printCurrencyEvent();
@@ -194,6 +166,8 @@ export class PopupMonthDetails extends PopupCreator {
       isNestedInTd
     ) {
       this.#closeCollapse();
+      new HandleUpdateMonthAmount(this.#eventTarget);
+  
     }
   }
 

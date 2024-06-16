@@ -63,7 +63,7 @@ export class MonthDetailsSubmit {
       new ReprintTdInCalendar(newMonth);
     }
 
-    new ReprintTdSum(this.#dataAtributeId, this.#formValues?.amount);
+    new ReprintTdSum(this.#dataAtributeId);
     document.getElementById("popupContainer")?.remove();
   }
 

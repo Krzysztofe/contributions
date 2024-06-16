@@ -1,9 +1,45 @@
 export class PopupCreator {
   protected bodyEl = document.querySelector("body");
+  #xmarkEL = document.createElement("i");
+  #innerContainerEl = document.createElement("div");
   protected popupContainer = document.createElement("div");
 
   constructor() {
     this.#removePopupEvent();
+  }
+
+  #createIconXmark() {
+    this.#xmarkEL.classList.add(
+      "fa-solid",
+      "fa-xmark",
+      "absolute",
+      "top-0",
+      "right-0",
+      "px-5",
+      "py-3",
+      "text-2xl",
+      "cursor-pointer"
+    );
+    this.#innerContainerEl?.prepend(this.#xmarkEL);
+  }
+
+  #createPopupInnerContainer() {
+     this.#innerContainerEl.id = "popupInnerContainer"
+    this.#innerContainerEl.classList.add(
+      "px-16",
+      "py-8",
+      "sm:bg-white",
+      "sm:border",
+      "max-w-96",
+      "m-auto",
+      "rounded-sm",
+      "bg-white",
+      "relative",
+      "mt-14"
+    );
+
+    this.popupContainer.append(this.#innerContainerEl);
+    this.#createIconXmark();
   }
 
   protected createPopupContainetr() {
@@ -20,6 +56,7 @@ export class PopupCreator {
       "z-50"
     );
     this.bodyEl?.append(this.popupContainer);
+    this.#createPopupInnerContainer();
   }
 
   #handleRremovePopup(e: Event) {

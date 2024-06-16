@@ -7,7 +7,6 @@ import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
 import { PopupMonthDetails } from "./popup/popupMonthDetails";
 import { StateAmount } from "./states/StateAmount";
-import { LoadingTableCreator } from "../../components/loadingsCreators/loadingTableCreator";
 
 class CalendarManager {
   GETCalendarOptions = {

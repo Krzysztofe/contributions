@@ -8,7 +8,6 @@ import { StateCalendar } from "../states/StateCalendar";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
 import { PopupMonthDetails } from "../popup/popupMonthDetails";
 import { StateAmount } from "../states/StateAmount";
-import { StateSum } from "../states/stateSum";
 
 class SelectCreator {
   #thDivSelect = document.querySelectorAll(
@@ -79,6 +78,7 @@ class CollapseCreator {
 
   #createArrowInCollapse() {
     this.#tdFullnameElems.forEach(fullnameEl => {
+      fullnameEl.classList.add("pr-5");
       const areEmptyCollapses =
         fullnameEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
           .length === 12;
@@ -86,16 +86,19 @@ class CollapseCreator {
       const icon = document.createElement("i");
       const isIconVisible = areEmptyCollapses ? "invisible" : "visible";
       icon.classList.add(
+        "absolute",
+        "right-2",
+        "top-3",
         "fa-solid",
         "fa-chevron-down",
         "text-[0.5rem]",
-        "mr-1",
+        "ml-auto",
         "transition",
         "duration-300",
         isIconVisible
       );
       icon.setAttribute("data-parent-id", fullnameEl.id);
-      fullnameEl.prepend(icon);
+      fullnameEl.append(icon);
     });
   }
 

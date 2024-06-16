@@ -52,6 +52,7 @@ export class HttpRequest {
         return data;
       }
     } catch (err: any) {
+    
       this.#createErrorPage();
     }
   }
