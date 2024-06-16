@@ -159,6 +159,7 @@ class TableBodyCreator {
               "before:h-full",
               "before:bg-primary_dark",
               "cursor-pointer",
+              "z-20"
             ]
           : [];
 
@@ -173,7 +174,9 @@ class TableBodyCreator {
         });
 
       td.classList.add(
+        "relative",
         "border",
+        "border-1",
         "border-primary_dark",
         "align-top",
         "py-2",
@@ -189,7 +192,7 @@ class TableBodyCreator {
   }
 
   #createBtnsContainer(tableRowId: any, icons: any) {
-    const tdEL= document.createElement("td");
+    const tdEL = document.createElement("td");
     tdEL.classList.add("border", "border-primary_dark");
 
     const btnsContainerEL = document.createElement("div");
@@ -199,9 +202,9 @@ class TableBodyCreator {
       "h-full",
       "flex",
       "justify-center",
-      "gap-6",
+      "gap-6"
     );
-    
+
     icons.forEach((icon: any) => {
       const btnIcon = document.createElement("button");
       this.#memberId && (btnIcon.id = this.#memberId);
@@ -209,7 +212,7 @@ class TableBodyCreator {
       btnIcon.classList.add("fa", icon, "text-dark");
       btnsContainerEL.append(btnIcon);
     });
-    tdEL.append(btnsContainerEL)
+    tdEL.append(btnsContainerEL);
     this.#trEl?.append(tdEL);
   }
 
@@ -252,11 +255,7 @@ export class TableCreator {
   noDataContainer() {
     this.#noDataContainerEl.innerText = "Brak zapisanych danych";
     this.#noDataContainerEl.id = "noDataContainer";
-    this.#noDataContainerEl.classList.add(
-      "text-center",
-      "text-danger",
-      "h-10"
-    );
+    this.#noDataContainerEl.classList.add("text-center", "text-danger", "h-10");
     this.#parentEl?.append(this.#noDataContainerEl);
   }
 

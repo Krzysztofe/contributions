@@ -23,7 +23,7 @@ export class ReprintAmountInMontch {
       if (firstElem) {
         const isAmountZero = parseInt(StateAmount.amount) === 0;
         firstElem.classList.toggle("bg-td_red", isAmountZero);
-        firstElem.classList.toggle("bg-white", !isAmountZero);
+        firstElem.classList.toggle("inherit", !isAmountZero);
       }
   }
 }

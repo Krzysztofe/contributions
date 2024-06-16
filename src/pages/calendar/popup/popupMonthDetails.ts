@@ -137,7 +137,7 @@ export class PopupMonthDetails extends PopupCreator {
     });
   }
 
-  #handlePrintPopup(e: Event) {
+  #handleUpdateMonth(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAtribute = this.#eventTarget?.getAttribute("data");
@@ -174,7 +174,7 @@ export class PopupMonthDetails extends PopupCreator {
   #printPopupEvent() {
     this.tableBodyEl?.addEventListener(
       "click",
-      this.#handlePrintPopup.bind(this)
+      this.#handleUpdateMonth.bind(this)
     );
   }
 }

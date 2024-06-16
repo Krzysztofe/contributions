@@ -2,8 +2,8 @@ export class LoadingSpinner {
   #parentEl: HTMLButtonElement | null;
   #spinner: HTMLElement | null = null;
 
-  constructor(elementId: string) {
-    this.#parentEl = document.querySelector(elementId) as HTMLButtonElement;
+  constructor(parentEl: string) {
+    this.#parentEl = document.querySelector(parentEl) as HTMLButtonElement;
   }
 
   createSpinner() {
