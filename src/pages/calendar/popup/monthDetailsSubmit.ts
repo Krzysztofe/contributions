@@ -6,12 +6,14 @@ import { StateYear } from "../states/StateYear";
 import { ReprintTdInCalendar } from "../table/reprintTdInCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 import { ReprintTdSum } from "../reprintTdSum";
+import { StateCalendar } from "../states/StateCalendar";
 
 export class MonthDetailsSubmit {
   #formEl = document.querySelector("form");
   #formValues: ModelObjectString | null = null;
   #memberId: string | null = null;
   #monthNumber: string | null = null;
+  #monthName: string | null = null;
   #monthDetails: ModelMonth | null = null;
   #dataAtributeId: string | null = null;
   #btnLoader = new LoadingButtonCreator("btnSubmit");
@@ -19,6 +21,9 @@ export class MonthDetailsSubmit {
   constructor(monthDetails: ModelMonth) {
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
+    this.#monthName =
+      (this.#monthNumber && Helpers.numberOnMonthEnglish(this.#monthNumber)) ||
+      "";
     this.#monthDetails = monthDetails;
     this.#dataAtributeId = `${monthDetails.id}_${monthDetails.monthNumber}`;
     this.#submetEvent();
@@ -56,6 +61,15 @@ export class MonthDetailsSubmit {
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
     this.#formValues = Helpers.getFormValues(e);
+
+    if (this.#memberId && this.#monthName) {
+      StateCalendar.setPayedSum(
+        this.#memberId,
+        this.#formValues?.amount,
+        this.#monthName
+      );
+    }
+
     this.#btnLoader.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
     const newMonth = this.#newMonth();

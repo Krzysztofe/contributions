@@ -1,6 +1,5 @@
 import { URL_AMOUNT_GLOBAL } from "../../../data/dataUrl";
 import { HeaderLogedIn } from "../../../components/headerCreator/headerLogedIn/headerLogedIn";
-import { LoadingSpinner } from "../../../components/loadingsCreators/loadingSpinner";
 import { Helpers } from "../../../utils/helpers";
 import { StateAmount } from "../states/StateAmount";
 import { ListHeaderLeftSide } from "../listHeaderLeftSide/listHeaderLeftSide";
@@ -73,14 +72,11 @@ export class HeaderCalendar extends HeaderLogedIn {
   }
 
   async #handleChangeInputAmount() {
-    const spinner = new LoadingSpinner("#defaultAmount");
-    spinner.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
     this.#inputAmountEl?.value
       ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
     new ReprintAllTdSums();
-    spinner.removeSpinner();
   }
 
   #changeAmountEvents() {

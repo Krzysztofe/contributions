@@ -7,7 +7,6 @@ import { dataPopupFields } from "./dataPopupFields";
 import { MonthDetailsSubmit } from "./monthDetailsSubmit";
 import { StateAmount } from "../states/StateAmount";
 import { HandleUpdateMonthAmount } from "./handleUpdateMonthAmount";
-import { ReprintAmountInMontch } from "./reprintAmountInMonth";
 
 class FormMonthDetailsPrinter {
   #hederEl = document.createElement("h3");
@@ -34,7 +33,7 @@ class FormMonthDetailsPrinter {
     this.#monthDetails = monthDetails;
 
     const memberFullname = monthDetails.fullname.replace(/\_/g, " ");
-    const monthName = Helpers.numberOnMonth(monthDetails.monthNumber);
+    const monthName = Helpers.numberOnMonthPolish(monthDetails.monthNumber);
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
 

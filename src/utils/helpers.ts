@@ -106,7 +106,7 @@ export class Helpers {
     return monthTranslations[month.toLowerCase()] || "";
   }
 
-  static numberOnMonth(month: string) {
+  static numberOnMonthPolish(month: string) {
     const monthTranslations: ModelObjectString = {
       "1": "Sty.",
       "2": "Lut.",
@@ -124,6 +124,25 @@ export class Helpers {
 
     return monthTranslations[month.toLowerCase()] || "";
   }
+static numberOnMonthEnglish(month: string) {
+    const monthTranslations: ModelObjectString = {
+      "1": "january",
+      "2": "february",
+      "3": "march",
+      "4": "april",
+      "5": "may",
+      "6": "june",
+      "7": "july",
+      "8": "august",
+      "9": "september",
+      "10": "october",
+      "11": "november",
+      "12": "december",
+    };
+
+    return monthTranslations[month.toLowerCase()] || "";
+  }
+
 
   static isNestedEl(parentEl: string, elem: HTMLElement | null) {
     let currentElement = elem;
@@ -235,7 +254,7 @@ export class Helpers {
   static getTableSums() {
     return this.copy(StateCalendar.sortedCalendar).map(
       (member: ModelMemberCalendar) => {
-        return member.summ;
+        return member.sum;
       }
     );
   }

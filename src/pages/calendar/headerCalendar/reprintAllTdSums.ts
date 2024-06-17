@@ -1,4 +1,3 @@
-import { Helpers } from "../../../utils/helpers";
 import { TableCalendar } from "../table/tableCalendar";
 
 export class ReprintAllTdSums {
@@ -11,6 +10,6 @@ export class ReprintAllTdSums {
 
   #reprintTdElems() {
     this.#tdSumElems.forEach(elem => elem.remove());
-    this.#table.createTdSums(Helpers.getTableSums());
+    this.#table.createTdSums();
   }
 }

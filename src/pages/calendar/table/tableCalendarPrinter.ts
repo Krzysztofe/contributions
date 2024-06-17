@@ -31,7 +31,7 @@ export class TableCalendarPrinter {
     Helpers.copy(StateCalendar.sortedCalendar).map(
       (member: ModelMemberCalendar) => {
         delete member.join_date;
-        delete member.summ;
+        delete member.sum;
         return member;
       }
     );
@@ -62,7 +62,7 @@ export class TableCalendarPrinter {
     this.#table.createArrowCollapse();
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
-    this.#table.createTdSums(Helpers.getTableSums());
+    this.#table.createTdSums();
   }
 
   #tdStylesCustom(idx?: number) {

@@ -53,8 +53,8 @@ class SelectCreator {
     this.#selectedYear = (e.target as HTMLInputElement).value;
     this.#loading.createLoading();
     StateYear.year = this.#selectedYear;
-    const year = await Helpers.fetchData(this.#GETOptions());
-    StateCalendar.setCalendar(year);
+    const yearData = await Helpers.fetchData(this.#GETOptions());
+    StateCalendar.setCalendar(yearData);
     document.getElementById("tableMembers")?.remove();
     new TableCalendarPrinter();
     const selectEl = document.querySelector(".select") as HTMLSelectElement;
@@ -183,18 +183,13 @@ export class TableCalendar extends TableCreator {
     });
   }
 
-  createTdSum(
-    payedSums: number[],
-    currentSumOfContrib: number,
-    idx: number,
-    tr: Element
-  ) {
+  createTdSum(currentSumOfContrib: number, idx: number, tr: Element) {
     const tdNotActiveElemsSum =
       tr.querySelectorAll("[data-not-active]").length *
       parseInt(StateAmount.amount);
 
     const sumToPay = currentSumOfContrib - tdNotActiveElemsSum;
-    const summaryAmount = payedSums[idx] - sumToPay;
+    const summaryAmount = Helpers.getTableSums()[idx] - sumToPay;
     const tdEl = document.createElement("td");
     tdEl.setAttribute("data", "sum");
     tdEl.setAttribute("data-sum-to-pay", sumToPay.toString());
@@ -219,16 +214,15 @@ export class TableCalendar extends TableCreator {
     tr.append(tdEl);
   }
 
-  createTdSums(payedSums: number[]) {
+  createTdSums() {
     const currentSumOfContrib =
       (StateAmount.amount &&
         Helpers.currentMonthInNumber * parseInt(StateAmount.amount)) ||
       0;
-
     this.#trElems = document.querySelectorAll("tbody tr");
 
     this.#trElems.forEach((tr, idx) => {
-      this.createTdSum(payedSums, currentSumOfContrib, idx, tr);
+      this.createTdSum(currentSumOfContrib, idx, tr);
     });
   }
 }

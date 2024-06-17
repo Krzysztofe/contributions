@@ -39,8 +39,9 @@ export class ReprintTdSum {
 
     tdSumEl?.classList.toggle("text-danger", newSum < 0);
     tdSumEl?.classList.toggle("text-dark", newSum >= 0);
-
     tdSumEl && (tdSumEl.innerText = "");
     tdSumEl && innerText && (tdSumEl.innerText = innerText);
+
+    
   }
 }

@@ -3,7 +3,8 @@ import { ModelMonth } from "../../../sharedModels/modelMonth";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 
 export class StateCalendar {
-  static sortedCalendar: ModelObjectAny[] | [] = [];
+  static sortedCalendar: ModelObjectAny[] = [];
+
   static monthsKeys = [
     "january",
     "february",
@@ -23,7 +24,6 @@ export class StateCalendar {
     const monthsData = this.monthsKeys.reduce<{
       [key: string]: ModelMonth;
     }>((acc, key, idx) => {
-      
       const month = member[key] || {};
 
       acc[key] = {
@@ -39,7 +39,7 @@ export class StateCalendar {
       return acc;
     }, {});
 
-    const summ = this.monthsKeys.reduce(
+    const sum = this.monthsKeys.reduce(
       (total, key) => total + parseInt(monthsData[key].amount),
       0
     );
@@ -48,7 +48,7 @@ export class StateCalendar {
       fullname: member.fullname,
       id: member.id,
       join_date: member.join_date,
-      summ,
+      sum,
       ...monthsData,
     };
 
@@ -60,6 +60,27 @@ export class StateCalendar {
       return this.createMember(member);
     });
 
-    this.sortedCalendar = createMembersList && Helpers.sortList(createMembersList);
+    this.sortedCalendar =
+      createMembersList && Helpers.sortList(createMembersList);
+  }
+
+  static setPayedSum(memberId: string, amount: string, monthName: string) {
+    const member = [...this.sortedCalendar].find(
+      member => member.id === memberId
+    );
+
+    if (member && member[monthName]) {
+      const memberIdx = this.sortedCalendar.indexOf(member);
+
+      member[monthName].amount = amount;
+
+      const sum = this.monthsKeys.reduce(
+        (total, key) => total + parseInt(member[key].amount),
+        0
+      );
+
+      member.sum = sum;
+      this.sortedCalendar[memberIdx] = member;
+    }
   }
 }
