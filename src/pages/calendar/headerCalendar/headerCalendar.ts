@@ -6,12 +6,14 @@ import { ListHeaderLeftSide } from "../listHeaderLeftSide/listHeaderLeftSide";
 import { dataListLeftSide } from "../listHeaderLeftSide/dataListLeftSide";
 import { dataInputAmount } from "./dataInputAmount";
 import { ReprintAllTdSums } from "./reprintAllTdSums";
+import { LoadingInputCreator } from "../../../components/loadingsCreators/loadingInputCreator";
 
 export class HeaderCalendar extends HeaderLogedIn {
   #leftSideContainerEl = document.createElement("div");
   #inputAmountContainer = document.createElement("div");
   #inputAmountEl: HTMLInputElement | null = null;
   #currencyEl: HTMLElement | null = null;
+  #loader = new LoadingInputCreator("inputAmountContainer");
 
   constructor(styles: string[]) {
     super(styles);
@@ -31,6 +33,7 @@ export class HeaderCalendar extends HeaderLogedIn {
   }
 
   async #createInputAmount() {
+    this.#inputAmountContainer.id = "inputAmountContainer";
     this.#inputAmountContainer.classList.add("relative");
     dataInputAmount.forEach(input => {
       this.#inputAmountContainer?.prepend(
@@ -72,11 +75,14 @@ export class HeaderCalendar extends HeaderLogedIn {
   }
 
   async #handleChangeInputAmount() {
+    const loader = new LoadingInputCreator("inputAmountContainer");
+    loader.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
     this.#inputAmountEl?.value
       ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
     new ReprintAllTdSums();
+    loader.removeSpinner();
   }
 
   #changeAmountEvents() {
