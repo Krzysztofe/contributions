@@ -159,7 +159,7 @@ class TableBodyCreator {
               "before:h-full",
               "before:bg-primary_dark",
               "cursor-pointer",
-              "z-20"
+              "z-20",
             ]
           : [];
 
@@ -207,7 +207,7 @@ class TableBodyCreator {
 
     icons.forEach((icon: any) => {
       const btnIcon = document.createElement("button");
-      this.#memberId && (btnIcon.id = this.#memberId);
+      this.#memberId && btnIcon.setAttribute("data-member-id", this.#memberId);
       btnIcon.setAttribute("data-row-id", tableRowId);
       btnIcon.classList.add("fa", icon, "text-dark");
       btnsContainerEL.append(btnIcon);

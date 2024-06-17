@@ -24,7 +24,7 @@ export class ValidationMember {
   }
 
   #isMemberRecodred() {
-    const findMember = this.#members.filter(
+    const findMember = this.#members?.filter(
       ({ fullname }: { fullname: string }) => {
         return (
           fullname.toLowerCase() === this.#fullnameNewMember?.toLowerCase()
@@ -34,7 +34,7 @@ export class ValidationMember {
     this.isMember = findMember;
   }
   #printError() {
-    if (this.#errorEl && this.isMember.length > 0) {
+    if (this.#errorEl && this.isMember?.length > 0) {
       this.#errorEl.innerText = "Imię i nazwisko już zapisane";
     }
   }

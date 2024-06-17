@@ -68,8 +68,8 @@ export class Helpers {
     return timeoutFunction;
   }
 
-  static sortList(array: ModelObjectAny[]) {
-    const sortedList = array.sort((a, b) => {
+  static sortList(array: any[]) {
+    const sortedList = array?.sort((a, b) => {
       if ("fullname" in a && "fullname" in b) {
         let nameA = a.fullname.toLowerCase();
         let nameB = b.fullname.toLowerCase();

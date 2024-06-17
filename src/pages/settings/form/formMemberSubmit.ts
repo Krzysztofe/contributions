@@ -52,7 +52,7 @@ export class FormMemberSubmit {
       join_date: join_date.slice(0, -3),
     };
 
-    return [...StateMembers.sortedMembers, newMember];
+    return StateMembers.sortedMembers ? [...StateMembers.sortedMembers, newMember] : [newMember]
   }
 
   #processFormValues(): ModelNewMember {
@@ -88,7 +88,7 @@ export class FormMemberSubmit {
       StateMembers.sortedMembers,
       this.#processFormValues()
     ).isMember;
-    if (isMemberRecord.length > 0) return;
+    if (isMemberRecord?.length > 0) return;
     return "go";
   }
 

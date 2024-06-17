@@ -1,37 +1,38 @@
 import { FormCreator } from "../../../components/formCreator";
 import { PopupCreator } from "../../../components/popupCreator";
-import { dataMemberFields } from "../form/dataMemberFields";
+import { dataMemberEditFields } from "./dataMemberEditFields";
 import { MemberEditSubmit } from "./memberEditSubmit";
 
 class FormMemberEditPrinter {
   #form = new FormCreator("popupInnerContainer");
-  // #eventTarget: HTMLElement | null = null;
+  #inputsElems: NodeListOf<HTMLInputElement> | undefined | null = null;
+  #eventTarget: HTMLElement | null = null;
 
   constructor(eventTarget: HTMLElement) {
-    // this.#eventTarget = eventTarget;
-    console.log('',eventTarget)
+    this.#eventTarget = eventTarget;
     this.#createForm();
   }
 
   #passValuesToInputs() {
-    // const inputsElems = document
-    //   .getElementById("popupMemberEdit")
-    //   ?.querySelectorAll("input");
+    this.#inputsElems = document
+      .getElementById("popupMemberEdit")
+      ?.querySelectorAll("input");
+    const trParentEl = this.#eventTarget?.closest("tr")?.querySelectorAll("td");
 
-    // const tdInternalElems = document.querySelectorAll(
-    //   `[data-month-id="${this.#memberId}_${this.#monthNumber}"]`
-    // );
+    if (!trParentEl) return;
+    const tdTexts = Array.from(trParentEl).map(item => {
+      return item.textContent || "";
+    });
 
-    // const amountText =
-    //   tdInternalElems[1].textContent?.replace("zł", "").trim() || "";
-    // const dateText = tdInternalElems[2].textContent?.trim() || "";
-    // const commentText = tdInternalElems[3].textContent || "";
+    const memberFirstname = tdTexts[1].split(" ")[1];
+    const memberLastname = tdTexts[1].split(" ")[0];
 
-    // if (inputsElems && textareaEl) {
-    //   inputsElems[0].value = +amountText > 0 ? amountText : StateAmount.amount;
-    //   inputsElems[1].value = dateText;
-    //   textareaEl.value = commentText;
-    // }
+    if (this.#inputsElems) {
+      this.#inputsElems[0].value = memberFirstname;
+      this.#inputsElems[1].value = memberLastname;
+      this.#inputsElems[2].value = tdTexts[2];
+      this.#inputsElems[3].value = tdTexts[3];
+    }
   }
 
   #createForm() {
@@ -41,13 +42,14 @@ class FormMemberEditPrinter {
       styles: ["flex", "flex-col", "m-auto"],
     });
     this.#form.createFields({
-      inputsData: dataMemberFields,
+      inputsData: dataMemberEditFields,
       inputStyles: ["pr-0", "w-full"],
     });
     this.#form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
     });
+
     this.#passValuesToInputs();
     new MemberEditSubmit();
   }

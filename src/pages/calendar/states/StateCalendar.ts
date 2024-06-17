@@ -56,7 +56,8 @@ export class StateCalendar {
   }
 
   static setCalendar(members: ModelObjectAny[]) {
-    const createMembersList = members?.map((member: ModelObjectAny) => {
+    if (!members || members.length === 0) return;
+    const createMembersList = members.map((member: ModelObjectAny) => {
       return this.createMember(member);
     });
 

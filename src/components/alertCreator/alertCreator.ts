@@ -58,7 +58,7 @@ export class AlertCreator {
   handleAlert(e: Event) {
     this.#eventTarget = e.target as HTMLButtonElement;
     this.#rowId = this.#eventTarget.getAttribute("data-row-id");
-    this.#memberId = this.#eventTarget.id;
+    this.#memberId = this.#eventTarget.getAttribute("data-member-id")
 
     if (this.#rowId && this.#eventTarget.classList.value.includes("fa-trash")) {
       const memberName = document.getElementById(this.#rowId)?.children[1]

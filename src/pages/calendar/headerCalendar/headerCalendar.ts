@@ -13,7 +13,6 @@ export class HeaderCalendar extends HeaderLogedIn {
   #inputAmountContainer = document.createElement("div");
   #inputAmountEl: HTMLInputElement | null = null;
   #currencyEl: HTMLElement | null = null;
-  #loader = new LoadingInputCreator("inputAmountContainer");
 
   constructor(styles: string[]) {
     super(styles);
