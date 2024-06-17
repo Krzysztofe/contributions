@@ -13,7 +13,7 @@ Deployed on home.pl
 
 ## Features
 
-* Comunication with database - GET, POST, DELETE
+* Comunication with database - GET, POST, PUT, PATCH, DELETE
 * Auth 
 * Forms / validations
 * Tables
