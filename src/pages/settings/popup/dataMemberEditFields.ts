@@ -8,7 +8,7 @@ import { DataFieldCreator } from "../../../components/dataFieldCreator";
 
 export const dataMemberEditFields = [
   new DataFieldCreator(
-    "firstname",
+    "firstnameEdit",
     "",
     "^(?:(?:\\p{L}|[\\s-]){3,})$",
     "text",
@@ -16,7 +16,7 @@ export const dataMemberEditFields = [
     "Imię min. 3 litery"
   ),
   new DataFieldCreator(
-    "lastname",
+    "lastnameEdit",
     "",
     "^(?:(?:\\p{L}|[\\s-]){3,})$",
     "text",
@@ -24,12 +24,12 @@ export const dataMemberEditFields = [
     "Nazwisko min. 3 litery"
   ),
   new DataFieldCreator(
-    "phone",
+    "phoneEdit",
     "",
     "^[\\d-]{11,}$",
     "tel",
     "Telefon",
     "Telefon min. 9 cyfr"
   ),
-  new DataFieldCreator("join_date", "", "\\S", "month", "", " "),
+  new DataFieldCreator("join_dateEdit", "", "\\S", "month", "", " "),
 ];

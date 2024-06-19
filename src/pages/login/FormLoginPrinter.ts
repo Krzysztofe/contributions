@@ -14,6 +14,7 @@ export class FormLoginPrinter {
     this.#form.createBtn({
       innerText: "Zaloguj się",
       styles: ["text-center", "w-full", "py-1", "m-auto"],
+      id: "btnLogin"
     });
     this.#form.createLoginErrorMsg();
     new LoginSubmit();

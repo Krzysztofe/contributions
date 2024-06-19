@@ -47,31 +47,34 @@ class FormMemberEditPrinter {
     });
     this.#form.createBtn({
       innerText: "Zapisz",
-      styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
+      styles: ["w-full", "py-1", "m-auto"],
+      id: "btnEditMember",
     });
 
     this.#passValuesToInputs();
-    new MemberEditSubmit();
+    new MemberEditSubmit(this.#eventTarget?.getAttribute("data-member-id"));
   }
 }
 
 export class PopupMemberEdit extends PopupCreator {
-  tableBodyEl = document.querySelector("tbody");
+  #sectionTableEl = document.getElementById("sectionTable");
   #eventTarget: HTMLElement | null = null;
 
   constructor() {
     super();
     this.#printPopupEvent();
   }
+
   #handlePrintPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
+
     if (this.#eventTarget.classList.value.includes("fa-pen-to-square")) {
       this.createPopupContainetr();
       new FormMemberEditPrinter(this.#eventTarget);
     }
   }
   #printPopupEvent() {
-    this.tableBodyEl?.addEventListener(
+    this.#sectionTableEl?.addEventListener(
       "click",
       this.#handlePrintPopup.bind(this)
     );

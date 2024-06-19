@@ -21,27 +21,6 @@ export class FormMemberSubmit {
     this.#submitEvent();
   }
 
-  #POSTOptions() {
-    return {
-      url: URL_MEMBERS,
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-      body: {
-        firstname:
-          (this.#formValues &&
-            Helpers.capitalize(this.#formValues.firstname)) ||
-          "",
-        lastname:
-          (this.#formValues && Helpers.capitalize(this.#formValues.lastname)) ||
-          "",
-        phone: this.#formValues?.phone || "",
-        join_date: this.#formValues?.join_date || "",
-      },
-    };
-  }
-
   #createNewMembers(fetchedMember: ModelObjectAny) {
     const { firstname, lastname, phone, id, join_date } = fetchedMember;
 
@@ -52,7 +31,9 @@ export class FormMemberSubmit {
       join_date: join_date.slice(0, -3),
     };
 
-    return StateMembers.sortedMembers ? [...StateMembers.sortedMembers, newMember] : [newMember]
+    return StateMembers.sortedMembers
+      ? [...StateMembers.sortedMembers, newMember]
+      : [newMember];
   }
 
   #processFormValues(): ModelNewMember {
@@ -76,9 +57,10 @@ export class FormMemberSubmit {
     this.#errorsElems.forEach(error => ((error as HTMLElement).innerText = ""));
   }
 
-  #validations() {
+  #validations(e: Event) {
     this.#clearErrors();
-
+    this.#formValues = Helpers.getFormValues(e);
+    this.#formKeys = Object.keys(this.#formValues);
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
 
@@ -92,12 +74,30 @@ export class FormMemberSubmit {
     return "go";
   }
 
+  #POSTOptions() {
+    return {
+      url: URL_MEMBERS,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: {
+        firstname:
+          (this.#formValues &&
+            Helpers.capitalize(this.#formValues.firstname)) ||
+          "",
+        lastname:
+          (this.#formValues && Helpers.capitalize(this.#formValues.lastname)) ||
+          "",
+        phone: this.#formValues?.phone || "",
+        join_date: this.#formValues?.join_date || "",
+      },
+    };
+  }
+
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    this.#formValues = Helpers.getFormValues(e);
-    this.#formKeys = Object.keys(this.#formValues);
-    if (this.#validations() !== "go") return;
-
+    if (this.#validations(e) !== "go") return;
 
     this.#loading.createLoading();
     const newMember = await Helpers.fetchData(this.#POSTOptions());

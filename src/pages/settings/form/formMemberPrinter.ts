@@ -31,6 +31,7 @@ export class FormMemberPrinter {
     this.#form.createBtn({
       innerText: "Dodaj osobę",
       styles: ["w-48", "md:w-auto", "mb-auto", "border-none"],
+      id: "btnCreateMember"
     });
     this.#form.createMemberErrorMsg();
     this.#form.createToast();

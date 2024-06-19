@@ -100,6 +100,7 @@ class FormMonthDetailsPrinter {
     this.#form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
+      id:"btnEditMonth"
     });
 
     this.#monthDetails && new MonthDetailsSubmit(this.#monthDetails);

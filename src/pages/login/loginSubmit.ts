@@ -7,7 +7,7 @@ import { ValidationGeneric } from "../../utils/validationGeneric";
 export class LoginSubmit {
   #formEl = document.querySelector("form");
   #errorAuthEl = document.getElementById("authError");
-  #btnLoader = new LoadingButtonCreator("btnSubmit");
+  #btnLoader = new LoadingButtonCreator("btnLogin");
   #event: SubmitEvent | null = null;
 
   constructor() {

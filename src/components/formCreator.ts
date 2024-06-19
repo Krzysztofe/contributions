@@ -169,9 +169,9 @@ export class FormCreator {
     });
   }
 
-  createBtn({ innerText, styles }: { innerText: string; styles: string[] }) {
+  createBtn({ innerText, styles, id }: { innerText: string; styles: string[], id:string }) {
     this.#btnEl.setAttribute("type", "submit");
-    this.#btnEl.id = "btnSubmit";
+    this.#btnEl.id = id;
     this.#btnEl.innerText = innerText;
     this.#btnEl.classList.add(
       "btn",
@@ -180,6 +180,7 @@ export class FormCreator {
       "btn-sm",
       "rounded-sm",
       "text-white",
+      "text-center",
       "relative",
       ...styles
     );

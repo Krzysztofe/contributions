@@ -16,7 +16,7 @@ export class MonthDetailsSubmit {
   #monthName: string | null = null;
   #monthDetails: ModelMonth | null = null;
   #dataAtributeId: string | null = null;
-  #btnLoader = new LoadingButtonCreator("btnSubmit");
+  #btnLoader = new LoadingButtonCreator("btnEditMonth");
 
   constructor(monthDetails: ModelMonth) {
     this.#memberId = monthDetails.id;
