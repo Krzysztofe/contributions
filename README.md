@@ -9,7 +9,10 @@ The application is written according to the principles of OOP (Object-Oriented P
 Deployed on home.pl 
 #### Demo https://skladki.ozzip.pl/
 
-
+## Desctop
+ <div align="center">
+ <img src="https://github.com/Krzysztofe/contributions/assets/96065197/c1a943da-f44f-4dce-ac98-17992bc169b4" alt="html5" width="250" height="100" margin = "30"/> 
+</div>
 
 ## Features
 
