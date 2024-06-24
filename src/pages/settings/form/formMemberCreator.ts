@@ -9,8 +9,8 @@ export class FormMemberCreator extends FormCreator {
     super(elementId);
   }
 
-  createMemberErrorMsg() {
-    this.#errorMemberEl.id = "customErrorMessage";
+  createMemberErrorMsg(id:string) {
+    this.#errorMemberEl.id = id;
     this.#errorMemberEl.classList.add(
       "text-xs",
       "h-4",

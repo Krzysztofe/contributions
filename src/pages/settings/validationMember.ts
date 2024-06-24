@@ -1,7 +1,6 @@
 import { ModelMemberSettings } from "../../sharedModels/moedelMemberSettings";
 import { ModelNewMember } from "../../sharedModels/modelNewMember";
 
-
 export class ValidationMember {
   #members: ModelMemberSettings[];
   #newMember: ModelNewMember;
@@ -12,15 +11,15 @@ export class ValidationMember {
   constructor(members: ModelMemberSettings[], formValues: ModelNewMember) {
     this.#members = members;
     this.#newMember = formValues;
-    this.#errorEl = document.getElementById("customErrorMessage");
+    this.#errorEl = document.getElementById("submitMemberError");
     this.#createFullname();
     this.#isMemberRecodred();
     this.#printError();
   }
 
   #createFullname() {
-    const fullName = `${this.#newMember.firstname} ${this.#newMember.lastname}`;
-    this.#fullnameNewMember = fullName;
+    const fullName = `${this.#newMember.lastname} ${this.#newMember.firstname}`;
+    this.#fullnameNewMember = fullName.trim();
   }
 
   #isMemberRecodred() {
@@ -31,6 +30,7 @@ export class ValidationMember {
         );
       }
     );
+
     this.isMember = findMember;
   }
   #printError() {

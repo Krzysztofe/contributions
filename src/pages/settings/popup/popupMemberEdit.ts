@@ -1,37 +1,47 @@
-import { FormCreator } from "../../../components/formCreator";
 import { PopupCreator } from "../../../components/popupCreator";
+import { FormMemberCreator } from "../form/formMemberCreator";
 import { dataMemberEditFields } from "./dataMemberEditFields";
 import { MemberEditSubmit } from "./memberEditSubmit";
 
 class FormMemberEditPrinter {
-  #form = new FormCreator("popupInnerContainer");
+  #form = new FormMemberCreator("popupInnerContainer");
+  #formEl: HTMLElement | null = null;
+  #formHeaderEl: HTMLElement | null = null;
   #inputsElems: NodeListOf<HTMLInputElement> | undefined | null = null;
   #eventTarget: HTMLElement | null = null;
+  #tdInRowElems: NodeListOf<HTMLElement> | undefined | null = null;
+  #tdTextsContent: string[] | null = null;
 
   constructor(eventTarget: HTMLElement) {
     this.#eventTarget = eventTarget;
     this.#createForm();
   }
 
+  #createFormHeader() {
+    this.#formHeaderEl = document.createElement("h3");
+    this.#formHeaderEl.classList.add("mb-3");
+    this.#tdTextsContent &&
+      (this.#formHeaderEl.innerText = `${this.#tdTextsContent[1]}`);
+    this.#formEl = document.getElementById("popupMemberEdit");
+    this.#formEl?.prepend(this.#formHeaderEl);
+  }
+
   #passValuesToInputs() {
     this.#inputsElems = document
       .getElementById("popupMemberEdit")
       ?.querySelectorAll("input");
-    const trParentEl = this.#eventTarget?.closest("tr")?.querySelectorAll("td");
+    this.#tdInRowElems = this.#eventTarget
+      ?.closest("tr")
+      ?.querySelectorAll("td");
 
-    if (!trParentEl) return;
-    const tdTexts = Array.from(trParentEl).map(item => {
-      return item.textContent || "";
+    if (!this.#tdInRowElems) return;
+    this.#tdTextsContent = Array.from(this.#tdInRowElems).map(tdElem => {
+      return tdElem.textContent || "";
     });
 
-    const memberFirstname = tdTexts[1].split(" ")[1];
-    const memberLastname = tdTexts[1].split(" ")[0];
-
     if (this.#inputsElems) {
-      this.#inputsElems[0].value = memberFirstname;
-      this.#inputsElems[1].value = memberLastname;
-      this.#inputsElems[2].value = tdTexts[2];
-      this.#inputsElems[3].value = tdTexts[3];
+      this.#inputsElems[0].value = this.#tdTextsContent[2];
+      this.#inputsElems[1].value = this.#tdTextsContent[3];
     }
   }
 
@@ -52,6 +62,7 @@ class FormMemberEditPrinter {
     });
 
     this.#passValuesToInputs();
+    this.#createFormHeader();
     new MemberEditSubmit(this.#eventTarget?.getAttribute("data-member-id"));
   }
 }

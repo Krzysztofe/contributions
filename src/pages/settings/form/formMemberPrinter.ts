@@ -33,7 +33,7 @@ export class FormMemberPrinter {
       styles: ["w-48", "md:w-auto", "mb-auto", "border-none"],
       id: "btnCreateMember"
     });
-    this.#form.createMemberErrorMsg();
+    this.#form.createMemberErrorMsg("submitMemberError");
     this.#form.createToast();
     new FormMemberSubmit();
   }
