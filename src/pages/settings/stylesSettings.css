@@ -16,3 +16,20 @@
     transform: translate(-50%, -100%);
   }
 }
+
+
+.animateTr {
+  animation: pulseBg 700ms forwards;
+}
+
+@keyframes pulseBg {
+  0% {
+    background-color: inherit;
+  }
+  50% {
+    background-color: #CCDDFF;
+  }
+  80% {
+    background-color: inherit;
+  }
+}

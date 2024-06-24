@@ -13,7 +13,19 @@ export class ReprintTr {
     this.#phone = phone;
     this.#join_date = join_date;
     this.reprintTrEl();
+    this.#trBgColor();
   }
+
+  #trBgColor() {
+    if (!this.#trEl) return;
+
+    this.#trEl.classList.add("animateTr");
+
+    setTimeout(() => {
+      this.#trEl?.classList.remove("animateTr");
+    }, 400);
+  }
+
   reprintTrEl() {
     this.#tdElems = this.#trEl.querySelectorAll("td");
 
