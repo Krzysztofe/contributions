@@ -28,13 +28,11 @@ export class ReprintTdInCalendar {
   #tdBgColor() {
     if (!this.#tdEl) return;
 
-    if (this.#tdEl.firstElementChild?.textContent?.trim() === "0 zł") {
-      this.#tdEl.classList.add("bg-td_red");
-      this.#tdEl.classList.remove("bg-inherit");
-    } else {
-      this.#tdEl.classList.add("bg-inherit");
-      this.#tdEl.classList.remove("bg-td_red");
-    }
+    const isZeroZl =
+      this.#tdEl.firstElementChild?.textContent?.trim() === "0 zł";
+    this.#tdEl.classList.toggle("bg-td_red", isZeroZl);
+    this.#tdEl.classList.toggle("bg-inherit", !isZeroZl);
+
     this.#tdEl.classList.add("animateTd");
 
     setTimeout(() => {

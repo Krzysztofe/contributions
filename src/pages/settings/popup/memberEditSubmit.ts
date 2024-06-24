@@ -1,42 +1,42 @@
-import { ValidationMember } from "./../validationMember";
 import { LoadingButtonCreator } from "./../../../components/loadingsCreators/loadingButtonCreator";
-// import { ModelObjectString } from "./../../../sharedModels/modelObjectString";
 import { Helpers } from "../../../utils/helpers";
-// import { LoadingTableSettings } from "../loadingTableSettings";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { URL_MEMBERS } from "../../../data/dataUrl";
-import { StateMembers } from "../stateMembers";
+import { ReprintTr } from "./reprintTr";
 
 export class MemberEditSubmit {
   #formEl = document.getElementById("popupMemberEdit");
   #formKeys: string[] | null = null;
-  // #loading = new LoadingTableSettings();
   #btnLoader = new LoadingButtonCreator("btnEditMember");
-
-  #memberId: string | null = null;
-  // #formValues: ModelObjectString | null = null;
+  #memberId: string | null | undefined = null;
   #formValues: any | null = null;
-  constructor(id: any) {
-    this.#memberId = id;
+  #trId: string | null | undefined = null;
+
+  constructor(
+    memberId: string | null | undefined,
+    trId: string | null | undefined
+  ) {
+    this.#memberId = memberId;
+    this.#trId = trId;
     this.#submitEvent();
   }
 
-  #processFormValues(): any {
-    if (!this.#formKeys || !this.#formValues) {
-      return {
-        firstname: "",
-        lastname: "",
-        phone: "",
-      };
-    }
+  // #processFormValues(): any {
+  //   if (!this.#formKeys || !this.#formValues) {
+  //     return {
+  //       firstname: "",
+  //       lastname: "",
+  //       phone: "",
+  //     };
+  //   }
 
-    return this.#formKeys.reduce((acc, key) => {
-      if (this.#formValues) {
-        acc[key.replace("Edit", "") as keyof any] = this.#formValues[key];
-      }
-      return acc;
-    }, {} as any);
-  }
+  //   return this.#formKeys.reduce((acc, key) => {
+  //     if (this.#formValues) {
+  //       acc[key.replace("Edit", "") as keyof any] = this.#formValues[key];
+  //     }
+  //     return acc;
+  //   }, {} as any);
+  // }
 
   #validations(e: Event) {
     this.#formValues = Helpers.getFormValues(e);
@@ -52,10 +52,7 @@ export class MemberEditSubmit {
   }
 
   #PUTOptions() {
-    const { firstnameEdit, lastnameEdit, phoneEdit, join_dateEdit } =
-      this.#formValues;
-
-    console.log("", join_dateEdit);
+    const { phoneEdit, join_dateEdit } = this.#formValues;
     return {
       url: URL_MEMBERS,
       method: "PATCH",
@@ -64,8 +61,6 @@ export class MemberEditSubmit {
       },
       body: {
         id: this.#memberId || "",
-        // firstname: "",
-        // lastname: "",
         phone: phoneEdit || "",
         join_date: join_dateEdit || "",
       },
@@ -76,8 +71,12 @@ export class MemberEditSubmit {
     e.preventDefault();
     if (this.#validations(e) !== "go") return;
     this.#btnLoader.createSpinner();
-    const newMember = await Helpers.fetchData(this.#PUTOptions());
-    console.log("", newMember);
+    await Helpers.fetchData(this.#PUTOptions());
+    new ReprintTr(
+      this.#trId,
+      this.#formValues.phoneEdit,
+      this.#formValues.join_dateEdit
+    );
     document.getElementById("popupContainer")?.remove();
   }
 

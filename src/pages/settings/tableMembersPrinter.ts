@@ -35,6 +35,7 @@ export class TableMembersPrinter {
       tdStyles: ["whitespace-nowrap"],
     });
   }
+
   #tdInnerHtml(value: string | { [key: string]: string }) {
     return `${value}`;
   }

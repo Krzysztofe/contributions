@@ -63,7 +63,12 @@ class FormMemberEditPrinter {
 
     this.#passValuesToInputs();
     this.#createFormHeader();
-    new MemberEditSubmit(this.#eventTarget?.getAttribute("data-member-id"));
+
+   
+    new MemberEditSubmit(
+      this.#eventTarget?.getAttribute("data-member-id"),
+      this.#eventTarget?.getAttribute("data-row-id")
+    );
   }
 }
 
