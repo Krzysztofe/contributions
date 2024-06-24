@@ -16,7 +16,7 @@ Deployed on home.pl
 
 ## Features
 
-* Comunication with database - GET, POST, PUT, PATCH, DELETE
+* Comunication with database - GET, POST, PATCH, DELETE
 * Auth 
 * Forms / validations
 * Tables
