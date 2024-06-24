@@ -7,7 +7,7 @@ An application created for the use of the treasurer of a workers' union commissi
 The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods that generate these HTML elements.
 
 Deployed on home.pl 
-#### Demo https://skladki.ozzip.pl/
+#### Vesion for users tests deployed on home server https://skladki.ozzip.pl/
 
 ## Desctop
  <div align="center">
