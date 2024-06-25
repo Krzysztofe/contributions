@@ -9,12 +9,21 @@ An application created for the use of the treasurer of a workers' union commissi
   <img src="https://github.com/Krzysztofe/contributions/assets/96065197/0f9d89af-b1ed-4790-b4bb-aeb87f0abd47" alt="html5" width="450" height="200" /> 
 </div> 
 <br/>
-2 In the calendar panel, there is a table showing the record of contributions paid throughout the year by each member of the commission. </br>3 In this table user mark whether a particular member has paid the contribution for a given month. </br> 4 There are two methods for recording contributions. </br> - Fast method. </br> 
+2 In the calendar panel, there is a table showing the record of contributions paid throughout the year by each member of the commission. </br>3 In this table user mark whether a particular member has paid the contribution for a given month. </br> 4 There are two methods for recording contributions:
+<br/>
+fast method </br> 
   <div align="center">
   <img src="https://github.com/Krzysztofe/contributions/assets/96065197/d99e2b8b-15f6-4055-93cf-d8a6287d85fb" alt="html5" width="450" height="200" /> 
 </div>
 
-- Slow method. </br> 5 If the user does not mark in the calendar panel that a union member has paid their contribution by the 15th of each month, the backend application will send them an SMS requesting payment. </br>  6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
+slow method </br>
+
+  <div align="center">
+  <img src="https://github.com/Krzysztofe/contributions/assets/96065197/bf9b1059-7f91-4117-b083-fef45a78d177" alt="html5" width="450" height="200" /> 
+</div>
+</br>
+
+5 If the user does not mark in the calendar panel that a union member has paid their contribution by the 15th of each month, the backend application will send them an SMS requesting payment. </br>  6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
 
 The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods that generate these HTML elements.
 
