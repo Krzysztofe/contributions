@@ -10,10 +10,25 @@ The application is written according to the principles of OOP (Object-Oriented P
 #### Vesion for users tests deployed on home.pl server https://skladki.ozzip.pl/
 
 ## Desctop
+
+
+<div align="center">
+ <img src="https://github.com/Krzysztofe/contributions/assets/96065197/8dff3070-34db-4d3d-b089-e2e67ba1fa93" alt="html5" width="504" height="300" margin = "30"/> 
+</div>
  <div align="center">
  <img src="https://github.com/Krzysztofe/contributions/assets/96065197/c1a943da-f44f-4dce-ac98-17992bc169b4" alt="html5" width="250" height="100" margin = "30"/> 
 </div>
 
+## Mobile
+
+
+
+
+ <div align="center">
+<img src="https://github.com/Krzysztofe/contributions/assets/96065197/d8341b6c-c52c-4c5d-b7b3-e80614923e47" width="300" alt="Mobile Screenshot" margin="30">
+
+  <img src="https://github.com/Krzysztofe/contributions/assets/96065197/bc340947-f8fd-476e-b0ef-5e7f34725530" width="300" alt="Mobile Screenshot">
+</div>
 ## Features
 
 * Comunication with database - GET, POST, PATCH, DELETE
