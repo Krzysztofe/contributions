@@ -30,7 +30,7 @@ The application is written according to the principles of OOP (Object-Oriented P
 
 #### Vesion for users tests deployed on home.pl server https://skladki.ozzip.pl/
 
-## Desctop
+## Desktop
 
 
 <div align="center">
