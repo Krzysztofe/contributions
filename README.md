@@ -74,3 +74,12 @@ The application is written according to the principles of OOP (Object-Oriented P
 * RegExp
 * LocalStorage
 * Vite
+
+  ## Prerequisites
+* Before getting started, make sure you have the Node.js and npm or yarn
+* Node version: **Node.js v18.16.1**
+* Clone this repository to your local machine
+* Navigate to the project directory: **cd .\contributions**
+* Install the project dependencies by running **npm install** or **yarn install**
+* Start the development server: **cd .\contributions\ npm start** or **yarn start**
+* Open your browser and visit your localhost:3000 to see the running application.
