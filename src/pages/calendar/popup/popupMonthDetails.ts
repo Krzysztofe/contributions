@@ -100,7 +100,7 @@ class FormMonthDetailsPrinter {
     this.#form.createBtn({
       innerText: "Zapisz",
       styles: ["text-center", "w-full", "py-1", "m-auto", "rounded-sm"],
-      id:"btnEditMonth"
+      id: "btnEditMonth",
     });
 
     this.#monthDetails && new MonthDetailsSubmit(this.#monthDetails);
@@ -140,34 +140,26 @@ export class PopupMonthDetails extends PopupCreator {
   #handleUpdateMonth(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
-    const dataAtribute = this.#eventTarget?.getAttribute("data");
+    const dataAttribute = this.#eventTarget?.getAttribute("data");
     const isIconArrow =
       this.#eventTarget.classList.value.includes("fa-chevron-down");
-    const isDataNoActive = this.#eventTarget?.getAttribute("data-not-active");
+    const isDataNotActive = this.#eventTarget?.getAttribute("data-not-active");
 
-    if (
-      !StateFillMode.isFast &&
-      dataAtribute !== "member" &&
-      dataAtribute !== "idx" &&
-      dataAtribute !== "sum" &&
-      !isDataNoActive &&
+    const shouldProcess =
+      dataAttribute !== "member" &&
+      dataAttribute !== "idx" &&
+      dataAttribute !== "sum" &&
       !isIconArrow &&
-      isNestedInTd
-    ) {
+      !isDataNotActive &&
+      isNestedInTd;
+
+    if (!StateFillMode.isFast && shouldProcess) {
       this.#closeCollapse();
       this.createPopupContainetr();
       new FormMonthDetailsPrinter(this.#eventTarget);
-    } else if (
-      StateFillMode.isFast &&
-      dataAtribute !== "member" &&
-      dataAtribute !== "idx" &&
-      !isDataNoActive &&
-      !isIconArrow &&
-      isNestedInTd
-    ) {
+    } else if (StateFillMode.isFast && shouldProcess) {
       this.#closeCollapse();
       new HandleUpdateMonthAmount(this.#eventTarget);
-  
     }
   }
 

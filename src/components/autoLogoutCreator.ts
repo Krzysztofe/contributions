@@ -6,7 +6,7 @@ export class AutoLogoutCreator {
 
   constructor() {
     this.#startLogoutTimer();
-    this.#EventsSetup();
+    this.#setupEvents();
   }
 
   #logout() {
@@ -70,7 +70,7 @@ export class AutoLogoutCreator {
     this.#removeAlert();
     this.#startLogoutTimer();
   }
-  #EventsSetup() {
+  #setupEvents() {
     document.addEventListener("mousemove", this.#resetLogoutTimer.bind(this));
     document.addEventListener("click", this.#resetLogoutTimer.bind(this));
   }

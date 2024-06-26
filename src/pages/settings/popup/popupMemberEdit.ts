@@ -41,7 +41,7 @@ class FormMemberEditPrinter {
 
     if (this.#inputsElems) {
       this.#inputsElems[0].value = this.#tdTextsContent[2];
-      this.#inputsElems[1].value = this.#tdTextsContent[3];
+      // this.#inputsElems[1].value = this.#tdTextsContent[3];
     }
   }
 

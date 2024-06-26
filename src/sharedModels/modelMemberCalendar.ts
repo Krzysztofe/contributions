@@ -3,7 +3,7 @@ import { ModelMonth } from "./modelMonth";
 
 export type ModelMemberCalendar = ModelMemberSettings & {
   january: ModelMonth;
-  febuary: ModelMonth;
+  february: ModelMonth;
   march: ModelMonth;
   april: ModelMonth;
   may: ModelMonth;

@@ -29,7 +29,7 @@ export class FormMemberPrinter {
       inputStyles: ["max-w-48", "md:max-w-40", "capitalize", "w-full"],
     });
     this.#form.createBtn({
-      innerText: "Dodaj osobę",
+      innerText: "Zapisz",
       styles: ["w-48", "md:w-auto", "mb-auto", "border-none"],
       id: "btnCreateMember"
     });

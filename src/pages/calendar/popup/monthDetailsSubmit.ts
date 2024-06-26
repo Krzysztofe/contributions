@@ -51,7 +51,7 @@ export class MonthDetailsSubmit {
         client_id: this.#memberId || "",
         year: StateYear.year || "",
         month: this.#monthNumber || "",
-        amount: this.#formValues?.amount || "",
+        amount: this.#formValues?.amount || "0",
         pay_date: this.#formValues?.pay_date || "",
         comment: this.#formValues?.comment || "",
       },

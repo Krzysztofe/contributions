@@ -14,7 +14,7 @@ export class DeleteMember {
   constructor(memberId: string, clikedBtnEl: HTMLButtonElement | null) {
     this.#memberId = memberId;
     this.#clikedBtnEl = clikedBtnEl;
-    this.#clickEvent();
+    this.#deleteEvent();
   }
 
   #updatedData(memberId: string) {
@@ -44,7 +44,7 @@ export class DeleteMember {
     this.#loading.removeLoading();
     new ToastPrinter("Usunięto");
   }
-  #clickEvent() {
+  #deleteEvent() {
     this.#clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));
   }
 }

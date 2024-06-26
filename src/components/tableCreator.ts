@@ -191,7 +191,7 @@ class TableBodyCreator {
     });
   }
 
-  #createBtnsContainer(tableRowId: any, icons: any) {
+  #createBtnsContainer(tableRowId: string, icons: string[]) {
     const tdEL = document.createElement("td");
     tdEL.classList.add("border", "border-primary_dark");
 
@@ -205,7 +205,7 @@ class TableBodyCreator {
       "gap-6"
     );
 
-    icons.forEach((icon: any) => {
+    icons.forEach((icon) => {
       const btnIcon = document.createElement("button");
       this.#memberId && btnIcon.setAttribute("data-member-id", this.#memberId);
       btnIcon.setAttribute("data-row-id", tableRowId);
