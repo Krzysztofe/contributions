@@ -18,7 +18,8 @@ export class PopupCreator {
       "px-5",
       "py-3",
       "text-2xl",
-      "cursor-pointer"
+      "cursor-pointer",
+      "hover:text-black_opacity"
     );
     this.#innerContainerEl?.prepend(this.#xmarkEL);
   }

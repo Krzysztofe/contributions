@@ -37,7 +37,6 @@ class FormMonthDetailsPrinter {
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
 
-    this.#hederEl = document.createElement("h3");
     memberFullname &&
       (this.#hederEl.innerHTML = `
       <div class = "sm:flex justify-between font-semibold">
