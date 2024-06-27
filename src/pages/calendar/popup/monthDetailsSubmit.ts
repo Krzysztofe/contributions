@@ -65,7 +65,7 @@ export class MonthDetailsSubmit {
     if (this.#memberId && this.#monthName) {
       StateCalendar.setPayedSum(
         this.#memberId,
-        this.#formValues?.amount,
+        this.#formValues?.amount || "0",
         this.#monthName
       );
     }

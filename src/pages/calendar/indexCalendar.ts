@@ -7,7 +7,7 @@ import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
 import { PopupMonthDetails } from "./popup/popupMonthDetails";
 import { StateAmount } from "./states/StateAmount";
-import { PopupSmsCreator } from "./popupSms/popupSmsCreator";
+import { PopupSms } from "./popupSms/popupSms";
 
 class CalendarManager {
   GETCalendarOptions = {
@@ -31,7 +31,7 @@ class CalendarManager {
     new TableCalendarPrinter();
     new LoadigPageCreator();
     new PopupMonthDetails();
-    new PopupSmsCreator();
+    new PopupSms();
     new AutoLogoutCreator();
   }
 }

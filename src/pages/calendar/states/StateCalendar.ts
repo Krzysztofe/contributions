@@ -2,6 +2,7 @@ import { Helpers } from "../../../utils/helpers";
 import { ModelMonth } from "../../../sharedModels/modelMonth";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 
+
 export class StateCalendar {
   static sortedCalendar: ModelObjectAny[] = [];
 
@@ -25,6 +26,7 @@ export class StateCalendar {
       [key: string]: ModelMonth;
     }>((acc, key, idx) => {
       const month = member[key] || {};
+
 
       acc[key] = {
         id: member.id,

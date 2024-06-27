@@ -1,0 +1,104 @@
+import { BtnsCreator } from "../../../components/btnsCreator";
+import { PopupCreator } from "../../../components/popupCreator";
+import { Helpers } from "../../../utils/helpers";
+import { StateCalendar } from "../states/StateCalendar";
+import { StateYear } from "../states/StateYear";
+
+export class PopupSms extends PopupCreator {
+  #iconEl = document.querySelector(".fa-comment");
+  #hederEl = document.createElement("h3");
+  #popupConainerEl: HTMLElement | null = null;
+  constructor() {
+    super();
+    this.#printPopupEvent();
+  }
+
+  #isMemberPayedContribs(member: any) {
+    const monthsKeys = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+
+    const memberContribs = monthsKeys.map((key, idx) => {
+      const isJoinedInPrintedYear = member[key].join_date.includes(
+        StateYear.year
+      );
+
+      if (isJoinedInPrintedYear) {
+        const joinMonth = member[key].join_date.split("-")[1];
+        const joinMonthNumber = parseInt(joinMonth, 10);
+        if (joinMonthNumber <= idx + 1) {
+          return member[key].amount;
+        } else {
+          return null;
+        }
+      } else {
+        return member[key].amount;
+      }
+    });
+
+    const isNotPayedContrib =
+      memberContribs
+        .slice(0, Helpers.currentMonthInNumber)
+        .filter(contrib => contrib === "0").length > 0;
+
+    return isNotPayedContrib;
+  }
+
+  #countSmsNumber() {
+    const members = StateCalendar.sortedCalendar;
+    const payedMembers = members.map(member => {
+      return this.#isMemberPayedContribs(member);
+    });
+
+    const notPayedContribsNumber = payedMembers.filter(
+      payedMember => payedMember === true
+    ).length;
+
+    return notPayedContribsNumber;
+  }
+
+  #createSmsText() {
+    let textSms;
+
+    if (this.#countSmsNumber() === 1) {
+      textSms = "sms";
+    }
+
+    if (this.#countSmsNumber() > 1 && this.#countSmsNumber() < 5) {
+      textSms = "smsy";
+    }
+    if (this.#countSmsNumber() > 4) {
+      textSms = "smsów";
+    }
+    return textSms
+  }
+
+  #createHeader() {
+    this.#popupConainerEl = document.getElementById("popupInnerContainer");
+    this.#hederEl.classList.add("font-semibold", "text-center");
+    this.#hederEl.innerText = `Wysłać ${this.#countSmsNumber()} ${this.#createSmsText()}?`;
+    this.#popupConainerEl?.append(this.#hederEl);
+  }
+
+  #handlePrintPopup() {
+    this.createPopupContainetr();
+    document.querySelector(".fa-xmark")?.remove();
+    this.#createHeader();
+    new BtnsCreator("#popupInnerContainer");
+  }
+
+  #printPopupEvent() {
+    this.#iconEl?.addEventListener("click", this.#handlePrintPopup.bind(this));
+  }
+}
