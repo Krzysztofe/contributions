@@ -5,9 +5,9 @@ import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar/headerCalendar";
 import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
-import { PopupMonthDetails } from "./popup/popupMonthDetails";
+import { PopupMonthDetails } from "./popupMonthDetails/popupMonthDetails";
 import { StateAmount } from "./states/StateAmount";
-import { PopupSms } from "./popupSms/popupSms";
+import { PopupSms } from "./popupSms";
 
 class CalendarManager {
   GETCalendarOptions = {

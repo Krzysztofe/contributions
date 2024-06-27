@@ -6,7 +6,7 @@ import { StateYear } from "../states/StateYear";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
 import { StateCalendar } from "../states/StateCalendar";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
-import { PopupMonthDetails } from "../popup/popupMonthDetails";
+import { PopupMonthDetails } from "../popupMonthDetails/popupMonthDetails";
 import { StateAmount } from "../states/StateAmount";
 
 class SelectCreator {

@@ -1,6 +1,7 @@
 import { OutputType } from "jspdf-invoice-template";
 import { Helpers } from "../../../utils/helpers";
 import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
+import { StateYear } from "../states/StateYear";
 
 export class PdfPropsCreator {
   pdfProps: any;
@@ -92,11 +93,14 @@ export class PdfPropsCreator {
       orientationLandscape: false,
       compress: true,
 
-      business: {
-        address: `Data: ${Helpers.getCurrentDate()}`,
-        phone: `Godzina: ${Helpers.getCurrentHour()} `,
-      },
+    
 
+      contact: {
+        name: `Zestawienie z ${StateYear.year} r.`,
+        phone: `Data: ${Helpers.getCurrentDate()}`,
+        email: `Godzina: ${Helpers.getCurrentHour()} `,
+      },
+   
       invoice: {
         headerBorder: false,
         tableBodyBorder: false,

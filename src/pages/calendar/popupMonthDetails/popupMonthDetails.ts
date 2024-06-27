@@ -1,4 +1,4 @@
-import { ModelMonth } from "./../../../sharedModels/modelMonth";
+import { ModelMonth } from "../../../sharedModels/modelMonth";
 import { PopupCreator } from "../../../components/popupCreator";
 import { Helpers } from "../../../utils/helpers";
 import { StateFillMode } from "../states/stateFillMode";

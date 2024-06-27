@@ -26,8 +26,14 @@ export class ListHeaderLeftSide extends ListCreator {
   #createLiElems(elementsData: { iconClass: string }[]) {
     elementsData.forEach(({ iconClass }: { iconClass: string }, idx) => {
       this.#liEl = document.createElement("li");
-      idx === elementsData.length - 1 &&
-        this.#liEl.classList.add("hidden", "sm:block");
+
+      if (idx === elementsData.length - 1) {
+        this.#liEl.classList.add("hidden", "md:block");
+      }
+
+       if (idx === elementsData.length - 2) {
+         this.#liEl.classList.add("hidden", "sm:block");
+       }
 
       this.#iEl = document.createElement("span");
       this.#iEl.classList.add(

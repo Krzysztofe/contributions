@@ -1,8 +1,8 @@
-import { BtnsCreator } from "../../../components/btnsCreator";
-import { PopupCreator } from "../../../components/popupCreator";
-import { Helpers } from "../../../utils/helpers";
-import { StateCalendar } from "../states/StateCalendar";
-import { StateYear } from "../states/StateYear";
+import { BtnsCreator } from "../../components/btnsCreator";
+import { PopupCreator } from "../../components/popupCreator";
+import { Helpers } from "../../utils/helpers";
+import { StateCalendar } from "./states/StateCalendar";
+import { StateYear } from "./states/StateYear";
 
 export class PopupSms extends PopupCreator {
   #iconEl = document.querySelector(".fa-comment");
@@ -81,13 +81,18 @@ export class PopupSms extends PopupCreator {
     if (this.#countSmsNumber() > 4) {
       textSms = "smsów";
     }
-    return textSms
+    return textSms;
   }
 
   #createHeader() {
     this.#popupConainerEl = document.getElementById("popupInnerContainer");
     this.#hederEl.classList.add("font-semibold", "text-center");
-    this.#hederEl.innerText = `Wysłać ${this.#countSmsNumber()} ${this.#createSmsText()}?`;
+    const currentMonth = Helpers.getCurrentMonth()
+      .split("-")
+      .reverse()
+      .join(".");
+
+    this.#hederEl.innerHTML = `Wysłać ${this.#countSmsNumber()} ${this.#createSmsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
     this.#popupConainerEl?.append(this.#hederEl);
   }
 

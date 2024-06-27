@@ -1,4 +1,4 @@
-import { ModelMonth } from "./../../../sharedModels/modelMonth";
+import { ModelMonth } from "../../../sharedModels/modelMonth";
 import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";

@@ -39,7 +39,7 @@ export class HeaderCalendar extends HeaderLogedIn {
         this.form.createInput(input, [
           "w-[75px]",
           "hidden",
-          "md:block",
+          "lg:block",
           "mr-8",
           "pr-0",
         ])
@@ -55,7 +55,7 @@ export class HeaderCalendar extends HeaderLogedIn {
     Helpers.createCurrencyInInput({
       parentEl: this.#inputAmountContainer,
       elementId: "amountGlobal",
-      styles: "md:block",
+      styles: "lg:block",
     });
     this.#currencyEl = document.getElementById("amountGlobal");
   }
