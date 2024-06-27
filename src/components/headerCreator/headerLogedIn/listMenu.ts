@@ -29,7 +29,7 @@ export class ListMenu extends ListCreator {
 
       this.#linkEl = document.createElement("a");
       this.#linkEl.setAttribute("href", path);
-      this.#linkEl.classList.add("flex");
+      this.#linkEl.classList.add("flex", "hover:text-black_opacity");
 
       this.#liEl.append(this.#linkEl);
 
@@ -56,7 +56,7 @@ export class ListMenu extends ListCreator {
           "sm:ml-8",
           "md:ml-4",
           "text-sm",
-          "lg:text-base"
+          "lg:text-base",
         );
         this.#iconEl.style.color = "dark";
         this.#iconEl.setAttribute("aria-hidden", "true");

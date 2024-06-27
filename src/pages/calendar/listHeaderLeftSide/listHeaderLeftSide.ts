@@ -30,7 +30,13 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.add("hidden", "sm:block");
 
       this.#iEl = document.createElement("span");
-      this.#iEl.classList.add("fa-solid", iconClass, "mr-8", "cursor-pointer");
+      this.#iEl.classList.add(
+        "fa-solid",
+        iconClass,
+        "mr-8",
+        "cursor-pointer",
+        "hover:text-black_opacity"
+      );
 
       this.#liEl.append(this.#iEl);
       this.ulEl?.append(this.#liEl);

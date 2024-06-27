@@ -6,4 +6,6 @@ export const dataListLeftSide = [
     iconClass: "fa-pen-to-square",
   },
   { iconClass: "fa-file-pdf" },
+  { iconClass: "fa-comment" },
 ];
+
