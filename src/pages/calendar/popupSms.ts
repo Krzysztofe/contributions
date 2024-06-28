@@ -103,8 +103,8 @@ export class PopupSms extends PopupCreator {
     document.querySelector(".fa-xmark")?.remove();
     const loader = new LoadingPopupCreator("#popupInnerContainer");
     loader.createSpinner();
-    // this.#createHeader();
-    // new BtnsCreator("#popupInnerContainer");
+    this.#createHeader();
+    new BtnsCreator("#popupInnerContainer");
   }
 
   #printPopupEvent() {

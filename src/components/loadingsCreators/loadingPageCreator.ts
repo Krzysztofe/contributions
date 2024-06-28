@@ -1,3 +1,5 @@
+import { ModelMemberCalendar } from "../../sharedModels/modelMemberCalendar";
+
 export class LoadigPageCreator {
   #loadingContenerEl = document.getElementById("loadingConteiner");
   constructor() {
@@ -16,3 +18,5 @@ export class LoadigPageCreator {
     window.addEventListener("load", this.#handleLoad.bind(this));
   }
 }
+
+

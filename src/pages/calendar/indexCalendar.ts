@@ -1,4 +1,3 @@
-import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPageCreator";
 import { AutoLogoutCreator } from "./../../components/autoLogoutCreator";
 import { TableCalendarPrinter } from "./table/tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
@@ -8,6 +7,7 @@ import { StateCalendar } from "./states/StateCalendar";
 import { PopupMonthDetails } from "./popupMonthDetails/popupMonthDetails";
 import { StateAmount } from "./states/StateAmount";
 import { PopupSms } from "./popupSms";
+import { LoadigCalendarPageCreator } from "../../components/loadingsCreators/loadingCalendarPageCreator";
 
 class CalendarManager {
   GETCalendarOptions = {
@@ -23,13 +23,12 @@ class CalendarManager {
 
   async #init() {
     Helpers.isUserLoged();
-    new LoadigPageCreator();
     await StateAmount.getAmount();
     new HeaderCalendar(["flex", "items-center"]);
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
+    new LoadigCalendarPageCreator(calendarDatabase);
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
-    new LoadigPageCreator();
     new PopupMonthDetails();
     new PopupSms();
     new AutoLogoutCreator();

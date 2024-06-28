@@ -39,6 +39,7 @@ export class DeleteMember {
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
     const deletedMemberId = await Helpers.fetchData(this.#DELETEOptions());
+   
     StateMembers.setMembers(this.#updatedData(deletedMemberId));
     new ReprintSettingsPanel();
     this.#loading.removeLoading();

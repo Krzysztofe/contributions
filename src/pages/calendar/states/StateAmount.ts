@@ -1,7 +1,6 @@
 import { URL_AMOUNT_GLOBAL } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
 
-
 export class StateAmount {
   static amount = "";
 
@@ -12,8 +11,8 @@ export class StateAmount {
     },
   };
 
- static async getAmount() {
-    const amountDatabase = await Helpers.fetchData(this.GETAmountOptions)
+  static async getAmount() {
+    const amountDatabase = await Helpers.fetchData(this.GETAmountOptions);
     this.amount = amountDatabase.amount;
   }
 }

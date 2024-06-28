@@ -2,18 +2,22 @@ import { ModelMemberSettings } from "../../sharedModels/moedelMemberSettings";
 import { Helpers } from "../../utils/helpers";
 
 export class StateMembers {
-  static sortedMembers: [] | ModelMemberSettings[] = [];
+  static sortedMembers: ModelMemberSettings[] = [];
 
-  static setMembers(members: ModelMemberSettings[]) {
-    if (!members || members.length === 0) return;
-    const processMembers = members?.map(
-      ({ fullname, phone, id, join_date }) => {
-        return { id, fullname, phone, join_date };
-      }
-    );
+  static setMembers(members: ModelMemberSettings[] | []) {
+    let processMembers: ModelMemberSettings[] | [];
 
-    const sortedMembers = Helpers.sortList(processMembers);
+    if (members.length > 0) {
+      processMembers = members.map(({ fullname, phone, id, join_date }) => ({
+        id,
+        fullname,
+        phone,
+        join_date,
+      }));
+    } else {
+      processMembers = [];
+    }
 
-    this.sortedMembers = sortedMembers;
+    this.sortedMembers = Helpers.sortList(processMembers);
   }
 }

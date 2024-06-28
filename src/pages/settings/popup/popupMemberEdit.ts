@@ -19,7 +19,7 @@ class FormMemberEditPrinter {
 
   #createFormHeader() {
     this.#formHeaderEl = document.createElement("h3");
-    this.#formHeaderEl.classList.add("mb-3");
+    this.#formHeaderEl.classList.add("mb-3", "font-semibold");
     this.#tdTextsContent &&
       (this.#formHeaderEl.innerText = `${this.#tdTextsContent[1]}`);
     this.#formEl = document.getElementById("popupMemberEdit");
@@ -41,7 +41,6 @@ class FormMemberEditPrinter {
 
     if (this.#inputsElems) {
       this.#inputsElems[0].value = this.#tdTextsContent[2];
-      // this.#inputsElems[1].value = this.#tdTextsContent[3];
     }
   }
 
@@ -64,7 +63,6 @@ class FormMemberEditPrinter {
     this.#passValuesToInputs();
     this.#createFormHeader();
 
-   
     new MemberEditSubmit(
       this.#eventTarget?.getAttribute("data-member-id"),
       this.#eventTarget?.getAttribute("data-row-id")
