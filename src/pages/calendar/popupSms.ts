@@ -1,4 +1,5 @@
 import { BtnsCreator } from "../../components/btnsCreator";
+import { LoadingPopupCreator } from "../../components/loadingsCreators/loadingPopupCreator";
 import { PopupCreator } from "../../components/popupCreator";
 import { Helpers } from "../../utils/helpers";
 import { StateCalendar } from "./states/StateCalendar";
@@ -86,6 +87,7 @@ export class PopupSms extends PopupCreator {
 
   #createHeader() {
     this.#popupConainerEl = document.getElementById("popupInnerContainer");
+
     this.#hederEl.classList.add("font-semibold", "text-center");
     const currentMonth = Helpers.getCurrentMonth()
       .split("-")
@@ -99,8 +101,10 @@ export class PopupSms extends PopupCreator {
   #handlePrintPopup() {
     this.createPopupContainetr();
     document.querySelector(".fa-xmark")?.remove();
-    this.#createHeader();
-    new BtnsCreator("#popupInnerContainer");
+    const loader = new LoadingPopupCreator("#popupInnerContainer");
+    loader.createSpinner();
+    // this.#createHeader();
+    // new BtnsCreator("#popupInnerContainer");
   }
 
   #printPopupEvent() {
