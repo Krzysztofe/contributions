@@ -1,86 +1,62 @@
+import { ModelMonth } from "./../../../sharedModels/modelMonth";
 import { OutputType } from "jspdf-invoice-template";
 import { Helpers } from "../../../utils/helpers";
 import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
 import { StateYear } from "../states/StateYear";
+import { monthsEnglish, monthsPolish } from "../../../data/dataMonths";
 
 export class PdfPropsCreator {
   pdfProps: any;
+  #membersSums = document.querySelectorAll('[data="sum"]');
+  #joinMonthNumber: number | null = null;
 
   constructor(calendarMembers: any) {
     this.pdfProps = this.#createProps(calendarMembers);
   }
 
-  #replacePolishLetters(text: string) {
-    const polishToWesternMap: { [key: string]: string } = {
-      ą: "a",
-      ć: "c",
-      ę: "e",
-      ł: "l",
-      ń: "n",
-      ó: "o",
-      ś: "s",
-      ż: "z",
-      ź: "z",
-      Ą: "A",
-      Ć: "C",
-      Ę: "E",
-      Ł: "L",
-      Ń: "N",
-      Ó: "O",
-      Ś: "S",
-      Ż: "Z",
-      Ź: "Z",
-    };
-    const replacePolishLetters = (text: string) => {
-      return text
-        .split("")
-        .map(char => polishToWesternMap[char] || char)
-        .join("");
-    };
-
-    return replacePolishLetters(text);
-  }
-
   #createHeaderMonths() {
-    return [
-      "Sty.",
-      "Lut.",
-      "Mar.",
-      "Kwi.",
-      "Maj",
-      "Cze.",
-      "Lip.",
-      "Sie.",
-      "Wrz.",
-      "Paz.",
-      "Lis.",
-      "Gru.",
-    ].map(month => {
+    return monthsPolish.map(month => {
       return { title: month };
     });
   }
 
-  #createTableMembers(calendarMembers: ModelMemberCalendar[]) {
+  #getFullname(member: ModelMemberCalendar) {
+    const fullname = member.fullname.split(" ");
+    fullname.push("");
+    return Helpers.replacePolishLetters(fullname.join("\n"));
+  }
+
+  #getMonthAmount = (
+    month: keyof ModelMemberCalendar,
+    member: ModelMemberCalendar
+  ) => {
+    if (!this.#joinMonthNumber) return;
+    const monthData = member[month] as ModelMonth;
+    return this.#joinMonthNumber <= +monthData.monthNumber
+      ? `${monthData.amount} zl`
+      : " X";
+  };
+
+  #getMonthsAmounts(member: ModelMemberCalendar) {
+    return monthsEnglish.map(month => {
+      return this.#getMonthAmount(month, member);
+    });
+  }
+
+  #createDataTableMembers(calendarMembers: ModelMemberCalendar[]) {
+    const sums = Array.from(this.#membersSums)?.map(
+      (ele: any) => ele.textContent
+    );
+
     return calendarMembers.map((member, idx) => {
-      const fullname = `${member.fullname
-        .split(" ")
-        .join("         ")}                             `;
+      const joinMonth = member.join_date?.split("-")[1];
+      this.#joinMonthNumber = joinMonth ? parseInt(joinMonth, 10) : null;
 
       return [
         `${idx + 1}`,
-        this.#replacePolishLetters(fullname),
-        `${member.january.amount} zl`,
-        `${member.february.amount} zl`,
-        `${member.march.amount} zl`,
-        `${member.april.amount} zl`,
-        `${member.may.amount} zl`,
-        `${member.june.amount} zl`,
-        `${member.july.amount} zl`,
-        `${member.august.amount} zl`,
-        `${member.september.amount} zl`,
-        `${member.october.amount} zl`,
-        `${member.november.amount} zl`,
-        `${member.december.amount} zl`,
+        this.#getFullname(member),
+        ...this.#getMonthsAmounts(member),
+        `${sums[idx].replace("zł", "")}zl`,
       ];
     });
   }
@@ -93,14 +69,12 @@ export class PdfPropsCreator {
       orientationLandscape: false,
       compress: true,
 
-    
-
       contact: {
         name: `Zestawienie z ${StateYear.year} r.`,
         phone: `Data: ${Helpers.getCurrentDate()}`,
         email: `Godzina: ${Helpers.getCurrentHour()} `,
       },
-   
+
       invoice: {
         headerBorder: false,
         tableBodyBorder: false,
@@ -119,7 +93,7 @@ export class PdfPropsCreator {
           },
           ...this.#createHeaderMonths(),
         ],
-        table: this.#createTableMembers(calendarMembers),
+        table: this.#createDataTableMembers(calendarMembers),
       },
       pageEnable: true,
       pageLabel: "Strona ",

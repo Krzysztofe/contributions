@@ -8,7 +8,6 @@ export class LoadingInputCreator {
 
   }
   createSpinner() {
-    console.log('eeee',)
     const spinner = document.createElement("span");
     spinner.classList.add(
       "loading",

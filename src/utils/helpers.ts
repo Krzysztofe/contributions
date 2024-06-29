@@ -159,6 +159,37 @@ export class Helpers {
     return monthTranslations[month.toLowerCase()] || "";
   }
 
+  static replacePolishLetters(text: string) {
+    const polishToWesternMap: { [key: string]: string } = {
+      ą: "a",
+      ć: "c",
+      ę: "e",
+      ł: "l",
+      ń: "n",
+      ó: "o",
+      ś: "s",
+      ż: "z",
+      ź: "z",
+      Ą: "A",
+      Ć: "C",
+      Ę: "E",
+      Ł: "L",
+      Ń: "N",
+      Ó: "O",
+      Ś: "S",
+      Ż: "Z",
+      Ź: "Z",
+    };
+    const replacePolishLetters = (text: string) => {
+      return text
+        .split("")
+        .map(char => polishToWesternMap[char] || char)
+        .join("");
+    };
+
+    return replacePolishLetters(text);
+  }
+
   static isNestedEl(parentEl: string, elem: HTMLElement | null) {
     let currentElement = elem;
 

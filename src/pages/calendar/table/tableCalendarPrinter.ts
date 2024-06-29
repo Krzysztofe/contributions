@@ -5,24 +5,14 @@ import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 import { wrapperWidth } from "../../../data/dataNumbers";
+import { monthsPolish } from "../../../data/dataMonths";
 
 export class TableCalendarPrinter {
   #membersSum = StateCalendar.sortedCalendar?.length || "";
   #dataTableHead: string[] = [
     `${this.#membersSum}`,
     "",
-    "Sty.",
-    "Lut.",
-    "Mar.",
-    "Kwi.",
-    "Maj",
-    "Cze.",
-    "Lip.",
-    "Sie.",
-    "Wrz.",
-    "Paź.",
-    "Lis.",
-    "Gru.",
+    ...monthsPolish,
     "Suma",
   ];
 
@@ -68,7 +58,7 @@ export class TableCalendarPrinter {
   #tdStylesCustom(idx?: number) {
     return idx === 0
       ? ["whitespace-nowrap"]
-      : ["cursor-pointer", "min-w-20", "max-w-20", "whitespace-normal"];
+      : ["cursor-pointer", "min-w-12", "max-w-12", "whitespace-normal"];
   }
 
   #tdSetAtribut({

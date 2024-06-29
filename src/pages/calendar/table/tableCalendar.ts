@@ -136,7 +136,6 @@ export class TableCalendar extends TableCreator {
   #trElems: NodeListOf<Element> | null = null;
   #amountElems: NodeListOf<Element> | null = null;
   #tdElems: NodeListOf<Element> | null = null;
-  // #tdNotActiveElems: NodeListOf<Element> | null = null;
 
   constructor(parentEl: string) {
     super(parentEl);
@@ -186,9 +185,10 @@ export class TableCalendar extends TableCreator {
   createTdSum(currentSumOfContrib: number, idx: number, tr: Element) {
     const tdNotActiveElemsSum =
       tr.querySelectorAll("[data-not-active]").length *
-      parseInt(StateAmount.amount);
+        parseInt(StateAmount.amount) || 0;
 
     const sumToPay = currentSumOfContrib - tdNotActiveElemsSum;
+
     const summaryAmount = Helpers.getTableSums()[idx] - sumToPay;
     const tdEl = document.createElement("td");
     tdEl.setAttribute("data", "sum");
