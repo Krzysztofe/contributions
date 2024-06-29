@@ -13,7 +13,6 @@ export class TableCalendarPrinter {
     `${this.#membersSum}`,
     "",
     ...monthsPolish,
-    "Suma",
   ];
 
   #dataTableBody =

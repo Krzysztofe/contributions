@@ -1,3 +1,4 @@
+import { ModelMemberCalendar } from "./../../../sharedModels/modelMemberCalendar";
 import { ListCreator } from "../../../components/listCreator";
 import jsPDFInvoiceTemplate from "jspdf-invoice-template";
 import { StateFillMode } from "../states/stateFillMode";
@@ -31,9 +32,9 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.add("hidden", "md:block");
       }
 
-       if (idx === elementsData.length - 2) {
-         this.#liEl.classList.add("hidden", "sm:block");
-       }
+      if (idx === elementsData.length - 2) {
+        this.#liEl.classList.add("hidden", "sm:block");
+      }
 
       this.#iEl = document.createElement("span");
       this.#iEl.classList.add(
@@ -64,8 +65,12 @@ export class ListHeaderLeftSide extends ListCreator {
   }
 
   #handleCreatePDF() {
-    const propsData = new PdfPropsCreator(StateCalendar.sortedCalendar);
-    jsPDFInvoiceTemplate(propsData.pdfProps);
+    const propsData = new PdfPropsCreator();
+    jsPDFInvoiceTemplate(
+      propsData.createProps(
+        StateCalendar.sortedCalendar as ModelMemberCalendar[]
+      )
+    );
   }
 
   #fastModeEvent() {

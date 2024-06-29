@@ -6,15 +6,10 @@ import { StateYear } from "../states/StateYear";
 import { monthsEnglish, monthsPolish } from "../../../data/dataMonths";
 
 export class PdfPropsCreator {
-  pdfProps: any;
-  #membersSums = document.querySelectorAll('[data="sum"]');
+  #membersSumsElems = document.querySelectorAll('[data="sum"]');
   #joinMonthNumber: number | null = null;
 
-  constructor(calendarMembers: any) {
-    this.pdfProps = this.#createProps(calendarMembers);
-  }
-
-  #createHeaderMonths() {
+  #getDataTableHead() {
     return monthsPolish.map(month => {
       return { title: month };
     });
@@ -39,13 +34,22 @@ export class PdfPropsCreator {
 
   #getMonthsAmounts(member: ModelMemberCalendar) {
     return monthsEnglish.map(month => {
-      return this.#getMonthAmount(month, member);
+      const monthData = member[month] as ModelMonth;
+      const isJoinedInPrintedYear = monthData?.join_date.includes(
+        StateYear.year
+      );
+
+      if (isJoinedInPrintedYear) {
+        return this.#getMonthAmount(month, member);
+      } else {
+        return monthData.amount;
+      }
     });
   }
 
-  #createDataTableMembers(calendarMembers: ModelMemberCalendar[]) {
-    const sums = Array.from(this.#membersSums)?.map(
-      (ele: any) => ele.textContent
+  #getDataTableBody(calendarMembers: ModelMemberCalendar[]) {
+    const sums = Array.from(this.#membersSumsElems)?.map(
+      (el: any) => el.textContent
     );
 
     return calendarMembers.map((member, idx) => {
@@ -61,7 +65,7 @@ export class PdfPropsCreator {
     });
   }
 
-  #createProps(calendarMembers: ModelMemberCalendar[]) {
+  createProps(calendarMembers: ModelMemberCalendar[]) {
     return {
       outputType: OutputType.Save,
       returnJsPDFDocObject: true,
@@ -91,9 +95,9 @@ export class PdfPropsCreator {
               width: 25,
             },
           },
-          ...this.#createHeaderMonths(),
+          ...this.#getDataTableHead(),
         ],
-        table: this.#createDataTableMembers(calendarMembers),
+        table: this.#getDataTableBody(calendarMembers),
       },
       pageEnable: true,
       pageLabel: "Strona ",
