@@ -75,7 +75,11 @@ The application is written according to the principles of OOP (Object-Oriented P
 * LocalStorage
 * Vite
 
-  ## Prerequisites
+## Libraries
+
+* jsPDF
+
+## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn
 * Node version: **Node.js v18.16.1**
 * Clone this repository to your local machine
