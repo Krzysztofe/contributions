@@ -28,7 +28,7 @@ slow method </br>
 The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
 
 
-#### Vesion for users tests deployed on home.pl server https://skladki.ozzip.pl/
+## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/
 
 ## Desktop
 
@@ -75,7 +75,11 @@ The application is written according to the principles of OOP (Object-Oriented P
 * LocalStorage
 * Vite
 
-  ## Prerequisites
+## Libraries
+
+* jsPDF
+
+## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn
 * Node version: **Node.js v18.16.1**
 * Clone this repository to your local machine
