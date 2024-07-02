@@ -74,7 +74,7 @@ class FormMonthDetailsPrinter {
     document.querySelector("form")?.remove();
     this.#form.createForm({
       formId: "popupMonthDetails",
-      styles: ["flex", "flex-col", "m-auto"],
+      styles: ["flex", "flex-col", "m-auto", "w-full"],
     });
     this.#form.createFields({
       inputsData: dataPopupFields,
@@ -108,7 +108,7 @@ class FormMonthDetailsPrinter {
   #printCurrencyEvent() {
     this.#inputAmountEl?.addEventListener("input", e => {
       this.#currencyEl &&
-        Helpers.handlePrintInputCurrency({
+        Helpers.handleReprintCurrencyInInput({
           e: e,
           currencyEl: this.#currencyEl,
           styles: "block",

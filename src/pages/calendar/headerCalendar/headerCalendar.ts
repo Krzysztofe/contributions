@@ -85,18 +85,18 @@ export class HeaderCalendar extends HeaderLogedIn {
   }
 
   #changeAmountEvents() {
-    this.#inputAmountEl?.addEventListener("input", e => {
-      this.#currencyEl &&
-        Helpers.handlePrintInputCurrency({
-          e: e,
-          currencyEl: this.#currencyEl,
-          styles: "md:block",
-        });
-    });
-
     this.#inputAmountEl?.addEventListener(
       "input",
       Helpers.debounce(this.#handleChangeInputAmount.bind(this), 1500)
     );
+
+    this.#inputAmountEl?.addEventListener("input", e => {
+      this.#currencyEl &&
+        Helpers.handleReprintCurrencyInInput({
+          e: e,
+          currencyEl: this.#currencyEl,
+          styles: "lg:block",
+        });
+    });
   }
 }

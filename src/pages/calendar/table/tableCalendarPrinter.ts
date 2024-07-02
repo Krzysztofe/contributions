@@ -9,11 +9,7 @@ import { monthsPolish } from "../../../data/dataMonths";
 
 export class TableCalendarPrinter {
   #membersSum = StateCalendar.sortedCalendar?.length || "";
-  #dataTableHead: string[] = [
-    `${this.#membersSum}`,
-    "",
-    ...monthsPolish,
-  ];
+  #dataTableHead: string[] = [`${this.#membersSum}`, "", ...monthsPolish];
 
   #dataTableBody =
     StateCalendar.sortedCalendar &&
@@ -37,7 +33,7 @@ export class TableCalendarPrinter {
     }
     this.#table.createTable([wrapperWidth, "m-auto"]);
     this.#table.createTableHead({
-      headers: this.#dataTableHead,
+      headers: [...this.#dataTableHead, "Suma"],
       stylesTh: ["bg-accent", "text-white"],
     });
     this.#table.createSelect();
@@ -57,7 +53,7 @@ export class TableCalendarPrinter {
   #tdStylesCustom(idx?: number) {
     return idx === 0
       ? ["whitespace-nowrap"]
-      : ["cursor-pointer", "min-w-12", "max-w-12", "whitespace-normal"];
+      : ["cursor-pointer", "min-w-20", "whitespace-normal"];
   }
 
   #tdSetAtribut({
@@ -85,7 +81,38 @@ export class TableCalendarPrinter {
 
   #tdInnerHtml(value: string | ModelObjectString) {
     if (typeof value !== "string") {
-      return Helpers.tdInnerHtmlPattern(value);
+      return this.#tdInnerHtmlPattern(value);
     } else return "";
+  }
+
+  #tdInnerHtmlPattern(month: ModelObjectString) {
+    const { id, pay_date, amount, comment, monthNumber } = month;
+    const monthDetailsJSON = Helpers.createDataMonthDetails(month);
+
+    const dataMonthDetails = `data-month-details = ${monthDetailsJSON}`;
+    const dataMonthId = `data-month-id = ${id}_${monthNumber}`;
+
+    return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${
+      amount || "0"
+    } zł</div> 
+
+    <div data = "memberDetailsPrint" class = "collapseClose">
+      <div class = "overflow-hidden" data = ${
+        (pay_date === "" || pay_date === "0000-00-00") && comment === ""
+          ? "emptyCollapse"
+          : "fullCollapse"
+      } >    
+        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem] font-semibold ${
+      comment && "h-3"
+    }">
+            ${pay_date === "0000-00-00" ? "" : pay_date}
+        </div> 
+        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem]">${
+      comment || ""
+    }
+        </div> 
+      
+        </div>
+    </div>`;
   }
 }

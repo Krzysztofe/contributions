@@ -29,7 +29,7 @@ export class PdfPropsCreator {
     const monthData = member[month] as ModelMonth;
     return this.#joinMonthNumber <= +monthData.monthNumber
       ? `${monthData.amount} zl`
-      : " X";
+      : " --";
   };
 
   #getMonthsAmounts(member: ModelMemberCalendar) {
@@ -90,12 +90,18 @@ export class PdfPropsCreator {
             },
           },
           {
-            title: "Nazwisko",
+            title: "Osoba",
             style: {
               width: 25,
             },
           },
           ...this.#getDataTableHead(),
+          {
+            title: "Suma",
+            style: {
+              width: 18,
+            },
+          },
         ],
         table: this.#getDataTableBody(calendarMembers),
       },

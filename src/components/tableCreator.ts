@@ -209,7 +209,12 @@ class TableBodyCreator {
       const btnIcon = document.createElement("button");
       this.#memberId && btnIcon.setAttribute("data-member-id", this.#memberId);
       btnIcon.setAttribute("data-row-id", tableRowId);
-      btnIcon.classList.add("fa", icon, "text-dark");
+      btnIcon.classList.add(
+        "fa",
+        icon,
+        "text-dark",
+        "hover:text-black_opacity",
+      );
       btnsContainerEL.append(btnIcon);
     });
     tdEL.append(btnsContainerEL);

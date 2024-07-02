@@ -205,8 +205,7 @@ export class TableCalendar extends TableCreator {
 
     tdEl.classList.add(
       "whitespace-nowrap",
-      "min-w-20",
-      "max-w-20",
+      "min-w-16",
       "align-top",
       "pt-2",
       textColor

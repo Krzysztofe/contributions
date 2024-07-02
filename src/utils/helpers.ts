@@ -215,37 +215,6 @@ export class Helpers {
     return JSON.stringify(details);
   }
 
-  static tdInnerHtmlPattern(month: ModelObjectString) {
-    const { id, pay_date, amount, comment, monthNumber } = month;
-    const monthDetailsJSON = this.createDataMonthDetails(month);
-
-    const dataMonthDetails = `data-month-details = ${monthDetailsJSON}`;
-    const dataMonthId = `data-month-id = ${id}_${monthNumber}`;
-
-    return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${
-      amount || "0"
-    } zł</div> 
-
-    <div data = "memberDetailsPrint" class = "collapseClose">
-      <div class = "overflow-hidden" data = ${
-        (pay_date === "" || pay_date === "0000-00-00") && comment === ""
-          ? "emptyCollapse"
-          : "fullCollapse"
-      } >    
-        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem] ${
-      comment && "h-3"
-    }">
-            ${pay_date === "0000-00-00" ? "" : pay_date}
-        </div> 
-        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem]">${
-      comment || ""
-    }
-        </div> 
-      
-        </div>
-    </div>`;
-  }
-
   static createCurrencyInInput({
     parentEl,
     elementId,
@@ -254,10 +223,10 @@ export class Helpers {
     parentEl: HTMLElement;
     elementId: string;
     styles: string;
+    inputValue?: string;
   }) {
     const currencyEl = document.createElement("span");
     currencyEl.id = elementId;
-
     const currencyStyles = StateAmount.amount ? styles : "hidden";
     currencyEl.innerText = "zł";
     currencyEl.classList.add(
@@ -270,7 +239,7 @@ export class Helpers {
     parentEl.append(currencyEl);
   }
 
-  static handlePrintInputCurrency({
+  static handleReprintCurrencyInInput({
     e,
     currencyEl,
     styles,

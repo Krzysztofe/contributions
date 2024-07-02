@@ -12,7 +12,6 @@ export const monthsPolish = [
   "Paz.",
   "Lis.",
   "Gru.",
-  "Suma",
 ];
 
 export const monthsEnglish: (keyof ModelMemberCalendar)[] = [
