@@ -48,7 +48,7 @@ export class ListHeaderLeftSide extends ListCreator {
         "md:mr-6"
       );
       this.#liEl.setAttribute(dataAttribute, "");
-      this.#liEl.innerHTML = `${iconSVG}`;
+      this.#liEl.innerHTML = iconSVG;
 
       this.ulEl?.append(this.#liEl);
       this.#iconFast = document.querySelector("[data-icon-rocket]");

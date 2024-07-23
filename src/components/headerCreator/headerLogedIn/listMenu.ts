@@ -2,7 +2,7 @@ import { ListCreator } from "../../listCreator";
 
 type ModelElementData = {
   text: string;
-  iconClass: string;
+  iconSVG: string;
   path: string;
 };
 
@@ -23,45 +23,36 @@ export class ListMenu extends ListCreator {
   }
 
   #createLiElems(elementsData: ModelElementData[]) {
-    elementsData.forEach(({ text, iconClass, path }: ModelElementData) => {
+    elementsData.forEach(({ text, iconSVG, path }: ModelElementData) => {
       this.#liEl = document.createElement("li");
-      this.#liEl.classList.add("flex");
+      this.#liEl.classList.add("flex", "hover:opacity-50");
 
       this.#linkEl = document.createElement("a");
       this.#linkEl.setAttribute("href", path);
-      this.#linkEl.classList.add("flex", "hover:text-black_opacity");
+      this.#linkEl.classList.add("flex");
 
       this.#liEl.append(this.#linkEl);
 
       this.#textEl = document.createElement("div");
       this.#textEl.innerText = text;
-      this.#textEl.classList.add(
-        "hidden",
-        "lg:block",
-        "text-sm",
-        "lg:text-base",
-        "flex",
-        "self-center"
-      );
+      this.#textEl.classList.add("hidden", "lg:block", "flex", "self-center");
 
       this.#linkEl.append(this.#textEl);
 
-      if (iconClass) {
-        this.#iconEl = document.createElement("i");
-        this.#iconEl.classList.add(
-          "fa",
-          iconClass,
-          "m-1",
-          "first:ml-6",
-          "sm:ml-8",
-          "md:ml-4",
-          "text-sm",
-          "lg:text-base",
-        );
-        this.#iconEl.style.color = "dark";
-        this.#iconEl.setAttribute("aria-hidden", "true");
-        this.#linkEl.prepend(this.#iconEl);
-      }
+      this.#iconEl = document.createElement("div");
+      this.#iconEl.innerHTML = iconSVG;
+
+      this.#iconEl.classList.add(
+        "m-1",
+        "w-4",
+        "fill-dark",
+        "first:ml-6",
+        "sm:ml-8",
+        "md:ml-4"
+      );
+      this.#iconEl.style.color = "dark";
+      this.#iconEl.setAttribute("aria-hidden", "true");
+      this.#linkEl.prepend(this.#iconEl);
 
       if (text === "Wyloguj") {
         const logout = () => {

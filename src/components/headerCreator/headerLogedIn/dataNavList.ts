@@ -1,19 +1,23 @@
+import { iconUser } from "../../../icons/iconUser";
+import { iconGear } from "../../../icons/iconGear";
+import { iconCalendar } from "../../../icons/iconCalendar";
 const currentUrl = location.href;
 const isCalendar = currentUrl.includes("calendar");
 const isSettings = currentUrl.includes("settings");
 
+
 export const dataNavList = [
   {
     text: "Kalendarz",
-    iconClass: "fa-calendar-days",
+    iconSVG: iconCalendar,
     path: "/src/pages/calendar/calendar.html",
   },
   {
     text: "Ustawienia",
-    iconClass: "fa-gear",
+    iconSVG: iconGear,
     path: "/src/pages/settings/settings.html",
   },
-  { text: "Wyloguj", iconClass: "fa-user", path: "#" },
+  { text: "Wyloguj", iconSVG: iconUser, path: "#" },
 ];
 
 isCalendar && dataNavList.splice(0, 1);
