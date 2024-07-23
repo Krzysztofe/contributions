@@ -3,6 +3,7 @@ import { dataNavList } from "./dataNavList";
 import { HeaderCreator } from "../headerCreator";
 import { ListMenu } from "./listMenu";
 import { dataInputSearch } from "./dataInputSearch";
+import { iconGlass } from "../../../icons/iconGlass";
 
 export class HeaderLogedIn extends HeaderCreator {
   #navEl: HTMLElement | null = null;
@@ -38,9 +39,10 @@ export class HeaderLogedIn extends HeaderCreator {
     );
 
     this.#iconGlassEl = document.createElement("div");
+    this.#iconGlassEl.innerHTML = iconGlass;
     this.#iconGlassEl.classList.add(
-      "fa",
-      "fa-magnifying-glass",
+      "fill-dark",
+      "w-4",
       "mt-2",
       "ml-3",
       "absolute",
