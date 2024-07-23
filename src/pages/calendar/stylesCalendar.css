@@ -8,8 +8,6 @@
   grid-template-rows: 1fr;
 }
 
-
-
 .animateTd {
   animation: pulseBg 700ms forwards;
 }
@@ -19,9 +17,17 @@
     background-color: inherit;
   }
   50% {
-    background-color: #CCDDFF;
+    background-color: #ccddff;
   }
   80% {
     background-color: inherit;
   }
 }
+
+
+[data-icon-edit],
+[data-icon-rocket] {
+  /* width: 1rem; */
+  /* margin-top: 2rem; */
+}
+

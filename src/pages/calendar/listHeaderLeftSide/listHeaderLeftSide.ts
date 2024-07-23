@@ -7,26 +7,29 @@ import { PdfPropsCreator } from "./pdfPropsCreator";
 
 type ModelListCreator = {
   parentEl: string;
-  elementsData: { iconClass: string }[];
+  iconsData: { iconSVG: string; dataAttribute: string }[];
 };
 
 export class ListHeaderLeftSide extends ListCreator {
   #liEl: HTMLElement | null = null;
-  #iEl: HTMLElement | null = null;
   #iconFast: HTMLElement | null = null;
   #iconSlow: HTMLElement | null = null;
 
-  constructor({ parentEl, elementsData }: ModelListCreator) {
+  constructor({ parentEl, iconsData }: ModelListCreator) {
     super(parentEl);
-    this.#createLiElems(elementsData);
+    this.#createLiElems(iconsData);
     this.#fastModeEvent();
     this.#slowModeEvent();
     this.#createPDFEvent();
   }
 
-  #createLiElems(elementsData: { iconClass: string }[]) {
-    elementsData.forEach(({ iconClass }: { iconClass: string }, idx) => {
+  #createLiElems(elementsData: { iconSVG: string; dataAttribute: string }[]) {
+    elementsData.forEach(({ iconSVG, dataAttribute }, idx) => {
       this.#liEl = document.createElement("li");
+
+        if (idx === 0) {
+          this.#liEl.classList.add( "fill-accent");
+        }
 
       if (idx === elementsData.length - 1) {
         this.#liEl.classList.add("hidden", "md:block");
@@ -36,31 +39,32 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.add("hidden", "sm:block");
       }
 
-      this.#iEl = document.createElement("span");
-      this.#iEl.classList.add(
-        "fa-solid",
-        iconClass,
-        "mr-8",
+      this.#liEl.classList.add(
+        "fill-dark",
+        "hover:opacity-50",
         "cursor-pointer",
-        "hover:text-black_opacity"
+        "w-4",
+        "mr-8",
+        "md:mr-6"
       );
+      this.#liEl.setAttribute(dataAttribute, "");
+      this.#liEl.innerHTML = `${iconSVG}`;
 
-      this.#liEl.append(this.#iEl);
       this.ulEl?.append(this.#liEl);
-      this.#iconFast = document.querySelector(".fa-rocket");
+      this.#iconFast = document.querySelector("[data-icon-rocket]");
       StateFillMode.isFast && this.#iconFast?.classList.add("text-accent");
-      this.#iconSlow = document.querySelector(".fa-pen-to-square");
+      this.#iconSlow = document.querySelector("[data-icon-edit]");
     });
   }
 
   #handlefastMode() {
-    this.#iconFast?.classList.add("text-accent");
-    this.#iconSlow?.classList.remove("text-accent");
+    this.#iconFast?.classList.add("fill-accent");
+    this.#iconSlow?.classList.remove("fill-accent");
     StateFillMode.isFast = true;
   }
   #handleSlowMode() {
-    this.#iconFast?.classList.remove("text-accent");
-    this.#iconSlow?.classList.add("text-accent");
+    this.#iconFast?.classList.remove("fill-accent");
+    this.#iconSlow?.classList.add("fill-accent");
     StateFillMode.isFast = false;
   }
 
@@ -83,7 +87,7 @@ export class ListHeaderLeftSide extends ListCreator {
 
   #createPDFEvent() {
     document
-      .querySelector(".fa-file-pdf")
+      .querySelector("[data-icon-pdf]")
       ?.addEventListener("click", this.#handleCreatePDF.bind(this));
   }
 }

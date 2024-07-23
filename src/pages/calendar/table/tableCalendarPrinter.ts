@@ -81,38 +81,7 @@ export class TableCalendarPrinter {
 
   #tdInnerHtml(value: string | ModelObjectString) {
     if (typeof value !== "string") {
-      return this.#tdInnerHtmlPattern(value);
+      return Helpers.tdInnerHtmlPattern(value);
     } else return "";
-  }
-
-  #tdInnerHtmlPattern(month: ModelObjectString) {
-    const { id, pay_date, amount, comment, monthNumber } = month;
-    const monthDetailsJSON = Helpers.createDataMonthDetails(month);
-
-    const dataMonthDetails = `data-month-details = ${monthDetailsJSON}`;
-    const dataMonthId = `data-month-id = ${id}_${monthNumber}`;
-
-    return `<div data = "amount" ${dataMonthId} ${dataMonthDetails} >${
-      amount || "0"
-    } zł</div> 
-
-    <div data = "memberDetailsPrint" class = "collapseClose">
-      <div class = "overflow-hidden" data = ${
-        (pay_date === "" || pay_date === "0000-00-00") && comment === ""
-          ? "emptyCollapse"
-          : "fullCollapse"
-      } >    
-        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem] font-semibold ${
-      comment && "h-3"
-    }">
-            ${pay_date === "0000-00-00" ? "" : pay_date}
-        </div> 
-        <div ${dataMonthId} ${dataMonthDetails} class = "text-[0.6rem]">${
-      comment || ""
-    }
-        </div> 
-      
-        </div>
-    </div>`;
   }
 }

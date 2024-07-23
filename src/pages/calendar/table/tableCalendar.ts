@@ -112,10 +112,10 @@ class CollapseCreator {
     const tdTagEl = target.tagName;
 
     if (tdFullnameId && (tdTagEl === "TD" || tdTagEl === "I")) {
-      const iconEL = document.getElementById(tdFullnameId)
+      const iconEl = document.getElementById(tdFullnameId)
         ?.firstElementChild as HTMLElement;
 
-      iconEL?.classList.toggle("rotate-180");
+      iconEl?.classList.toggle("rotate-180");
 
       const collapseElems = document
         .getElementById(tdFullnameId)

@@ -27,9 +27,6 @@ export class PopupCreator {
   #createPopupInnerContainer() {
      this.#innerContainerEl.id = "popupInnerContainer"
     this.#innerContainerEl.classList.add(
-      // "flex",
-      // "justify-center",
-      // "items-center",
       "px-16",
       "py-8",
       "sm:bg-white",

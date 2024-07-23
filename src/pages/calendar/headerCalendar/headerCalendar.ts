@@ -27,7 +27,7 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#createInputAmount();
     new ListHeaderLeftSide({
       parentEl: "#leftSideContainerEl",
-      elementsData: dataListLeftSide,
+      iconsData: dataListLeftSide,
     });
   }
 

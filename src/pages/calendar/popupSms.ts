@@ -1,3 +1,4 @@
+import { URL_CALENDAR } from "./../../data/dataUrl";
 import { BtnsCreator } from "../../components/btnsCreator";
 import { LoadingPopupCreator } from "../../components/loadingsCreators/loadingPopupCreator";
 import { PopupCreator } from "../../components/popupCreator";
@@ -6,7 +7,7 @@ import { StateCalendar } from "./states/StateCalendar";
 import { StateYear } from "./states/StateYear";
 
 export class PopupSms extends PopupCreator {
-  #iconEl = document.querySelector(".fa-comment");
+  #iconEl = document.querySelector("[data-icon-sms]");
   #hederEl = document.createElement("h3");
   #popupConainerEl: HTMLElement | null = null;
   constructor() {
@@ -97,8 +98,18 @@ export class PopupSms extends PopupCreator {
     this.#hederEl.innerHTML = `Wysłać ${this.#countSmsNumber()} ${this.#createSmsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
     this.#popupConainerEl?.append(this.#hederEl);
   }
+  GETCalendarOptions = {
+    url: `${URL_CALENDAR}${Helpers.currentYear}`,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
 
-  #handlePrintPopup() {
+  async #handlePrintPopup() {
+    const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
+
+    console.log("", calendarDatabase?.headers);
+
     this.createPopupContainetr();
     document.querySelector(".fa-xmark")?.remove();
     const loader = new LoadingPopupCreator("#popupInnerContainer");

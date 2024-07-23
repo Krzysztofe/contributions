@@ -1,11 +1,17 @@
+import { iconRocket } from "../../../icons/iconRocket";
+import { iconEdit } from "../../../icons/iconEdit";
+import { iconPdf } from "../../../icons/iconPdf";
+import { iconSms } from "../../../icons/iconSms";
+
 export const dataListLeftSide = [
   {
-    iconClass: "fa-rocket",
+    iconSVG: iconRocket,
+    dataAttribute: "data-icon-rocket",
   },
   {
-    iconClass: "fa-pen-to-square",
+    iconSVG: iconEdit,
+    dataAttribute: "data-icon-edit",
   },
-  { iconClass: "fa-file-pdf" },
-  { iconClass: "fa-comment" },
+  { iconSVG: iconPdf, dataAttribute: "data-icon-pdf" },
+  { iconSVG: iconSms, dataAttribute: "data-icon-sms" },
 ];
-

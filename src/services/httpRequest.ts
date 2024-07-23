@@ -42,6 +42,9 @@ export class HttpRequest {
         throw Error("Błąd. Ponów próbę");
       } else {
         let data;
+        // console.log("", resp.headers?.get("Content-Length"));
+        // console.log("", resp.headers?.get("Debt-members"));
+        // console.log("", resp.headers?.get("date"));
         if (body?.login) {
           data = await resp.text();
         } else if (method === "DELETE") {
