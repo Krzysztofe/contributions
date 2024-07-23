@@ -191,7 +191,7 @@ class TableBodyCreator {
     });
   }
 
-  #createBtnsContainer(tableRowId: string, icons: string[]) {
+  #createBtnsContainer(tableRowId: string, iconsSVG: string[]) {
     const tdEL = document.createElement("td");
     tdEL.classList.add("border", "border-primary_dark");
 
@@ -205,17 +205,28 @@ class TableBodyCreator {
       "gap-6"
     );
 
-    icons.forEach((icon) => {
+    iconsSVG.forEach(iconSVG => {
+      if (!this.#memberId) return;
+
       const btnIcon = document.createElement("button");
-      this.#memberId && btnIcon.setAttribute("data-member-id", this.#memberId);
+      btnIcon.setAttribute("data-member-id", this.#memberId);
       btnIcon.setAttribute("data-row-id", tableRowId);
+      btnIcon.innerHTML = iconSVG;
       btnIcon.classList.add(
-        "fa",
-        icon,
+        "fill-dark",
+        "hover:opacity-50",
+        "cursor-pointer",
+        "w-3",
         "text-dark",
-        "hover:text-black_opacity",
+        "hover:text-black_opacity"
       );
       btnsContainerEL.append(btnIcon);
+      const svgEl = btnIcon?.querySelector("svg");
+      svgEl?.setAttribute("data-row-id", tableRowId);
+      svgEl?.setAttribute("data-member-id", this.#memberId);
+      const pathEl = btnIcon?.querySelector("path");
+      pathEl?.setAttribute("data-row-id", tableRowId);
+      pathEl?.setAttribute("data-member-id", this.#memberId);
     });
     tdEL.append(btnsContainerEL);
     this.#trEl?.append(tdEL);

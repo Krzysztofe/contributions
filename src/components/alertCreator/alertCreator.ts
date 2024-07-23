@@ -1,3 +1,4 @@
+import { Helpers } from "../../utils/helpers";
 import { DeleteMember } from "./deleteMember";
 
 export class AlertCreator {
@@ -58,9 +59,11 @@ export class AlertCreator {
   handleAlert(e: Event) {
     this.#eventTarget = e.target as HTMLButtonElement;
     this.#rowId = this.#eventTarget.getAttribute("data-row-id");
-    this.#memberId = this.#eventTarget.getAttribute("data-member-id")
+    this.#memberId = this.#eventTarget.getAttribute("data-member-id");
 
-    if (this.#rowId && this.#eventTarget.classList.value.includes("fa-trash")) {
+    const isTrashIcon = this.#eventTarget.hasAttribute("data-icon-trash");
+
+    if (this.#rowId && isTrashIcon) {
       const memberName = document.getElementById(this.#rowId)?.children[1]
         .textContent;
       memberName && this.createModal(memberName);

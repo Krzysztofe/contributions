@@ -81,12 +81,14 @@ export class PopupMemberEdit extends PopupCreator {
 
   #handlePrintPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
+    const isIconEdit = this.#eventTarget.hasAttribute("data-icon-edit")
 
-    if (this.#eventTarget.classList.value.includes("fa-pen-to-square")) {
+    if (isIconEdit) {
       this.createPopupContainetr();
       new FormMemberEditPrinter(this.#eventTarget);
     }
   }
+
   #printPopupEvent() {
     this.#sectionTableEl?.addEventListener(
       "click",

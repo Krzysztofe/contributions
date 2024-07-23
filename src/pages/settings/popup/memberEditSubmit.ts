@@ -52,6 +52,8 @@ export class MemberEditSubmit {
     e.preventDefault();
     if (this.#validations(e) !== "go") return;
     this.#btnLoader.createSpinner();
+
+    console.log("", this.#PUTOptions());
     await Helpers.fetchData(this.#PUTOptions());
     new ReprintTr(
       this.#trId,

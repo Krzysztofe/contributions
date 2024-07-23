@@ -1,5 +1,8 @@
 import { TableCreator } from "../../components/tableCreator";
 import { StateMembers } from "./stateMembers";
+import { iconEdit } from "../../icons/iconEdit";
+import { iconTrash } from "../../icons/iconTrash";
+
 
 export class TableMembersPrinter {
   #table = new TableCreator("sectionTable");
@@ -30,7 +33,7 @@ export class TableMembersPrinter {
 
     this.#table.createTableBody({
       tdDataList: sortedMembers,
-      icons: ["fa-pen-to-square", "fa-trash"],
+      icons: [iconEdit, iconTrash],
       tdInnerHtml: this.#tdInnerHtml,
       tdStyles: ["whitespace-nowrap"],
     });
