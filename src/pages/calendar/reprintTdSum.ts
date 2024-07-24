@@ -24,8 +24,6 @@ export class ReprintTdSum {
       })
       .reduce((sum, curr) => sum + curr);
 
-    console.log("", sum);
-
     if (!currentSum || sumToPay === null || sumToPay === undefined) return;
 
     const newSum = sum - parseInt(sumToPay);

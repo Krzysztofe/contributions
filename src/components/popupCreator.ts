@@ -1,6 +1,8 @@
+import { iconX } from "../icons/iconX";
+
 export class PopupCreator {
   protected bodyEl = document.querySelector("body");
-  #xmarkEL = document.createElement("i");
+  #xmarkEL = document.createElement("div");
   #innerContainerEl = document.createElement("div");
   protected popupContainer = document.createElement("div");
 
@@ -9,27 +11,26 @@ export class PopupCreator {
   }
 
   #createIconXmark() {
+    this.#xmarkEL.innerHTML = iconX;
     this.#xmarkEL.classList.add(
-      "fa-solid",
-      "fa-xmark",
       "absolute",
       "top-0",
       "right-0",
       "px-5",
       "py-3",
-      "text-2xl",
+      "w-16",
       "cursor-pointer",
-      "hover:text-black_opacity"
+      "fill-dark",
+      "hover:fill-black_opacity"
     );
     this.#innerContainerEl?.prepend(this.#xmarkEL);
   }
 
   #createPopupInnerContainer() {
-     this.#innerContainerEl.id = "popupInnerContainer"
+    this.#innerContainerEl.id = "popupInnerContainer";
     this.#innerContainerEl.classList.add(
       "px-16",
       "py-8",
-      "sm:bg-white",
       "sm:border",
       "max-w-96",
       "min-h-60",
@@ -66,7 +67,7 @@ export class PopupCreator {
 
     if (
       eventTarget?.classList.value.includes("bg-black_opacity") ||
-      eventTarget?.classList.value.includes("fa-xmark")
+      eventTarget?.hasAttribute("data-icon-xmark")
     ) {
       this.popupContainer?.remove();
     }

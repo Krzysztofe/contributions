@@ -112,11 +112,7 @@ class CollapseCreator {
     const tdFullnameId = isIcon
       ? target.getAttribute("data-parent-id")
       : target.id;
-    console.log("", tdFullnameId);
-
     const tdTagEl = target.tagName;
-    console.log("", tdTagEl);
-
     if (
       tdFullnameId &&
       (tdTagEl === "TD" ||

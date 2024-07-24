@@ -111,7 +111,7 @@ export class PopupSms extends PopupCreator {
     console.log("", calendarDatabase?.headers);
 
     this.createPopupContainetr();
-    document.querySelector(".fa-xmark")?.remove();
+    // document.querySelector(".fa-xmark")?.remove();
     const loader = new LoadingPopupCreator("#popupInnerContainer");
     loader.createSpinner();
     this.#createHeader();
