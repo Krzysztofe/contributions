@@ -2,7 +2,7 @@ import { iconX } from "../icons/iconX";
 
 export class PopupCreator {
   protected bodyEl = document.querySelector("body");
-  #xmarkEL = document.createElement("div");
+  #xmarkEL = document.createElement("button");
   #innerContainerEl = document.createElement("div");
   protected popupContainer = document.createElement("div");
 
@@ -14,14 +14,18 @@ export class PopupCreator {
     this.#xmarkEL.innerHTML = iconX;
     this.#xmarkEL.classList.add(
       "absolute",
-      "top-0",
-      "right-0",
-      "px-5",
-      "py-3",
-      "w-16",
+      "top-2",
+      "right-2",
+      "w-6",
+      "h-6",
+      "flex",
+      "items-center",
+      "p-1",
       "cursor-pointer",
       "fill-dark",
-      "hover:fill-black_opacity"
+      "aspect-square",
+      "rounded-full",
+      "hover:bg-hover_bg"
     );
     this.#innerContainerEl?.prepend(this.#xmarkEL);
   }

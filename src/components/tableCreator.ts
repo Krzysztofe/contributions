@@ -214,11 +214,12 @@ class TableBodyCreator {
       btnIcon.innerHTML = iconSVG;
       btnIcon.classList.add(
         "fill-dark",
-        "hover:opacity-50",
+        "hover:bg-hover_bg",
         "cursor-pointer",
-        "w-3",
+        "w-5",
+        "rounded-full",
         "text-dark",
-        "hover:text-black_opacity"
+        "p-1"
       );
       btnsContainerEL.append(btnIcon);
       const svgEl = btnIcon?.querySelector("svg");

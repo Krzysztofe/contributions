@@ -25,7 +25,14 @@ export class ListMenu extends ListCreator {
   #createLiElems(elementsData: ModelElementData[]) {
     elementsData.forEach(({ text, iconSVG, path }: ModelElementData) => {
       this.#liEl = document.createElement("li");
-      this.#liEl.classList.add("flex", "hover:opacity-50");
+      this.#liEl.classList.add(
+        "flex",
+        "ml-4",
+        "md:ml-3",
+        "rounded-full",
+        "p-1",
+        "hover:bg-hover_bg"
+      );
 
       this.#linkEl = document.createElement("a");
       this.#linkEl.setAttribute("href", path);
@@ -35,7 +42,13 @@ export class ListMenu extends ListCreator {
 
       this.#textEl = document.createElement("div");
       this.#textEl.innerText = text;
-      this.#textEl.classList.add("hidden", "lg:block", "flex", "self-center");
+      this.#textEl.classList.add(
+        "hidden",
+        "lg:block",
+        "flex",
+        "self-center",
+        "pr-1"
+      );
 
       this.#linkEl.append(this.#textEl);
 
@@ -46,9 +59,6 @@ export class ListMenu extends ListCreator {
         "m-1",
         "w-4",
         "fill-dark",
-        "first:ml-6",
-        "sm:ml-8",
-        "md:ml-4"
       );
       this.#iconEl.style.color = "dark";
       this.#iconEl.setAttribute("aria-hidden", "true");

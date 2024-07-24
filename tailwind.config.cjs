@@ -10,6 +10,7 @@ export default {
         primary: "#E0EAFF",
         grey_primary: "#6E6E6E",
         grey_light: "#FAFAFA",
+        hover_bg: "#E5E5E5",
         dark: "#3e3e3e",
         white_opacity: "rgba(255,255,255,0.8)",
         black_opacity: "rgba(0,0,0,0.4)",

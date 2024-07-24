@@ -29,11 +29,13 @@ export class ListHeaderLeftSide extends ListCreator {
 
       this.#liEl.classList.add(
         "fill-dark",
-        "hover:opacity-50",
         "cursor-pointer",
-        "w-4",
-        "mr-8",
-        "md:mr-6"
+        "w-8",
+        "p-2",
+        "mr-4",
+        "md:mr-3",
+        "rounded-full",
+        "hover:bg-hover_bg"
       );
 
       if (idx === 0) {
