@@ -27,9 +27,19 @@ export class ListHeaderLeftSide extends ListCreator {
     elementsData.forEach(({ iconSVG, dataAttribute }, idx) => {
       this.#liEl = document.createElement("li");
 
-        if (idx === 0) {
-          this.#liEl.classList.add( "fill-accent");
-        }
+      this.#liEl.classList.add(
+        "fill-dark",
+        "hover:opacity-50",
+        "cursor-pointer",
+        "w-4",
+        "mr-8",
+        "md:mr-6"
+      );
+
+      if (idx === 0) {
+        this.#liEl.classList.add("fill-accent");
+        this.#liEl.classList.remove("fill-dark");
+      }
 
       if (idx === elementsData.length - 1) {
         this.#liEl.classList.add("hidden", "md:block");
@@ -39,31 +49,26 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.add("hidden", "sm:block");
       }
 
-      this.#liEl.classList.add(
-        "fill-dark",
-        "hover:opacity-50",
-        "cursor-pointer",
-        "w-4",
-        "mr-8",
-        "md:mr-6"
-      );
       this.#liEl.setAttribute(dataAttribute, "");
       this.#liEl.innerHTML = iconSVG;
 
       this.ulEl?.append(this.#liEl);
       this.#iconFast = document.querySelector("[data-icon-rocket]");
-      StateFillMode.isFast && this.#iconFast?.classList.add("text-accent");
       this.#iconSlow = document.querySelector("[data-icon-edit]");
     });
   }
 
   #handlefastMode() {
     this.#iconFast?.classList.add("fill-accent");
+    this.#iconFast?.classList.remove("fill-dark");
     this.#iconSlow?.classList.remove("fill-accent");
+    this.#iconSlow?.classList.add("fill-dark");
     StateFillMode.isFast = true;
   }
   #handleSlowMode() {
     this.#iconFast?.classList.remove("fill-accent");
+    this.#iconFast?.classList.add("fill-dark");
+    this.#iconSlow?.classList.remove("fill-dark");
     this.#iconSlow?.classList.add("fill-accent");
     StateFillMode.isFast = false;
   }

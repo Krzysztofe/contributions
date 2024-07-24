@@ -131,7 +131,7 @@ export class PopupMonthDetails extends PopupCreator {
       element.classList.remove("collapseOpen");
     });
 
-    document.querySelectorAll(".fa-chevron-down").forEach(icon => {
+    document.querySelectorAll("[data-parent-id]").forEach(icon => {
       icon.classList.remove("rotate-180");
     });
   }
@@ -140,8 +140,7 @@ export class PopupMonthDetails extends PopupCreator {
     this.#eventTarget = e.target as HTMLElement;
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAttribute = this.#eventTarget?.getAttribute("data");
-    const isIconArrow =
-      this.#eventTarget.classList.value.includes("fa-chevron-down");
+    const isIconArrow = this.#eventTarget.hasAttribute("data-icon-chevron");;
     const isDataNotActive = this.#eventTarget?.getAttribute("data-not-active");
 
     const shouldProcess =

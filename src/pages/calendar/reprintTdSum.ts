@@ -1,11 +1,10 @@
 export class ReprintTdSum {
   #tdChanged: HTMLElement | null = null;
-  
+
   constructor(tdDataAtributeId: string | null) {
     this.#tdChanged = document.querySelector(
       `[data-month-id="${tdDataAtributeId}"]`
     );
-  
 
     this.#updateTdSum();
   }
@@ -25,6 +24,8 @@ export class ReprintTdSum {
       })
       .reduce((sum, curr) => sum + curr);
 
+    console.log("", sum);
+
     if (!currentSum || sumToPay === null || sumToPay === undefined) return;
 
     const newSum = sum - parseInt(sumToPay);
@@ -41,7 +42,5 @@ export class ReprintTdSum {
     tdSumEl?.classList.toggle("text-dark", newSum >= 0);
     tdSumEl && (tdSumEl.innerText = "");
     tdSumEl && innerText && (tdSumEl.innerText = innerText);
-
-    
   }
 }

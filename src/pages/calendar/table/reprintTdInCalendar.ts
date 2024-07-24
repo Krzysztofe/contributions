@@ -45,7 +45,7 @@ export class ReprintTdInCalendar {
     const tdFullnameEl =
       memberFullname && document.getElementById(memberFullname);
     const iconEL =
-      tdFullnameEl && tdFullnameEl.querySelector(".fa-chevron-down");
+      tdFullnameEl && tdFullnameEl.querySelector("[data-parent-id]");
 
     const allEmptyCollapses =
       tdFullnameEl instanceof HTMLElement &&

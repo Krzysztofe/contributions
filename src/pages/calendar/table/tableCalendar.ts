@@ -8,6 +8,7 @@ import { StateCalendar } from "../states/StateCalendar";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
 import { PopupMonthDetails } from "../popupMonthDetails/popupMonthDetails";
 import { StateAmount } from "../states/StateAmount";
+import { iconChevron } from "../../../icons/iconChevron";
 
 class SelectCreator {
   #thDivSelect = document.querySelectorAll(
@@ -83,14 +84,14 @@ class CollapseCreator {
         fullnameEl.parentElement?.querySelectorAll("[data=emptyCollapse]")
           .length === 12;
 
-      const icon = document.createElement("i");
+      const icon = document.createElement("div");
+      icon.innerHTML = iconChevron;
       const isIconVisible = areEmptyCollapses ? "invisible" : "visible";
       icon.classList.add(
         "absolute",
         "right-2",
         "top-3",
-        "fa-solid",
-        "fa-chevron-down",
+        "w-2",
         "text-[0.5rem]",
         "ml-auto",
         "transition",
@@ -98,20 +99,31 @@ class CollapseCreator {
         isIconVisible
       );
       icon.setAttribute("data-parent-id", fullnameEl.id);
+      icon.querySelector("svg")?.setAttribute("data-parent-id", fullnameEl.id);
+      icon.querySelector("path")?.setAttribute("data-parent-id", fullnameEl.id);
       fullnameEl.append(icon);
     });
   }
 
   #handleCollapse(e: Event) {
     const target = e.target as HTMLElement;
-    const isIcon = target.classList.contains("fa-chevron-down");
+    const isIcon = target.hasAttribute("data-icon-chevron");
 
     const tdFullnameId = isIcon
       ? target.getAttribute("data-parent-id")
       : target.id;
-    const tdTagEl = target.tagName;
+    console.log("", tdFullnameId);
 
-    if (tdFullnameId && (tdTagEl === "TD" || tdTagEl === "I")) {
+    const tdTagEl = target.tagName;
+    console.log("", tdTagEl);
+
+    if (
+      tdFullnameId &&
+      (tdTagEl === "TD" ||
+        tdTagEl === "DIV" ||
+        tdTagEl === "svg" ||
+        tdTagEl === "path")
+    ) {
       const iconEl = document.getElementById(tdFullnameId)
         ?.firstElementChild as HTMLElement;
 
