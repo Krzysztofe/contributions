@@ -5,7 +5,8 @@ import { LoadigPageCreator } from "../../components/loadingsCreators/loadingPage
 import { URL_MEMBERS } from "../../data/dataUrl";
 import { Helpers } from "../../utils/helpers";
 import { FormMemberPrinter } from "./form/formMemberPrinter";
-import { PopupMemberEdit } from "./popup/popupMemberEdit";
+import { PopupMemberDelete } from "./popupMemberDelete/popupMemberDelete";
+import { PopupMemberEdit } from "./popupMemberEdit/popupMemberEdit";
 import { StateMembers } from "./stateMembers";
 import { TableMembersPrinter } from "./tableMembersPrinter";
 
@@ -29,8 +30,8 @@ class SettingsManager {
     StateMembers.setMembers(members);
     new FormMemberPrinter();
     new TableMembersPrinter();
-    new AlertCreator();
     new PopupMemberEdit();
+    new PopupMemberDelete();
     new AutoLogoutCreator();
   }
 }

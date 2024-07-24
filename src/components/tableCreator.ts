@@ -202,7 +202,7 @@ class TableBodyCreator {
       "h-full",
       "flex",
       "justify-center",
-      "gap-6"
+      "gap-1"
     );
 
     iconsSVG.forEach(iconSVG => {
@@ -216,13 +216,18 @@ class TableBodyCreator {
         "fill-dark",
         "hover:bg-hover_bg",
         "cursor-pointer",
-        "w-5",
+        "w-6",
         "rounded-full",
-        "text-dark",
-        "p-1"
+        "p-1.5"
       );
       btnsContainerEL.append(btnIcon);
       const svgEl = btnIcon?.querySelector("svg");
+     
+
+      const iconDataAttribute =
+        svgEl && "data-"+Object.keys(svgEl?.dataset)[0].replace(/([A-Z])/g, "-$1");
+
+     iconDataAttribute && btnIcon.setAttribute(iconDataAttribute, "");
       svgEl?.setAttribute("data-row-id", tableRowId);
       svgEl?.setAttribute("data-member-id", this.#memberId);
       const pathEl = btnIcon?.querySelector("path");

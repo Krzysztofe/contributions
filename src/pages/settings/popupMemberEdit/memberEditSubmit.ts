@@ -1,4 +1,4 @@
-import { LoadingButtonCreator } from "./../../../components/loadingsCreators/loadingButtonCreator";
+import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 import { Helpers } from "../../../utils/helpers";
 import { ValidationGeneric } from "../../../utils/validationGeneric";
 import { URL_MEMBERS } from "../../../data/dataUrl";
@@ -25,7 +25,6 @@ export class MemberEditSubmit {
   #validations(e: Event) {
     this.#formValues = Helpers.getFormValues(e);
     this.#formKeys = Object.keys(this.#formValues);
-
 
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
@@ -55,10 +54,7 @@ export class MemberEditSubmit {
 
     console.log("", this.#PUTOptions());
     await Helpers.fetchData(this.#PUTOptions());
-    new ReprintTr(
-      this.#trId,
-      this.#formValues?.phoneEdit,
-    );
+    new ReprintTr(this.#trId, this.#formValues?.phoneEdit);
     document.getElementById("popupContainer")?.remove();
   }
 

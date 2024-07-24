@@ -1,9 +1,9 @@
-import { URL_MEMBERS } from "../../data/dataUrl";
-import { LoadingTableSettings } from "../../pages/settings/loadingTableSettings";
-import { ReprintSettingsPanel } from "../../pages/settings/reprintSettingsPanel";
-import { Helpers } from "../../utils/helpers";
-import { StateMembers } from "../../pages/settings/stateMembers";
-import { ToastPrinter } from "../toastPrinter";
+import { URL_MEMBERS } from "../../../data/dataUrl";
+import { LoadingTableSettings } from "../loadingTableSettings";
+import { ReprintSettingsPanel } from "../reprintSettingsPanel";
+import { Helpers } from "../../../utils/helpers";
+import { StateMembers } from "../stateMembers";
+import { ToastPrinter } from "../../../components/toastPrinter";
 
 export class DeleteMember {
   #loading = new LoadingTableSettings();
@@ -39,10 +39,13 @@ export class DeleteMember {
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
     const deletedMemberId = await Helpers.fetchData(this.#DELETEOptions());
-   
+
     StateMembers.setMembers(this.#updatedData(deletedMemberId));
     new ReprintSettingsPanel();
     this.#loading.removeLoading();
+    const popupContainerEL = document.getElementById("popupContainer");
+    popupContainerEL?.remove();
+    popupContainerEL?.querySelector("h3")?.remove();
     new ToastPrinter("Usunięto");
   }
   #deleteEvent() {
