@@ -37,7 +37,6 @@ export class PopupCreator {
       "py-8",
       "sm:border",
       "max-w-96",
-      "min-h-60",
       "m-auto",
       "rounded-sm",
       "bg-white",

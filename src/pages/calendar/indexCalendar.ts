@@ -26,7 +26,7 @@ class CalendarManager {
     await StateAmount.getAmount();
     new HeaderCalendar(["flex", "items-center"]);
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
-    new LoadigCalendarPageCreator(calendarDatabase);
+    new LoadigCalendarPageCreator();
     StateCalendar.setCalendar(calendarDatabase);
     new TableCalendarPrinter();
     new PopupMonthDetails();

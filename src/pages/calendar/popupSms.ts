@@ -99,7 +99,7 @@ export class PopupSms extends PopupCreator {
     this.#popupConainerEl?.append(this.#hederEl);
   }
   GETCalendarOptions = {
-    url: `${URL_CALENDAR}${Helpers.currentYear}`,
+    url: `https://kkrol.host83.nstrefa.pl/nowe/auth/sms/`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -108,7 +108,7 @@ export class PopupSms extends PopupCreator {
   async #handlePrintPopup() {
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
 
-    console.log("", calendarDatabase?.headers);
+    console.log("", calendarDatabase);
 
     this.createPopupContainetr();
     document.querySelector("[data-icon-xmark]")?.remove();

@@ -52,7 +52,6 @@ export class MemberEditSubmit {
     if (this.#validations(e) !== "go") return;
     this.#btnLoader.createSpinner();
 
-    console.log("", this.#PUTOptions());
     await Helpers.fetchData(this.#PUTOptions());
     new ReprintTr(this.#trId, this.#formValues?.phoneEdit);
     document.getElementById("popupContainer")?.remove();

@@ -28,7 +28,12 @@ export class BtnsCreator {
       "btn-sm",
       "px-8",
     ];
-    this.#createBtn("Tak", [...btnStyles, "bg-accent"]);
+    this.#createBtn("Tak", [
+      ...btnStyles,
+      "bg-accent",
+      "hover:opacity-50",
+      "hover:bg-accent",
+    ]);
     this.#createBtn("Nie", [...btnStyles, "bg-grey_primary"]);
   }
   #createBtn(text: string, styles: string[]) {
