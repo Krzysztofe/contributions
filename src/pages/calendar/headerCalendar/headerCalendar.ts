@@ -13,6 +13,7 @@ export class HeaderCalendar extends HeaderLogedIn {
   #inputAmountContainer = document.createElement("div");
   #inputAmountEl: HTMLInputElement | null = null;
   #currencyEl: HTMLElement | null = null;
+  #tooltipEl: HTMLElement | null = null;
 
   constructor(styles: string[]) {
     super(styles);
@@ -33,7 +34,8 @@ export class HeaderCalendar extends HeaderLogedIn {
 
   async #createInputAmount() {
     this.#inputAmountContainer.id = "inputAmountContainer";
-    this.#inputAmountContainer.classList.add("relative");
+    this.#inputAmountContainer.classList.add("relative", "hover-tooltip");
+
     dataInputAmount.forEach(input => {
       this.#inputAmountContainer?.prepend(
         this.form.createInput(input, [
@@ -45,6 +47,24 @@ export class HeaderCalendar extends HeaderLogedIn {
         ])
       );
     });
+
+    this.#tooltipEl = document.createElement("div");
+    this.#tooltipEl.classList.add(
+      "tooltip",
+      "text-xs",
+      "text-white",
+      "p-1",
+      "px-2",
+      "rounded",
+      "bg-grey_primary",
+      "absolute",
+      "top-11",
+      "left-0",
+     
+    );
+    this.#tooltipEl.textContent = "Składka";
+
+    this.#inputAmountContainer.append(this.#tooltipEl);
 
     this.#leftSideContainerEl.append(this.#inputAmountContainer);
 

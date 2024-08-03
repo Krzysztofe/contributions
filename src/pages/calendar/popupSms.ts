@@ -1,4 +1,3 @@
-import { URL_CALENDAR } from "./../../data/dataUrl";
 import { BtnsCreator } from "../../components/btnsCreator";
 import { LoadingPopupCreator } from "../../components/loadingsCreators/loadingPopupCreator";
 import { PopupCreator } from "../../components/popupCreator";

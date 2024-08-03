@@ -7,11 +7,12 @@ import { PdfPropsCreator } from "./pdfPropsCreator";
 
 type ModelListCreator = {
   parentEl: string;
-  iconsData: { iconSVG: string; dataAttribute: string }[];
+  iconsData: { iconSVG: string; dataAttribute: string; tooltip: string }[];
 };
 
 export class ListHeaderLeftSide extends ListCreator {
   #liEl: HTMLElement | null = null;
+  #tooltipEl: HTMLElement | null = null;
   #iconFast: HTMLElement | null = null;
   #iconSlow: HTMLElement | null = null;
 
@@ -23,10 +24,26 @@ export class ListHeaderLeftSide extends ListCreator {
     this.#createPDFEvent();
   }
 
-  #createLiElems(elementsData: { iconSVG: string; dataAttribute: string }[]) {
-    elementsData.forEach(({ iconSVG, dataAttribute }, idx) => {
-      this.#liEl = document.createElement("li");
+  #createLiElems(
+    elementsData: { iconSVG: string; dataAttribute: string; tooltip: string }[]
+  ) {
+    elementsData.forEach(({ iconSVG, dataAttribute, tooltip }, idx) => {
+      this.#tooltipEl = document.createElement("div");
+      this.#tooltipEl.classList.add(
+        "tooltip",
+        "text-xs",
+        "text-white",
+        "p-1",
+        "px-2",
+        "rounded",
+        "bg-grey_primary",
+        "absolute",
+        "top-11",
+        "left-0",
+      );
+      this.#tooltipEl.textContent = tooltip;
 
+      this.#liEl = document.createElement("li");
       this.#liEl.classList.add(
         "fill-dark",
         "cursor-pointer",
@@ -35,7 +52,9 @@ export class ListHeaderLeftSide extends ListCreator {
         "mr-4",
         "md:mr-3",
         "rounded-full",
-        "hover:bg-hover_bg"
+        "relative",
+        "hover:bg-hover_bg",
+        "hover-tooltip"
       );
 
       if (idx === 0) {
@@ -54,6 +73,7 @@ export class ListHeaderLeftSide extends ListCreator {
       this.#liEl.setAttribute(dataAttribute, "");
       this.#liEl.innerHTML = iconSVG;
 
+      this.#liEl.append(this.#tooltipEl);
       this.ulEl?.append(this.#liEl);
       this.#iconFast = document.querySelector("[data-icon-rocket]");
       this.#iconSlow = document.querySelector("[data-icon-edit]");

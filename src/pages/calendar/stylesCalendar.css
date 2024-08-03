@@ -24,6 +24,11 @@
   }
 }
 
+.tooltip {
+  opacity: 0;
+  transition: 0.5s;
+}
 
-
-
+.hover-tooltip:hover .tooltip {
+  opacity: 1;
+}

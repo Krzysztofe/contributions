@@ -7,11 +7,13 @@ export const dataListLeftSide = [
   {
     iconSVG: iconRocket,
     dataAttribute: "data-icon-rocket",
+    tooltip: "Automat",
   },
   {
     iconSVG: iconEdit,
     dataAttribute: "data-icon-edit",
+    tooltip: "Edycja",
   },
-  { iconSVG: iconPdf, dataAttribute: "data-icon-pdf" },
-  { iconSVG: iconSms, dataAttribute: "data-icon-sms" },
+  { iconSVG: iconPdf, dataAttribute: "data-icon-pdf", tooltip: "Zapisz" },
+  { iconSVG: iconSms, dataAttribute: "data-icon-sms", tooltip: "Wyślij" },
 ];
