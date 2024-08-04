@@ -24,6 +24,7 @@ export class TableCalendarPrinter {
   #table = new TableCalendar("sectionTable");
 
   constructor() {
+  
     if (
       !StateCalendar.sortedCalendar ||
       StateCalendar.sortedCalendar.length === 0

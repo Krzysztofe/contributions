@@ -18,7 +18,7 @@ export class ListHeaderLeftSide extends ListCreator {
 
   constructor({ parentEl, iconsData }: ModelListCreator) {
     super(parentEl);
-    this.#createLiElems(iconsData);
+    StateCalendar.sortedCalendar.length > 0 && this.#createLiElems(iconsData);
     this.#fastModeEvent();
     this.#slowModeEvent();
     this.#createPDFEvent();
@@ -39,7 +39,7 @@ export class ListHeaderLeftSide extends ListCreator {
         "bg-grey_primary",
         "absolute",
         "top-11",
-        "left-0",
+        "left-0"
       );
       this.#tooltipEl.textContent = tooltip;
 

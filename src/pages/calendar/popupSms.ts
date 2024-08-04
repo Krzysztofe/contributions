@@ -1,86 +1,48 @@
+import { URL_DEBT_MEMBERS } from "./../../data/dataUrl";
 import { BtnsCreator } from "../../components/btnsCreator";
 import { LoadingPopupCreator } from "../../components/loadingsCreators/loadingPopupCreator";
 import { PopupCreator } from "../../components/popupCreator";
 import { Helpers } from "../../utils/helpers";
 import { StateCalendar } from "./states/StateCalendar";
-import { StateYear } from "./states/StateYear";
 
 export class PopupSms extends PopupCreator {
   #iconEl = document.querySelector("[data-icon-sms]");
   #hederEl = document.createElement("h3");
   #popupConainerEl: HTMLElement | null = null;
+  #debtMembers: number | null = null;
+
   constructor() {
     super();
     this.#printPopupEvent();
   }
 
-  #isMemberPayedContribs(member: any) {
-    const monthsKeys = [
-      "january",
-      "february",
-      "march",
-      "april",
-      "may",
-      "june",
-      "july",
-      "august",
-      "september",
-      "october",
-      "november",
-      "december",
-    ];
-
-    const memberContribs = monthsKeys.map((key, idx) => {
-      const isJoinedInPrintedYear = member[key].join_date.includes(
-        StateYear.year
-      );
-
-      if (isJoinedInPrintedYear) {
-        const joinMonth = member[key].join_date.split("-")[1];
-        const joinMonthNumber = parseInt(joinMonth, 10);
-        if (joinMonthNumber <= idx + 1) {
-          return member[key].amount;
-        } else {
-          return null;
-        }
-      } else {
-        return member[key].amount;
-      }
-    });
-
-    const isNotPayedContrib =
-      memberContribs
-        .slice(0, Helpers.currentMonthInNumber)
-        .filter(contrib => contrib === "0").length > 0;
-
-    return isNotPayedContrib;
-  }
-
-  #countSmsNumber() {
-    const members = StateCalendar.sortedCalendar;
-    const payedMembers = members.map(member => {
-      return this.#isMemberPayedContribs(member);
-    });
-
-    const notPayedContribsNumber = payedMembers.filter(
-      payedMember => payedMember === true
-    ).length;
-
-    return notPayedContribsNumber;
-  }
-
   #createSmsText() {
+    if (!this.#debtMembers) return;
+
+    const smsNumber = [...this.#debtMembers.toString()].at(-1);
+
+    if (smsNumber === undefined) return;
+
     let textSms;
 
-    if (this.#countSmsNumber() === 1) {
-      textSms = "sms";
+    if (+smsNumber === 1) {
+      textSms = "SMS";
     }
 
-    if (this.#countSmsNumber() > 1 && this.#countSmsNumber() < 5) {
-      textSms = "smsy";
+    if (+smsNumber > 1 && +smsNumber < 5) {
+      textSms = "SMS-y";
     }
-    if (this.#countSmsNumber() > 4) {
-      textSms = "smsów";
+    if (+smsNumber > 4) {
+      textSms = "SMS-ów";
+    }
+    if (this.#debtMembers > 9 && +smsNumber > 1 && +smsNumber < 5) {
+      textSms = "SMS-ów";
+    }
+    if (this.#debtMembers > 19 ) {
+      textSms = "SMS-ów";
+    }
+    if (this.#debtMembers > 21 && +smsNumber > 1 && +smsNumber < 5) {
+      textSms = "SMS-y";
     }
     return textSms;
   }
@@ -94,27 +56,45 @@ export class PopupSms extends PopupCreator {
       .reverse()
       .join(".");
 
-    this.#hederEl.innerHTML = `Wysłać ${this.#countSmsNumber()} ${this.#createSmsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
+    if (this.#debtMembers === 0) {
+      this.#hederEl.innerHTML = "Brak zaległości";
+    } else {
+      this.#hederEl.innerHTML = `Wysłać ${
+        this.#debtMembers
+      } ${this.#createSmsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
+    }
+
     this.#popupConainerEl?.append(this.#hederEl);
   }
   GETCalendarOptions = {
-    url: `https://kkrol.host83.nstrefa.pl/nowe/auth/sms/`,
+    url: URL_DEBT_MEMBERS,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   };
 
   async #handlePrintPopup() {
-    const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
-
-    console.log("", calendarDatabase);
-
     this.createPopupContainetr();
-    document.querySelector("[data-icon-xmark]")?.remove();
+    const popupInnerContainerEl = document.querySelector(
+      "#popupInnerContainer"
+    );
+    popupInnerContainerEl?.classList.add(
+      "min-h-64",
+      "flex",
+      "flex-col",
+      "justify-center",
+      "items-center"
+    );
     const loader = new LoadingPopupCreator("#popupInnerContainer");
     loader.createSpinner();
+    const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
+
+    this.#debtMembers = calendarDatabase["debts-members"];
+    loader.removeLoading();
     this.#createHeader();
-    new BtnsCreator("#popupInnerContainer");
+    this.#debtMembers &&
+      this.#debtMembers > 0 &&
+      new BtnsCreator("#popupInnerContainer");
   }
 
   #printPopupEvent() {

@@ -24,10 +24,10 @@ class CalendarManager {
   async #init() {
     Helpers.isUserLoged();
     await StateAmount.getAmount();
-    new HeaderCalendar(["flex", "items-center"]);
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
     new LoadigCalendarPageCreator();
     StateCalendar.setCalendar(calendarDatabase);
+    new HeaderCalendar(["flex", "items-center"]);
     new TableCalendarPrinter();
     new PopupMonthDetails();
     new PopupSms();

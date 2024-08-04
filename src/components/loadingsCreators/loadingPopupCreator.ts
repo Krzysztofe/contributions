@@ -1,4 +1,5 @@
 export class LoadingPopupCreator {
+  #spinnerEl: HTMLElement | null = null;
   #parentEl: HTMLElement | null = null;
 
   constructor(parentRef: string) {
@@ -6,18 +7,18 @@ export class LoadingPopupCreator {
   }
 
   createSpinner() {
-    const spinner = document.createElement("div");
-    spinner.classList.add(
-      "loading",
-      "loading-spinner",
-      "loading-lg",
-      "text-accent",
-      "text-center"
-    );
-    this.#parentEl?.append(spinner);
+    this.#spinnerEl = document.createElement("div");
+     this.#spinnerEl.classList.add(
+       "loading",
+       "loading-spinner",
+       "loading-lg",
+       "text-accent",
+       "margin-auto"
+     );
+    this.#parentEl?.append(this.#spinnerEl);
   }
 
   removeLoading() {
-    this.#parentEl?.remove();
+      this.#spinnerEl?.remove();
   }
 }
