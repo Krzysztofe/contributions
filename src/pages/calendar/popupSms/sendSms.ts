@@ -3,10 +3,21 @@ import { URL_DEBT_MEMBERS } from "./../../../data/dataUrl";
 import { LoadingTableCreator } from "../../../components/loadingsCreators/loadingTableCreator";
 
 export class SendSms {
+  #popupInnerContainerEl = document.getElementById("popupInnerContainer");
+  #headerEl = document.querySelector("[data-popup-header]");
+  #btnsContainerEl = document.getElementById("btnsContainer");
   #btnYesEl = document.getElementById("Tak") as HTMLButtonElement;
+ 
 
   constructor() {
     this.#sendSmsEvent();
+  }
+
+  #confirmationHeader() {
+    if (!this.#headerEl) return;
+    this.#headerEl.textContent =
+      "W wersji produkcyjnej użytkowanik otrzyma informację o udanej wysyłce SMS-ów lub o braku środków na koncie SMSAPI warunkująych wysyłkę SMS-ów.";
+    this.#popupInnerContainerEl?.append(this.#headerEl);
   }
 
   #POSTOptions() {
@@ -23,8 +34,12 @@ export class SendSms {
     const loader = new LoadingTableCreator();
     loader.createLoading();
     const deletedMemberId = await Helpers.fetchData(this.#POSTOptions());
-    loader.removeLoading();
 
+    console.log("", deletedMemberId);
+    loader.removeLoading();
+    this.#headerEl?.remove();
+    this.#btnsContainerEl?.remove();
+    this.#confirmationHeader();
   }
 
   #sendSmsEvent() {

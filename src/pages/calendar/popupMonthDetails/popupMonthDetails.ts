@@ -39,9 +39,9 @@ class FormMonthDetailsPrinter {
 
     memberFullname &&
       (this.#hederEl.innerHTML = `
-      <div class = "sm:flex justify-between font-semibold">
-           <div>${memberFullname}</div>
-           <div data-header-monthname>${monthName}</div>
+      <div>
+           <div class = "text-xs" data-header-monthname >${monthName}</div>
+           <div class = "font-semibold">${memberFullname}</div>  
       </div>`);
     this.#hederEl.classList.add("mb-4");
     this.#formEl?.prepend(this.#hederEl);
@@ -92,6 +92,7 @@ class FormMonthDetailsPrinter {
     this.#currencyEl = document.getElementById("amountPopup");
     const currencyStyles = StateAmount.amount ? "block" : "hidden";
     this.#currencyEl?.classList.add(currencyStyles);
+
     this.#createHeader();
     this.#passValuesToInputs();
     this.#printCurrencyEvent();
@@ -140,7 +141,7 @@ export class PopupMonthDetails extends PopupCreator {
     this.#eventTarget = e.target as HTMLElement;
     const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
     const dataAttribute = this.#eventTarget?.getAttribute("data");
-    const isIconArrow = this.#eventTarget.hasAttribute("data-icon-chevron");;
+    const isIconArrow = this.#eventTarget.hasAttribute("data-icon-chevron");
     const isDataNotActive = this.#eventTarget?.getAttribute("data-not-active");
 
     const shouldProcess =

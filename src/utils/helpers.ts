@@ -124,18 +124,18 @@ export class Helpers {
 
   static numberOnMonthPolish(month: string) {
     const monthTranslations: ModelObjectString = {
-      "1": "Sty.",
-      "2": "Lut.",
-      "3": "Mar.",
-      "4": "Kwi.",
+      "1": "Styczeń",
+      "2": "Luty.",
+      "3": "Marzec.",
+      "4": "Kwiecień",
       "5": "Maj",
-      "6": "Cze.",
-      "7": "Lip.",
-      "8": "Sie.",
-      "9": "Wrz.",
-      "10": "Paź.",
-      "11": "Lis.",
-      "12": "Gru.",
+      "6": "Czerwiec.",
+      "7": "Lipiec",
+      "8": "Sierpień",
+      "9": "Wrzesień",
+      "10": "Październik",
+      "11": "Listopad",
+      "12": "Grudzień",
     };
 
     return monthTranslations[month.toLowerCase()] || "";

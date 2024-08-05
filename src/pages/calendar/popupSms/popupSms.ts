@@ -83,6 +83,7 @@ export class PopupSms extends PopupCreator {
     );
     popupInnerContainerEl?.classList.add(
       "min-h-64",
+      "w-96",
       "flex",
       "flex-col",
       "justify-center",

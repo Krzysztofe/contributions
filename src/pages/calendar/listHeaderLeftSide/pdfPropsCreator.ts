@@ -106,7 +106,7 @@ export class PdfPropsCreator {
         table: this.#getDataTableBody(calendarMembers),
       },
       pageEnable: true,
-      pageLabel: "Strona ",
+      pageLabel: `Strona `,
     };
   }
 }
