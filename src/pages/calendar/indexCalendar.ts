@@ -6,7 +6,7 @@ import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "./states/StateCalendar";
 import { PopupMonthDetails } from "./popupMonthDetails/popupMonthDetails";
 import { StateAmount } from "./states/StateAmount";
-import { PopupSms } from "./popupSms";
+import { PopupSms } from "./popupSms/popupSms";
 import { LoadigCalendarPageCreator } from "../../components/loadingsCreators/loadingCalendarPageCreator";
 
 class CalendarManager {

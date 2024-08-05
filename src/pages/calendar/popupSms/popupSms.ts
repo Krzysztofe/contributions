@@ -1,9 +1,9 @@
-import { URL_DEBT_MEMBERS } from "./../../data/dataUrl";
-import { BtnsCreator } from "../../components/btnsCreator";
-import { LoadingPopupCreator } from "../../components/loadingsCreators/loadingPopupCreator";
-import { PopupCreator } from "../../components/popupCreator";
-import { Helpers } from "../../utils/helpers";
-import { StateCalendar } from "./states/StateCalendar";
+import { URL_DEBT_MEMBERS } from "../../../data/dataUrl";
+import { BtnsCreator } from "../../../components/btnsCreator";
+import { LoadingPopupCreator } from "../../../components/loadingsCreators/loadingPopupCreator";
+import { PopupCreator } from "../../../components/popupCreator";
+import { Helpers } from "../../../utils/helpers";
+import { SendSms } from "./sendSms";
 
 export class PopupSms extends PopupCreator {
   #iconEl = document.querySelector("[data-icon-sms]");
@@ -38,7 +38,7 @@ export class PopupSms extends PopupCreator {
     if (this.#debtMembers > 9 && +smsNumber > 1 && +smsNumber < 5) {
       textSms = "SMS-ów";
     }
-    if (this.#debtMembers > 19 ) {
+    if (this.#debtMembers > 19) {
       textSms = "SMS-ów";
     }
     if (this.#debtMembers > 21 && +smsNumber > 1 && +smsNumber < 5) {
@@ -49,6 +49,7 @@ export class PopupSms extends PopupCreator {
 
   #createHeader() {
     this.#popupConainerEl = document.getElementById("popupInnerContainer");
+    this.#hederEl.setAttribute("data-popup-header", "");
 
     this.#hederEl.classList.add("font-semibold", "text-center");
     const currentMonth = Helpers.getCurrentMonth()
@@ -75,6 +76,8 @@ export class PopupSms extends PopupCreator {
 
   async #handlePrintPopup() {
     this.createPopupContainetr();
+    this.#hederEl.remove();
+
     const popupInnerContainerEl = document.querySelector(
       "#popupInnerContainer"
     );
@@ -87,14 +90,18 @@ export class PopupSms extends PopupCreator {
     );
     const loader = new LoadingPopupCreator("#popupInnerContainer");
     loader.createSpinner();
+    this.#hederEl.remove();
+    document.getElementById("btnsContainer")?.remove();
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
 
     this.#debtMembers = calendarDatabase["debts-members"];
     loader.removeLoading();
+
     this.#createHeader();
     this.#debtMembers &&
       this.#debtMembers > 0 &&
-      new BtnsCreator("#popupInnerContainer");
+    new BtnsCreator("#popupInnerContainer");
+    new SendSms();
   }
 
   #printPopupEvent() {

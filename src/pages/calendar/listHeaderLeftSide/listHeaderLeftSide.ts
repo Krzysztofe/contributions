@@ -71,7 +71,7 @@ export class ListHeaderLeftSide extends ListCreator {
       }
 
       this.#liEl.setAttribute(dataAttribute, "");
-      this.#liEl.innerHTML = iconSVG;
+      this.#liEl.innerHTML = `<buton>${iconSVG}<button>`;
 
       this.#liEl.append(this.#tooltipEl);
       this.ulEl?.append(this.#liEl);
