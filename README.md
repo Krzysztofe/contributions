@@ -1,6 +1,6 @@
 # Contributions
 
-An application created for the use of the treasurer of a workers' union commission for recording contributions paid by its members.
+An application created after consultations with union activists for the use of the treasurer of a workers' union commission for recording contributions paid by its members.
 
 1 The user, who serves as the treasurer of the commission, saves list of commission members in the settings panel. </br>
 
