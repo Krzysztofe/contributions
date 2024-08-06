@@ -46,7 +46,6 @@ class TableHeadCreator {
         }[idx] as string[]) ?? [];
 
       th.classList.add(
-        "font-normal",
         "p-0",
         "text-accent",
         ...stickyTh,

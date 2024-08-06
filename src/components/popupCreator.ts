@@ -33,10 +33,11 @@ export class PopupCreator {
   #createPopupInnerContainer() {
     this.#innerContainerEl.id = "popupInnerContainer";
     this.#innerContainerEl.classList.add(
-      "px-16",
+      "px-10",
       "py-8",
       "sm:border",
-      "w-fit",
+      "w-[90%]",
+      "sm:w-96",
       "m-auto",
       "rounded-sm",
       "bg-white",

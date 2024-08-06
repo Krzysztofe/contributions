@@ -19,9 +19,8 @@ export class PopupMemberDelete extends PopupCreator {
     document.getElementById("popupHeader")?.remove();
     this.#headerEl = document.createElement("h3");
     this.#headerEl.id = "popupHeader";
-    this.#headerEl.innerText = `Usuniąć ${name} ?`;
+    this.#headerEl.innerHTML = `Usuniąć <br/> ${name} ?`;
     this.#headerEl.classList.add("mb-3", "font-semibold", "text-center");
-
     document.querySelector("#popupInnerContainer")?.prepend(this.#headerEl);
   }
 
