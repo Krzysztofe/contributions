@@ -26,10 +26,10 @@ export const dataMemberFields = [
   new DataFieldCreator(
     "phone",
     "",
-    "^[\\d-]{11,}$",
+    "^(?=(?:\\D*\\d){9}$)(?:\\d-?){8}\\d$",
     "tel",
     "Telefon",
-    "Telefon min. 9 cyfr"
+    "Telefon 9 cyfr"
   ),
   new DataFieldCreator("join_date", "Data", "\\S", "month", "", " "),
 ];
