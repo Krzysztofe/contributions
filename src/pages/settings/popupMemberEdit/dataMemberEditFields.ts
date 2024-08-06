@@ -10,9 +10,9 @@ export const dataMemberEditFields = [
   new DataFieldCreator(
     "phoneEdit",
     "",
-    "^[\\d-]{11,}$",
+    "^(?=(?:\\D*\\d){9}$)(?:\\d-?){8}\\d$",
     "tel",
     "Telefon",
-    "Telefon min. 9 cyfr"
+    "Telefon 9 cyfr"
   ),
 ];
