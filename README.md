@@ -31,7 +31,7 @@ slow method </br>
 
 
 
-6 The user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
+6 The user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 Application uses a backend built in PHP.
 
 Application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
 
