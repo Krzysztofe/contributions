@@ -23,7 +23,15 @@ slow method </br>
 </div>
 </br>
 
-5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses <a href = "https://www.smsapi.pl/">SMSAPI</a>  to send the messages.. </br>  6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
+5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses <a href = "https://www.smsapi.pl/">SMSAPI</a>  to send the messages.. </br>
+
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/51dfcbef-64b3-43d5-8557-df54bf646153" alt="html5" width="450" height="200" /> 
+</div>
+
+
+
+6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
 
 The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
 
