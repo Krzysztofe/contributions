@@ -61,10 +61,9 @@ The application is written according to the principles of OOP (Object-Oriented P
 * Creating a PDF with data stored in a database
 * Debouncing
 * RWD
-* Custom alerts
+* Custom alerts / popups
 * Automatic logout after five minutes
 * Animations
-* Popup
 
 
 ## Technologies
