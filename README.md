@@ -23,7 +23,7 @@ slow method </br>
 </div>
 </br>
 
-5 If the user does not mark in the calendar panel that a union member has paid their contribution by the 15th of each month, the backend application will send them an SMS requesting payment. </br>  6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
+5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses SMSAPI to send the messages.. </br>  6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
 
 The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
 
