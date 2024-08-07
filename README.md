@@ -23,7 +23,7 @@ slow method </br>
 </div>
 </br>
 
-5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses <a href = "https://www.smsapi.pl/">SMSAPI</a>  to send the messages.. </br>
+5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses <a href = "https://www.smsapi.pl/">SMSAPI</a>  to send the messages. </br>
 
   <div align="center">
   <img src="https://github.com/user-attachments/assets/51dfcbef-64b3-43d5-8557-df54bf646153" alt="html5" width="450" height="200" /> 
