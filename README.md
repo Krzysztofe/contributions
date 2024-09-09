@@ -37,6 +37,7 @@ Application is written according to the principles of OOP (Object-Oriented Progr
 
 
 ## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/
+## Production Vesion: https://skladkiuam.ozzip.pl/
 
 ## Desktop
 
