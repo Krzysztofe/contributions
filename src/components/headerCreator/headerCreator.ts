@@ -40,7 +40,7 @@ export class HeaderCreator {
   }
 
   #createH1() {
-    this.h1El.innerText = "OZZIP - UAM";
+    this.h1El.innerText = "OZZIP - Demo";
     this.h1El.classList.add();
     this.headerWrapperEl?.prepend(this.h1El);
   }
