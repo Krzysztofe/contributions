@@ -19,31 +19,21 @@ export class PopupSms extends PopupCreator {
   #createSmsText() {
     if (!this.#debtMembers) return;
 
-    const smsNumber = [...this.#debtMembers.toString()].at(-1);
-
-    if (smsNumber === undefined) return;
+    const lastDigit = this.#debtMembers % 10;
+    const lastTwoDigits = this.#debtMembers % 100;
 
     let textSms;
 
-    if (+smsNumber === 1) {
+    if (lastTwoDigits > 10 && lastTwoDigits < 20) {
+      textSms = "SMS-ów";
+    } else if (lastDigit === 1) {
       textSms = "SMS";
+    } else if (lastDigit >= 2 && lastDigit <= 4) {
+      textSms = "SMS-y";
+    } else {
+      textSms = "SMS-ów";
     }
 
-    if (+smsNumber > 1 && +smsNumber < 5) {
-      textSms = "SMS-y";
-    }
-    if (+smsNumber > 4) {
-      textSms = "SMS-ów";
-    }
-    if (this.#debtMembers > 9 && +smsNumber > 1 && +smsNumber < 5) {
-      textSms = "SMS-ów";
-    }
-    if (this.#debtMembers > 19) {
-      textSms = "SMS-ów";
-    }
-    if (this.#debtMembers > 21 && +smsNumber > 1 && +smsNumber < 5) {
-      textSms = "SMS-y";
-    }
     return textSms;
   }
 
@@ -100,7 +90,7 @@ export class PopupSms extends PopupCreator {
     this.#createHeader();
     this.#debtMembers &&
       this.#debtMembers > 0 &&
-    new BtnsCreator("#popupInnerContainer");
+      new BtnsCreator("#popupInnerContainer");
     new SendSms();
   }
 

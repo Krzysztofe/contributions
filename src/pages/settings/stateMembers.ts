@@ -8,12 +8,20 @@ export class StateMembers {
     let processMembers: ModelMemberSettings[] | [];
 
     if (members.length > 0) {
-      processMembers = members.map(({ fullname, phone, id, join_date }) => ({
-        id,
-        fullname,
-        phone,
-        join_date,
-      }));
+      processMembers = members.map(({ fullname, phone, id, join_date }) => {
+        const isPhoneFormat = phone?.includes("-");
+
+        phone = isPhoneFormat
+          ? phone
+          : phone?.replace(/(.{3})/g, "$1-").slice(0, -1);
+
+        return {
+          id,
+          fullname,
+          phone,
+          join_date,
+        };
+      });
     } else {
       processMembers = [];
     }

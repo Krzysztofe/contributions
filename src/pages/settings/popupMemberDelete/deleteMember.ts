@@ -19,7 +19,7 @@ export class DeleteMember {
 
   #updatedData(memberId: string) {
     return StateMembers.sortedMembers?.filter(({ id }: { id: string }) => {
-      return id !== memberId;
+      return id.toString() !== memberId;
     });
   }
 
