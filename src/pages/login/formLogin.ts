@@ -9,7 +9,12 @@ export class FormLogin extends FormCreator {
 
   createLoginErrorMsg() {
     this.#printLoginErrorEl.id = "authError";
-    this.#printLoginErrorEl.classList.add("text-xs", "h-4", "text-500");
+    this.#printLoginErrorEl.classList.add(
+      "text-xs",
+      "h-4",
+      "text-500",
+      "text-danger"
+    );
     this.formEl?.append(this.#printLoginErrorEl);
   }
 }
