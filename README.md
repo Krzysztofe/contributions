@@ -1,6 +1,6 @@
 # Contributions
 
-An application created after consultations with union activists for the use of the treasurer of a workers' union commission for recording contributions paid by its members.
+An commercial application commissioned by a labor union. Aplication created after consultations with union activists for the use of the treasurer of a workers' union commission.  Using the application, the treasurer can record contributions and send SMS messages to commission members who have not paid their contributions.
 
 1 The user, who serves as the treasurer of the commission, saves list of commission members in the settings panel. </br>
 
@@ -23,12 +23,21 @@ slow method </br>
 </div>
 </br>
 
-5 If the user does not mark in the calendar panel that a union member has paid their contribution by the 15th of each month, the backend application will send them an SMS requesting payment. </br>  6 A user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 The application uses a backend built in PHP.
+5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses <a href = "https://www.smsapi.pl/">SMSAPI</a>  to send the messages. </br>
 
-The application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
+  <div align="center">
+  <img src="https://github.com/user-attachments/assets/51dfcbef-64b3-43d5-8557-df54bf646153" alt="html5" width="450" height="200" /> 
+</div>
+
+
+
+6 The user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 Application uses a backend built in PHP.
+
+Application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
 
 
 ## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/
+## Production Vesion: https://skladkiuam.ozzip.pl/
 
 ## Desktop
 
@@ -83,6 +92,6 @@ The application is written according to the principles of OOP (Object-Oriented P
 * Node version: **Node.js v18.16.1**
 * Clone this repository to your local machine
 * Navigate to the project directory: **cd .\contributions**
-* Install the project dependencies by running **npm install** or **yarn install**
-* Start the development server: **cd .\contributions\ npm start** or **yarn start**
+* Install the project dependencies by running **npm install** 
+* Start the development server: **cd .\contributions\ npm run dev** 
 * Open your browser and visit your localhost:3000 to see the running application.
