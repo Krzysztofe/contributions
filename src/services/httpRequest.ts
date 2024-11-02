@@ -36,13 +36,18 @@ export class HttpRequest {
       requestOptions.body = JSON.stringify(body);
     }
 
+    console.log("www", requestOptions);
+
     try {
       const resp = await fetch(url, requestOptions);
+
+      console.log("", resp);
       if (!resp.ok) {
         throw Error("Błąd. Ponów próbę");
       } else {
+        console.log("eeeee");
         let data;
-        if (body?.login) {
+        if (body?.login !== undefined && body?.login !== "") {
           data = await resp.text();
         } else if (method === "DELETE") {
           data = body?.id;
@@ -52,6 +57,8 @@ export class HttpRequest {
         return data;
       }
     } catch (err: any) {
+      console.log("eror");
+
       this.#createErrorPage();
     }
   }
