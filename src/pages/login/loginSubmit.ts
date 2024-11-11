@@ -2,7 +2,6 @@ import { ModelRequestOptions } from "./../../sharedModels/modelRequestOptions";
 import { LoadingButtonCreator } from "../../components/loadingsCreators/loadingButtonCreator";
 import { URL_AUTH } from "../../data/dataUrl";
 import { Helpers } from "../../utils/helpers";
-import { ValidationGeneric } from "../../utils/validationGeneric";
 
 export class LoginSubmit {
   #formEl = document.querySelector("form");
@@ -33,19 +32,10 @@ export class LoginSubmit {
     };
   }
 
-  #validations() {
-    if (!this.#event) return;
-    this.#errorAuthEl && (this.#errorAuthEl.innerText = "");
-    const formKeys = Object.keys(Helpers.getFormValues(this.#event));
-    const errors = new ValidationGeneric(formKeys).errors;
-    if (errors.length > 0) return;
-    return "go";
-  }
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
     this.#event = e;
-    if (this.#validations() !== "go") return;
 
     // POST Login
     this.#btnLoader.createSpinner();
