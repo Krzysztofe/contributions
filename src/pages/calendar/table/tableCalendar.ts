@@ -107,7 +107,7 @@ class CollapseCreator {
 
   #handleCollapse(e: Event) {
     const target = e.target as HTMLElement;
-    const isIcon = target.hasAttribute("data-icon-chevron");
+    const isIcon = target.matches("data-icon-chevron");
 
     const tdFullnameId = isIcon
       ? target.getAttribute("data-parent-id")
