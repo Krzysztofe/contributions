@@ -15,5 +15,5 @@ export const dataListLeftSide = [
     tooltip: "Edycja",
   },
   { iconSVG: iconPdf, dataAttribute: "data-icon-pdf", tooltip: "Zapisz" },
-  { iconSVG: iconSms, dataAttribute: "data-icon-sms", tooltip: "Wyślij" },
+  { iconSVG: iconSms, dataAttribute: "data-icon-sms", tooltip: "SMS-y" },
 ];

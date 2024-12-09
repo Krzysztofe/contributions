@@ -31,6 +31,7 @@ export class ListHeaderLeftSide extends ListCreator {
       this.#tooltipEl = document.createElement("div");
       this.#tooltipEl.classList.add(
         "tooltip",
+        "min-w-16",
         "text-xs",
         "text-white",
         "p-1",
