@@ -55,11 +55,7 @@ export class ListMenu extends ListCreator {
       this.#iconEl = document.createElement("div");
       this.#iconEl.innerHTML = iconSVG;
 
-      this.#iconEl.classList.add(
-        "m-1",
-        "w-4",
-        "fill-dark",
-      );
+      this.#iconEl.classList.add("m-1", "w-4", "fill-dark");
       this.#iconEl.style.color = "dark";
       this.#iconEl.setAttribute("aria-hidden", "true");
       this.#linkEl.prepend(this.#iconEl);

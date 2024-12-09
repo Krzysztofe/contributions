@@ -36,16 +36,12 @@ export class HttpRequest {
       requestOptions.body = JSON.stringify(body);
     }
 
-    console.log("www", requestOptions);
-
     try {
       const resp = await fetch(url, requestOptions);
 
-      console.log("", resp);
       if (!resp.ok) {
         throw Error("Błąd. Ponów próbę");
       } else {
-        console.log("eeeee");
         let data;
         if (body?.login !== undefined && body?.login !== "") {
           data = await resp.text();
