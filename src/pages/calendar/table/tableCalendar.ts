@@ -32,11 +32,14 @@ class SelectCreator {
       "w-full",
       "bg-primary_dark"
     );
-    this.#selectEl.innerHTML = `<option>2024</option>
-          <option>2025</option>
-           <option>2026</option>
-            <option>2027</option> 
-          <option>2028</option>
+    const currentYear = Helpers.currentYear;
+
+    this.#selectEl.innerHTML = `
+       <option ${currentYear === "2024" ? "selected" : ""}>2024</option>
+       <option ${currentYear === "2025" ? "selected" : ""}>2025</option>
+       <option ${currentYear === "2026" ? "selected" : ""}>2026</option>
+       <option ${currentYear === "2027" ? "selected" : ""}>2027</option>
+       <option ${currentYear === "2028" ? "selected" : ""}>2028</option>
           `;
     this.#thDivSelect?.append(this.#selectEl);
   }
@@ -191,11 +194,11 @@ export class TableCalendar extends TableCreator {
   }
 
   createTdSum(currentSumOfContrib: number, idx: number, tr: Element) {
-    const tdNotActiveElemsSum =
+    const tdNotActiveElemsAmount =
       tr.querySelectorAll("[data-not-active]").length *
         parseInt(StateAmount.amount) || 0;
 
-    const sumToPay = currentSumOfContrib - tdNotActiveElemsSum;
+    const sumToPay = currentSumOfContrib - tdNotActiveElemsAmount;
 
     const summaryAmount = Helpers.getTableSums()[idx] - sumToPay;
     const tdEl = document.createElement("td");
@@ -222,13 +225,28 @@ export class TableCalendar extends TableCreator {
   }
 
   createTdSums() {
-    const currentSumOfContrib =
-      (StateAmount.amount &&
-        Helpers.currentMonthInNumber * parseInt(StateAmount.amount)) ||
-      0;
     this.#trElems = document.querySelectorAll("tbody tr");
-
     this.#trElems.forEach((tr, idx) => {
+      const tdNotActiveElemsAmount =
+        tr.querySelectorAll("[data-not-active]").length *
+          parseInt(StateAmount.amount) || 0;
+
+      let currentSumOfContrib = 0;
+
+      if (StateAmount.amount) {
+        if (StateYear.year > Helpers.currentYear) {
+          currentSumOfContrib = 0 * parseInt(StateAmount.amount);
+        } else if (tdNotActiveElemsAmount === 0) {
+          currentSumOfContrib =
+            Helpers.currentMonthInNumber * parseInt(StateAmount.amount);
+        } else if (StateYear.year < Helpers.currentYear) {
+          currentSumOfContrib = 12 * parseInt(StateAmount.amount);
+        } else {
+          currentSumOfContrib =
+            Helpers.currentMonthInNumber * parseInt(StateAmount.amount);
+        }
+      }
+
       this.createTdSum(currentSumOfContrib, idx, tr);
     });
   }

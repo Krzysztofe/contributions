@@ -25,6 +25,8 @@ export class TableCalendarPrinter {
 
   constructor() {
   
+
+ 
     if (
       !StateCalendar.sortedCalendar ||
       StateCalendar.sortedCalendar.length === 0

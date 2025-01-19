@@ -63,7 +63,7 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.remove("fill-dark");
       }
 
-      if (idx === elementsData.length - 1) {
+      if (idx === elementsData.length) {
         this.#liEl.classList.add("hidden", "md:block");
       }
 
