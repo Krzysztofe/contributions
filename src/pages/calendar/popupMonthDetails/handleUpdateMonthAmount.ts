@@ -2,9 +2,9 @@ import { LoadingTdCreator } from "../../../components/loadingsCreators/loadingTd
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
 import { ReprintTdSum } from "../reprintTdSum";
-import { StateAmount } from "../states/StateAmount";
-import { StateCalendar } from "../states/StateCalendar";
-import { StateYear } from "../states/StateYear";
+import { StateAmount } from "../../../states/StateAmount";
+import { StateCalendar } from "../../../states/StateCalendar";
+import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { ReprintAmountInMontch } from "./reprintAmountInMonth";
 
 export class HandleUpdateMonthAmount {
@@ -46,7 +46,7 @@ export class HandleUpdateMonthAmount {
       },
       body: {
         client_id: this.#memberId || "",
-        year: StateYear.year,
+        year: StatePrintedYear.year,
         month: this.#monthNumber || "",
         amount: StateAmount.amount,
       },

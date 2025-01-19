@@ -22,11 +22,11 @@ export class FormMemberSubmit {
   }
 
   #createNewMembers(fetchedMember: ModelObjectAny) {
-    const { firstname, lastname, phone, id, join_date } = fetchedMember;
+    const { firstname, lastname, email, id, join_date } = fetchedMember;
 
     const newMember = {
       fullname: `${lastname} ${firstname}`,
-      phone,
+      email,
       id,
       join_date: join_date.slice(0, -3),
     };
@@ -41,7 +41,7 @@ export class FormMemberSubmit {
       return {
         firstname: "",
         lastname: "",
-        phone: "",
+        email: "",
       };
     }
 
@@ -89,7 +89,7 @@ export class FormMemberSubmit {
         lastname:
           (this.#formValues && Helpers.capitalize(this.#formValues.lastname)) ||
           "",
-        phone: this.#formValues?.phone || "",
+        email: this.#formValues?.email || "",
         join_date: this.#formValues?.join_date || "",
       },
     };

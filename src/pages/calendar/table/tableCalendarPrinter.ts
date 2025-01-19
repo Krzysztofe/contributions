@@ -1,5 +1,5 @@
 import { Helpers } from "../../../utils/helpers";
-import { StateCalendar } from "../states/StateCalendar";
+import { StateCalendar } from "../../../states/StateCalendar";
 import { TableCalendar } from "./tableCalendar";
 import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
@@ -24,9 +24,6 @@ export class TableCalendarPrinter {
   #table = new TableCalendar("sectionTable");
 
   constructor() {
-  
-
- 
     if (
       !StateCalendar.sortedCalendar ||
       StateCalendar.sortedCalendar.length === 0

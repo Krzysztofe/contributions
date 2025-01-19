@@ -32,6 +32,7 @@ export class FormCreator {
 
   createForm({ formId, styles }: ModelCreateForm) {
     this.formEl.id = formId;
+    this.formEl.setAttribute("novalidate", "true");
     this.formEl.classList.add(...styles);
     this.#parentEl?.prepend(this.formEl);
   }

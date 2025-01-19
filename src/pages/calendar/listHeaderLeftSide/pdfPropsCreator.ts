@@ -2,7 +2,7 @@ import { ModelMonth } from "./../../../sharedModels/modelMonth";
 import { OutputType } from "jspdf-invoice-template";
 import { Helpers } from "../../../utils/helpers";
 import { ModelMemberCalendar } from "../../../sharedModels/modelMemberCalendar";
-import { StateYear } from "../states/StateYear";
+import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { monthsEnglish, monthsPolish } from "../../../data/dataMonths";
 
 export class PdfPropsCreator {
@@ -36,7 +36,7 @@ export class PdfPropsCreator {
     return monthsEnglish.map(month => {
       const monthData = member[month] as ModelMonth;
       const isJoinedInPrintedYear = monthData?.join_date.includes(
-        StateYear.year
+        StatePrintedYear.year
       );
 
       if (isJoinedInPrintedYear) {
@@ -74,7 +74,7 @@ export class PdfPropsCreator {
       compress: true,
 
       contact: {
-        name: `Zestawienie z ${StateYear.year} r.`,
+        name: `Zestawienie z ${StatePrintedYear.year} r.`,
         phone: `Data: ${Helpers.getCurrentDate()}`,
         email: `Godzina: ${Helpers.getCurrentHour()} `,
       },

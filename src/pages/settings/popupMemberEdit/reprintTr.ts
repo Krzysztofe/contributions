@@ -1,14 +1,14 @@
 export class ReprintTr {
   #trEl: HTMLElement | null = null;
   #tdElems: NodeListOf<HTMLElement> | null = null;
-  #phone: string | null | undefined = null;
+  #email: string | null | undefined = null;
 
   constructor(
     trId: string | null | undefined,
-    phone: string | null | undefined
+    email: string | null | undefined
   ) {
     this.#trEl = trId ? document.getElementById(trId) : null;
-    this.#phone = phone;
+    this.#email = email;
     this.reprintTrEl();
     this.#trBgColor();
   }
@@ -28,8 +28,8 @@ export class ReprintTr {
 
     this.#tdElems = this.#trEl.querySelectorAll<HTMLTableCellElement>("td");
 
-    if (this.#tdElems && this.#phone) {
-      this.#tdElems[2].innerText = this.#phone;
+    if (this.#tdElems && this.#email) {
+      this.#tdElems[2].innerText = this.#email;
     }
   }
 }

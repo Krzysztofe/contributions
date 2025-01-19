@@ -1,7 +1,7 @@
 import { URL_AMOUNT_GLOBAL } from "../../../data/dataUrl";
 import { HeaderLogedIn } from "../../../components/headerCreator/headerLogedIn/headerLogedIn";
 import { Helpers } from "../../../utils/helpers";
-import { StateAmount } from "../states/StateAmount";
+import { StateAmount } from "../../../states/StateAmount";
 import { ListHeaderLeftSide } from "../listHeaderLeftSide/listHeaderLeftSide";
 import { dataListLeftSide } from "../listHeaderLeftSide/dataListLeftSide";
 import { dataInputAmount } from "./dataInputAmount";
@@ -59,8 +59,7 @@ export class HeaderCalendar extends HeaderLogedIn {
       "bg-grey_primary",
       "absolute",
       "top-11",
-      "left-0",
-     
+      "left-0"
     );
     this.#tooltipEl.textContent = "Składka";
 

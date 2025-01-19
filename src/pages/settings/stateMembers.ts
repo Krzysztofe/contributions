@@ -8,17 +8,17 @@ export class StateMembers {
     let processMembers: ModelMemberSettings[] | [];
 
     if (members.length > 0) {
-      processMembers = members.map(({ fullname, phone, id, join_date }) => {
-        const isPhoneFormat = phone?.includes("-");
+      processMembers = members.map(({ fullname, email, id, join_date }) => {
+        const isPhoneFormat = email?.includes("-");
 
-        phone = isPhoneFormat
-          ? phone
-          : phone?.replace(/(.{3})/g, "$1-").slice(0, -1);
+        email = isPhoneFormat
+          ? email
+          : email?.replace(/(.{3})/g, "$1-").slice(0, -1);
 
         return {
           id,
           fullname,
-          phone,
+          email,
           join_date,
         };
       });

@@ -1,5 +1,5 @@
-import { URL_AMOUNT_GLOBAL } from "../../../data/dataUrl";
-import { Helpers } from "../../../utils/helpers";
+import { URL_AMOUNT_GLOBAL } from "../data/dataUrl";
+import { Helpers } from "../utils/helpers";
 
 export class StateAmount {
   static amount = "";

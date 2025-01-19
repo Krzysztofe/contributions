@@ -1,6 +1,6 @@
 export type ModelMemberSettings = {
   fullname: string;
-  phone: string;
+  email: string;
   id: string;
   join_date?: string;
 };

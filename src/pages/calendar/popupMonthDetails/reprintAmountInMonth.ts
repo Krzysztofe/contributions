@@ -1,4 +1,4 @@
-import { StateAmount } from "../states/StateAmount";
+import { StateAmount } from "../../../states/StateAmount";
 
 export class ReprintAmountInMontch {
   #eTarget: string | null = null;

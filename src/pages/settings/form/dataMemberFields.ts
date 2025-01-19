@@ -24,12 +24,12 @@ export const dataMemberFields = [
     "Nazwisko min. 3 litery"
   ),
   new DataFieldCreator(
-    "phone",
+    "email",
     "",
-    "^(?=(?:\\D*\\d){9}$)(?:\\d-?){8}\\d$",
-    "tel",
-    "Telefon",
-    "Telefon 9 cyfr"
+    "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+    "email",
+    "E-mail",
+    "Format email"
   ),
   new DataFieldCreator("join_date", "Data", "\\S", "month", "", " "),
 ];

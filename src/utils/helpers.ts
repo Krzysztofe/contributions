@@ -1,10 +1,10 @@
 import { ModelObjectAny } from "./../sharedModels/modelObjectAny";
 import { ModelMemberCalendar } from "./../sharedModels/modelMemberCalendar";
-import { StateAmount } from "../pages/calendar/states/StateAmount";
+import { StateAmount } from "../states/StateAmount";
 import { HttpRequest } from "../services/httpRequest";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
-import { StateCalendar } from "../pages/calendar/states/StateCalendar";
+import { StateCalendar } from "../states/StateCalendar";
 
 export class Helpers {
   static currentYear = new Date().getFullYear().toString();

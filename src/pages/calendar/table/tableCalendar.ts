@@ -2,12 +2,12 @@ import { LoadingTableCreator } from "../../../components/loadingsCreators/loadin
 import { TableCreator } from "../../../components/tableCreator";
 import { Helpers } from "../../../utils/helpers";
 import { URL_CALENDAR } from "../../../data/dataUrl";
-import { StateYear } from "../states/StateYear";
+import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
-import { StateCalendar } from "../states/StateCalendar";
+import { StateCalendar } from "../../../states/StateCalendar";
 import { AutoLogoutCreator } from "../../../components/autoLogoutCreator";
 import { PopupMonthDetails } from "../popupMonthDetails/popupMonthDetails";
-import { StateAmount } from "../states/StateAmount";
+import { StateAmount } from "../../../states/StateAmount";
 import { iconChevron } from "../../../icons/iconChevron";
 
 class SelectCreator {
@@ -56,7 +56,7 @@ class SelectCreator {
   async #handleSelect(e: Event) {
     this.#selectedYear = (e.target as HTMLInputElement).value;
     this.#loading.createLoading();
-    StateYear.year = this.#selectedYear;
+    StatePrintedYear.year = this.#selectedYear;
     const yearData = await Helpers.fetchData(this.#GETOptions());
     StateCalendar.setCalendar(yearData);
     document.getElementById("tableMembers")?.remove();
@@ -178,7 +178,7 @@ export class TableCalendar extends TableCreator {
       const monthDetails = tdEl.getAttribute("data-month-details");
       const number = monthDetails && JSON.parse(monthDetails).monthNumber;
       const monthNumber = number.padStart(2, "0");
-      const tdDate = `${StateYear.year}-${monthNumber}`;
+      const tdDate = `${StatePrintedYear.year}-${monthNumber}`;
 
       const joinDateCompare = new Date(joinDate + "-01");
       const tdDateCompare = new Date(tdDate + "-01");
@@ -234,12 +234,12 @@ export class TableCalendar extends TableCreator {
       let currentSumOfContrib = 0;
 
       if (StateAmount.amount) {
-        if (StateYear.year > Helpers.currentYear) {
+        if (StatePrintedYear.year > Helpers.currentYear) {
           currentSumOfContrib = 0 * parseInt(StateAmount.amount);
         } else if (tdNotActiveElemsAmount === 0) {
           currentSumOfContrib =
             Helpers.currentMonthInNumber * parseInt(StateAmount.amount);
-        } else if (StateYear.year < Helpers.currentYear) {
+        } else if (StatePrintedYear.year < Helpers.currentYear) {
           currentSumOfContrib = 12 * parseInt(StateAmount.amount);
         } else {
           currentSumOfContrib =

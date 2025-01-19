@@ -1,11 +1,11 @@
 import { ModelMonth } from "../../../sharedModels/modelMonth";
 import { PopupCreator } from "../../../components/popupCreator";
 import { Helpers } from "../../../utils/helpers";
-import { StateFillMode } from "../states/stateFillMode";
+import { StateFillMode } from "../../../states/stateFillMode";
 import { FormCreator } from "../../../components/formCreator";
 import { dataPopupFields } from "./dataPopupFields";
 import { MonthDetailsSubmit } from "./monthDetailsSubmit";
-import { StateAmount } from "../states/StateAmount";
+import { StateAmount } from "../../../states/StateAmount";
 import { HandleUpdateMonthAmount } from "./handleUpdateMonthAmount";
 
 class FormMonthDetailsPrinter {

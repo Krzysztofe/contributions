@@ -3,9 +3,9 @@ import { TableCalendarPrinter } from "./table/tableCalendarPrinter";
 import { Helpers } from "../../utils/helpers";
 import { HeaderCalendar } from "./headerCalendar/headerCalendar";
 import { URL_CALENDAR } from "../../data/dataUrl";
-import { StateCalendar } from "./states/StateCalendar";
+import { StateCalendar } from "../../states/StateCalendar";
 import { PopupMonthDetails } from "./popupMonthDetails/popupMonthDetails";
-import { StateAmount } from "./states/StateAmount";
+import { StateAmount } from "../../states/StateAmount";
 import { PopupSms } from "./popupSms/popupSms";
 import { LoadigCalendarPageCreator } from "../../components/loadingsCreators/loadingCalendarPageCreator";
 

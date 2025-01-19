@@ -2,11 +2,11 @@ import { ModelMonth } from "../../../sharedModels/modelMonth";
 import { Helpers } from "../../../utils/helpers";
 import { LoadingButtonCreator } from "../../../components/loadingsCreators/loadingButtonCreator";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
-import { StateYear } from "../states/StateYear";
+import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { ReprintTdInCalendar } from "../table/reprintTdInCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 import { ReprintTdSum } from "../reprintTdSum";
-import { StateCalendar } from "../states/StateCalendar";
+import { StateCalendar } from "../../../states/StateCalendar";
 
 export class MonthDetailsSubmit {
   #formEl = document.querySelector("form");
@@ -49,7 +49,7 @@ export class MonthDetailsSubmit {
       },
       body: {
         client_id: this.#memberId || "",
-        year: StateYear.year || "",
+        year: StatePrintedYear.year || "",
         month: this.#monthNumber || "",
         amount: this.#formValues?.amount || "0",
         pay_date: this.#formValues?.pay_date || "",
