@@ -8,11 +8,11 @@ import { DataFieldCreator } from "../../../components/dataFieldCreator";
 
 export const dataMemberEditFields = [
   new DataFieldCreator(
-    "phoneEdit",
+    "emailEdit",
     "",
-    "^(?=(?:\\D*\\d){9}$)(?:\\d-?){8}\\d$",
-    "tel",
-    "Telefon",
-    "Telefon 9 cyfr"
+    "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+    "email",
+    "E-mail",
+    "Format email"
   ),
 ];

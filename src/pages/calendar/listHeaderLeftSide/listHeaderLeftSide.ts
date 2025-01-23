@@ -48,10 +48,10 @@ export class ListHeaderLeftSide extends ListCreator {
       this.#liEl.classList.add(
         "fill-dark",
         "cursor-pointer",
-        "w-8",
-        "p-2",
-        "mr-4",
-        "md:mr-3",
+        "w-10",
+        "h-10",
+        "flex",
+        "justify-center",
         "rounded-full",
         "relative",
         "hover:bg-hover_bg",
@@ -63,12 +63,14 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.remove("fill-dark");
       }
 
-      if (idx === elementsData.length) {
-        this.#liEl.classList.add("hidden", "md:block");
+      if (idx === elementsData.length-1) {
+    
+        this.#liEl.classList.add("hidden", "md:flex");
       }
 
       if (idx === elementsData.length - 2) {
-        this.#liEl.classList.add("hidden", "sm:block");
+        console.log("leng-2");
+        this.#liEl.classList.add("hidden", "sm:flex");
       }
 
       this.#liEl.setAttribute(dataAttribute, "");

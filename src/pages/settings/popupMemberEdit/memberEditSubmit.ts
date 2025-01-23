@@ -23,12 +23,13 @@ export class MemberEditSubmit {
   }
 
   #validations(e: Event) {
+    
     this.#formValues = Helpers.getFormValues(e);
     this.#formKeys = Object.keys(this.#formValues);
-
+console.log("ee", this.#formKeys);
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
-
+console.log("eeer", areErrors);
     if (areErrors && areErrors.length > 0) return;
     return "go";
   }
@@ -42,7 +43,7 @@ export class MemberEditSubmit {
       },
       body: {
         id: this.#memberId || "",
-        phone: this.#formValues?.phoneEdit || "",
+        email: this.#formValues?.emailEdit || "",
       },
     };
   }
@@ -53,7 +54,7 @@ export class MemberEditSubmit {
     this.#btnLoader.createSpinner();
 
     await Helpers.fetchData(this.#PUTOptions());
-    new ReprintTr(this.#trId, this.#formValues?.phoneEdit);
+    new ReprintTr(this.#trId, this.#formValues?.emailEdit);
     document.getElementById("popupContainer")?.remove();
   }
 

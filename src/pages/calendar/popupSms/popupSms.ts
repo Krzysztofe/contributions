@@ -6,7 +6,7 @@ import { Helpers } from "../../../utils/helpers";
 import { SendSms } from "./sendSms";
 
 export class PopupSms extends PopupCreator {
-  #iconEl = document.querySelector("[data-icon-sms]");
+  #iconEl = document.querySelector("[data-icon-email]");
   #hederEl = document.createElement("h3");
   #popupConainerEl: HTMLElement | null = null;
   #debtMembers: number | null = null;
@@ -25,13 +25,13 @@ export class PopupSms extends PopupCreator {
     let textSms;
 
     if (lastTwoDigits > 10 && lastTwoDigits < 20) {
-      textSms = "SMS-ów";
+      textSms = "e-maili";
     } else if (lastDigit === 1) {
-      textSms = "SMS";
+      textSms = "mail";
     } else if (lastDigit >= 2 && lastDigit <= 4) {
-      textSms = "SMS-y";
+      textSms = "e-maile";
     } else {
-      textSms = "SMS-ów";
+      textSms = "e-maili";
     }
 
     return textSms;
@@ -50,7 +50,7 @@ export class PopupSms extends PopupCreator {
     if (this.#debtMembers === 0) {
       this.#hederEl.innerHTML = "Brak zaległości";
     } else {
-      this.#hederEl.innerHTML = `Wysłać ${
+      this.#hederEl.innerHTML = `Czy wysłać ${
         this.#debtMembers
       } ${this.#createSmsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
     }
@@ -83,7 +83,6 @@ export class PopupSms extends PopupCreator {
     this.#hederEl.remove();
     document.getElementById("btnsContainer")?.remove();
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
-
     this.#debtMembers = calendarDatabase["debts-members"];
     loader.removeLoading();
 

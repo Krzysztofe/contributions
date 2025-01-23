@@ -37,7 +37,7 @@ export class ValidationGeneric {
         this.errors.push("error");
       } else if (!pattern.test(inputEl?.value.trim())) {
         const errorElement = this.errorsElems[errorEl];
-        console.log('',errorElement)
+      
         if (errorElement) {
           const dataError = errorElement.getAttribute("data-error");
           if (dataError) {

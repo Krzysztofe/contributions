@@ -1,7 +1,8 @@
 import { iconRocket } from "../../../icons/iconRocket";
 import { iconEdit } from "../../../icons/iconEdit";
 import { iconPdf } from "../../../icons/iconPdf";
-import { iconSms } from "../../../icons/iconSms";
+import { iconEmail } from "../../../icons/iconEmail";
+
 
 export const dataListLeftSide = [
   {
@@ -15,5 +16,5 @@ export const dataListLeftSide = [
     tooltip: "Edycja",
   },
   { iconSVG: iconPdf, dataAttribute: "data-icon-pdf", tooltip: "Zapisz" },
-  { iconSVG: iconSms, dataAttribute: "data-icon-sms", tooltip: "SMS-y" },
+  { iconSVG: iconEmail, dataAttribute: "data-icon-email", tooltip: "Wyślij" },
 ];
