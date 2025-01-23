@@ -136,6 +136,8 @@ class TableBodyCreator {
     const printCells = { ...tdData };
     delete printCells.id;
 
+
+
     Object.values(printCells).forEach((value, idx) => {
       const stylesTdName =
         idx === 0

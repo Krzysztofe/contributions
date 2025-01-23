@@ -9,11 +9,6 @@ export class StateMembers {
 
     if (members.length > 0) {
       processMembers = members.map(({ fullname, email, id, join_date }) => {
-        const isPhoneFormat = email?.includes("-");
-
-        email = isPhoneFormat
-          ? email
-          : email?.replace(/(.{3})/g, "$1-").slice(0, -1);
 
         return {
           id,

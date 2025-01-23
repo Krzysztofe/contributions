@@ -14,7 +14,6 @@ export class TableMembersPrinter {
   #init() {
     const { sortedMembers } = StateMembers;
 
-
     if (!sortedMembers || sortedMembers.length === 0) {
       this.#table.noDataContainer();
       return;
@@ -25,7 +24,7 @@ export class TableMembersPrinter {
       headers: [
         `${sortedMembers.length}`,
         "Nazwisko i imię",
-        "Telefon",
+        "E-mail",
         "Data wstąpienia",
         "",
       ],

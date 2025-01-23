@@ -53,8 +53,6 @@ export class HttpRequest {
         return data;
       }
     } catch (err: any) {
-      console.log("eror");
-
       this.#createErrorPage();
     }
   }

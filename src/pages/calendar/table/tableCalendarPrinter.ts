@@ -6,11 +6,12 @@ import { ModelObjectString } from "../../../sharedModels/modelObjectString";
 import { ModelObjectAny } from "../../../sharedModels/modelObjectAny";
 import { wrapperWidth } from "../../../data/dataNumbers";
 import { monthsPolish } from "../../../data/dataMonths";
+import { StatePrintedYear } from "../../../states/StatePrintedYear";
+
 
 export class TableCalendarPrinter {
   #membersSum = StateCalendar.sortedCalendar?.length || "";
   #dataTableHead: string[] = [`${this.#membersSum}`, "", ...monthsPolish];
-
   #dataTableBody =
     StateCalendar.sortedCalendar &&
     Helpers.copy(StateCalendar.sortedCalendar).map(
@@ -20,7 +21,6 @@ export class TableCalendarPrinter {
         return member;
       }
     );
-
   #table = new TableCalendar("sectionTable");
 
   constructor() {
@@ -33,7 +33,7 @@ export class TableCalendarPrinter {
     }
     this.#table.createTable([wrapperWidth, "m-auto"]);
     this.#table.createTableHead({
-      headers: [...this.#dataTableHead, "Suma"],
+      headers: [...this.#dataTableHead, `Suma ${StatePrintedYear.year}`],
       stylesTh: ["bg-accent", "text-white"],
     });
     this.#table.createSelect();
@@ -48,6 +48,7 @@ export class TableCalendarPrinter {
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
     this.#table.createTdSums();
+    // this.#table.createTdSums();
   }
 
   #tdStylesCustom(idx?: number) {
