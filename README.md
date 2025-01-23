@@ -1,6 +1,6 @@
 # Contributions
 
-An commercial application commissioned by a labor union. Aplication created after consultations with union activists for the use of the treasurer of a workers' union commission.  Using the application, the treasurer can record contributions and send SMS messages to commission members who have not paid their contributions.
+An commercial application commissioned by a labor union. Aplication created after consultations with union activists for the use of the treasurer of a workers' union commission.  Using the application, the treasurer can record contributions and send e-mail messages to commission members who have not paid their contributions.
 
 1 The user, who serves as the treasurer of the commission, saves list of commission members in the settings panel. </br>
 
@@ -23,7 +23,7 @@ slow method </br>
 </div>
 </br>
 
-5 The user can send SMS messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses <a href = "https://www.smsapi.pl/">SMSAPI</a>  to send the messages. </br>
+5 The user can send e-mail messages to members who have not paid their dues, requesting that they transfer the dues to the commission's account. The application uses a backend service written in PHP to send emails. </br>
 
   <div align="center">
   <img src="https://github.com/user-attachments/assets/51dfcbef-64b3-43d5-8557-df54bf646153" alt="html5" width="450" height="200" /> 
@@ -33,10 +33,11 @@ slow method </br>
 
 6 The user can create a PDF with a summary of contributions for each year stored in the database. </br> 7 Application uses a backend built in PHP.
 
-Application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in objects instances that generate these HTML elements.
+Application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in classes instances that generate these HTML elements.
 
 
-## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/
+## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/ <br/> <div>(you can add your email address and send the information about the overdue payments)</div>
+
 ## Production Vesion: https://skladkiuam.ozzip.pl/
 
 ## Desktop
