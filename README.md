@@ -36,7 +36,7 @@ slow method </br>
 Application is written according to the principles of OOP (Object-Oriented Programming). HTML elements are dynamically created, such as in the case of forms or tables, using objects with basic data passed in arrays to appropriate methods in classes instances that generate these HTML elements.
 
 
-## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/ <br/> <div>(you can add your email address and send the information about the overdue payments)</div>
+## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/ <br/> <div>(you can add your e-mail address and send the information about the overdue payments)</div>
 
 ## Production Vesion: https://skladkiuam.ozzip.pl/
 
