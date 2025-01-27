@@ -69,7 +69,6 @@ export class ListHeaderLeftSide extends ListCreator {
       }
 
       if (idx === elementsData.length - 2) {
-        console.log("leng-2");
         this.#liEl.classList.add("hidden", "sm:flex");
       }
 

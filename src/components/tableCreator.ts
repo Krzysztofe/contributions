@@ -88,6 +88,8 @@ class TableBodyCreator {
   #memberId: string | null = null;
   #trEl: HTMLElement | null = null;
 
+
+ 
   constructor({
     tdDataList,
     icons = [],
@@ -247,6 +249,8 @@ class TableBodyCreator {
     tdStyles = [],
     tdSetAtribut,
   }: ModelTableBody) {
+
+
     this.#tableBodyEl.classList.add("bg-white");
     tdDataList.forEach((tdData, idx) => {
       this.#memberId = tdData.id;

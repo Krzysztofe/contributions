@@ -49,6 +49,7 @@ export class StateCalendar {
       id: member.id,
       join_date: member.join_date,
       sum,
+      sumTotalToPay: member.total_to_pay,
       ...monthsData,
     };
 

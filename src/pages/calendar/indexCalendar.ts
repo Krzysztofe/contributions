@@ -25,6 +25,8 @@ class CalendarManager {
     Helpers.isUserLoged();
     await StateAmount.getAmount();
     const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
+    
+console.log("", calendarDatabase);
     new LoadigCalendarPageCreator();
     StateCalendar.setCalendar(calendarDatabase);
     new HeaderCalendar(["flex", "items-center"]);
@@ -36,3 +38,5 @@ class CalendarManager {
 }
 
 new CalendarManager();
+
+

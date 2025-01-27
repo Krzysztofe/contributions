@@ -247,7 +247,17 @@ export class TableCalendar extends TableCreator {
         }
       }
 
+      console.log("cc", currentSumOfContrib);
+
       this.createTdSum(currentSumOfContrib, idx, tr);
+    });
+  }
+  createTdTotalSum() {
+const yyy = StateCalendar.sortedCalendar
+console.log('yyy',yyy)
+
+    this.#trElems?.forEach((tr, idx) => {
+      // this.createTdSum(99, idx, tr);
     });
   }
 }

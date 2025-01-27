@@ -8,7 +8,6 @@ import { wrapperWidth } from "../../../data/dataNumbers";
 import { monthsPolish } from "../../../data/dataMonths";
 import { StatePrintedYear } from "../../../states/StatePrintedYear";
 
-
 export class TableCalendarPrinter {
   #membersSum = StateCalendar.sortedCalendar?.length || "";
   #dataTableHead: string[] = [`${this.#membersSum}`, "", ...monthsPolish];
@@ -18,6 +17,7 @@ export class TableCalendarPrinter {
       (member: ModelMemberCalendar) => {
         delete member.join_date;
         delete member.sum;
+        delete member?.sumTotalToPay;
         return member;
       }
     );
@@ -33,7 +33,11 @@ export class TableCalendarPrinter {
     }
     this.#table.createTable([wrapperWidth, "m-auto"]);
     this.#table.createTableHead({
-      headers: [...this.#dataTableHead, `Suma ${StatePrintedYear.year}`],
+      headers: [
+        ...this.#dataTableHead,
+        `Suma ${StatePrintedYear.year}`,
+        "Całość",
+      ],
       stylesTh: ["bg-accent", "text-white"],
     });
     this.#table.createSelect();
@@ -48,7 +52,7 @@ export class TableCalendarPrinter {
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
     this.#table.createTdSums();
-    // this.#table.createTdSums();
+    this.#table.createTdTotalSum();
   }
 
   #tdStylesCustom(idx?: number) {

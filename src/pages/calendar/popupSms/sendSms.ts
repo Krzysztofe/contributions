@@ -17,7 +17,7 @@ export class SendSms {
     this.#popupInnerContainerEl?.classList.add("max-w-96")
     if (!this.#headerEl) return;
     this.#headerEl.textContent =
-      "W wersji produkcyjnej użytkowanik otrzymuje informację o udanej wysyłce SMS-ów lub o braku środków na koncie SMSAPI warunkujących wysyłkę SMS-ów.";
+      "E-maile zostały wysłane";
     this.#popupInnerContainerEl?.append(this.#headerEl);
   }
 

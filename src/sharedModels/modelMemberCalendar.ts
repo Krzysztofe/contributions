@@ -14,5 +14,6 @@ export type ModelMemberCalendar = ModelMemberSettings & {
   october: ModelMonth;
   november: ModelMonth;
   december: ModelMonth;
-  sum?: number
+  sum?: number;
+  sumTotalToPay?: number
 };
