@@ -13,6 +13,6 @@ export class StateAmount {
 
   static async getAmount() {
     const amountDatabase = await Helpers.fetchData(this.GETAmountOptions);
-    this.amount = amountDatabase.amount;
+    this.amount = amountDatabase?.amount;
   }
 }

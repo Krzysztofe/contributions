@@ -5,6 +5,7 @@ import { HttpRequest } from "../services/httpRequest";
 import { ModelObjectString } from "../sharedModels/modelObjectString";
 import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
 import { StateCalendar } from "../states/StateCalendar";
+import { StatePrintedYear } from "../states/StatePrintedYear";
 
 export class Helpers {
   static currentYear = new Date().getFullYear().toString();
@@ -31,6 +32,23 @@ export class Helpers {
     const minutes = currentDate.getMinutes().toString().padStart(2, "0");
     const seconds = currentDate.getSeconds().toString().padStart(2, "0");
     return `${hours}:${minutes}:${seconds}`;
+  }
+
+  static getCurrentYearContribsToPay() {
+    let currentYearContribsToPay = 0;
+
+    if (StateAmount.amount) {
+      if (StatePrintedYear.year > this.currentYear) {
+        currentYearContribsToPay = 0;
+      } else if (StatePrintedYear.year < this.currentYear) {
+        currentYearContribsToPay = 12 * parseInt(StateAmount.amount);
+      } else {
+        currentYearContribsToPay =
+          this.currentMonthInNumber * parseInt(StateAmount.amount);
+      }
+    }
+
+    return currentYearContribsToPay;
   }
 
   static copy(object: ModelObjectAny) {

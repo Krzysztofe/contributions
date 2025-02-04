@@ -193,17 +193,10 @@ export class TableCalendar extends TableCreator {
     });
   }
 
-  createTdSum(currentSumOfContrib: number, idx: number, tr: Element) {
-    const tdNotActiveElemsAmount =
-      tr.querySelectorAll("[data-not-active]").length *
-        parseInt(StateAmount.amount) || 0;
-
-    const sumToPay = currentSumOfContrib - tdNotActiveElemsAmount;
-
-    const summaryAmount = Helpers.getTableSums()[idx] - sumToPay;
-    const tdEl = document.createElement("td");
+  createTdSum(summaryAmount: number, trEl: Element, dataAtrib: string) {
+    const tdEl = document.createElement("td") as HTMLElement;
     tdEl.setAttribute("data", "sum");
-    tdEl.setAttribute("data-sum-to-pay", sumToPay.toString());
+    tdEl.setAttribute(dataAtrib, summaryAmount.toString());
     const textColor = summaryAmount < 0 ? "text-danger" : "text-dark";
 
     if (summaryAmount < 0) {
@@ -221,43 +214,76 @@ export class TableCalendar extends TableCreator {
       "pt-2",
       textColor
     );
-    tr.append(tdEl);
+    trEl.append(tdEl);
   }
 
   createTdSums() {
     this.#trElems = document.querySelectorAll("tbody tr");
-    this.#trElems.forEach((tr, idx) => {
-      const tdNotActiveElemsAmount =
-        tr.querySelectorAll("[data-not-active]").length *
+    this.#trElems.forEach((trEl, idx) => {
+      const contribsNotToPay =
+        trEl.querySelectorAll("[data-not-active]").length *
           parseInt(StateAmount.amount) || 0;
 
-      let currentSumOfContrib = 0;
+      const sumToPay = Helpers.getCurrentYearContribsToPay() - contribsNotToPay;
+      const summaryAmount = Helpers.getTableSums()[idx] - sumToPay;
 
-      if (StateAmount.amount) {
-        if (StatePrintedYear.year > Helpers.currentYear) {
-          currentSumOfContrib = 0 * parseInt(StateAmount.amount);
-        } else if (tdNotActiveElemsAmount === 0) {
-          currentSumOfContrib =
-            Helpers.currentMonthInNumber * parseInt(StateAmount.amount);
-        } else if (StatePrintedYear.year < Helpers.currentYear) {
-          currentSumOfContrib = 12 * parseInt(StateAmount.amount);
-        } else {
-          currentSumOfContrib =
-            Helpers.currentMonthInNumber * parseInt(StateAmount.amount);
-        }
-      }
-
-      console.log("cc", currentSumOfContrib);
-
-      this.createTdSum(currentSumOfContrib, idx, tr);
+      this.createTdSum(summaryAmount, trEl, "data-sum-to-pay");
     });
   }
-  createTdTotalSum() {
-const yyy = StateCalendar.sortedCalendar
-console.log('yyy',yyy)
 
-    this.#trElems?.forEach((tr, idx) => {
-      // this.createTdSum(99, idx, tr);
+  createTdTotalSums() {
+    this.#trElems?.forEach((trEl, idx) => {
+      const joinDate = trEl
+        .querySelector("[data-join-date]")
+        ?.getAttribute("data-join-date");
+
+      let monthsToPay = 0;
+
+      if (joinDate) {
+        const [joinYear, joinMonth] = joinDate?.split("-");
+        monthsToPay =
+          parseInt(Helpers.currentYear) * 12 +
+          Helpers.currentMonthInNumber -
+          (parseInt(joinYear) * 12 + parseInt(joinMonth)) +
+          1;
+      }
+
+// console.log("sorted", StateCalendar.sortedCalendar);
+
+      const payedContribsSumm = StateCalendar.sortedCalendar[
+        idx
+      ].yearsCotribs.reduce(
+        (total: number, { year_sum }: { year_sum: number }) => {
+          return total + year_sum;
+        },
+        0
+      );
+
+      const prevTotalContribs = StateCalendar.sortedCalendar[idx].payedContribs;
+
+      const memberContribsToPay = monthsToPay * parseInt(StateAmount.amount);
+      // const summaryAmount = payedContribsSumm - memberContribsToPay;
+
+       const summaryAmount = prevTotalContribs - memberContribsToPay;
+
+      // let summaryAmount;
+
+      // if (calculatedContribs < 0) {
+      //   // console.log("first", calculatedContribs);
+      //   summaryAmount = payedContribsSumm - memberContribsToPay;
+      // } else {
+      //   console.log("second");
+      //   summaryAmount = calculatedContribs;
+      // }
+
+      // console.log("memberContribsToPay", memberContribsToPay);
+      console.log("prevTotalContribs", prevTotalContribs);
+      console.log("payedContribsSumm", payedContribsSumm);
+      // console.log("calculatedContribs", calculatedContribs);
+      // console.log("currentContribsToPay", memberContribsToPay);
+      // console.log("summaryAmount", summaryAmount);
+
+      this.createTdSum(summaryAmount, trEl, "data-total-sum-to-pay");
     });
   }
 }

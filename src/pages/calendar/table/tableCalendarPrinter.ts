@@ -17,7 +17,8 @@ export class TableCalendarPrinter {
       (member: ModelMemberCalendar) => {
         delete member.join_date;
         delete member.sum;
-        delete member?.sumTotalToPay;
+        delete member?.yearsCotribs;
+        delete member?.payedContribs;
         return member;
       }
     );
@@ -35,8 +36,8 @@ export class TableCalendarPrinter {
     this.#table.createTableHead({
       headers: [
         ...this.#dataTableHead,
-        `Suma ${StatePrintedYear.year}`,
-        "Całość",
+        `Bilans ${StatePrintedYear.year}`,
+        "Bilans całkowity",
       ],
       stylesTh: ["bg-accent", "text-white"],
     });
@@ -52,7 +53,7 @@ export class TableCalendarPrinter {
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
     this.#table.createTdSums();
-    this.#table.createTdTotalSum();
+    this.#table.createTdTotalSums();
   }
 
   #tdStylesCustom(idx?: number) {

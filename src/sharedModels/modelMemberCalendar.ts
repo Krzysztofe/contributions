@@ -15,5 +15,7 @@ export type ModelMemberCalendar = ModelMemberSettings & {
   november: ModelMonth;
   december: ModelMonth;
   sum?: number;
-  sumTotalToPay?: number
+  payedContribs?:number;
+  // sumTotalToPay?: number;
+  yearsCotribs?: { client_id: number; year: number; year_sum: number }[];
 };

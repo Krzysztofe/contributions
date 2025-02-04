@@ -1,11 +1,12 @@
+import { StatePrintedYear } from "./../../../states/StatePrintedYear";
 import { LoadingTdCreator } from "../../../components/loadingsCreators/loadingTdCreator";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
 import { ReprintTdSum } from "../reprintTdSum";
 import { StateAmount } from "../../../states/StateAmount";
 import { StateCalendar } from "../../../states/StateCalendar";
-import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { ReprintAmountInMontch } from "./reprintAmountInMonth";
+import { ReprintTdTotalSum } from "../reprintTdTotalSum";
 
 export class HandleUpdateMonthAmount {
   #eTarget: HTMLElement | null = null;
@@ -55,19 +56,33 @@ export class HandleUpdateMonthAmount {
 
   async #handleUpdateAmount() {
     this.#addTbodyBlocade();
-    if (this.#memberId && this.#monthName) {
-      StateCalendar.setPayedSum(
-        this.#memberId,
-        StateAmount.amount,
-        this.#monthName
-      );
-    }
 
     this.#spinner?.createSpinner();
     await Helpers.fetchData(this.#PATCHoptions());
     this.#eTarget && new ReprintAmountInMontch(this.#eTarget);
+
     this.#removeTbodyBlocade();
     new ReprintTdSum(`${this.#memberId}_${this.#monthNumber}`);
+    new ReprintTdTotalSum(
+      `${this.#memberId}_${this.#monthNumber}`,
+      StateAmount.amount,
+      this.#eTarget
+    );
     this.#spinner?.removeSpinner();
+
+    if (this.#memberId && this.#monthName) {
+      StateCalendar.setYearsCotribs(
+        this.#memberId,
+        StateAmount.amount,
+        StatePrintedYear.year,
+        this.#eTarget
+      );
+      // StateCalendar.setPayedSum(
+      //   this.#memberId,
+      //   StateAmount.amount,
+      //   this.#monthName
+      // );
+    }
+  
   }
 }

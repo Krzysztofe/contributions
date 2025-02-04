@@ -49,7 +49,8 @@ export class StateCalendar {
       id: member.id,
       join_date: member.join_date,
       sum,
-      sumTotalToPay: member.total_to_pay,
+      yearsCotribs: member.years_contribs,
+      payedContribs: member.payed_contribs,
       ...monthsData,
     };
 
@@ -84,5 +85,71 @@ export class StateCalendar {
       member.sum = sum;
       this.sortedCalendar[memberIdx] = member;
     }
+  }
+
+  static getPreviousMonthContribution(
+    eTarget: HTMLElement,
+    memberId: string
+  ): number | null {
+    const dataMonthDetails = eTarget?.getAttribute("data-month-details");
+    if (!dataMonthDetails) return null;
+
+    const monthNumber = JSON.parse(dataMonthDetails)?.monthNumber;
+    const findMember = StateCalendar.sortedCalendar.find(
+      ({ id }) => id === memberId
+    );
+    if (!findMember) return null;
+
+    const monthName = Helpers.numberOnMonthEnglish(monthNumber);
+    return findMember[monthName]?.amount ?? null;
+  }
+
+  static setYearsCotribs(
+    memberId: string,
+    amount: string,
+    year: string,
+    eTarget: HTMLElement | null
+  ) {
+    const member = [...this.sortedCalendar].find(
+      member => member.id === memberId
+    );
+
+    if (!member) return;
+
+    if (!eTarget) return;
+    const prevMonthContrib = this.getPreviousMonthContribution(
+      eTarget,
+      memberId
+    );
+
+    const prevTotalContribs = member.payedContribs;
+
+    if (prevMonthContrib === null) return;
+
+    const balancedContrib =
+      prevMonthContrib === 0
+        ? prevMonthContrib + parseInt(amount)
+        : prevMonthContrib - parseInt(amount);
+
+    const addToTotalContribs =
+      balancedContrib !== 0
+        ? Math.abs(balancedContrib) * Math.sign(-balancedContrib)
+        
+        : 0;
+    let newTotalContribs = 0;
+
+    if (addToTotalContribs === 0) return;
+    if (prevTotalContribs < 0 && addToTotalContribs > 0) {
+      newTotalContribs = prevTotalContribs + addToTotalContribs;
+    } else if (prevTotalContribs < 0 && addToTotalContribs > 0) {
+      newTotalContribs = prevTotalContribs - addToTotalContribs;
+    } else {
+      newTotalContribs = prevTotalContribs + addToTotalContribs;
+    }
+
+    member.payedContribs = newTotalContribs;
+
+    const memberIdx = this.sortedCalendar.indexOf(member);
+    this.sortedCalendar[memberIdx] = member;
   }
 }
