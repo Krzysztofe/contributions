@@ -1,5 +1,4 @@
-import { StateCalendar } from "../../states/StateCalendar";
-import { Helpers } from "../../utils/helpers";
+import { HalpersBalance } from "../../utils/helpersBalance";
 
 export class ReprintTdTotalBalance {
   #monthNumb: string | null = null;
@@ -27,17 +26,6 @@ export class ReprintTdTotalBalance {
     );
   }
 
-  // #getPrevMonthContribution(memberID: number, monthNumber: string) {
-  //   const findMember = StateCalendar.sortedCalendar.find(
-  //     ({ id }) => id === memberID
-  //   );
-
-  //   const monthName =
-  //     monthNumber && Helpers.numberOnMonthEnglish(monthNumber);
-
-  //   if (!findMember) return null;
-  //   return (monthName && findMember[monthName]?.amount) ?? null;
-  // }
 
   #updateTdTotalBalance() {
     const trEl = this.#tdChanged?.parentElement;
@@ -50,7 +38,7 @@ export class ReprintTdTotalBalance {
     if (!tdTotalSumEl) return;
 
     const prevTotalBalance = this.#getPrevTotalBalance(tdTotalSumEl);
-    const prevMonthContrib = Helpers.getPrevMonthContribution(
+    const prevMonthContrib = HalpersBalance.getPrevMonthContribution(
       this.#memberID,
       this.#monthNumb
     );
@@ -63,17 +51,13 @@ export class ReprintTdTotalBalance {
         : 0;
 
     if (!addToTotalBalance) return;
-    const newTotalBalance = Helpers.calculateNewBalance(
+    const newTotalBalance = HalpersBalance.calculateNewBalance(
       prevTotalBalance,
       addToTotalBalance
     );
 
-    // console.log("prevTotalBalance", prevTotalBalance);
-    //  console.log("addToTotalBalance", addToTotalBalance);
-    //    console.log("newTotalBalance", newTotalBalance);
-
     if (!newTotalBalance) return;
 
-    Helpers.printNewBalanceText(newTotalBalance, tdTotalSumEl);
+    HalpersBalance.printNewBalanceText(newTotalBalance, tdTotalSumEl);
   }
 }

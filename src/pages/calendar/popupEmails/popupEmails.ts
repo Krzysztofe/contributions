@@ -3,9 +3,9 @@ import { BtnsCreator } from "../../../components/btnsCreator";
 import { LoadingPopupCreator } from "../../../components/loadingsCreators/loadingPopupCreator";
 import { PopupCreator } from "../../../components/popupCreator";
 import { Helpers } from "../../../utils/helpers";
-import { SendSms } from "./sendSms";
+import { SendEmails } from "./sendEmails";
 
-export class PopupSms extends PopupCreator {
+export class PopupEmails extends PopupCreator {
   #iconEl = document.querySelector("[data-icon-email]");
   #hederEl = document.createElement("h3");
   #popupConainerEl: HTMLElement | null = null;
@@ -16,25 +16,25 @@ export class PopupSms extends PopupCreator {
     this.#printPopupEvent();
   }
 
-  #createSmsText() {
+  #createEmailsText() {
     if (!this.#debtMembers) return;
 
     const lastDigit = this.#debtMembers % 10;
     const lastTwoDigits = this.#debtMembers % 100;
 
-    let textSms;
+    let textEmails;
 
     if (lastTwoDigits > 10 && lastTwoDigits < 20) {
-      textSms = "e-maili";
+      textEmails = "e-maili";
     } else if (lastDigit === 1) {
-      textSms = "mail";
+      textEmails = "mail";
     } else if (lastDigit >= 2 && lastDigit <= 4) {
-      textSms = "e-maile";
+      textEmails = "e-maile";
     } else {
-      textSms = "e-maili";
+      textEmails = "e-maili";
     }
 
-    return textSms;
+    return textEmails;
   }
 
   #createHeader() {
@@ -52,7 +52,7 @@ export class PopupSms extends PopupCreator {
     } else {
       this.#hederEl.innerHTML = `Czy wysłać ${
         this.#debtMembers
-      } ${this.#createSmsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
+      } ${this.#createEmailsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
     }
 
     this.#popupConainerEl?.append(this.#hederEl);
@@ -90,7 +90,7 @@ export class PopupSms extends PopupCreator {
     this.#debtMembers &&
       this.#debtMembers > 0 &&
       new BtnsCreator("#popupInnerContainer");
-    new SendSms();
+    new SendEmails();
   }
 
   #printPopupEvent() {

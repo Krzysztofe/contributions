@@ -5,4 +5,5 @@ export type ModelRequestOptions = {
   method?: string;
   headers: ModelObjectString;
   body?: ModelObjectString;
+  sendEmails?: string 
 };

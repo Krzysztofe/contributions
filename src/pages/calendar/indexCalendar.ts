@@ -6,7 +6,7 @@ import { URL_CALENDAR } from "../../data/dataUrl";
 import { StateCalendar } from "../../states/StateCalendar";
 import { PopupMonthDetails } from "./popupMonthDetails/popupMonthDetails";
 import { StateAmount } from "../../states/StateAmount";
-import { PopupSms } from "./popupSms/popupSms";
+import { PopupEmails } from "./popupEmails/popupEmails";
 import { LoadigCalendarPageCreator } from "../../components/loadingsCreators/loadingCalendarPageCreator";
 
 class CalendarManager {
@@ -30,7 +30,7 @@ class CalendarManager {
     new HeaderCalendar(["flex", "items-center"]);
     new TableCalendarPrinter();
     new PopupMonthDetails();
-    new PopupSms();
+    new PopupEmails();
     new AutoLogoutCreator();
   }
 }

@@ -1,4 +1,6 @@
 import { Helpers } from "../utils/helpers";
+import { HalpersBalance } from "../utils/helpersBalance";
+
 import { ModelMonth } from "../sharedModels/modelMonth";
 import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 
@@ -108,7 +110,7 @@ export class StateCalendar {
     if (!member) return;
 
     if (!eTarget) return;
-    const prevMonthContrib = Helpers.getPrevMonthContribution(
+    const prevMonthContrib = HalpersBalance.getPrevMonthContribution(
       parseInt(memberId),
       monthNumber
     );
@@ -126,23 +128,12 @@ export class StateCalendar {
       balancedContrib !== 0
         ? Math.abs(balancedContrib) * Math.sign(-balancedContrib)
         : 0;
-    // let newTotalContribs = 0;
 
-    // if (!addToTotalContribs) return;
-    // if (prevTotalContribs < 0 && addToTotalContribs > 0) {
-    //   newTotalContribs = prevTotalContribs + addToTotalContribs;
-    // } else if (prevTotalContribs < 0 && addToTotalContribs > 0) {
-    //   newTotalContribs = prevTotalContribs - addToTotalContribs;
-    // } else {
-    //   newTotalContribs = prevTotalContribs + addToTotalContribs;
-    // }
-
-    const newTotalBalance = Helpers.calculateNewBalance(
+    const newTotalBalance = HalpersBalance.calculateNewBalance(
       prevTotalContribs,
       addToTotalContribs
     );
 
-    // member.payedContribs = newTotalContribs;
     member.payedContribs = newTotalBalance;
     const memberIdx = this.sortedCalendar.indexOf(member);
     this.sortedCalendar[memberIdx] = member;

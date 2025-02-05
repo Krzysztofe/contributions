@@ -100,7 +100,6 @@ export class HeaderCalendar extends HeaderLogedIn {
       ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
     new ReprintAllTdBalances();
-    
     loader.removeSpinner();
   }
 

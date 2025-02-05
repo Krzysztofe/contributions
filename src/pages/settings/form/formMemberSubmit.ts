@@ -28,7 +28,7 @@ export class FormMemberSubmit {
       fullname: `${lastname} ${firstname}`,
       email,
       id,
-      join_date: join_date.slice(0, -3),
+      join_date: join_date?.slice(0, -3),
     };
 
     return StateMembers.sortedMembers

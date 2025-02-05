@@ -26,6 +26,7 @@ export class HttpRequest {
     method = "GET",
     headers,
     body,
+    sendEmails,
   }: ModelRequestOptions) {
     const requestOptions: RequestInit = {
       method,
@@ -47,6 +48,8 @@ export class HttpRequest {
           data = await resp.text();
         } else if (method === "DELETE") {
           data = body?.id;
+        } else if (sendEmails) {
+          data = await resp.text();
         } else {
           data = await resp.json();
         }
