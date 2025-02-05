@@ -27,28 +27,22 @@ export class ReprintTdTotalBalance {
     );
   }
 
-  #getPrevMonthContribution() {
-    const findMember = StateCalendar.sortedCalendar.find(
-      ({ id }) => id === this.#memberID
-    );
+  // #getPrevMonthContribution(memberID: number, monthNumber: string) {
+  //   const findMember = StateCalendar.sortedCalendar.find(
+  //     ({ id }) => id === memberID
+  //   );
 
-    const monthName =
-      this.#monthNumb && Helpers.numberOnMonthEnglish(this.#monthNumb);
+  //   const monthName =
+  //     monthNumber && Helpers.numberOnMonthEnglish(monthNumber);
 
-    if (!findMember) return null;
-    return (monthName && findMember[monthName]?.amount) ?? null;
-  }
-
-  #calculateNewBalance(prevTotalBalance: number, addToTotalBalance: number) {
-    if (addToTotalBalance === 0) return prevTotalBalance;
-    return prevTotalBalance + addToTotalBalance;
-  }
-
+  //   if (!findMember) return null;
+  //   return (monthName && findMember[monthName]?.amount) ?? null;
+  // }
 
   #updateTdTotalBalance() {
     const trEl = this.#tdChanged?.parentElement;
 
-    if (!trEl) return;
+    if (!trEl || !this.#memberID || !this.#monthNumb) return;
 
     const tdTotalSumEl = trEl?.querySelector(
       "[data-total-sum-to-pay]"
@@ -56,7 +50,10 @@ export class ReprintTdTotalBalance {
     if (!tdTotalSumEl) return;
 
     const prevTotalBalance = this.#getPrevTotalBalance(tdTotalSumEl);
-    const prevMonthContrib = this.#getPrevMonthContribution();
+    const prevMonthContrib = Helpers.getPrevMonthContribution(
+      this.#memberID,
+      this.#monthNumb
+    );
 
     if (!prevMonthContrib) return;
     const comparedContrib = prevMonthContrib - this.#addedContrib;
@@ -74,7 +71,6 @@ export class ReprintTdTotalBalance {
     // console.log("prevTotalBalance", prevTotalBalance);
     //  console.log("addToTotalBalance", addToTotalBalance);
     //    console.log("newTotalBalance", newTotalBalance);
-     
 
     if (!newTotalBalance) return;
 

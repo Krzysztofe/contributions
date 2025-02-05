@@ -250,10 +250,10 @@ export class TableCalendar extends TableCreator {
       const totalContribsToPay = allMonthsToPay * parseInt(StateAmount.amount);
       const totalContribsBalance = prevTotalContribs - totalContribsToPay;
 
-      console.log("prevTotalContribs", prevTotalContribs);
-      console.log("totalContribsToPay", totalContribsToPay);
-      console.log("totalContribsBalance", totalContribsBalance);
-      console.log("------");
+      // console.log("prevTotalContribs", prevTotalContribs);
+      // console.log("totalContribsToPay", totalContribsToPay);
+      // console.log("totalContribsBalance", totalContribsBalance);
+      // console.log("------");
       this.#createTdBalance(
         totalContribsBalance,
         trEl,

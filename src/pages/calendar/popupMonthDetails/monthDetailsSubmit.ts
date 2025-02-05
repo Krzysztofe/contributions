@@ -76,12 +76,12 @@ export class MonthDetailsSubmit {
       parseInt(this.#formValues?.amount || "0")
     );
 
-    if (!this.#memberId || !this.#monthName) return;
+    if (!this.#memberId || !this.#monthName || !this.#monthNumber) return;
 
     StateCalendar.setYearsCotribs(
       this.#memberId,
+      this.#monthNumber,
       this.#formValues?.amount,
-      StatePrintedYear.year,
       e.target as HTMLElement
     );
 

@@ -69,12 +69,12 @@ export class HandleUpdateMonthAmount {
     );
     this.#spinner?.removeSpinner();
 
-    if (!this.#memberId || !this.#monthName) return;
+    if (!this.#memberId || !this.#monthName || !this.#monthNumber) return;
 
     StateCalendar.setYearsCotribs(
       this.#memberId,
+      this.#monthNumber,
       StateAmount.amount,
-      StatePrintedYear.year,
       this.#eTarget
     );
     StateCalendar.setPayedSum(

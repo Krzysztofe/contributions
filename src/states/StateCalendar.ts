@@ -87,23 +87,6 @@ export class StateCalendar {
     }
   }
 
-  static getPreviousMonthContribution(
-    eTarget: HTMLElement,
-    memberId: string
-  ): number | null {
-    const dataMonthDetails = eTarget?.getAttribute("data-month-details");
-    if (!dataMonthDetails) return null;
-
-    const monthNumber = JSON.parse(dataMonthDetails)?.monthNumber;
-    const findMember = StateCalendar.sortedCalendar.find(
-      ({ id }) => id === memberId
-    );
-    if (!findMember) return null;
-
-    const monthName = Helpers.numberOnMonthEnglish(monthNumber);
-    return findMember[monthName]?.amount ?? null;
-  }
-
   static calculateNewBalance(
     prevTotalBalance: number,
     addToTotalBalance: number
@@ -114,8 +97,8 @@ export class StateCalendar {
 
   static setYearsCotribs(
     memberId: string,
+    monthNumber: string,
     amount: string,
-    year: string,
     eTarget: HTMLElement | null
   ) {
     const member = [...this.sortedCalendar].find(
@@ -125,9 +108,9 @@ export class StateCalendar {
     if (!member) return;
 
     if (!eTarget) return;
-    const prevMonthContrib = this.getPreviousMonthContribution(
-      eTarget,
-      memberId
+    const prevMonthContrib = Helpers.getPrevMonthContribution(
+      parseInt(memberId),
+      monthNumber
     );
 
     const prevTotalContribs = member.payedContribs;

@@ -334,8 +334,22 @@ export class Helpers {
     return (tdTotalSumEl.innerText = innerText);
   }
 
-  static calculateNewBalance(prevTotalBalance: number, addToTotalBalance: number) {
+  static calculateNewBalance(
+    prevTotalBalance: number,
+    addToTotalBalance: number
+  ) {
     if (addToTotalBalance === 0) return prevTotalBalance;
     return prevTotalBalance + addToTotalBalance;
+  }
+
+  static getPrevMonthContribution(memberID: number, monthNumber: string) {
+    const findMember = StateCalendar.sortedCalendar.find(
+      ({ id }) => id === memberID
+    );
+
+    const monthName = monthNumber && Helpers.numberOnMonthEnglish(monthNumber);
+
+    if (!findMember) return null;
+    return (monthName && findMember[monthName]?.amount) ?? null;
   }
 }
