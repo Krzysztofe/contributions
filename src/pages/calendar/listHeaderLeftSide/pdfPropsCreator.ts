@@ -74,7 +74,7 @@ export class PdfPropsCreator {
       compress: true,
 
       contact: {
-        name: `Zestawienie z ${StatePrintedYear.year} r.`,
+        name: `Zestawienie składek z ${StatePrintedYear.year} r.`,
         phone: `Data: ${Helpers.getCurrentDate()}`,
         email: `Godzina: ${Helpers.getCurrentHour()} `,
       },

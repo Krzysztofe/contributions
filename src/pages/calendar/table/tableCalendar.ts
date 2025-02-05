@@ -212,6 +212,8 @@ export class TableCalendar extends TableCreator {
       "min-w-16",
       "align-top",
       "pt-2",
+      "border",
+      "border-primary_dark",
       textColor
     );
     trEl.append(tdEl);
