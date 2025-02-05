@@ -39,7 +39,7 @@ export class ReprintTdTotalBalance {
     return (monthName && findMember[monthName]?.amount) ?? null;
   }
 
-  #calculateNewBalance(prevTotalBalance:number, addToTotalBalance:number) {
+  #calculateNewBalance(prevTotalBalance: number, addToTotalBalance: number) {
     if (prevTotalBalance < 0 && addToTotalBalance > 0) {
       return prevTotalBalance + addToTotalBalance;
     } else if (addToTotalBalance === 0) {
@@ -81,28 +81,12 @@ export class ReprintTdTotalBalance {
 
     if (!addToTotalBalance) return;
 
-    let newTotalBalance;
-
-    if (prevTotalBalance < 0 && addToTotalBalance > 0) {
-      newTotalBalance = prevTotalBalance + addToTotalBalance;
-    } else if (addToTotalBalance === 0) {
-      newTotalBalance = newTotalBalance;
-    } else if (prevTotalBalance < 0 && addToTotalBalance > 0) {
-      newTotalBalance = prevTotalBalance - addToTotalBalance;
-    } else {
-      newTotalBalance = prevTotalBalance + addToTotalBalance;
-    }
-
-    // let innerText;
+    const newTotalBalance = this.#calculateNewBalance(
+      prevTotalBalance,
+      addToTotalBalance
+    );
 
     if (!newTotalBalance) return;
-    // if (newTotalBalance < 0) {
-    //   innerText = `${newTotalBalance} zł`;
-    // } else if (newTotalBalance > 0) {
-    //   innerText = `+${newTotalBalance} zł`;
-    // } else if (newTotalBalance === 0) {
-    //   innerText = `\u00A0 ${newTotalBalance} zł`;
-    // }
 
     tdTotalSumEl?.classList.toggle("text-danger", newTotalBalance < 0);
     tdTotalSumEl?.classList.toggle("text-dark", newTotalBalance >= 0);
