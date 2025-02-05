@@ -1,7 +1,7 @@
 
 import { TableCalendar } from "../table/tableCalendar";
 
-export class ReprintAllTdSums {
+export class ReprintAllTdBalances {
   #tdSumElems = document.querySelectorAll("[data=sum]");
   #table = new TableCalendar("sectionTable");
  
@@ -12,7 +12,7 @@ export class ReprintAllTdSums {
 
   #reprintTdElems() {
     this.#tdSumElems.forEach(elem => elem.remove());
-    this.#table.createTdSums();
-    this.#table.createTdTotalSums();
+    this.#table.createTdYearBalances();
+    this.#table.createTdTotalBalances();
   }
 }

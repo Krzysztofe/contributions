@@ -5,7 +5,7 @@ import { StateAmount } from "../../../states/StateAmount";
 import { ListHeaderLeftSide } from "../listHeaderLeftSide/listHeaderLeftSide";
 import { dataListLeftSide } from "../listHeaderLeftSide/dataListLeftSide";
 import { dataInputAmount } from "./dataInputAmount";
-import { ReprintAllTdSums } from "./reprintAllTdSums";
+import { ReprintAllTdBalances } from "./reprintAllTdBalances";
 import { LoadingInputCreator } from "../../../components/loadingsCreators/loadingInputCreator";
 
 export class HeaderCalendar extends HeaderLogedIn {
@@ -99,7 +99,8 @@ export class HeaderCalendar extends HeaderLogedIn {
     this.#inputAmountEl?.value
       ? (StateAmount.amount = this.#inputAmountEl?.value)
       : (StateAmount.amount = "0");
-    new ReprintAllTdSums();
+    new ReprintAllTdBalances();
+    
     loader.removeSpinner();
   }
 

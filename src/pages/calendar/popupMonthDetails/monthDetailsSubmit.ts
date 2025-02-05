@@ -5,8 +5,9 @@ import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { ReprintTdInCalendar } from "../table/reprintTdInCalendar";
 import { ModelObjectString } from "../../../sharedModels/modelObjectString";
-import { ReprintTdSum } from "../reprintTdSum";
+import { ReprintTdYearBalance } from "../reprintTdYearBalance";
 import { StateCalendar } from "../../../states/StateCalendar";
+import { ReprintTdTotalBalance } from "../reprintTdTotalBalance";
 
 export class MonthDetailsSubmit {
   #formEl = document.querySelector("form");
@@ -62,14 +63,6 @@ export class MonthDetailsSubmit {
     e.preventDefault();
     this.#formValues = Helpers.getFormValues(e);
 
-    if (this.#memberId && this.#monthName) {
-      StateCalendar.setPayedSum(
-        this.#memberId,
-        this.#formValues?.amount || "0",
-        this.#monthName
-      );
-    }
-
     this.#btnLoader.createSpinner();
     await Helpers.fetchData(this.#POSTOptions());
     const newMonth = this.#newMonth();
@@ -77,7 +70,27 @@ export class MonthDetailsSubmit {
       new ReprintTdInCalendar(newMonth);
     }
 
-    new ReprintTdSum(this.#dataAtributeId);
+    new ReprintTdYearBalance(this.#dataAtributeId);
+    new ReprintTdTotalBalance(
+      `${this.#memberId}_${this.#monthNumber}`,
+      parseInt(this.#formValues?.amount || "0")
+    );
+
+    if (!this.#memberId || !this.#monthName) return;
+
+    StateCalendar.setYearsCotribs(
+      this.#memberId,
+      this.#formValues?.amount,
+      StatePrintedYear.year,
+      e.target as HTMLElement
+    );
+
+    StateCalendar.setPayedSum(
+      this.#memberId,
+      this.#formValues?.amount,
+      this.#monthName
+    );
+
     document.getElementById("popupContainer")?.remove();
   }
 

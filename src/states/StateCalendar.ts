@@ -134,11 +134,10 @@ export class StateCalendar {
     const addToTotalContribs =
       balancedContrib !== 0
         ? Math.abs(balancedContrib) * Math.sign(-balancedContrib)
-        
         : 0;
     let newTotalContribs = 0;
 
-    if (addToTotalContribs === 0) return;
+    if (!addToTotalContribs) return;
     if (prevTotalContribs < 0 && addToTotalContribs > 0) {
       newTotalContribs = prevTotalContribs + addToTotalContribs;
     } else if (prevTotalContribs < 0 && addToTotalContribs > 0) {
@@ -148,7 +147,7 @@ export class StateCalendar {
     }
 
     member.payedContribs = newTotalContribs;
-
+console.log('wwwwwwwww',)
     const memberIdx = this.sortedCalendar.indexOf(member);
     this.sortedCalendar[memberIdx] = member;
   }

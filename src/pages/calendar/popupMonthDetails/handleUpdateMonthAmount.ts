@@ -2,11 +2,11 @@ import { StatePrintedYear } from "./../../../states/StatePrintedYear";
 import { LoadingTdCreator } from "../../../components/loadingsCreators/loadingTdCreator";
 import { URL_MONTH_DETAILS } from "../../../data/dataUrl";
 import { Helpers } from "../../../utils/helpers";
-import { ReprintTdSum } from "../reprintTdSum";
+import { ReprintTdYearBalance } from "../reprintTdYearBalance";
 import { StateAmount } from "../../../states/StateAmount";
 import { StateCalendar } from "../../../states/StateCalendar";
 import { ReprintAmountInMontch } from "./reprintAmountInMonth";
-import { ReprintTdTotalSum } from "../reprintTdTotalSum";
+import { ReprintTdTotalBalance } from "../reprintTdTotalBalance";
 
 export class HandleUpdateMonthAmount {
   #eTarget: HTMLElement | null = null;
@@ -62,27 +62,25 @@ export class HandleUpdateMonthAmount {
     this.#eTarget && new ReprintAmountInMontch(this.#eTarget);
 
     this.#removeTbodyBlocade();
-    new ReprintTdSum(`${this.#memberId}_${this.#monthNumber}`);
-    new ReprintTdTotalSum(
+    new ReprintTdYearBalance(`${this.#memberId}_${this.#monthNumber}`);
+    new ReprintTdTotalBalance(
       `${this.#memberId}_${this.#monthNumber}`,
-      StateAmount.amount,
-      this.#eTarget
+      parseInt(StateAmount.amount)
     );
     this.#spinner?.removeSpinner();
 
-    if (this.#memberId && this.#monthName) {
-      StateCalendar.setYearsCotribs(
-        this.#memberId,
-        StateAmount.amount,
-        StatePrintedYear.year,
-        this.#eTarget
-      );
-      // StateCalendar.setPayedSum(
-      //   this.#memberId,
-      //   StateAmount.amount,
-      //   this.#monthName
-      // );
-    }
-  
+    if (!this.#memberId || !this.#monthName) return;
+
+    StateCalendar.setYearsCotribs(
+      this.#memberId,
+      StateAmount.amount,
+      StatePrintedYear.year,
+      this.#eTarget
+    );
+    StateCalendar.setPayedSum(
+      this.#memberId,
+      StateAmount.amount,
+      this.#monthName
+    );
   }
 }

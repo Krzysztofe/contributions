@@ -52,8 +52,8 @@ export class TableCalendarPrinter {
     this.#table.createArrowCollapse();
     this.#table.tdElemsBgColor();
     this.#table.tdJoinDateBgColor();
-    this.#table.createTdSums();
-    this.#table.createTdTotalSums();
+    this.#table.createTdYearBalances();
+    this.#table.createTdTotalBalances();
   }
 
   #tdStylesCustom(idx?: number) {
