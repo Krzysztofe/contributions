@@ -6,7 +6,7 @@ import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { monthsEnglish, monthsPolish } from "../../../data/dataMonths";
 
 export class PdfPropsCreator {
-  #membersSumsElems = document.querySelectorAll('[data="sum"]');
+  #membersSumsElems = document.querySelectorAll("[data-sum-to-pay]");
   #joinMonthNumber: number | null = null;
 
   #getDataTableHead() {
