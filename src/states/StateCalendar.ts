@@ -104,6 +104,14 @@ export class StateCalendar {
     return findMember[monthName]?.amount ?? null;
   }
 
+  static calculateNewBalance(
+    prevTotalBalance: number,
+    addToTotalBalance: number
+  ) {
+    if (addToTotalBalance === 0) return prevTotalBalance;
+    return prevTotalBalance + addToTotalBalance;
+  }
+
   static setYearsCotribs(
     memberId: string,
     amount: string,
@@ -135,19 +143,24 @@ export class StateCalendar {
       balancedContrib !== 0
         ? Math.abs(balancedContrib) * Math.sign(-balancedContrib)
         : 0;
-    let newTotalContribs = 0;
+    // let newTotalContribs = 0;
 
-    if (!addToTotalContribs) return;
-    if (prevTotalContribs < 0 && addToTotalContribs > 0) {
-      newTotalContribs = prevTotalContribs + addToTotalContribs;
-    } else if (prevTotalContribs < 0 && addToTotalContribs > 0) {
-      newTotalContribs = prevTotalContribs - addToTotalContribs;
-    } else {
-      newTotalContribs = prevTotalContribs + addToTotalContribs;
-    }
+    // if (!addToTotalContribs) return;
+    // if (prevTotalContribs < 0 && addToTotalContribs > 0) {
+    //   newTotalContribs = prevTotalContribs + addToTotalContribs;
+    // } else if (prevTotalContribs < 0 && addToTotalContribs > 0) {
+    //   newTotalContribs = prevTotalContribs - addToTotalContribs;
+    // } else {
+    //   newTotalContribs = prevTotalContribs + addToTotalContribs;
+    // }
 
-    member.payedContribs = newTotalContribs;
-console.log('wwwwwwwww',)
+    const newTotalBalance = Helpers.calculateNewBalance(
+      prevTotalContribs,
+      addToTotalContribs
+    );
+
+    // member.payedContribs = newTotalContribs;
+    member.payedContribs = newTotalBalance;
     const memberIdx = this.sortedCalendar.indexOf(member);
     this.sortedCalendar[memberIdx] = member;
   }

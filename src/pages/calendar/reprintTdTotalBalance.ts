@@ -40,22 +40,10 @@ export class ReprintTdTotalBalance {
   }
 
   #calculateNewBalance(prevTotalBalance: number, addToTotalBalance: number) {
-    if (prevTotalBalance < 0 && addToTotalBalance > 0) {
-      return prevTotalBalance + addToTotalBalance;
-    } else if (addToTotalBalance === 0) {
-      return prevTotalBalance;
-    } else if (prevTotalBalance < 0 && addToTotalBalance > 0) {
-      return prevTotalBalance - addToTotalBalance;
-    } else {
-      return prevTotalBalance + addToTotalBalance;
-    }
+    if (addToTotalBalance === 0) return prevTotalBalance;
+    return prevTotalBalance + addToTotalBalance;
   }
 
-  #formatBalanceText(newTotalBalance: number) {
-    if (newTotalBalance < 0) return `${newTotalBalance} zł`;
-    if (newTotalBalance > 0) return `+${newTotalBalance} zł`;
-    return `\u00A0 ${newTotalBalance} zł`;
-  }
 
   #updateTdTotalBalance() {
     const trEl = this.#tdChanged?.parentElement;
@@ -71,25 +59,25 @@ export class ReprintTdTotalBalance {
     const prevMonthContrib = this.#getPrevMonthContribution();
 
     if (!prevMonthContrib) return;
-
     const comparedContrib = prevMonthContrib - this.#addedContrib;
-
     const addToTotalBalance =
       comparedContrib !== 0
         ? Math.abs(comparedContrib) * Math.sign(-comparedContrib)
         : 0;
 
     if (!addToTotalBalance) return;
-
-    const newTotalBalance = this.#calculateNewBalance(
+    const newTotalBalance = Helpers.calculateNewBalance(
       prevTotalBalance,
       addToTotalBalance
     );
 
+    // console.log("prevTotalBalance", prevTotalBalance);
+    //  console.log("addToTotalBalance", addToTotalBalance);
+    //    console.log("newTotalBalance", newTotalBalance);
+     
+
     if (!newTotalBalance) return;
 
-    tdTotalSumEl?.classList.toggle("text-danger", newTotalBalance < 0);
-    tdTotalSumEl?.classList.toggle("text-dark", newTotalBalance >= 0);
-    tdTotalSumEl.innerText = this.#formatBalanceText(newTotalBalance);
+    Helpers.printNewBalanceText(newTotalBalance, tdTotalSumEl);
   }
 }

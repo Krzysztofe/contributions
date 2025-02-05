@@ -31,19 +31,7 @@ export class ReprintTdYearBalance {
     const newYearSum =
       payedMonthsSum -
       (Helpers.getCurrentYearContribsToPay() - contribsNotToPay);
-      
-    let innerText;
-    if (newYearSum < 0) {
-      innerText = `${newYearSum} zł`;
-    } else if (newYearSum > 0) {
-      innerText = `+${newYearSum} zł`;
-    } else if (newYearSum === 0) {
-      innerText = `\u00A0 ${newYearSum} zł`;
-    }
 
-    tdSumEl?.classList.toggle("text-danger", newYearSum < 0);
-    tdSumEl?.classList.toggle("text-dark", newYearSum >= 0);
-    tdSumEl && (tdSumEl.innerText = "");
-    tdSumEl && innerText && (tdSumEl.innerText = innerText);
+    Helpers.printNewBalanceText(newYearSum, tdSumEl);
   }
 }
