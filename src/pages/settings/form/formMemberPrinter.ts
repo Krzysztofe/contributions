@@ -26,12 +26,12 @@ export class FormMemberPrinter {
     this.#form.createFields({
       inputsData: dataMemberFields,
       fieldStyles: ["max-w-48", "md:max-w-40", "md:mr-2"],
-      inputStyles: ["max-w-48", "md:max-w-40", "capitalize", "w-full"],
+      inputStyles: ["max-w-48", "md:max-w-40", "w-full"],
     });
     this.#form.createBtn({
       innerText: "Zapisz",
       styles: ["w-48", "md:w-auto", "mb-auto", "border-none"],
-      id: "btnCreateMember"
+      id: "btnCreateMember",
     });
     this.#form.createMemberErrorMsg("submitMemberError");
     this.#form.createToast();

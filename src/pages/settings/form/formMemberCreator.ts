@@ -1,5 +1,5 @@
 import { FormCreator } from "../../../components/formCreator";
-
+const headerHeight = "h-14";
 export class FormMemberCreator extends FormCreator {
   #body = document.querySelector("body");
   #errorMemberEl = document.createElement("div");
@@ -9,7 +9,7 @@ export class FormMemberCreator extends FormCreator {
     super(elementId);
   }
 
-  createMemberErrorMsg(id:string) {
+  createMemberErrorMsg(id: string) {
     this.#errorMemberEl.id = id;
     this.#errorMemberEl.classList.add(
       "text-xs",
@@ -28,8 +28,7 @@ export class FormMemberCreator extends FormCreator {
     this.#toastEl.classList.add(
       "fixed",
       "left-[50%]",
-      "top-14",
-      "p-1",
+      "toastPosition",
       "px-6",
       "text-white",
       "bg-dark",

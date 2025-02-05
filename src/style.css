@@ -59,3 +59,8 @@ body::-webkit-scrollbar {
 .h_main {
   min-height: calc(100vh - var(--headerHeight));
 }
+
+
+.toastPosition {
+  top: calc(var(--headerHeight) - 1px);
+}
