@@ -13,7 +13,7 @@ export const dataListLeftSide = [
   {
     iconSVG: iconEdit,
     dataAttribute: "data-icon-edit",
-    tooltip: "Edycja",
+    tooltip: "Edytuj",
   },
   { iconSVG: iconPdf, dataAttribute: "data-icon-pdf", tooltip: "Zapisz" },
   { iconSVG: iconEmail, dataAttribute: "data-icon-email", tooltip: "Wyślij" },

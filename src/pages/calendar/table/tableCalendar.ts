@@ -90,11 +90,12 @@ class CollapseCreator {
 
       const icon = document.createElement("div");
       icon.innerHTML = iconChevron;
+      icon.classList.add("fill-grey_primary");
       const isIconVisible = areEmptyCollapses ? "invisible" : "visible";
       icon.classList.add(
         "absolute",
         "right-2",
-        "top-3",
+        "top-2",
         "w-2",
         "text-[0.5rem]",
         "ml-auto",
