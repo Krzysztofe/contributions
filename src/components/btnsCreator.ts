@@ -25,17 +25,29 @@ export class BtnsCreator {
       "btn",
       "btn-sm",
       "rounded-sm",
-      "text-white",
       "text-center",
       "btn-sm",
       "px-8",
     ];
-    this.#createBtn("Anuluj", [...btnStyles, "bg-grey_primary"]);
+    this.#createBtn("Anuluj", [
+      ...btnStyles,
+      "text-accent",
+      "bg-white",
+      "border-1",
+      "border-accent",
+      "opacity-50",
+      "hover:text-accent_light",
+      "hover:border-accent_light",
+      "hover:bg-white",
+    ]);
     this.#createBtn(this.#actionText, [
       ...btnStyles,
+      "text-white",
+      "border-1",
+      "border-accent",
       "bg-accent",
-      "hover:opacity-50",
-      "hover:bg-accent",
+      "hover:border-accent_light",
+      "hover:bg-accent_light",
     ]);
   }
   #createBtn(text: string, styles: string[]) {
