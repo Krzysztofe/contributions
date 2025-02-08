@@ -19,7 +19,7 @@ export class PopupMemberDelete extends PopupCreator {
     document.getElementById("popupHeader")?.remove();
     this.#headerEl = document.createElement("h3");
     this.#headerEl.id = "popupHeader";
-    this.#headerEl.innerHTML = `Usuniąć <br/> ${name} ?`;
+    this.#headerEl.innerHTML = `Usuń <br/> ${name}`;
     this.#headerEl.classList.add("mb-3", "font-semibold", "text-center");
     document.querySelector("#popupInnerContainer")?.prepend(this.#headerEl);
   }
@@ -36,8 +36,8 @@ export class PopupMemberDelete extends PopupCreator {
     if (isIconTrash) {
       this.createPopupContainetr();
       memberName && this.#createHeader(memberName);
-      new BtnsCreator("#popupInnerContainer");
-      this.#btnDeleteEl = document.getElementById("Tak") as HTMLButtonElement;
+      new BtnsCreator("#popupInnerContainer", "Usuń");
+      this.#btnDeleteEl = document.getElementById("Usuń") as HTMLButtonElement;
       this.#memberId && new DeleteMember(this.#memberId, this.#btnDeleteEl);
     }
   }

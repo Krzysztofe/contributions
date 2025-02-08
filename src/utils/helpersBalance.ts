@@ -3,7 +3,7 @@ import { Helpers } from "./helpers";
 
 
 
-export class HalpersBalance {
+export class HelpersBalance {
   static printNewBalanceText(newBalance: number, tdTotalSumEl: HTMLElement) {
     let innerText = "";
     if (newBalance < 0) innerText = `${newBalance} zł`;

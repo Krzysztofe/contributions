@@ -1,4 +1,4 @@
-import { HalpersBalance } from "../../utils/helpersBalance";
+import { HelpersBalance } from "../../utils/helpersBalance";
 
 export class ReprintTdTotalBalance {
   #monthNumb: string | null = null;
@@ -38,7 +38,7 @@ export class ReprintTdTotalBalance {
     if (!tdTotalSumEl) return;
 
     const prevTotalBalance = this.#getPrevTotalBalance(tdTotalSumEl);
-    const prevMonthContrib = HalpersBalance.getPrevMonthContribution(
+    const prevMonthContrib = HelpersBalance.getPrevMonthContribution(
       this.#memberID,
       this.#monthNumb
     );
@@ -51,13 +51,13 @@ export class ReprintTdTotalBalance {
         : 0;
 
     if (!addToTotalBalance) return;
-    const newTotalBalance = HalpersBalance.calculateNewBalance(
+    const newTotalBalance = HelpersBalance.calculateNewBalance(
       prevTotalBalance,
       addToTotalBalance
     );
 
     if (!newTotalBalance) return;
 
-    HalpersBalance.printNewBalanceText(newTotalBalance, tdTotalSumEl);
+    HelpersBalance.printNewBalanceText(newTotalBalance, tdTotalSumEl);
   }
 }

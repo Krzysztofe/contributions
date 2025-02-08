@@ -1,5 +1,5 @@
 import { FormCreator } from "../../../components/formCreator";
-const headerHeight = "h-14";
+
 export class FormMemberCreator extends FormCreator {
   #body = document.querySelector("body");
   #errorMemberEl = document.createElement("div");

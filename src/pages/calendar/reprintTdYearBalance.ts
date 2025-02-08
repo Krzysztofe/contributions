@@ -1,6 +1,6 @@
 import { StateAmount } from "../../states/StateAmount";
 import { Helpers } from "../../utils/helpers";
-import { HalpersBalance } from "../../utils/helpersBalance";
+import { HelpersBalance } from "../../utils/helpersBalance";
 
 export class ReprintTdYearBalance {
   #tdChanged: HTMLElement | null = null;
@@ -33,6 +33,6 @@ export class ReprintTdYearBalance {
       payedMonthsSum -
       (Helpers.getCurrentYearContribsToPay() - contribsNotToPay);
 
-    HalpersBalance.printNewBalanceText(newYearSum, tdSumEl);
+    HelpersBalance.printNewBalanceText(newYearSum, tdSumEl);
   }
 }

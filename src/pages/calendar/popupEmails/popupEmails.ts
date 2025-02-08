@@ -50,9 +50,9 @@ export class PopupEmails extends PopupCreator {
     if (this.#debtMembers === 0) {
       this.#hederEl.innerHTML = "Brak zaległości";
     } else {
-      this.#hederEl.innerHTML = `Czy wysłać ${
+      this.#hederEl.innerHTML = `Wyślij ${
         this.#debtMembers
-      } ${this.#createEmailsText()} z informacją o zaległościach do <br/> ${currentMonth} ?`;
+      } ${this.#createEmailsText()}  <br/> z informacją o zaległościach do ${currentMonth}`;
     }
 
     this.#popupConainerEl?.append(this.#hederEl);
@@ -89,7 +89,7 @@ export class PopupEmails extends PopupCreator {
     this.#createHeader();
     this.#debtMembers &&
       this.#debtMembers > 0 &&
-      new BtnsCreator("#popupInnerContainer");
+      new BtnsCreator("#popupInnerContainer", "Wyślij");
     new SendEmails();
   }
 

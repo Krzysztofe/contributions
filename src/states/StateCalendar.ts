@@ -1,5 +1,5 @@
 import { Helpers } from "../utils/helpers";
-import { HalpersBalance } from "../utils/helpersBalance";
+import { HelpersBalance } from "../utils/helpersBalance";
 import { ModelMonth } from "../sharedModels/modelMonth";
 import { ModelObjectAny } from "../sharedModels/modelObjectAny";
 
@@ -109,7 +109,7 @@ export class StateCalendar {
     if (!member) return;
 
     if (!eTarget) return;
-    const prevMonthContrib = HalpersBalance.getPrevMonthContribution(
+    const prevMonthContrib = HelpersBalance.getPrevMonthContribution(
       parseInt(memberId),
       monthNumber
     );
@@ -128,7 +128,7 @@ export class StateCalendar {
         ? Math.abs(balancedContrib) * Math.sign(-balancedContrib)
         : 0;
 
-    const newTotalBalance = HalpersBalance.calculateNewBalance(
+    const newTotalBalance = HelpersBalance.calculateNewBalance(
       prevTotalContribs,
       addToTotalContribs
     );

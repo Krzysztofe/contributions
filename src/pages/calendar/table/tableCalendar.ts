@@ -1,6 +1,7 @@
 import { LoadingTableCreator } from "../../../components/loadingsCreators/loadingTableCreator";
 import { TableCreator } from "../../../components/tableCreator";
 import { Helpers } from "../../../utils/helpers";
+import { HelpersBalance } from "../../../utils/helpersBalance";
 import { URL_CALENDAR } from "../../../data/dataUrl";
 import { StatePrintedYear } from "../../../states/StatePrintedYear";
 import { TableCalendarPrinter } from "./tableCalendarPrinter";
@@ -197,15 +198,6 @@ export class TableCalendar extends TableCreator {
     const tdEl = document.createElement("td") as HTMLElement;
     tdEl.setAttribute("data", "sum");
     tdEl.setAttribute(dataAtrib, balance.toString());
-    const textColor = balance < 0 ? "text-danger" : "text-dark";
-
-    if (balance < 0) {
-      tdEl.innerText = `${balance} zł`;
-    } else if (balance > 0) {
-      tdEl.innerText = `+${balance} zł`;
-    } else {
-      tdEl.innerText = `\u00A0 ${balance} zł`;
-    }
 
     tdEl.classList.add(
       "whitespace-nowrap",
@@ -213,10 +205,10 @@ export class TableCalendar extends TableCreator {
       "align-top",
       "pt-2",
       "border",
-      "border-primary_dark",
-      textColor
+      "border-primary_dark"
     );
     trEl.append(tdEl);
+    HelpersBalance.printNewBalanceText(balance, tdEl);
   }
 
   createTdYearBalances() {
@@ -225,7 +217,6 @@ export class TableCalendar extends TableCreator {
       const contribsNotToPay =
         trEl.querySelectorAll("[data-not-active]").length *
           parseInt(StateAmount.amount) || 0;
-
       const sumToPay = Helpers.getCurrentYearContribsToPay() - contribsNotToPay;
       const yearContribsBalance = Helpers.getTableSums()[idx] - sumToPay;
 
@@ -252,10 +243,6 @@ export class TableCalendar extends TableCreator {
       const totalContribsToPay = allMonthsToPay * parseInt(StateAmount.amount);
       const totalContribsBalance = prevTotalContribs - totalContribsToPay;
 
-      // console.log("prevTotalContribs", prevTotalContribs);
-      // console.log("totalContribsToPay", totalContribsToPay);
-      // console.log("totalContribsBalance", totalContribsBalance);
-      // console.log("------");
       this.#createTdBalance(
         totalContribsBalance,
         trEl,

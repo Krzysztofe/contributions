@@ -6,7 +6,7 @@ export class SendEmails {
   #popupInnerContainerEl = document.getElementById("popupInnerContainer");
   #headerEl = document.querySelector("[data-popup-header]");
   #btnsContainerEl = document.getElementById("btnsContainer");
-  #btnYesEl = document.getElementById("Tak") as HTMLButtonElement;
+  #btnYesEl = document.getElementById("Wyślij") as HTMLButtonElement;
 
   constructor() {
     this.#sendEmailsEvent();

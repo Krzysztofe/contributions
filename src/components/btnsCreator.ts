@@ -2,9 +2,11 @@ export class BtnsCreator {
   #btsContainerEl = document.createElement("div");
   #parentEl: HTMLElement | null = null;
   #popupContainer = document.getElementById("popupContainer");
+  #actionText: string
 
-  constructor(parentRef: string) {
+  constructor(parentRef: string, actionText: string) {
     this.#parentEl = document.querySelector(parentRef);
+    this.#actionText = actionText;
     this.#createButtonsContainer();
     this.#removePopupEvent();
   }
@@ -28,13 +30,13 @@ export class BtnsCreator {
       "btn-sm",
       "px-8",
     ];
-    this.#createBtn("Tak", [
+    this.#createBtn("Anuluj", [...btnStyles, "bg-grey_primary"]);
+    this.#createBtn(this.#actionText, [
       ...btnStyles,
       "bg-accent",
       "hover:opacity-50",
       "hover:bg-accent",
     ]);
-    this.#createBtn("Nie", [...btnStyles, "bg-grey_primary"]);
   }
   #createBtn(text: string, styles: string[]) {
     const btnEl = document.createElement("button");
@@ -50,7 +52,7 @@ export class BtnsCreator {
 
   #removePopupEvent() {
     document
-      .getElementById("Nie")
+      .getElementById("Anuluj")
       ?.addEventListener("click", this.#handleRemovePopup.bind(this));
   }
 }
