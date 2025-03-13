@@ -57,6 +57,7 @@ export class SendEmails {
   }
 
   #sendEmailsEvent() {
+    Helpers.isUserLoged();
     this.#btnYesEl?.addEventListener(
       "click",
       this.#handleSendEmails.bind(this)

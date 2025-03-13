@@ -32,7 +32,6 @@ export class LoginSubmit {
     };
   }
 
-
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
     this.#event = e;

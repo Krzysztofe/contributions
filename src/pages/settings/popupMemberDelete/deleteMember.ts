@@ -49,6 +49,7 @@ export class DeleteMember {
     new ToastPrinter("Usunięto");
   }
   #deleteEvent() {
+    Helpers.isUserLoged();
     this.#clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));
   }
 }

@@ -23,13 +23,12 @@ export class MemberEditSubmit {
   }
 
   #validations(e: Event) {
-    
     this.#formValues = Helpers.getFormValues(e);
     this.#formKeys = Object.keys(this.#formValues);
-console.log("ee", this.#formKeys);
+
     const areErrors =
       this.#formKeys && new ValidationGeneric(this.#formKeys).errors;
-console.log("eeer", areErrors);
+
     if (areErrors && areErrors.length > 0) return;
     return "go";
   }
@@ -59,6 +58,7 @@ console.log("eeer", areErrors);
   }
 
   #submitEvent() {
+    Helpers.isUserLoged();
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));
   }
 }

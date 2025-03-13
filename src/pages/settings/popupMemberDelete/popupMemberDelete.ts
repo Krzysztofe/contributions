@@ -1,6 +1,8 @@
 import { DeleteMember } from "./deleteMember";
 import { BtnsCreator } from "../../../components/btnsCreator";
 import { PopupCreator } from "../../../components/popupCreator";
+import { Helpers } from "../../../utils/helpers";
+
 
 export class PopupMemberDelete extends PopupCreator {
   #headerEl: HTMLElement | null = null;
@@ -43,6 +45,7 @@ export class PopupMemberDelete extends PopupCreator {
   }
 
   #printPopupEvent() {
+    Helpers.isUserLoged();
     this.#sectionTableEl?.addEventListener(
       "click",
       this.#handlePrintPopup.bind(this)

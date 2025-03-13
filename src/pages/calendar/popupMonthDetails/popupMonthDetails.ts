@@ -163,6 +163,7 @@ export class PopupMonthDetails extends PopupCreator {
   }
 
   #printPopupEvent() {
+    Helpers.isUserLoged();
     this.tableBodyEl?.addEventListener(
       "click",
       this.#handleUpdateMonth.bind(this)

@@ -95,6 +95,7 @@ export class MonthDetailsSubmit {
   }
 
   #submetEvent() {
+    Helpers.isUserLoged();
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));
   }
 }

@@ -94,6 +94,7 @@ export class PopupEmails extends PopupCreator {
   }
 
   #printPopupEvent() {
+    Helpers.isUserLoged();
     this.#iconEl?.addEventListener("click", this.#handlePrintPopup.bind(this));
   }
 }

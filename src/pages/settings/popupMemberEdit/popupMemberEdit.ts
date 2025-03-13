@@ -1,7 +1,9 @@
 import { PopupCreator } from "../../../components/popupCreator";
+import { Helpers } from "../../../utils/helpers";
 import { FormMemberCreator } from "../form/formMemberCreator";
 import { dataMemberEditFields } from "./dataMemberEditFields";
 import { MemberEditSubmit } from "./memberEditSubmit";
+
 
 class FormMemberEditPrinter {
   #form = new FormMemberCreator("popupInnerContainer");
@@ -81,7 +83,7 @@ export class PopupMemberEdit extends PopupCreator {
 
   #handlePrintPopup(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
-    const isIconEdit = this.#eventTarget.hasAttribute("data-icon-edit")
+    const isIconEdit = this.#eventTarget.hasAttribute("data-icon-edit");
 
     if (isIconEdit) {
       this.createPopupContainetr();
@@ -90,6 +92,7 @@ export class PopupMemberEdit extends PopupCreator {
   }
 
   #printPopupEvent() {
+    Helpers.isUserLoged();
     this.#sectionTableEl?.addEventListener(
       "click",
       this.#handlePrintPopup.bind(this)

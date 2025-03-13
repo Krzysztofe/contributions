@@ -4,6 +4,8 @@ import jsPDFInvoiceTemplate from "jspdf-invoice-template";
 import { StateFillMode } from "../../../states/stateFillMode";
 import { StateCalendar } from "../../../states/StateCalendar";
 import { PdfPropsCreator } from "./pdfPropsCreator";
+import { Helpers } from "../../../utils/helpers";
+
 
 type ModelListCreator = {
   parentEl: string;
@@ -63,8 +65,7 @@ export class ListHeaderLeftSide extends ListCreator {
         this.#liEl.classList.remove("fill-dark");
       }
 
-      if (idx === elementsData.length-1) {
-    
+      if (idx === elementsData.length - 1) {
         this.#liEl.classList.add("hidden", "md:flex");
       }
 
@@ -107,6 +108,7 @@ export class ListHeaderLeftSide extends ListCreator {
   }
 
   #fastModeEvent() {
+    Helpers.isUserLoged();
     this.#iconFast?.addEventListener("click", this.#handlefastMode.bind(this));
   }
 

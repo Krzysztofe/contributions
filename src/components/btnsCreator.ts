@@ -50,6 +50,7 @@ export class BtnsCreator {
       "hover:bg-accent_light",
     ]);
   }
+  
   #createBtn(text: string, styles: string[]) {
     const btnEl = document.createElement("button");
     btnEl.id = text;
