@@ -96,3 +96,4 @@ Application is written according to the principles of OOP (Object-Oriented Progr
 * Install the project dependencies by running **npm install** 
 * Start the development server: **cd .\contributions\ npm run dev** 
 * Open your browser and visit your localhost:3000 to see the running application.
+* The environmental variables are commented out in the apiUrls file.
