@@ -79,7 +79,7 @@ Application is written according to the principles of OOP (Object-Oriented Progr
 ## Technologies
 
 * Tailwind / daisyUI
-* JavaScript / TypeScript / OOP
+* JavaScript / TypeScript / OOP / MVC Pattern
 * RegExp
 * LocalStorage
 * Vite
