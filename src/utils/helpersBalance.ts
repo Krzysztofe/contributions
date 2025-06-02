@@ -1,7 +1,5 @@
-import { StateCalendar } from "../states/StateCalendar";
+import { CalendarModel } from "../models/calendarModels/calendarModel";
 import { Helpers } from "./helpers";
-
-
 
 export class HelpersBalance {
   static printNewBalanceText(newBalance: number, tdTotalSumEl: HTMLElement) {
@@ -24,7 +22,7 @@ export class HelpersBalance {
   }
 
   static getPrevMonthContribution(memberID: number, monthNumber: string) {
-    const findMember = StateCalendar.sortedCalendar.find(
+    const findMember = CalendarModel.sortedCalendar.find(
       ({ id }) => id === memberID
     );
 

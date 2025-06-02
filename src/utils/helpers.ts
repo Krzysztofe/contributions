@@ -1,15 +1,16 @@
-import { ModelObjectAny } from "./../sharedModels/modelObjectAny";
-import { ModelMemberCalendar } from "./../sharedModels/modelMemberCalendar";
-import { StateAmount } from "../states/StateAmount";
+import { TypeObjectAny } from "../sharedTypes/typeObjectAny";
+import { TypeMemberCalendar } from "../sharedTypes/typeMemberCalendar";
+import { AmountModel } from "../models/calendarModels/amountModel";
 import { HttpRequest } from "../services/httpRequest";
-import { ModelObjectString } from "../sharedModels/modelObjectString";
-import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
-import { StateCalendar } from "../states/StateCalendar";
-import { StatePrintedYear } from "../states/StatePrintedYear";
+import { TypeObjectString } from "../sharedTypes/typeObjectString";
+import { TypeRequestOptions } from "../sharedTypes/typeRequestOptions";
+import { CalendarModel } from "../models/calendarModels/calendarModel";
+import { printedYearModel } from "../models/calendarModels/printedYearModel";
 
 export class Helpers {
   static currentYear = new Date().getFullYear().toString();
   static currentMonthInNumber = new Date().getMonth() + 1;
+
 
   static getCurrentMonth() {
     const currentDate = new Date();
@@ -37,25 +38,25 @@ export class Helpers {
   static getCurrentYearContribsToPay() {
     let currentYearContribsToPay = 0;
 
-    if (StateAmount.amount) {
-      if (StatePrintedYear.year > this.currentYear) {
+    if (AmountModel.amount) {
+      if (printedYearModel.year > this.currentYear) {
         currentYearContribsToPay = 0;
-      } else if (StatePrintedYear.year < this.currentYear) {
-        currentYearContribsToPay = 12 * parseInt(StateAmount.amount);
+      } else if (printedYearModel.year < this.currentYear) {
+        currentYearContribsToPay = 12 * parseInt(AmountModel.amount);
       } else {
         currentYearContribsToPay =
-          this.currentMonthInNumber * parseInt(StateAmount.amount);
+          this.currentMonthInNumber * parseInt(AmountModel.amount);
       }
     }
 
     return currentYearContribsToPay;
   }
 
-  static copy(object: ModelObjectAny) {
+  static copy(object: TypeObjectAny) {
     return JSON.parse(JSON.stringify(object));
   }
 
-  static fetchData(requestOptions: ModelRequestOptions) {
+  static fetchData(requestOptions: TypeRequestOptions) {
     const request = new HttpRequest();
     return request.sendRequest(requestOptions);
   }
@@ -63,7 +64,7 @@ export class Helpers {
   static capitalize(words: string) {
     return words
       .split(" ")
-      .map(word => {
+      .map((word) => {
         return word.charAt(0).toUpperCase() + word.slice(1);
       })
       .join(" ");
@@ -79,7 +80,7 @@ export class Helpers {
     const formEl = document.getElementById(elementId) as HTMLFormElement;
     const formData = formEl && new FormData(formEl);
 
-    const formValues: ModelObjectString = {};
+    const formValues: TypeObjectString = {};
 
     if (formData) {
       for (const [key, value] of formData.entries()) {
@@ -122,7 +123,7 @@ export class Helpers {
   }
 
   static translateMonth(month: string) {
-    const monthTranslations: ModelObjectString = {
+    const monthTranslations: TypeObjectString = {
       january: "Sty.",
       february: "Lut.",
       march: "Mar.",
@@ -141,7 +142,7 @@ export class Helpers {
   }
 
   static numberOnMonthPolish(month: string) {
-    const monthTranslations: ModelObjectString = {
+    const monthTranslations: TypeObjectString = {
       "1": "Styczeń",
       "2": "Luty.",
       "3": "Marzec.",
@@ -159,7 +160,7 @@ export class Helpers {
     return monthTranslations[month.toLowerCase()] || "";
   }
   static numberOnMonthEnglish(month: string) {
-    const monthTranslations: ModelObjectString = {
+    const monthTranslations: TypeObjectString = {
       "1": "january",
       "2": "february",
       "3": "march",
@@ -201,7 +202,7 @@ export class Helpers {
     const replacePolishLetters = (text: string) => {
       return text
         .split("")
-        .map(char => polishToWesternMap[char] || char)
+        .map((char) => polishToWesternMap[char] || char)
         .join("");
     };
 
@@ -221,7 +222,7 @@ export class Helpers {
     return false;
   }
 
-  static createDataMonthDetails(month: ModelObjectAny) {
+  static createDataMonthDetails(month: TypeObjectAny) {
     const { id, fullname, monthNumber } = month;
     const transformedFulllName = fullname?.replace(/ /g, "_");
     const details = {
@@ -233,7 +234,7 @@ export class Helpers {
     return JSON.stringify(details);
   }
 
-  static tdInnerHtmlPattern(month: ModelObjectString) {
+  static tdInnerHtmlPattern(month: TypeObjectString) {
     const { id, pay_date, amount, comment, monthNumber } = month;
     const monthDetailsJSON = this.createDataMonthDetails(month);
 
@@ -276,7 +277,7 @@ export class Helpers {
   }) {
     const currencyEl = document.createElement("span");
     currencyEl.id = elementId;
-    const currencyStyles = StateAmount.amount ? styles : "hidden";
+    const currencyStyles = AmountModel.amount ? styles : "hidden";
     currencyEl.innerText = "zł";
     currencyEl.classList.add(
       "absolute",
@@ -316,8 +317,8 @@ export class Helpers {
   }
 
   static getTableSums() {
-    return this.copy(StateCalendar.sortedCalendar).map(
-      (member: ModelMemberCalendar) => {
+    return this.copy(CalendarModel.sortedCalendar).map(
+      (member: TypeMemberCalendar) => {
         return member.sum;
       }
     );

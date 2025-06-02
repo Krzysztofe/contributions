@@ -1,4 +1,4 @@
-import { ModelRequestOptions } from "../sharedModels/modelRequestOptions";
+import { TypeRequestOptions } from "../sharedTypes/typeRequestOptions";
 
 export class HttpRequest {
   #createErrorPage = () => {
@@ -27,7 +27,7 @@ export class HttpRequest {
     headers,
     body,
     sendEmails,
-  }: ModelRequestOptions) {
+  }: TypeRequestOptions) {
     const requestOptions: RequestInit = {
       method,
       headers,
