@@ -1,8 +1,5 @@
-import { Helpers } from "../../../../utils/helpers";
+import { HelpersDate } from "../../../../helpers/helpersDate";
 import { PopupView } from "../../../sharedViews/popupView";
-
-
-
 
 export class PopupEmailsView extends PopupView {
   #hederEl = document.createElement("h3");
@@ -42,7 +39,7 @@ export class PopupEmailsView extends PopupView {
     this.#hederEl.setAttribute("data-popup-header", "");
 
     this.#hederEl.classList.add("font-semibold", "text-center");
-    const currentMonth = Helpers.getCurrentMonth()
+    const currentMonth = HelpersDate.getCurrentMonth()
       .split("-")
       .reverse()
       .join(".");

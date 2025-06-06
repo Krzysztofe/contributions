@@ -1,5 +1,5 @@
 import { CalendarModel } from "../models/calendarModels/calendarModel";
-import { Helpers } from "./helpers";
+import { HelpersTranslations } from "./helpersTranslations";
 
 export class HelpersBalance {
   static printNewBalanceText(newBalance: number, tdTotalSumEl: HTMLElement) {
@@ -26,7 +26,7 @@ export class HelpersBalance {
       ({ id }) => id === memberID
     );
 
-    const monthName = monthNumber && Helpers.numberOnMonthEnglish(monthNumber);
+    const monthName = monthNumber && HelpersTranslations.numberOnMonthEnglish(monthNumber);
 
     if (!findMember) return null;
     return (monthName && findMember[monthName]?.amount) ?? null;

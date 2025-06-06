@@ -1,6 +1,7 @@
-import { Helpers } from "../../utils/helpers";
 import { URL_DEBT_MEMBERS } from "../../config/apiUrl";
 import { LoadingTableView } from "../../views/sharedViews/loadersViews/loadingTableView";
+import { HelpersHttp } from "../../helpers/helpersHttp";
+import { HelpersAuth } from "../../helpers/helpersAuth";
 
 export class SendEmailsController {
   #btnYesEl = document.getElementById("Wyślij") as HTMLButtonElement;
@@ -25,7 +26,7 @@ export class SendEmailsController {
 
     loader.createLoading();
 
-    await Helpers.fetchData(this.#POSTOptions());
+    await HelpersHttp.fetchData(this.#POSTOptions());
     const popupEl = document.getElementById("popupContainer");
 
     popupEl?.remove();
@@ -33,7 +34,7 @@ export class SendEmailsController {
   }
 
   #sendEmailsEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.#btnYesEl?.addEventListener(
       "click",
       this.#handleSendEmails.bind(this)

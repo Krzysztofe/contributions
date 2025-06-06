@@ -1,9 +1,9 @@
 import { amountInputField } from "./amountInputField";
 import { AmountModel } from "../../../../models/calendarModels/amountModel";
+import { Helpers } from "../../../../helpers/helpers";
 import { HeaderLogedInView } from "../../../sharedViews/headerLogedInView/headerLogedInView";
 import { ListHeaderLeftSide } from "../listHeaderLeftSideView";
 import { leftSideListItems } from "./leftSideListItems";
-import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 
 export class HeaderCalendarView extends HeaderLogedInView {
   #leftSideContainerEl = document.createElement("div");
@@ -66,7 +66,7 @@ export class HeaderCalendarView extends HeaderLogedInView {
       "defaultAmount"
     ) as HTMLInputElement;
     this.#inputAmountEl.value = AmountModel.amount;
-    HelpersCalendar.createCurrencyInInput({
+    Helpers.createCurrencyInInput({
       parentEl: this.#inputAmountContainer,
       elementId: "amountGlobal",
       styles: "lg:block",

@@ -1,15 +1,17 @@
 import { LoadingTableView } from "../../../sharedViews/loadersViews/loadingTableView";
 import { TableView } from "../../../sharedViews/tableView";
-import { Helpers } from "../../../../utils/helpers";
-import { HelpersBalance } from "../../../../utils/helpersBalance";
+import { HelpersBalance } from "../../../../helpers/helpersBalance";
 import { URL_CALENDAR } from "../../../../config/apiUrl";
-import { printedYearModel } from "../../../../models/calendarModels/printedYearModel";
+import { PrintedYearModel } from "../../../../models/calendarModels/printedYearModel";
 import { TableCalendarBuilder } from "./tableCalendarBuilder";
 import { CalendarModel } from "../../../../models/calendarModels/calendarModel";
-import { AutoLogout } from "../../../../utils/autoLogout";
+import { AutoLogout } from "../../../../helpers/autoLogout";
 import { PopupMonthDetailsController } from "../../../../controllers/calendarControllers/popups/popupMonthDetailsController";
 import { AmountModel } from "../../../../models/calendarModels/amountModel";
 import { iconChevron } from "../../../../icons/iconChevron";
+import { HelpersHttp } from "../../../../helpers/helpersHttp";
+import { HelpersDate } from "../../../../helpers/helpersDate";
+import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 
 class SelectCreator {
   #thDivSelect = document.querySelectorAll(
@@ -33,7 +35,7 @@ class SelectCreator {
       "w-full",
       "bg-primary_dark"
     );
-    const currentYear = Helpers.currentYear;
+    const currentYear = HelpersDate.currentYear;
 
     this.#selectEl.innerHTML = `
        <option ${currentYear === "2024" ? "selected" : ""}>2024</option>
@@ -57,8 +59,8 @@ class SelectCreator {
   async #handleSelect(e: Event) {
     this.#selectedYear = (e.target as HTMLInputElement).value;
     this.#loading.createLoading();
-    printedYearModel.year = this.#selectedYear;
-    const yearData = await Helpers.fetchData(this.#GETOptions());
+    PrintedYearModel.year = this.#selectedYear;
+    const yearData = await HelpersHttp.fetchData(this.#GETOptions());
     CalendarModel.setCalendar(yearData);
     document.getElementById("tableMembers")?.remove();
     new TableCalendarBuilder();
@@ -180,7 +182,7 @@ export class TableCalendarView extends TableView {
       const monthDetails = tdEl.getAttribute("data-month-details");
       const number = monthDetails && JSON.parse(monthDetails).monthNumber;
       const monthNumber = number.padStart(2, "0");
-      const tdDate = `${printedYearModel.year}-${monthNumber}`;
+      const tdDate = `${PrintedYearModel.year}-${monthNumber}`;
 
       const joinDateCompare = new Date(joinDate + "-01");
       const tdDateCompare = new Date(tdDate + "-01");
@@ -218,8 +220,10 @@ export class TableCalendarView extends TableView {
       const contribsNotToPay =
         trEl.querySelectorAll("[data-not-active]").length *
           parseInt(AmountModel.amount) || 0;
-      const sumToPay = Helpers.getCurrentYearContribsToPay() - contribsNotToPay;
-      const yearContribsBalance = Helpers.getTableSums()[idx] - sumToPay;
+      const sumToPay =
+        HelpersCalendar.getCurrentYearContribsToPay() - contribsNotToPay;
+      const yearContribsBalance =
+        HelpersCalendar.getTableSums()[idx] - sumToPay;
 
       this.#createTdBalance(yearContribsBalance, trEl, "data-sum-to-pay");
     });
@@ -235,8 +239,8 @@ export class TableCalendarView extends TableView {
       const [joinYear, joinMonth] = joinDate?.split("-");
 
       const allMonthsToPay =
-        parseInt(Helpers.currentYear) * 12 +
-        Helpers.currentMonthInNumber -
+        parseInt(HelpersDate.currentYear) * 12 +
+        HelpersDate.currentMonthInNumber -
         (parseInt(joinYear) * 12 + parseInt(joinMonth)) +
         1;
 

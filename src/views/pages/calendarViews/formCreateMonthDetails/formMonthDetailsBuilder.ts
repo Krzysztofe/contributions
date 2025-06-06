@@ -1,9 +1,10 @@
 import { createMonthDetailsFormFields } from "./createMonthDetailsFormFields";
 import { CreateMonthDetailsController } from "../../../../controllers/calendarControllers/createMonthDetailsController";
 import { AmountModel } from "../../../../models/calendarModels/amountModel";
-import { Helpers } from "../../../../utils/helpers";
 import { FormView } from "../../../sharedViews/formView";
 import { TypeMonth } from "../../../../sharedTypes/typeMonth";
+import { HelpersTranslations } from "../../../../helpers/helpersTranslations";
+import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 
 export class FormMonthDetailsBuilder {
   #hederEl = document.createElement("h3");
@@ -30,7 +31,9 @@ export class FormMonthDetailsBuilder {
     this.#monthDetails = monthDetails;
 
     const memberFullname = monthDetails.fullname.replace(/\_/g, " ");
-    const monthName = Helpers.numberOnMonthPolish(monthDetails.monthNumber);
+    const monthName = HelpersTranslations.numberOnMonthPolish(
+      monthDetails.monthNumber
+    );
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
 
@@ -81,7 +84,7 @@ export class FormMonthDetailsBuilder {
     const firstFieldEl = this.#formEl?.querySelector("div");
     this.#inputAmountEl = document.getElementById("amount") as HTMLInputElement;
     firstFieldEl &&
-      Helpers.createCurrencyInInput({
+      HelpersCalendar.createCurrencyInInput({
         parentEl: firstFieldEl,
         elementId: "amountPopup",
         styles: "block",
@@ -106,7 +109,7 @@ export class FormMonthDetailsBuilder {
   #printCurrencyEvent() {
     this.#inputAmountEl?.addEventListener("input", (e) => {
       this.#currencyEl &&
-        Helpers.handleReprintCurrencyInInput({
+        HelpersCalendar.handleReprintCurrencyInInput({
           e: e,
           currencyEl: this.#currencyEl,
           styles: "block",

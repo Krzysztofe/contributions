@@ -1,10 +1,9 @@
 import { URL_MEMBERS } from "../../config/apiUrl.ts";
 import { LoadingTableSettingsView } from "../../views/pages/settingsViews/loadingTableSettingsView.ts";
+import { Helpers } from "../../helpers/helpers.ts";
 import { MembersModel } from "../../models/settingsModels/membersModel.ts";
 import { ToastView } from "../../views/sharedViews/toastView.ts";
 import { ReprintTableSettingsView } from "../../views/pages/settingsViews/tableSettings/reprintTableSettingsView.ts";
-import { HelpersAuth } from "../../helpers/helpersAuth.ts";
-import { HelpersHttp } from "../../helpers/helpersHttp.ts";
 
 export class DeleteMemberController {
   #loading = new LoadingTableSettingsView();
@@ -39,7 +38,7 @@ export class DeleteMemberController {
     document.querySelector("dialog")?.remove();
     this.#loading.createLoading();
     this.#bodyEL?.classList.add("overflow-y-scroll");
-    const deletedMemberId = await HelpersHttp.fetchData(this.#DELETEOptions());
+    const deletedMemberId = await Helpers.fetchData(this.#DELETEOptions());
 
     MembersModel.setMembers(this.#updatedData(deletedMemberId));
     new ReprintTableSettingsView();
@@ -50,7 +49,7 @@ export class DeleteMemberController {
     new ToastView("Usunięto");
   }
   #deleteEvent() {
-    HelpersAuth.isUserLogged();
+    Helpers.isUserLoged();
     this.#clikedBtnEl?.addEventListener("click", this.#handleDelete.bind(this));
   }
 }

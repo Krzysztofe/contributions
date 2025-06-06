@@ -1,6 +1,5 @@
-import { AutoLogout } from "../../utils/autoLogout";
+import { AutoLogout } from "../../helpers/autoLogout";
 import { TableCalendarBuilder } from "../../views/pages/calendarViews/table/tableCalendarBuilder";
-import { Helpers } from "../../utils/helpers";
 import { URL_CALENDAR } from "../../config/apiUrl";
 import { CalendarModel } from "../../models/calendarModels/calendarModel";
 import { PopupMonthDetailsController } from "./popups/popupMonthDetailsController";
@@ -10,10 +9,13 @@ import { LoadigPageView } from "../../views/sharedViews/loadersViews/loadingPage
 import { HeaderCalendarView } from "../../views/pages/calendarViews/headerCalendar/HeaderCalendarView";
 import { EditContributionAmountController } from "./editContrubutionAmountController";
 import { ListHeaderLeftSideController } from "./listHeaderLeftSideController";
+import { HelpersHttp } from "../../helpers/helpersHttp";
+import { HelpersDate } from "../../helpers/helpersDate";
+import { HelpersAuth } from "../../helpers/helpersAuth";
 
 class CalendarMainController {
   GETCalendarOptions = {
-    url: `${URL_CALENDAR}${Helpers.currentYear}`,
+    url: `${URL_CALENDAR}${HelpersDate.currentYear}`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -24,9 +26,11 @@ class CalendarMainController {
   }
 
   async #init() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     await AmountModel.getAmount();
-    const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
+    const calendarDatabase = await HelpersHttp.fetchData(
+      this.GETCalendarOptions
+    );
     new LoadigPageView();
     CalendarModel.setCalendar(calendarDatabase);
     new HeaderCalendarView(["flex", "items-center"]);

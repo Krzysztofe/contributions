@@ -1,7 +1,7 @@
 import { URL_AMOUNT_GLOBAL } from "../../config/apiUrl";
-import { HelpersHttp } from "../../helpers/helpersHttp";
+import { Helpers } from "../../helpers/helpers";
 
-export class AmountModel {
+export class amountModel {
   static amount = "";
 
   static GETAmountOptions = {
@@ -12,7 +12,7 @@ export class AmountModel {
   };
 
   static async getAmount() {
-    const amountDatabase = await HelpersHttp.fetchData(this.GETAmountOptions);
+    const amountDatabase = await Helpers.fetchData(this.GETAmountOptions);
     this.amount = amountDatabase?.amount;
   }
 }

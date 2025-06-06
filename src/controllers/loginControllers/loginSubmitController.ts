@@ -1,7 +1,8 @@
 import { TypeRequestOptions } from "../../sharedTypes/typeRequestOptions";
 import { LoadingButtonView } from "../../views/sharedViews/loadersViews/loadingButtonView";
 import { URL_AUTH } from "../../config/apiUrl";
-import { Helpers } from "../../utils/helpers";
+import { HelpersHttp } from "../../helpers/helpersHttp";
+import { HelpersForm } from "../../helpers/helpersForm";
 
 export class LoginSubmitController {
   #formEl = document.querySelector("form");
@@ -16,7 +17,7 @@ export class LoginSubmitController {
   #POSTOptions(): TypeRequestOptions | undefined {
     if (!this.#event) return;
 
-    const formValues = Helpers.getFormValues(this.#event);
+    const formValues = HelpersForm.getFormValues(this.#event);
 
     return {
       url: URL_AUTH,
@@ -42,7 +43,7 @@ export class LoginSubmitController {
       return;
     }
 
-    const jwt = await Helpers.fetchData(postOptions);
+    const jwt = await HelpersHttp.fetchData(postOptions);
 
     if (jwt) {
       localStorage.setItem("jwt", jwt);

@@ -1,6 +1,8 @@
 import { URL_AMOUNT_GLOBAL } from "../../config/apiUrl";
 import { AmountModel } from "../../models/calendarModels/amountModel";
-import { Helpers } from "../../utils/helpers";
+import { HelpersCalendar } from "../../helpers/helpersCalendar";
+import { HelpersForm } from "../../helpers/helpersForm";
+import { HelpersHttp } from "../../helpers/helpersHttp";
 import { LoadingInputView } from "../../views/pages/calendarViews/loaders/loadingInputView";
 import { ReprintAllTdBalancesView } from "../../views/pages/calendarViews/reprints/reprintAllTdBalancesView";
 
@@ -31,7 +33,7 @@ export class EditContributionAmountController {
   async #handleChangeInputAmount() {
     const loader = new LoadingInputView("inputAmountContainer");
     loader.createSpinner();
-    await Helpers.fetchData(this.#POSTOptions());
+    await HelpersHttp.fetchData(this.#POSTOptions());
     this.#inputAmountEl?.value
       ? (AmountModel.amount = this.#inputAmountEl?.value)
       : (AmountModel.amount = "0");
@@ -42,12 +44,12 @@ export class EditContributionAmountController {
     this.#currencyEl = document.getElementById("amountGlobal");
     this.#inputAmountEl?.addEventListener(
       "input",
-      Helpers.debounce(this.#handleChangeInputAmount.bind(this), 1500)
+      HelpersForm.debounce(this.#handleChangeInputAmount.bind(this), 1500)
     );
 
     this.#inputAmountEl?.addEventListener("input", (e) => {
       this.#currencyEl &&
-        Helpers.handleReprintCurrencyInInput({
+        HelpersCalendar.handleReprintCurrencyInInput({
           e: e,
           currencyEl: this.#currencyEl,
           styles: "lg:block",

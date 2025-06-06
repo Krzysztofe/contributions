@@ -1,6 +1,6 @@
 import { AmountModel } from "../../../../models/calendarModels/amountModel";
-import { Helpers } from "../../../../utils/helpers";
-import { HelpersBalance } from "../../../../utils/helpersBalance";
+import { HelpersBalance } from "../../../../helpers/helpersBalance";
+import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 
 export class ReprintTdYearBalanceView {
   #tdChanged: HTMLElement | null = null;
@@ -31,7 +31,7 @@ export class ReprintTdYearBalanceView {
 
     const newYearSum =
       payedMonthsSum -
-      (Helpers.getCurrentYearContribsToPay() - contribsNotToPay);
+      (HelpersCalendar.getCurrentYearContribsToPay() - contribsNotToPay);
 
     HelpersBalance.printNewBalanceText(newYearSum, tdSumEl);
   }

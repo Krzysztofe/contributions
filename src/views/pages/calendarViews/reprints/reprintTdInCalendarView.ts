@@ -1,5 +1,5 @@
 import { TypeMonth } from "../../../../sharedTypes/typeMonth";
-import { Helpers } from "../../../../utils/helpers";
+import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 
 type TypeNewMonth = Omit<TypeMonth, "join_date">;
 
@@ -20,7 +20,7 @@ export class ReprintTdInCalendarView {
     this.#tdEl && (this.#tdEl.innerHTML = "");
 
     if (this.#tdEl && this.#newMonth) {
-      this.#tdEl.innerHTML = Helpers.tdInnerHtmlPattern(this.#newMonth);
+      this.#tdEl.innerHTML = HelpersCalendar.tdInnerHtmlPattern(this.#newMonth);
       this.#tdBgColor();
     }
   }

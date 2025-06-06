@@ -1,5 +1,4 @@
-import { Helpers } from "../../utils/helpers";
-
+import { HelpersDate } from "../../helpers/helpersDate";
 
 type TypeInputData = {
   name: string;
@@ -96,7 +95,7 @@ export class FormView {
     }
 
     if (inputType === "month") {
-      this.#inputEl.setAttribute("max", Helpers.getCurrentMonth());
+      this.#inputEl.setAttribute("max", HelpersDate.getCurrentMonth());
     }
   }
 
@@ -165,13 +164,21 @@ export class FormView {
     fieldStyles = [],
     inputStyles = [],
   }: TypeCreateFields) {
-    inputsData.forEach(inputData => {
+    inputsData.forEach((inputData) => {
       const fieldEl = this.#createField(inputData, fieldStyles, inputStyles);
       this.formEl?.append(fieldEl);
     });
   }
 
-  createBtn({ innerText, styles, id }: { innerText: string; styles: string[], id:string }) {
+  createBtn({
+    innerText,
+    styles,
+    id,
+  }: {
+    innerText: string;
+    styles: string[];
+    id: string;
+  }) {
     this.#btnEl.setAttribute("type", "submit");
     this.#btnEl.id = id;
     this.#btnEl.innerText = innerText;
@@ -194,7 +201,7 @@ export class FormView {
     const inputValue = (e.target as HTMLInputElement).value;
     this.#membersElems = document.querySelectorAll("[data='member']");
 
-    this.#membersElems.forEach(member => {
+    this.#membersElems.forEach((member) => {
       const memberTexContent = member?.textContent ?? "";
       const match = new RegExp(inputValue, "i").test(memberTexContent);
 

@@ -1,9 +1,10 @@
 import { URL_DEBT_MEMBERS } from "../../../config/apiUrl";
 import { BtnsView } from "../../../views/sharedViews/btnsView";
 import { LoadingPopupView } from "../../../views/pages/calendarViews/loaders/loadingPopupView";
-import { Helpers } from "../../../utils/helpers";
 import { SendEmailsController } from "../sendEmailsController";
 import { PopupEmailsView } from "../../../views/pages/calendarViews/popups/popupEmailsView";
+import { HelpersHttp } from "../../../helpers/helpersHttp";
+import { HelpersAuth } from "../../../helpers/helpersAuth";
 
 export class PopupEmailsController {
   #iconEl = document.querySelector("[data-icon-email]");
@@ -26,7 +27,9 @@ export class PopupEmailsController {
     loader.createSpinner();
     this.#hederEl.remove();
     document.getElementById("btnsContainer")?.remove();
-    const calendarDatabase = await Helpers.fetchData(this.GETCalendarOptions);
+    const calendarDatabase = await HelpersHttp.fetchData(
+      this.GETCalendarOptions
+    );
     this.#debtMembers = calendarDatabase["debts-members"];
     loader.removeLoading();
 
@@ -38,7 +41,7 @@ export class PopupEmailsController {
   }
 
   #printPopupEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.#iconEl?.addEventListener("click", this.#handlePrintPopup.bind(this));
   }
 }

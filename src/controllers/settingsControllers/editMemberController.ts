@@ -1,9 +1,11 @@
 import { LoadingButtonView } from "../../views/sharedViews/loadersViews/loadingButtonView";
-import { Helpers } from "../../utils/helpers";
-import { ValidationGeneric } from "../../utils/validationGeneric";
+import { ValidationGeneric } from "../../helpers/validationGeneric";
 import { URL_MEMBERS } from "../../config/apiUrl";
 import { TypeObjectString } from "../../sharedTypes/typeObjectString";
 import { ReprintTrView } from "../../views/pages/settingsViews/tableSettings/reprintTrView";
+import { HelpersForm } from "../../helpers/helpersForm";
+import { HelpersAuth } from "../../helpers/helpersAuth";
+import { HelpersHttp } from "../../helpers/helpersHttp";
 
 export class EditMemberController {
   #formEl = document.getElementById("popupMemberEdit");
@@ -23,7 +25,7 @@ export class EditMemberController {
   }
 
   #validations(e: Event) {
-    this.#formValues = Helpers.getFormValues(e);
+    this.#formValues = HelpersForm.getFormValues(e);
     this.#formKeys = Object.keys(this.#formValues);
 
     const areErrors =
@@ -52,13 +54,13 @@ export class EditMemberController {
     if (this.#validations(e) !== "go") return;
     this.#btnLoader.createSpinner();
 
-    await Helpers.fetchData(this.#PUTOptions());
+    await HelpersHttp.fetchData(this.#PUTOptions());
     new ReprintTrView(this.#trId, this.#formValues?.emailEdit);
     document.getElementById("popupContainer")?.remove();
   }
 
   #submitEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));
   }
 }

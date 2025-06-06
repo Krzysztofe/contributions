@@ -1,4 +1,3 @@
-import { Helpers } from "../../../../utils/helpers";
 import { CalendarModel } from "../../../../models/calendarModels/calendarModel";
 import { TableCalendarView } from "./tableCalendarView";
 import { TypeMemberCalendar } from "../../../../sharedTypes/typeMemberCalendar";
@@ -6,14 +5,15 @@ import { TypeObjectString } from "../../../../sharedTypes/typeObjectString";
 import { TypeObjectAny } from "../../../../sharedTypes/typeObjectAny";
 import { wrapperWidth } from "../../../../constans/numbersConstants";
 import { monthsPolish } from "../../../../constans/monthsConstants";
-import { printedYearModel } from "../../../../models/calendarModels/printedYearModel";
+import { PrintedYearModel } from "../../../../models/calendarModels/printedYearModel";
+import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 
 export class TableCalendarBuilder {
   #membersSum = CalendarModel.sortedCalendar?.length || "";
   #dataTableHead: string[] = [`${this.#membersSum}`, "", ...monthsPolish];
   #dataTableBody =
-  CalendarModel.sortedCalendar &&
-    Helpers.copy(CalendarModel.sortedCalendar).map(
+    CalendarModel.sortedCalendar &&
+    HelpersCalendar.copyObject(CalendarModel.sortedCalendar).map(
       (member: TypeMemberCalendar) => {
         delete member.join_date;
         delete member.sum;
@@ -36,7 +36,7 @@ export class TableCalendarBuilder {
     this.#table.createTableHead({
       headers: [
         ...this.#dataTableHead,
-        `Bilans ${printedYearModel.year}`,
+        `Bilans ${PrintedYearModel.year}`,
         "Bilans całkowity",
       ],
       stylesTh: ["bg-accent", "text-white"],
@@ -73,7 +73,7 @@ export class TableCalendarBuilder {
   }) {
     if (typeof databaseValue !== "object") return;
     const month = databaseValue;
-    const monthDetailsJSON = Helpers.createDataMonthDetails(month);
+    const monthDetailsJSON = HelpersCalendar.createDataMonthDetails(month);
     const monthId = `${month.id}_${month.monthNumber}`;
 
     if (idx > 0) {
@@ -87,7 +87,7 @@ export class TableCalendarBuilder {
 
   #tdInnerHtml(value: string | TypeObjectString) {
     if (typeof value !== "string") {
-      return Helpers.tdInnerHtmlPattern(value);
+      return HelpersCalendar.tdInnerHtmlPattern(value);
     } else return "";
   }
 }

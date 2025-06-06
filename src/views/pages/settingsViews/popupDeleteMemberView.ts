@@ -1,7 +1,7 @@
 import { DeleteMemberController } from "../../../controllers/settingsControllers/deleteMemberController";
 import { BtnsView } from "../../sharedViews/btnsView";
 import { PopupView } from "../../sharedViews/popupView";
-import { Helpers } from "../../../utils/helpers";
+import { HelpersAuth } from "../../../helpers/helpersAuth";
 
 export class PopupDeleteMemberView extends PopupView {
   #headerEl: HTMLElement | null = null;
@@ -45,7 +45,7 @@ export class PopupDeleteMemberView extends PopupView {
   }
 
   #printPopupEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.#sectionTableEl?.addEventListener(
       "click",
       this.#handlePrintPopup.bind(this)

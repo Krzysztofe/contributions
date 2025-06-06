@@ -1,16 +1,13 @@
 import jsPDFInvoiceTemplate from "jspdf-invoice-template";
 import { fillModeModel } from "../../models/calendarModels/fillModeModel";
-import { PdfPropsCreator } from "../../utils/pdfPropsCreator";
-import { Helpers } from "../../utils/helpers";
+import { HelpersPdfPropsCreator } from "../../helpers/helpersPdfPropsCreator";
 import { CalendarModel } from "../../models/calendarModels/calendarModel";
 import { TypeMemberCalendar } from "../../sharedTypes/typeMemberCalendar";
-
-
+import { HelpersAuth } from "../../helpers/helpersAuth";
 
 export class ListHeaderLeftSideController {
-    #iconFast: HTMLElement | null = null;
-    #iconSlow: HTMLElement | null = null;
-  
+  #iconFast: HTMLElement | null = null;
+  #iconSlow: HTMLElement | null = null;
 
   constructor() {
     this.#iconFast = document.querySelector("[data-icon-rocket]");
@@ -36,7 +33,7 @@ export class ListHeaderLeftSideController {
   }
 
   #handleCreatePDF() {
-    const propsData = new PdfPropsCreator();
+    const propsData = new HelpersPdfPropsCreator();
     jsPDFInvoiceTemplate(
       propsData.createProps(
         CalendarModel.sortedCalendar as TypeMemberCalendar[]
@@ -45,7 +42,7 @@ export class ListHeaderLeftSideController {
   }
 
   #fastModeEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.#iconFast?.addEventListener("click", this.#handlefastMode.bind(this));
   }
 

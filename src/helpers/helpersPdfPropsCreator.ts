@@ -1,11 +1,14 @@
 import { TypeMonth } from "../sharedTypes/typeMonth";
 import { OutputType } from "jspdf-invoice-template";
-import { Helpers } from "./helpers";
 import { TypeMemberCalendar } from "../sharedTypes/typeMemberCalendar";
-import { printedYearModel } from "../models/calendarModels/printedYearModel";
+import { PrintedYearModel } from "../models/calendarModels/printedYearModel";
 import { monthsEnglish, monthsPolish } from "../constans/monthsConstants";
+import { HelpersDate } from "./helpersDate";
+import { HelpersString } from "./helpersString";
 
-export class PdfPropsCreator {
+
+
+export class HelpersPdfPropsCreator {
   #membersSumsElems = document.querySelectorAll("[data-sum-to-pay]");
   #joinMonthNumber: number | null = null;
 
@@ -18,7 +21,7 @@ export class PdfPropsCreator {
   #getFullname(member: TypeMemberCalendar) {
     const fullname = member.fullname.split(" ");
     fullname.push("");
-    return Helpers.replacePolishLetters(fullname.join("\n"));
+    return HelpersString.replacePolishLetters(fullname.join("\n"));
   }
 
   #getMonthAmount = (
@@ -36,7 +39,7 @@ export class PdfPropsCreator {
     return monthsEnglish.map((month) => {
       const monthData = member[month] as TypeMonth;
       const isJoinedInPrintedYear = monthData?.join_date.includes(
-        printedYearModel.year
+        PrintedYearModel.year
       );
 
       if (isJoinedInPrintedYear) {
@@ -69,14 +72,14 @@ export class PdfPropsCreator {
     return {
       outputType: OutputType.Save,
       returnJsPDFDocObject: true,
-      fileName: `Składki ${Helpers.getCurrentMonth()}`,
+      fileName: `Składki ${HelpersDate.getCurrentMonth()}`,
       orientationLandscape: false,
       compress: true,
 
       contact: {
-        name: `Zestawienie składek z ${printedYearModel.year} r.`,
-        phone: `Data: ${Helpers.getCurrentDate()}`,
-        email: `Godzina: ${Helpers.getCurrentHour()} `,
+        name: `Zestawienie składek z ${PrintedYearModel.year} r.`,
+        phone: `Data: ${HelpersDate.getCurrentDate()}`,
+        email: `Godzina: ${HelpersDate.getCurrentHour()} `,
       },
 
       invoice: {

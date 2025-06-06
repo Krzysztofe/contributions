@@ -1,12 +1,13 @@
-import { printedYearModel } from "../../models/calendarModels/printedYearModel";
+import { PrintedYearModel } from "../../models/calendarModels/printedYearModel";
 import { LoadingTdView } from "../../views/pages/calendarViews/loaders/loadingTdView";
 import { URL_MONTH_DETAILS } from "../../config/apiUrl";
-import { Helpers } from "../../utils/helpers";
 import { AmountModel } from "../../models/calendarModels/amountModel";
 import { CalendarModel } from "../../models/calendarModels/calendarModel";
 import { ReprintTdTotalBalanceView } from "../../views/pages/calendarViews/reprints/reprintTdTotalBalanceView";
 import { ReprintAmountInMontchView } from "../../views/pages/calendarViews/reprints/reprintAmountInMonthView";
 import { ReprintTdYearBalanceView } from "../../views/pages/calendarViews/reprints/reprintTdYearBalanceView";
+import { HelpersHttp } from "../../helpers/helpersHttp";
+import { HelpersTranslations } from "../../helpers/helpersTranslations";
 
 export class UpdateMonthAmountController {
   #eTarget: HTMLElement | null = null;
@@ -24,7 +25,8 @@ export class UpdateMonthAmountController {
     this.#monthNumber =
       this.#monthDetails && JSON.parse(this.#monthDetails)?.monthNumber;
     this.#monthName =
-      (this.#monthNumber && Helpers.numberOnMonthEnglish(this.#monthNumber)) ||
+      (this.#monthNumber &&
+        HelpersTranslations.numberOnMonthEnglish(this.#monthNumber)) ||
       "";
     this.#spinner = new LoadingTdView(this.#eTarget);
     this.#handleUpdateAmount();
@@ -47,7 +49,7 @@ export class UpdateMonthAmountController {
       },
       body: {
         client_id: this.#memberId || "",
-        year: printedYearModel.year,
+        year: PrintedYearModel.year,
         month: this.#monthNumber || "",
         amount: AmountModel.amount,
       },
@@ -58,7 +60,7 @@ export class UpdateMonthAmountController {
     this.#addTbodyBlocade();
 
     this.#spinner?.createSpinner();
-    await Helpers.fetchData(this.#PATCHoptions());
+    await HelpersHttp.fetchData(this.#PATCHoptions());
     this.#eTarget && new ReprintAmountInMontchView(this.#eTarget);
 
     this.#removeTbodyBlocade();

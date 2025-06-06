@@ -1,5 +1,5 @@
 import { TypeMemberSettings } from "../../sharedTypes/typeMemberSettings";
-import { Helpers } from "../../utils/helpers";
+import { HelpersMemberList } from "../../helpers/helpersMembersList";
 
 export class MembersModel {
   static sortedMembers: TypeMemberSettings[] = [];
@@ -20,6 +20,6 @@ export class MembersModel {
       processMembers = [];
     }
 
-    this.sortedMembers = Helpers.sortList(processMembers);
+    this.sortedMembers = HelpersMemberList.sortList(processMembers);
   }
 }

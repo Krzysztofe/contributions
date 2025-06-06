@@ -1,15 +1,16 @@
 import { TypeMonth } from "../../sharedTypes/typeMonth";
-import { Helpers } from "../../utils/helpers";
 import { LoadingButtonView } from "../../views/sharedViews/loadersViews/loadingButtonView";
 import { URL_MONTH_DETAILS } from "../../config/apiUrl";
-import { printedYearModel } from "../../models/calendarModels/printedYearModel";
+import { PrintedYearModel } from "../../models/calendarModels/printedYearModel";
 import { TypeObjectString } from "../../sharedTypes/typeObjectString";
 import { CalendarModel } from "../../models/calendarModels/calendarModel";
 import { ReprintTdInCalendarView } from "../../views/pages/calendarViews/reprints/reprintTdInCalendarView";
 import { ReprintTdYearBalanceView } from "../../views/pages/calendarViews/reprints/reprintTdYearBalanceView";
 import { ReprintTdTotalBalanceView } from "../../views/pages/calendarViews/reprints/reprintTdTotalBalanceView";
-
-
+import { HelpersForm } from "../../helpers/helpersForm";
+import { HelpersHttp } from "../../helpers/helpersHttp";
+import { HelpersTranslations } from "../../helpers/helpersTranslations";
+import { HelpersAuth } from "../../helpers/helpersAuth";
 
 export class CreateMonthDetailsController {
   #formEl = document.querySelector("form");
@@ -25,7 +26,8 @@ export class CreateMonthDetailsController {
     this.#memberId = monthDetails.id;
     this.#monthNumber = monthDetails.monthNumber;
     this.#monthName =
-      (this.#monthNumber && Helpers.numberOnMonthEnglish(this.#monthNumber)) ||
+      (this.#monthNumber &&
+        HelpersTranslations.numberOnMonthEnglish(this.#monthNumber)) ||
       "";
     this.#monthDetails = monthDetails;
     this.#dataAtributeId = `${monthDetails.id}_${monthDetails.monthNumber}`;
@@ -52,7 +54,7 @@ export class CreateMonthDetailsController {
       },
       body: {
         client_id: this.#memberId || "",
-        year: printedYearModel.year || "",
+        year: PrintedYearModel.year || "",
         month: this.#monthNumber || "",
         amount: this.#formValues?.amount || "0",
         pay_date: this.#formValues?.pay_date || "",
@@ -63,10 +65,10 @@ export class CreateMonthDetailsController {
 
   async #handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    this.#formValues = Helpers.getFormValues(e);
+    this.#formValues = HelpersForm.getFormValues(e);
 
     this.#btnLoader.createSpinner();
-    await Helpers.fetchData(this.#POSTOptions());
+    await HelpersHttp.fetchData(this.#POSTOptions());
     const newMonth = this.#newMonth();
     if (newMonth) {
       new ReprintTdInCalendarView(newMonth);
@@ -97,7 +99,7 @@ export class CreateMonthDetailsController {
   }
 
   #submetEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.#formEl?.addEventListener("submit", this.#handleSubmit.bind(this));
   }
 }

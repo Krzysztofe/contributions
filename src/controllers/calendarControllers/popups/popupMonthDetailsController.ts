@@ -1,8 +1,9 @@
 import { PopupView } from "../../../views/sharedViews/popupView";
 import { fillModeModel } from "../../../models/calendarModels/fillModeModel";
-import { Helpers } from "../../../utils/helpers";
 import { FormMonthDetailsBuilder } from "../../../views/pages/calendarViews/formCreateMonthDetails/formMonthDetailsBuilder";
 import { UpdateMonthAmountController } from "../updateMonthAmountController";
+import { HelpersCalendar } from "../../../helpers/helpersCalendar";
+import { HelpersAuth } from "../../../helpers/helpersAuth";
 
 export class PopupMonthDetailsController {
   tableBodyEl = document.querySelector("tbody");
@@ -26,7 +27,7 @@ export class PopupMonthDetailsController {
 
   #handleUpdateMonth(e: Event) {
     this.#eventTarget = e.target as HTMLElement;
-    const isNestedInTd = Helpers.isNestedEl("td", this.#eventTarget);
+    const isNestedInTd = HelpersCalendar.isNestedEl("td", this.#eventTarget);
     const dataAttribute = this.#eventTarget?.getAttribute("data");
     const isIconArrow = this.#eventTarget.hasAttribute("data-icon-chevron");
     const isDataNotActive = this.#eventTarget?.getAttribute("data-not-active");
@@ -50,7 +51,7 @@ export class PopupMonthDetailsController {
   }
 
   #printPopupEvent() {
-    Helpers.isUserLoged();
+    HelpersAuth.isUserLogged();
     this.tableBodyEl?.addEventListener(
       "click",
       this.#handleUpdateMonth.bind(this)

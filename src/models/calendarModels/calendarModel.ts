@@ -1,7 +1,7 @@
-import { Helpers } from "../../utils/helpers";
-import { HelpersBalance } from "../../utils/helpersBalance";
+import { HelpersBalance } from "../../helpers/helpersBalance";
 import { TypeMonth } from "../../sharedTypes/typeMonth";
 import { TypeObjectAny } from "../../sharedTypes/typeObjectAny";
+import { HelpersMemberList } from "../../helpers/helpersMembersList";
 
 export class CalendarModel {
   static sortedCalendar: TypeObjectAny[] = [];
@@ -65,7 +65,7 @@ export class CalendarModel {
     });
 
     this.sortedCalendar =
-      createMembersList && Helpers.sortList(createMembersList);
+      createMembersList && HelpersMemberList.sortList(createMembersList);
   }
 
   static setPayedSum(memberId: string, amount: string, monthName: string) {

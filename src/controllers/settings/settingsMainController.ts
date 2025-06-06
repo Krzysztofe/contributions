@@ -1,14 +1,13 @@
 import { AutoLogout } from "../../helpers/autoLogout";
 import { HeaderLogedInView } from "../../views/sharedViews/headerLogedInView/headerLogedInView";
 import { URL_MEMBERS } from "../../config/apiUrl";
+import { Helpers } from "../../helpers/helpers";
 import { LoadigPageView } from "../../views/sharedViews/loadersViews/loadingPageView";
 import { FormCreateMemberBuilder } from "../../views/pages/settingsViews/formCreateMember/formCreateMemberBuilder";
 import { PopupDeleteMemberView } from "../../views/pages/settingsViews/popupDeleteMemberView";
 import { MembersModel } from "../../models/settingsModels/membersModel";
-import { PopupEditMemberView } from "../../views/pages/settingsViews/popupEditMemberView";
-import { TableSettingsBuilder } from "../../views/pages/settingsViews/tableSettings/TableSettingsBuilder";
-import { HelpersHttp } from "../../helpers/helpersHttp";
-import { HelpersAuth } from "../../helpers/helpersAuth";
+import { PopupEditMemberView } from "../../views/pages/settings/popupEditMemberView";
+import { TableSettingsBuilder } from "../../views/pages/settingsViews/tableSettings/tableSettingsBuilder";
 
 class SettingsController {
   #GETMembersOptions = {
@@ -23,10 +22,10 @@ class SettingsController {
   }
 
   async #init() {
-    HelpersAuth.isUserLogged();
+    Helpers.isUserLoged();
     new LoadigPageView();
     new HeaderLogedInView(["flex", "items-center", "justify-between"]);
-    const members = await HelpersHttp.fetchData(this.#GETMembersOptions);
+    const members = await Helpers.fetchData(this.#GETMembersOptions);
     MembersModel.setMembers(members);
     new FormCreateMemberBuilder();
     new TableSettingsBuilder();

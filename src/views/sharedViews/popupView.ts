@@ -8,7 +8,6 @@ export class PopupView {
 
    createPopupContainetr() {
     this.popupContainer?.remove();
-
     this.popupContainer = document.createElement("div");
     this.popupContainer.id = "popupContainer";
     this.popupContainer.setAttribute("data", "popup-container");

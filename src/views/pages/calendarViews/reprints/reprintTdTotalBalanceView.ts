@@ -1,6 +1,4 @@
-import { HelpersBalance } from "../../../../utils/helpersBalance";
-
-
+import { HelpersBalance } from "../../../../helpers/helpersBalance";
 
 export class ReprintTdTotalBalanceView {
   #monthNumb: string | null = null;
