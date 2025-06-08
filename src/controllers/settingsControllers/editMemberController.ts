@@ -1,5 +1,5 @@
 import { LoadingButtonView } from "../../views/sharedViews/loadersViews/loadingButtonView";
-import { ValidationGeneric } from "../../helpers/validationGeneric";
+import { ValidationGeneric } from "../../helpers/helpersValidations/validationGeneric";
 import { URL_MEMBERS } from "../../config/apiUrl";
 import { TypeObjectString } from "../../sharedTypes/typeObjectString";
 import { ReprintTrView } from "../../views/pages/settingsViews/tableSettings/reprintTrView";

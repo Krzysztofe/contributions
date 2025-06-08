@@ -1,9 +1,10 @@
-import { amountInputField } from "./amountInputField";
+import { HelpersCalendar } from "../../../../helpers/helpersCalendar";
 import { AmountModel } from "../../../../models/calendarModels/amountModel";
-import { Helpers } from "../../../../helpers/helpers";
 import { HeaderLogedInView } from "../../../sharedViews/headerLogedInView/headerLogedInView";
+import { amountInputField } from "../headerCalendar/amountInputField";
 import { ListHeaderLeftSide } from "../listHeaderLeftSideView";
 import { leftSideListItems } from "./leftSideListItems";
+
 
 export class HeaderCalendarView extends HeaderLogedInView {
   #leftSideContainerEl = document.createElement("div");
@@ -14,17 +15,6 @@ export class HeaderCalendarView extends HeaderLogedInView {
   constructor(styles: string[]) {
     super(styles);
     this.#createLeftSideContainer();
-  }
-
-  #createLeftSideContainer() {
-    this.#leftSideContainerEl.id = "leftSideContainerEl";
-    this.#leftSideContainerEl.classList.add("flex", "items-center");
-    this.headerWrapperEl?.prepend(this.#leftSideContainerEl);
-    this.#createInputAmount();
-    new ListHeaderLeftSide({
-      parentEl: "#leftSideContainerEl",
-      iconsData: leftSideListItems,
-    });
   }
 
   async #createInputAmount() {
@@ -66,10 +56,21 @@ export class HeaderCalendarView extends HeaderLogedInView {
       "defaultAmount"
     ) as HTMLInputElement;
     this.#inputAmountEl.value = AmountModel.amount;
-    Helpers.createCurrencyInInput({
+    HelpersCalendar.createCurrencyInInput({
       parentEl: this.#inputAmountContainer,
       elementId: "amountGlobal",
       styles: "lg:block",
+    });
+  }
+
+  #createLeftSideContainer() {
+    this.#leftSideContainerEl.id = "leftSideContainerEl";
+    this.#leftSideContainerEl.classList.add("flex", "items-center");
+    this.headerWrapperEl?.prepend(this.#leftSideContainerEl);
+    this.#createInputAmount();
+    new ListHeaderLeftSide({
+      parentEl: "#leftSideContainerEl",
+      iconsData: leftSideListItems,
     });
   }
 }

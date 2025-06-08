@@ -6,7 +6,7 @@ import { PopupMonthDetailsController } from "./popups/popupMonthDetailsControlle
 import { AmountModel } from "../../models/calendarModels/amountModel";
 import { PopupEmailsController } from "./popups/popupEmailsController";
 import { LoadigPageView } from "../../views/sharedViews/loadersViews/loadingPageView";
-import { HeaderCalendarView } from "../../views/pages/calendarViews/headerCalendar/HeaderCalendarView";
+import { HeaderCalendarView } from "../../views/pages/calendarViews/headerCalendar/headerCalendarView";
 import { EditContributionAmountController } from "./editContrubutionAmountController";
 import { ListHeaderLeftSideController } from "./listHeaderLeftSideController";
 import { HelpersHttp } from "../../helpers/helpersHttp";

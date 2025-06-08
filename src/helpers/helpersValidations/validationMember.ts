@@ -1,5 +1,5 @@
-import { TypeMemberSettings } from "../sharedTypes/typeMemberSettings";
-import { TypeNewMember } from "../sharedTypes/typeNewMember";
+import { TypeMemberSettings } from "../../sharedTypes/typeMemberSettings";
+import { TypeNewMember } from "../../sharedTypes/typeNewMember";
 
 export class ValidationMember {
   #members: TypeMemberSettings[];

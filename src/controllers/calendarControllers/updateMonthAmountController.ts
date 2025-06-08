@@ -62,7 +62,7 @@ export class UpdateMonthAmountController {
     this.#spinner?.createSpinner();
     await HelpersHttp.fetchData(this.#PATCHoptions());
     this.#eTarget && new ReprintAmountInMontchView(this.#eTarget);
-
+    
     this.#removeTbodyBlocade();
     new ReprintTdYearBalanceView(`${this.#memberId}_${this.#monthNumber}`);
     new ReprintTdTotalBalanceView(
@@ -79,6 +79,7 @@ export class UpdateMonthAmountController {
       AmountModel.amount,
       this.#eTarget
     );
+
     CalendarModel.setPayedSum(
       this.#memberId,
       AmountModel.amount,

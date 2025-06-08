@@ -1,9 +1,9 @@
 import { TypeObjectString } from "../../sharedTypes/typeObjectString.ts";
 import { MembersModel } from "../../models/settingsModels/membersModel.ts";
 import { URL_MEMBERS } from "../../config/apiUrl.ts";
-import { ValidationGeneric } from "../../helpers/validationGeneric.ts";
+import { ValidationGeneric } from "../../helpers/helpersValidations/validationGeneric.ts";
 import { LoadingTableSettingsView } from "../../views/pages/settingsViews/loadingTableSettingsView.ts";
-import { ValidationMember } from "../../helpers/validationMember.ts";
+import { ValidationMember } from "../../helpers/helpersValidations/validationMember.ts";
 import { TypeObjectAny } from "../../sharedTypes/typeObjectAny.ts";
 import { ToastView } from "../../views/sharedViews/toastView.ts";
 import { TypeNewMember } from "../../sharedTypes/typeNewMember.ts";

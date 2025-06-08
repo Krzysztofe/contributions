@@ -55,6 +55,8 @@ export class HelpersPdfPropsCreator {
       (el: any) => el.textContent
     );
 
+    const formattedSums = sums.map(item => item.replace(/^([+-])\s?/, '$1 '));
+
     return calendarMembers.map((member, idx) => {
       const joinMonth = member.join_date?.split("-")[1];
       this.#joinMonthNumber = joinMonth ? parseInt(joinMonth, 10) : null;
@@ -63,7 +65,7 @@ export class HelpersPdfPropsCreator {
         `${idx + 1}`,
         this.#getFullname(member),
         ...this.#getMonthsAmounts(member),
-        `${sums[idx].replace("zł", "")}zl`,
+        `${formattedSums[idx].replace("zł", "")}zl`,
       ];
     });
   }
@@ -77,7 +79,7 @@ export class HelpersPdfPropsCreator {
       compress: true,
 
       contact: {
-        name: `Zestawienie składek z ${PrintedYearModel.year} r.`,
+        name: `Zestawienie skladek z ${PrintedYearModel.year} r.`,
         phone: `Data: ${HelpersDate.getCurrentDate()}`,
         email: `Godzina: ${HelpersDate.getCurrentHour()} `,
       },

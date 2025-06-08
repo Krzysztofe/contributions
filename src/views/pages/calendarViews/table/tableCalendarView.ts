@@ -224,7 +224,6 @@ export class TableCalendarView extends TableView {
         HelpersCalendar.getCurrentYearContribsToPay() - contribsNotToPay;
       const yearContribsBalance =
         HelpersCalendar.getTableSums()[idx] - sumToPay;
-
       this.#createTdBalance(yearContribsBalance, trEl, "data-sum-to-pay");
     });
   }
