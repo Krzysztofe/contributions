@@ -38,7 +38,7 @@ Application is written according to the principles of OOP (Object-Oriented Progr
 
 ## Vesion for users tests deployed on home.pl server: https://skladki.ozzip.pl/ <br/> <div>(you can add your e-mail address and send the information about the overdue payments)</div>
 
-## Production Vesion: https://skladkiuam.ozzip.pl/
+## Production Vesion: https://skladkiallegro.ozzip.pl/
 
 ## Desktop
 
